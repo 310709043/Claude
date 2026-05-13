@@ -35,7 +35,7 @@ function UserCard({ user, onInvite }: { user: OnlineUser; onInvite: (u: OnlineUs
       {/* Info */}
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1">
-          <span style={{ fontFamily: '"Press Start 2P"', fontSize: 6, color: '#dfe6e9', truncate: true }}>
+          <span style={{ fontFamily: '"Press Start 2P"', fontSize: 6, color: '#dfe6e9', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {user.display_name || user.username}
           </span>
           {user.is_focusing && (

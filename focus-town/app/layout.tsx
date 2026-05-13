@@ -1,12 +1,10 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Focus Town – Lofi Pixel Focus Platform',
   description: 'A cozy lofi pixel-art city where you focus, connect, and grow together.',
   manifest: '/manifest.json',
-  themeColor: '#0f0c29',
-  viewport: { width: 'device-width', initialScale: 1, maximumScale: 1 },
   icons: {
     icon: '/icons/icon-192.png',
     apple: '/icons/icon-512.png',
@@ -16,6 +14,13 @@ export const metadata: Metadata = {
     description: 'Lofi Pixel Focus Social Platform',
     type: 'website',
   },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: '#0f0c29',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

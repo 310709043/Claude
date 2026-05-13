@@ -44,20 +44,20 @@ export function usePomodoro() {
     }
 
     intervalRef.current = setInterval(() => {
-      setTimeLeft((prev: number) => {
-        if (prev <= 1) {
-          if (intervalRef.current) clearInterval(intervalRef.current);
-          setRunning(false);
-          if (mode === 'focus') {
-            incrementTomato();
-            setMode('short_break');
-          } else {
-            setMode('focus');
-          }
-          return POMODORO_DURATIONS[mode === 'focus' ? 'short_break' : 'focus'];
+      const prev = useFocusStore.getState().timeLeft;
+      if (prev <= 1) {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+        setRunning(false);
+        if (mode === 'focus') {
+          incrementTomato();
+          setMode('short_break');
+        } else {
+          setMode('focus');
         }
-        return prev - 1;
-      });
+        setTimeLeft(POMODORO_DURATIONS[mode === 'focus' ? 'short_break' : 'focus']);
+      } else {
+        setTimeLeft(prev - 1);
+      }
     }, 1000);
 
     if (mode === 'focus') {
