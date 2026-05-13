@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Focus Town — Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;background:#0f0c29}
+canvas{display:block}
+
+/* ── Scene ── */
+#scene{position:fixed;inset:0;transition:background 3s}
+#sky{position:absolute;inset:0;transition:all 3s ease}
+#ground{position:absolute;bottom:0;left:0;right:0;height:18%;background:linear-gradient(180deg,#1e272e,#2d3436);z-index:3}
+
+/* ── Parallax layers ── */
+.layer{position:absolute;bottom:18%;left:0;display:flex;align-items:flex-end;pointer-events:none}
+#l-far {animation:scroll 80s linear infinite; bottom:33%; z-index:1}
+#l-mid {animation:scroll 40s linear infinite; bottom:26%; z-index:2}
+#l-near{animation:scroll 20s linear infinite; bottom:20%; z-index:3}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── Building ── */
+.bld{flex-shrink:0;position:relative;margin-right:4px;image-rendering:pixelated}
+.bld-body{position:relative;overflow:hidden;border-top:2px solid #302b63}
+.win-grid{position:absolute;inset:0;display:grid;gap:2px;padding:4px;align-content:start}
+.win{width:6px;height:6px}
+.win.lit{background:var(--wlit);box-shadow:0 0 4px var(--wlit)}
+.win.dark{background:var(--wdark)}
+.antenna{position:absolute;left:50%;transform:translateX(-50%);background:#555;width:2px}
+.antenna-tip{width:5px;height:5px;background:#ff6b6b;box-shadow:0 0 6px #ff6b6b;margin:-2px -1.5px}
+.sign{position:absolute;bottom:6px;left:0;right:0;text-align:center;font-family:"Press Start 2P";font-size:4px;color:#ff6b9d;text-shadow:0 0 6px #ff6b9d}
+
+/* ── Road ── */
+#road{position:absolute;bottom:80px;left:0;right:0;height:58px;background:#2d3436;z-index:4;border-top:2px solid #485460}
+.lane-div{position:absolute;left:0;right:0;height:2px;background:repeating-linear-gradient(90deg,#fdcb6e 0,#fdcb6e 20px,transparent 20px,transparent 40px);opacity:.6}
+.car{position:absolute;image-rendering:pixelated}
+.car-body{position:absolute}
+
+/* ── Sidewalk ── */
+#sidewalk{position:absolute;bottom:70px;left:0;right:0;height:10px;background:#636e72;border-top:2px solid #b2bec3;z-index:4}
+
+/* ── Stars canvas ── */
+#starCanvas{position:absolute;inset:0;pointer-events:none;z-index:2}
+
+/* ── CRT overlay ── */
+#crt{position:fixed;inset:0;pointer-events:none;z-index:9999;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px)}
+
+/* ── UI cards ── */
+.card{position:absolute;background:rgba(15,12,41,.88);border:2px solid rgba(108,92,231,.45);backdrop-filter:blur(10px);padding:12px;image-rendering:pixelated}
+#timer-card{left:16px;top:50%;transform:translateY(-50%);width:230px;z-index:20}
+#note-card{right:16px;top:72px;width:220px;z-index:20}
+#music-card{right:16px;top:calc(72px + 290px + 8px);width:220px;z-index:20}
+#social-card{right:16px;top:calc(72px + 290px + 8px + 110px + 8px);width:220px;z-index:20}
+
+/* ── Navbar ── */
+#nav{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;z-index:20}
+.logo{display:flex;align-items:center;gap:8px;font-family:"Press Start 2P";font-size:9px;color:#ffeaa7;text-shadow:0 0 10px rgba(255,238,167,.5)}
+.user-pill{background:rgba(15,12,41,.85);border:2px solid rgba(108,92,231,.4);padding:6px 10px;display:flex;align-items:center;gap:6px;font-family:"Press Start 2P";font-size:6px;color:#dfe6e9}
+.car-dot{width:10px;height:10px;background:#6c5ce7;box-shadow:0 0 6px #6c5ce7}
+
+/* ── Timer ── */
+.px-label{font-family:"Press Start 2P";color:#a29bfe}
+.mode-tabs{display:flex;gap:4px;margin-bottom:10px}
+.mode-tab{flex:1;padding:4px;text-align:center;font-family:"Press Start 2P";font-size:5px;cursor:pointer;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:#636e72}
+.mode-tab.active{background:#6c5ce7;color:#fff;border-color:#a29bfe}
+.clock-wrap{position:relative;width:140px;height:140px;margin:0 auto 8px}
+.clock-svg{position:absolute;inset:0}
+.clock-time{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.time-display{font-family:"Press Start 2P";font-size:26px;color:#fff;letter-spacing:3px;line-height:1}
+.time-sub{font-family:"Press Start 2P";font-size:5px;color:#a29bfe;margin-top:4px}
+.btn-row{display:flex;gap:8px;justify-content:center;margin-top:8px}
+.px-btn{font-family:"Press Start 2P";font-size:7px;padding:7px 10px;cursor:pointer;border:2px solid;display:flex;align-items:center;gap:4px}
+.btn-green{background:#00b894;border-color:#55efc4;color:#fff}
+.btn-green:hover{background:#55efc4}
+.btn-reset{background:rgba(255,255,255,.05);border-color:#636e72;color:#636e72}
+.btn-reset:hover{background:#636e72;color:#fff}
+.tomato-row{text-align:center;margin-top:10px;border-top:1px solid rgba(108,92,231,.3);padding-top:8px;font-family:"Press Start 2P";font-size:7px;color:#a29bfe}
+.reward-hint{text-align:center;font-family:"Press Start 2P";font-size:5px;color:#ffeaa7;margin:4px 0;min-height:14px}
+
+/* ── Notes ── */
+.card-title{font-family:"Press Start 2P";font-size:6px;color:#a29bfe;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid rgba(108,92,231,.3)}
+.note-body{height:140px;overflow-y:auto;background:rgba(25,20,50,.6);
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 19px,rgba(108,92,231,.15) 19px,rgba(108,92,231,.15) 20px);
+  padding:4px;margin-bottom:6px}
+.note-item{display:flex;align-items:flex-start;gap:6px;padding:2px 0;font-family:"Share Tech Mono";font-size:10px;color:#dfe6e9}
+.note-cb{width:10px;height:10px;flex-shrink:0;border:1px solid #636e72;cursor:pointer;margin-top:2px;display:flex;align-items:center;justify-content:center}
+.note-cb.done{background:#6c5ce7;border-color:#a29bfe}
+.note-text.done{text-decoration:line-through;color:#636e72}
+.note-input-row{display:flex;gap:4px}
+.note-input{flex:1;background:rgba(15,12,41,.6);border:1px solid rgba(108,92,231,.3);color:#dfe6e9;padding:4px;font-family:"Share Tech Mono";font-size:9px;outline:none}
+.note-add{background:#6c5ce7;border:2px solid #a29bfe;color:#fff;cursor:pointer;padding:4px 8px;font-family:"Press Start 2P";font-size:8px}
+.progress-bar-wrap{height:3px;background:rgba(255,255,255,.1);border:1px solid rgba(108,92,231,.2);margin-top:4px}
+.progress-bar-fill{height:100%;background:#55efc4;transition:width .3s}
+
+/* ── Music ── */
+.station-btn{display:block;width:100%;text-align:left;padding:5px 6px;font-family:"Press Start 2P";font-size:5px;background:transparent;border:1px solid transparent;color:#a29bfe;cursor:pointer;margin-bottom:2px}
+.station-btn:hover,.station-btn.active{background:rgba(108,92,231,.2);border-color:rgba(108,92,231,.4);color:#ffeaa7}
+.viz{display:flex;align-items:flex-end;gap:2px;height:16px}
+.viz-bar{width:3px;background:#a29bfe;animation:viz .8s ease-in-out infinite}
+@keyframes viz{0%,100%{height:3px}50%{height:14px}}
+
+/* ── Social ── */
+.user-row{display:flex;align-items:center;gap:6px;padding:4px 2px;border-bottom:1px solid rgba(108,92,231,.15)}
+.mini-car{width:14px;height:8px;position:relative;flex-shrink:0}
+.mc-body{position:absolute;top:2px;left:0;width:13px;height:5px}
+.mc-cab{position:absolute;top:0;left:3px;width:7px;height:3px;opacity:.8}
+.user-info{flex:1;min-width:0}
+.ui-name{font-family:"Press Start 2P";font-size:5px;color:#dfe6e9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ui-role{font-family:"Press Start 2P";font-size:4px;color:#636e72;margin-top:1px}
+.focus-badge{font-family:"Press Start 2P";font-size:4px;color:#55efc4}
+.invite-btn{font-family:"Press Start 2P";font-size:5px;background:#6c5ce7;border:1px solid #a29bfe;color:#fff;padding:2px 4px;cursor:pointer}
+.invite-btn:hover{background:#a29bfe}
+
+/* ── Leaderboard ── */
+#lb{position:absolute;bottom:0;left:0;right:0;height:32px;background:rgba(15,12,41,.92);border-top:2px solid rgba(108,92,231,.4);z-index:20;overflow:hidden;display:flex}
+#lb-label{background:#6c5ce7;border-right:2px solid #a29bfe;padding:0 10px;display:flex;align-items:center;flex-shrink:0;font-family:"Press Start 2P";font-size:5px;color:#fff;white-space:nowrap}
+#lb-scroll{flex:1;overflow:hidden;position:relative}
+#lb-inner{display:flex;align-items:center;height:100%;white-space:nowrap;animation:lbscroll 30s linear infinite}
+@keyframes lbscroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.lb-item{display:inline-flex;align-items:center;gap:6px;padding:0 12px;border-right:1px solid rgba(255,255,255,.08)}
+.lb-rank{font-family:"Press Start 2P";font-size:6px;min-width:18px}
+.lb-name{font-family:"Press Start 2P";font-size:5px;color:#dfe6e9}
+.lb-stat{font-family:"Press Start 2P";font-size:4px}
+
+/* ── Scene switcher ── */
+#scene-sw{position:absolute;top:44px;right:16px;z-index:21}
+.scene-btn{font-family:"Press Start 2P";font-size:6px;padding:5px 8px;background:#6c5ce7;border:2px solid #a29bfe;color:#fff;cursor:pointer}
+.scene-menu{display:none;position:absolute;right:0;top:28px;background:rgba(15,12,41,.95);border:2px solid rgba(108,92,231,.4);padding:4px;min-width:110px}
+.scene-menu.open{display:block}
+.scene-opt{display:block;width:100%;text-align:left;padding:4px 8px;font-family:"Press Start 2P";font-size:5px;color:#a29bfe;background:transparent;border:none;cursor:pointer}
+.scene-opt:hover{background:rgba(108,92,231,.3);color:#ffeaa7}
+.scene-opt.active{color:#ffeaa7}
+
+/* ── Celestial ── */
+#moon{position:absolute;width:36px;height:36px;top:8%;right:15%;z-index:1;display:none;image-rendering:pixelated}
+#sun {position:absolute;width:44px;height:44px;top:10%;left:18%;z-index:1;display:none;image-rendering:pixelated}
+
+/* scrollbar */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:rgba(0,0,0,.3)}
+::-webkit-scrollbar-thumb{background:#6c5ce7}
+</style>
+</head>
+<body>
+
+<!-- CRT overlay -->
+<div id="crt"></div>
+
+<!-- Scene root -->
+<div id="scene">
+  <div id="sky"></div>
+  <canvas id="starCanvas"></canvas>
+
+  <!-- Moon & Sun -->
+  <div id="moon" style="background:#ffeaa7;box-shadow:0 0 20px 8px rgba(255,238,167,.4)"></div>
+  <div id="sun"  style="background:#ffeaa7;box-shadow:0 0 28px 12px rgba(255,238,167,.5)"></div>
+
+  <!-- Building layers (populated by JS) -->
+  <div class="layer" id="l-far"></div>
+  <div class="layer" id="l-mid"></div>
+  <div class="layer" id="l-near"></div>
+
+  <!-- Ground -->
+  <div id="ground"></div>
+
+  <!-- Road -->
+  <div id="road">
+    <div class="lane-div" style="top:30%"></div>
+    <div class="lane-div" style="top:63%"></div>
+  </div>
+  <div id="sidewalk"></div>
+</div>
+
+<!-- Nav -->
+<div id="nav">
+  <div class="logo"><span style="font-size:20px">🏙️</span> FOCUS TOWN</div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <div class="user-pill">
+      <div class="car-dot"></div>
+      <span>Pixel Coder</span>
+      <span>💻</span>
+    </div>
+  </div>
+</div>
+
+<!-- Scene switcher -->
+<div id="scene-sw">
+  <button class="scene-btn" onclick="toggleSceneMenu()">🌙 Night ▼</button>
+  <div class="scene-menu" id="sceneMenu">
+    <button class="scene-opt" onclick="setScene('dawn')">🌅 Dawn</button>
+    <button class="scene-opt active" onclick="setScene('night')">🌙 Night</button>
+    <button class="scene-opt" onclick="setScene('day')">☀️ Day</button>
+    <button class="scene-opt" onclick="setScene('dusk')">🌇 Dusk</button>
+    <button class="scene-opt" onclick="setScene('rainy')">🌧 Rainy</button>
+    <button class="scene-opt" onclick="setScene('stormy')">⛈ Storm</button>
+  </div>
+</div>
+
+<!-- Timer card -->
+<div class="card" id="timer-card">
+  <div class="mode-tabs">
+    <div class="mode-tab active" onclick="setMode('focus',this)">25m</div>
+    <div class="mode-tab" onclick="setMode('short',this)">5m</div>
+    <div class="mode-tab" onclick="setMode('long',this)">15m</div>
+  </div>
+  <div style="font-family:'Press Start 2P';font-size:8px;color:#6c5ce7;text-align:center;margin-bottom:6px">FOCUS</div>
+  <div class="clock-wrap">
+    <svg class="clock-svg" viewBox="0 0 140 140">
+      <circle cx="70" cy="70" r="56" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="6"/>
+      <circle id="progress-arc" cx="70" cy="70" r="56" fill="none" stroke="#6c5ce7" stroke-width="6"
+        stroke-linecap="square" stroke-dasharray="351.86" stroke-dashoffset="351.86"
+        transform="rotate(-90 70 70)" style="filter:drop-shadow(0 0 5px #6c5ce7);transition:stroke-dashoffset .5s"/>
+    </svg>
+    <div class="clock-time">
+      <div class="time-display" id="clock-display">25:00</div>
+      <div class="time-sub" id="focus-min-display"></div>
+    </div>
+  </div>
+  <div class="reward-hint" id="reward-hint"></div>
+  <div class="btn-row">
+    <button class="px-btn btn-green" id="start-btn" onclick="toggleTimer()">▶ START</button>
+    <button class="px-btn btn-reset" onclick="resetTimer()">↺ RESET</button>
+  </div>
+  <div class="tomato-row">🍅 × <span id="tomato-count">0</span></div>
+  <div id="tomato-icons" style="text-align:center;margin-top:4px;font-size:11px;min-height:14px"></div>
+</div>
+
+<!-- Note card -->
+<div class="card" id="note-card">
+  <div class="card-title">📔 TASK NOTES</div>
+  <div class="note-body" id="note-list">
+    <div class="note-item"><div class="note-cb" onclick="toggleNote(this)"></div><span class="note-text">深呼吸，開始專注</span></div>
+    <div class="note-item"><div class="note-cb done" onclick="toggleNote(this)">✓</div><span class="note-text done">喝一杯水</span></div>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="note-progress" style="width:50%"></div></div>
+  <div class="note-input-row" style="margin-top:6px">
+    <input class="note-input" id="note-input" placeholder="Add task..." onkeydown="if(event.key==='Enter')addNote()">
+    <button class="note-add" onclick="addNote()">+</button>
+  </div>
+</div>
+
+<!-- Music card -->
+<div class="card" id="music-card">
+  <div style="display:flex;align-items:center;justify-content:space-between">
+    <div class="card-title" style="margin:0;border:none;padding:0">🎵 MUSIC</div>
+    <div class="viz" id="viz" style="display:none">
+      <div class="viz-bar" style="animation-delay:0s"></div>
+      <div class="viz-bar" style="animation-delay:.2s"></div>
+      <div class="viz-bar" style="animation-delay:.4s"></div>
+      <div class="viz-bar" style="animation-delay:.1s"></div>
+      <div class="viz-bar" style="animation-delay:.3s"></div>
+    </div>
+  </div>
+  <div style="margin-top:8px">
+    <button class="station-btn active" onclick="playStation(this,'lofi')">▶ Lofi Hip-hop</button>
+    <button class="station-btn" onclick="playStation(this,'jazz')">  Jazz Cafe</button>
+    <button class="station-btn" onclick="playStation(this,'ambient')">  Ambient Study</button>
+  </div>
+  <div style="margin-top:6px;font-family:'Press Start 2P';font-size:5px;color:#636e72">🎧 Click to play</div>
+</div>
+
+<!-- Social card -->
+<div class="card" id="social-card">
+  <div class="card-title">👥 ONLINE <span style="background:#6c5ce7;color:#fff;padding:0 4px;margin-left:4px">6</span></div>
+  <div id="user-list" style="max-height:160px;overflow-y:auto"></div>
+</div>
+
+<!-- Leaderboard -->
+<div id="lb">
+  <div id="lb-label">🏆 LIVE RANK</div>
+  <div id="lb-scroll"><div id="lb-inner"></div></div>
+</div>
+
+<script>
+// ─── Scene palettes ───
+const PALETTES = {
+  dawn:   {sky:'linear-gradient(180deg,#1a1a2e 0%,#ff6b9d 55%,#ffd460 100%)',wlit:'#ffd460',wdark:'#2c2c54',star:.4,moon:false,sun:true,sunColor:'#ff6b9d',label:'🌅 Dawn'},
+  day:    {sky:'linear-gradient(180deg,#48dbfb 0%,#0abde3 60%,#ffeaa7 100%)',wlit:'#fdcb6e',wdark:'#2d3436',star:0, moon:false,sun:true,sunColor:'#ffeaa7',label:'☀️ Day'},
+  dusk:   {sky:'linear-gradient(180deg,#2d3436 0%,#fd79a8 40%,#fdcb6e 85%,#2d3436 100%)',wlit:'#ffeaa7',wdark:'#2d3436',star:.2,moon:false,sun:true,sunColor:'#e17055',label:'🌇 Dusk'},
+  night:  {sky:'linear-gradient(180deg,#0f0c29 0%,#302b63 60%,#24243e 100%)',wlit:'#ffeaa7',wdark:'#0f0c29',star:1, moon:true,sun:false,label:'🌙 Night'},
+  rainy:  {sky:'linear-gradient(180deg,#2d3436 0%,#636e72 50%,#74b9ff 100%)',wlit:'#74b9ff',wdark:'#2d3436',star:0, moon:false,sun:false,label:'🌧 Rainy'},
+  stormy: {sky:'linear-gradient(180deg,#1e272e 0%,#2d3436 40%,#485460 100%)',wlit:'#a29bfe',wdark:'#1e272e',star:0, moon:false,sun:false,label:'⛈ Storm'},
+};
+const COLORS = {
+  far: {dawn:'#2c2c54',day:'#636e72',dusk:'#2d3436',night:'#0f0c29',rainy:'#2d3436',stormy:'#1e272e'},
+  mid: {dawn:'#40407a',day:'#4a4a5e',dusk:'#353b48',night:'#1a1a2e',rainy:'#353b48',stormy:'#2d3436'},
+  near:{dawn:'#706fd3',day:'#2d3436',dusk:'#485460',night:'#2c2c54',rainy:'#485460',stormy:'#353b48'},
+};
+
+let curScene = 'night';
+
+function applyScene(s) {
+  const p = PALETTES[s];
+  document.getElementById('sky').style.background = p.sky;
+  document.getElementById('moon').style.display = p.moon ? 'block' : 'none';
+  const sun = document.getElementById('sun');
+  if(p.sun) {
+    sun.style.display = 'block';
+    sun.style.background = p.sunColor;
+    sun.style.boxShadow = `0 0 28px 12px ${p.sunColor}70`;
+  } else sun.style.display = 'none';
+  // Update CSS vars for window colours
+  document.documentElement.style.setProperty('--wlit', p.wlit);
+  document.documentElement.style.setProperty('--wdark', p.wdark);
+  // Rebuild buildings with new colors
+  buildAll(s);
+  starOpacity = p.star;
+  rainEnabled = s === 'rainy';
+  stormEnabled = s === 'stormy';
+}
+
+function setScene(s) {
+  curScene = s;
+  applyScene(s);
+  const p = PALETTES[s];
+  document.querySelector('.scene-btn').textContent = p.label + ' ▼';
+  document.querySelectorAll('.scene-opt').forEach(o => o.classList.toggle('active', o.textContent.includes(p.label.slice(2).trim())));
+  toggleSceneMenu(true);
+}
+
+function toggleSceneMenu(forceClose) {
+  const m = document.getElementById('sceneMenu');
+  if(forceClose) m.classList.remove('open');
+  else m.classList.toggle('open');
+}
+document.addEventListener('click', e => {
+  if(!document.getElementById('scene-sw').contains(e.target)) document.getElementById('sceneMenu').classList.remove('open');
+});
+
+// ─── Buildings ───
+const FAR_DEFS  = [{w:40,h:80,cols:2,rows:4,roof:'antenna'},{w:28,h:60,cols:2,rows:3,roof:'flat'},{w:50,h:100,cols:3,rows:5,roof:'tank'},{w:36,h:72,cols:2,rows:4,roof:'flat'},{w:24,h:48,cols:2,rows:3,roof:'antenna'},{w:44,h:88,cols:3,rows:4,roof:'dome'},{w:32,h:64,cols:2,rows:4,roof:'tank'},{w:56,h:112,cols:4,rows:5,roof:'antenna'}];
+const MID_DEFS  = [{w:64,h:140,cols:4,rows:6,roof:'antenna',sign:'CAFE'},{w:48,h:100,cols:3,rows:5,roof:'tank'},{w:80,h:160,cols:5,rows:7,roof:'dome',sign:'HOTEL'},{w:56,h:120,cols:4,rows:6,roof:'flat'},{w:40,h:88,cols:3,rows:4,roof:'antenna'},{w:72,h:150,cols:5,rows:6,roof:'tank',sign:'CODE'}];
+const NEAR_DEFS = [{w:96,h:200,cols:6,rows:8,roof:'dome',sign:'FOCUS'},{w:72,h:160,cols:5,rows:7,roof:'antenna'},{w:112,h:240,cols:7,rows:9,roof:'tank',sign:'LOFI HQ'},{w:80,h:180,cols:6,rows:8,roof:'flat'},{w:64,h:140,cols:4,rows:6,roof:'dome'},{w:88,h:200,cols:6,rows:8,roof:'antenna'}];
+
+function isNightScene(s){ return ['night','dawn','dusk','rainy','stormy'].includes(s); }
+
+function makeBld(def, sc, layerKey) {
+  const bg = COLORS[layerKey][sc];
+  const mid = COLORS.mid[sc];
+  const lit = PALETTES[sc].wlit;
+  const night = isNightScene(sc);
+  const el = document.createElement('div');
+  el.className = 'bld';
+  el.style.width = def.w + 'px';
+
+  // Roof
+  let roofH = 0;
+  if(def.roof === 'antenna') {
+    roofH = 20;
+    const ant = document.createElement('div');
+    ant.className = 'antenna';
+    ant.style.cssText = `height:20px;bottom:${def.h}px;left:50%;transform:translateX(-50%)`;
+    const tip = document.createElement('div');
+    tip.className = 'antenna-tip';
+    if(!night) tip.style.boxShadow = 'none';
+    ant.appendChild(tip);
+    el.appendChild(ant);
+  } else if(def.roof === 'tank') {
+    roofH = 16;
+    const t = document.createElement('div');
+    t.style.cssText = `position:absolute;bottom:${def.h}px;left:50%;transform:translateX(-50%);width:20px;height:16px;background:${bg};border:2px solid ${mid}`;
+    el.appendChild(t);
+  } else if(def.roof === 'dome') {
+    roofH = 12;
+    const d = document.createElement('div');
+    d.style.cssText = `position:absolute;bottom:${def.h}px;left:50%;transform:translateX(-50%);width:${Math.round(def.w*.4)}px;height:12px;background:${mid};border-radius:50% 50% 0 0`;
+    el.appendChild(d);
+  }
+
+  // Body
+  const body = document.createElement('div');
+  body.className = 'bld-body';
+  body.style.cssText = `width:${def.w}px;height:${def.h}px;background:${bg}`;
+
+  // Windows
+  const grid = document.createElement('div');
+  grid.className = 'win-grid';
+  grid.style.gridTemplateColumns = `repeat(${def.cols},1fr)`;
+  grid.style.gridTemplateRows = `repeat(${def.rows},1fr)`;
+  const total = def.cols * def.rows;
+  for(let i=0;i<total;i++){
+    const w = document.createElement('div');
+    const isLit = night && Math.random() > 0.4;
+    w.className = 'win ' + (isLit ? 'lit' : 'dark');
+    if(isLit) w.style.background = lit;
+    if(isLit) w.style.boxShadow = `0 0 4px ${lit}`;
+    grid.appendChild(w);
+  }
+  body.appendChild(grid);
+
+  // Sign
+  if(def.sign && night) {
+    const sign = document.createElement('div');
+    sign.className = 'sign';
+    sign.textContent = def.sign;
+    body.appendChild(sign);
+  }
+
+  el.appendChild(body);
+  el.style.position = 'relative';
+  el.style.flexShrink = '0';
+  return el;
+}
+
+function buildLayer(id, defs, layerKey, sc, scaleStr) {
+  const layer = document.getElementById(id);
+  layer.innerHTML = '';
+  layer.style.transform = `scale(${scaleStr})`;
+  layer.style.transformOrigin = 'bottom left';
+  layer.style.width = '200%';
+  // Duplicate for seamless loop
+  [...defs,...defs].forEach(d => layer.appendChild(makeBld(d, sc, layerKey)));
+}
+
+function buildAll(sc) {
+  buildLayer('l-far',  FAR_DEFS,  'far',  sc, '0.5');
+  buildLayer('l-mid',  MID_DEFS,  'mid',  sc, '0.75');
+  buildLayer('l-near', NEAR_DEFS, 'near', sc, '1');
+}
+
+// ─── Cars ───
+const MOCK_USERS = [
+  {name:'Lofi Lee', color:'#fd79a8', role:'UI Designer', tomatoes:8, focusing:true, rem:845},
+  {name:'Study Sam',color:'#00b894', role:'Student',     tomatoes:3, focusing:false,rem:0},
+  {name:'Code Kai', color:'#0984e3', role:'Engineer',    tomatoes:6, focusing:true, rem:1200},
+  {name:'Art Ami',  color:'#fdcb6e', role:'Artist',      tomatoes:2, focusing:false,rem:0},
+  {name:'Data Dev', color:'#a29bfe', role:'Data Sci',    tomatoes:12,focusing:true, rem:600},
+  {name:'Writer W', color:'#e17055', role:'Writer',      tomatoes:4, focusing:false,rem:0},
+];
+
+function makeCar(color, lane, speed, delay, label, isSelf, focusing) {
+  const laneOff = lane===0?3:lane===1?21:37;
+  const car = document.createElement('div');
+  car.className = 'car';
+  car.style.cssText = `bottom:${laneOff}px;left:0;position:absolute;animation:carScroll ${speed}s linear ${delay}s infinite`;
+
+  if(label) {
+    const lbl = document.createElement('div');
+    lbl.style.cssText = `position:absolute;top:-14px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:"Press Start 2P";font-size:4px;color:#fff;text-shadow:0 0 4px rgba(0,0,0,.8)`;
+    lbl.textContent = label;
+    car.appendChild(lbl);
+  }
+
+  const glow = focusing ? `box-shadow:0 0 8px ${color},0 0 16px ${color}40` : '';
+  car.innerHTML += `
+    <div style="position:relative;width:24px;height:14px;image-rendering:pixelated">
+      <div style="position:absolute;top:4px;left:2px;width:20px;height:6px;background:${color};${glow}"></div>
+      <div style="position:absolute;top:1px;left:6px;width:12px;height:4px;background:${color};opacity:.8"></div>
+      <div style="position:absolute;top:2px;left:7px;width:4px;height:2px;background:rgba(200,240,255,.7)"></div>
+      <div style="position:absolute;top:2px;left:13px;width:4px;height:2px;background:rgba(200,240,255,.7)"></div>
+      <div style="position:absolute;top:9px;left:3px;width:4px;height:4px;background:#2d3436"></div>
+      <div style="position:absolute;top:9px;left:17px;width:4px;height:4px;background:#2d3436"></div>
+      <div style="position:absolute;top:10px;left:4px;width:2px;height:2px;background:#636e72"></div>
+      <div style="position:absolute;top:10px;left:18px;width:2px;height:2px;background:#636e72"></div>
+      <div style="position:absolute;top:5px;left:0;width:2px;height:2px;background:#ffeaa7;box-shadow:0 0 4px #ffeaa7"></div>
+      <div style="position:absolute;top:5px;right:0;width:2px;height:2px;background:#d63031"></div>
+      ${isSelf?`<div style="position:absolute;top:-4px;left:9px;width:6px;height:3px;background:#fdcb6e;clip-path:polygon(0% 100%,33% 0%,50% 50%,67% 0%,100% 100%)"></div>`:''}
+    </div>`;
+  return car;
+}
+
+function buildRoad() {
+  const road = document.getElementById('road');
+  // Remove old cars
+  road.querySelectorAll('.car').forEach(c=>c.remove());
+  MOCK_USERS.forEach((u,i) => {
+    const car = makeCar(u.color, i%3, 8+(i%5)*2, -(i*2.5), u.name, false, u.focusing);
+    road.appendChild(car);
+  });
+  // Self car
+  const self = makeCar('#6c5ce7', MOCK_USERS.length%3, 10, -1, 'Pixel Coder', true, timerRunning);
+  road.appendChild(self);
+
+  // Streetlights
+  for(let i=0;i<10;i++){
+    const sl = document.createElement('div');
+    sl.style.cssText = `position:absolute;bottom:0;left:${i*200}px;width:4px;z-index:5`;
+    sl.innerHTML = `<div style="width:4px;height:50px;background:#636e72;position:absolute;bottom:0"></div>
+      <div style="width:16px;height:4px;background:#636e72;position:absolute;top:0;left:-12px"></div>
+      <div style="width:8px;height:8px;background:#ffeaa7;position:absolute;top:-4px;left:-14px;box-shadow:0 0 12px 4px rgba(255,238,167,.6),0 0 24px 8px rgba(255,238,167,.3)"></div>`;
+    road.appendChild(sl);
+  }
+}
+
+// ─── Canvas (stars, rain) ───
+const canvas = document.getElementById('starCanvas');
+const ctx = canvas.getContext('2d');
+let starOpacity = 1, rainEnabled = false, stormEnabled = false;
+let stars = [], rainDrops = [], shootingStars = [];
+let lastShoot = 0;
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  stars = Array.from({length:120},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height*.6,r:Math.random()*1.5,o:Math.random()*.7+.3,tw:Math.random()*Math.PI*2}));
+  rainDrops = Array.from({length:200},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,s:8+Math.random()*12,l:15+Math.random()*20,o:.3+Math.random()*.4}));
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+let t2 = 0;
+function drawCanvas(ts) {
+  requestAnimationFrame(drawCanvas);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  t2 += 0.02;
+
+  // Stars
+  if(starOpacity > 0) {
+    stars.forEach(s=>{
+      const tw = Math.sin(t2+s.tw)*.3+.7;
+      ctx.beginPath();
+      ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle = `rgba(255,255,255,${s.o*tw*starOpacity})`;
+      ctx.fill();
+    });
+  }
+
+  // Shooting stars
+  if(starOpacity > 0 && ts - lastShoot > (focusMinutes>=60 ? 1500 : 5000)) {
+    shootingStars.push({x:Math.random()*canvas.width*.7,y:Math.random()*canvas.height*.4,vx:4+Math.random()*6,vy:3+Math.random()*4,trail:[],life:1});
+    lastShoot = ts;
+  }
+  shootingStars = shootingStars.filter(s=>s.life>0);
+  shootingStars.forEach(s=>{
+    s.trail.push({x:s.x,y:s.y});
+    if(s.trail.length>20) s.trail.shift();
+    s.x+=s.vx; s.y+=s.vy; s.life-=.02;
+    s.trail.forEach((p,i)=>{
+      const a=(i/s.trail.length)*s.life*starOpacity;
+      ctx.beginPath(); ctx.arc(p.x,p.y,1,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,255,220,${a})`; ctx.fill();
+    });
+    ctx.beginPath(); ctx.arc(s.x,s.y,2,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,255,255,${s.life*starOpacity})`;
+    ctx.shadowColor='rgba(255,255,220,.8)'; ctx.shadowBlur=8; ctx.fill(); ctx.shadowBlur=0;
+  });
+
+  // Fireflies (30+ min focus)
+  if(timerRunning && focusMinutes>=30 && starOpacity>0) {
+    const count = focusMinutes>=60 ? 20 : 10;
+    if(fireflies.length < count && Math.random()<.05) {
+      fireflies.push({x:Math.random()*canvas.width,y:canvas.height*.3+Math.random()*canvas.height*.4,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,ph:Math.random()*Math.PI*2});
+    }
+    fireflies.forEach(f=>{
+      f.x+=f.vx+Math.sin(t2+f.ph)*.3;
+      f.y+=f.vy+Math.cos(t2*.7+f.ph)*.3;
+      f.ph+=.02;
+      if(f.x<0)f.x=canvas.width; if(f.x>canvas.width)f.x=0;
+      if(f.y<canvas.height*.2)f.y=canvas.height*.7; if(f.y>canvas.height*.8)f.y=canvas.height*.3;
+      const pulse=(Math.sin(t2*2+f.ph)+1)/2;
+      ctx.beginPath(); ctx.arc(f.x,f.y,2+pulse,0,Math.PI*2);
+      ctx.fillStyle=`rgba(180,255,150,${.8*pulse})`;
+      ctx.shadowColor='rgba(180,255,150,.8)'; ctx.shadowBlur=8+pulse*6; ctx.fill(); ctx.shadowBlur=0;
+    });
+  } else if(!timerRunning || focusMinutes<30) fireflies.length=0;
+
+  // Rain
+  if(rainEnabled || stormEnabled) {
+    ctx.strokeStyle='rgba(174,214,241,.6)'; ctx.lineWidth=1;
+    rainDrops.forEach(d=>{
+      d.y+=d.s; d.x-=d.s*.15;
+      if(d.y>canvas.height){d.y=-d.l; d.x=Math.random()*canvas.width;}
+      ctx.globalAlpha=d.o;
+      ctx.beginPath(); ctx.moveTo(d.x,d.y); ctx.lineTo(d.x-d.l*.1,d.y+d.l); ctx.stroke();
+    });
+    ctx.globalAlpha=1;
+  }
+  if(stormEnabled && Math.random()<.003) {
+    ctx.globalAlpha=.25; ctx.fillStyle='white'; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.globalAlpha=1;
+  }
+}
+requestAnimationFrame(drawCanvas);
+
+// ─── Timer ───
+const DURATIONS = {focus:25*60, short:5*60, long:15*60};
+const MODE_COLORS = {focus:'#6c5ce7', short:'#00b894', long:'#0984e3'};
+const MODE_LABELS = {focus:'FOCUS', short:'SHORT BREAK', long:'LONG BREAK'};
+let curMode='focus', timeLeft=25*60, timerRunning=false, timerInterval=null;
+let tomatoes=0, focusMinutes=0, minuteInterval=null;
+const fireflies=[];
+
+function updateClockUI() {
+  const m=Math.floor(timeLeft/60).toString().padStart(2,'0');
+  const s=(timeLeft%60).toString().padStart(2,'0');
+  document.getElementById('clock-display').textContent=`${m}:${s}`;
+  const total=DURATIONS[curMode];
+  const progress=1-timeLeft/total;
+  const c=2*Math.PI*56;
+  document.getElementById('progress-arc').style.strokeDashoffset=c*(1-progress);
+  document.getElementById('progress-arc').style.stroke=MODE_COLORS[curMode];
+  document.getElementById('focus-min-display').textContent=focusMinutes>0?`${focusMinutes}m today`:'';
+  const hint=document.getElementById('reward-hint');
+  if(timerRunning && focusMinutes>=60) hint.textContent='✨ Stars blessing the sky!';
+  else if(timerRunning && focusMinutes>=30) hint.textContent='🌿 Fireflies awakening...';
+  else hint.textContent='';
+}
+
+function setMode(m, el) {
+  curMode=m;
+  timeLeft=DURATIONS[m];
+  stopTimer();
+  document.querySelectorAll('.mode-tab').forEach(t=>t.classList.remove('active'));
+  if(el) el.classList.add('active');
+  document.querySelector('#timer-card div[style*="font-size:8px"]').textContent=MODE_LABELS[m];
+  document.querySelector('#timer-card div[style*="font-size:8px"]').style.color=MODE_COLORS[m];
+  document.getElementById('progress-arc').style.stroke=MODE_COLORS[m];
+  updateClockUI();
+}
+
+function toggleTimer() {
+  if(timerRunning) stopTimer();
+  else startTimer();
+}
+
+function startTimer() {
+  timerRunning=true;
+  document.getElementById('start-btn').textContent='⏸ PAUSE';
+  document.getElementById('start-btn').className='px-btn btn-reset';
+  document.getElementById('start-btn').style.borderColor='#ff7675';
+  document.getElementById('start-btn').style.color='#ff7675';
+  timerInterval=setInterval(()=>{
+    timeLeft--;
+    if(timeLeft<=0){
+      timeLeft=0; stopTimer();
+      if(curMode==='focus'){tomatoes++;updateTomatoes();setMode('short',null);}
+      else setMode('focus',null);
+    }
+    updateClockUI();
+  },1000);
+  if(curMode==='focus') minuteInterval=setInterval(()=>focusMinutes++, 60000);
+  buildRoad(); // update self car glow
+}
+
+function stopTimer() {
+  timerRunning=false;
+  document.getElementById('start-btn').textContent='▶ START';
+  document.getElementById('start-btn').className='px-btn btn-green';
+  document.getElementById('start-btn').style.borderColor='';
+  document.getElementById('start-btn').style.color='';
+  clearInterval(timerInterval); clearInterval(minuteInterval);
+  updateClockUI();
+}
+
+function resetTimer() {
+  stopTimer();
+  timeLeft=DURATIONS[curMode];
+  updateClockUI();
+}
+
+function updateTomatoes() {
+  document.getElementById('tomato-count').textContent=tomatoes;
+  document.getElementById('tomato-icons').textContent='🍅'.repeat(Math.min(tomatoes,10))+(tomatoes>10?` +${tomatoes-10}`:'');
+}
+
+// ─── Notes ───
+function toggleNote(cb) {
+  cb.classList.toggle('done');
+  const txt=cb.nextElementSibling;
+  txt.classList.toggle('done');
+  cb.textContent=cb.classList.contains('done')?'✓':'';
+  updateNoteProgress();
+}
+function addNote() {
+  const inp=document.getElementById('note-input');
+  const t=inp.value.trim(); if(!t)return;
+  const list=document.getElementById('note-list');
+  const item=document.createElement('div'); item.className='note-item';
+  item.innerHTML=`<div class="note-cb" onclick="toggleNote(this)"></div><span class="note-text">${t}</span>`;
+  list.appendChild(item);
+  inp.value='';
+  updateNoteProgress();
+}
+function updateNoteProgress() {
+  const items=document.querySelectorAll('.note-cb');
+  const done=document.querySelectorAll('.note-cb.done').length;
+  const pct=items.length?done/items.length*100:0;
+  document.getElementById('note-progress').style.width=pct+'%';
+}
+
+// ─── Music ───
+let iframe=null;
+const URLS = {lofi:'https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1',jazz:'https://www.youtube.com/embed/Dx5qFachd3A?autoplay=1',ambient:'https://www.youtube.com/embed/5qap5aO4i9A?autoplay=1'};
+function playStation(btn, key) {
+  document.querySelectorAll('.station-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  btn.textContent='▶ '+btn.textContent.replace(/^[▶ ]+/,'');
+  document.getElementById('viz').style.display='flex';
+  if(iframe) iframe.remove();
+  iframe=document.createElement('iframe');
+  iframe.src=URLS[key];
+  iframe.allow='autoplay;encrypted-media';
+  iframe.style.cssText='width:100%;height:60px;border:none;margin-top:6px';
+  document.getElementById('music-card').appendChild(iframe);
+}
+
+// ─── Social list ───
+function buildSocial() {
+  const list=document.getElementById('user-list');
+  list.innerHTML='';
+  MOCK_USERS.forEach(u=>{
+    const row=document.createElement('div'); row.className='user-row';
+    row.innerHTML=`
+      <div class="mini-car"><div class="mc-body" style="background:${u.color}"></div><div class="mc-cab" style="background:${u.color}"></div></div>
+      <div class="user-info">
+        <div class="ui-name">${u.name}</div>
+        <div class="ui-role">${u.role} 🍅${u.tomatoes}${u.focusing?' <span class="focus-badge">⚡</span>':''}</div>
+      </div>
+      <button class="invite-btn" onclick="alert('✉️ Focus invite sent to ${u.name}!')">Invite</button>`;
+    list.appendChild(row);
+  });
+}
+
+// ─── Leaderboard ───
+function buildLeaderboard() {
+  const all=[
+    {name:'Data Dev',color:'#a29bfe',tomatoes:12,min:200,rem:600},
+    {name:'Lofi Lee',color:'#fd79a8',tomatoes:8,min:120,rem:845},
+    {name:'Pixel Coder',color:'#6c5ce7',tomatoes:tomatoes+5,min:47+focusMinutes,rem:timerRunning?timeLeft:0},
+    {name:'Code Kai',color:'#0984e3',tomatoes:6,min:90,rem:1200},
+    {name:'Writer W',color:'#e17055',tomatoes:4,min:75,rem:0},
+    {name:'Study Sam',color:'#00b894',tomatoes:3,min:55,rem:0},
+    {name:'Art Ami',color:'#fdcb6e',tomatoes:2,min:30,rem:0},
+  ].sort((a,b)=>b.tomatoes-a.tomatoes);
+
+  const ranks=['🥇','🥈','🥉'];
+  const items=all.map((e,i)=>{
+    const rank=i<3?ranks[i]:`#${i+1}`;
+    const rem=e.rem>0?`⏱${Math.floor(e.rem/60).toString().padStart(2,'0')}:${(e.rem%60).toString().padStart(2,'0')}`:'';
+    return `<div class="lb-item">
+      <span class="lb-rank">${rank}</span>
+      <div style="width:12px;height:7px;background:${e.color};flex-shrink:0"></div>
+      <span class="lb-name">${e.name}</span>
+      <span class="lb-stat" style="color:#fd79a8">🍅${e.tomatoes}</span>
+      ${rem?`<span class="lb-stat" style="color:#55efc4">${rem}</span>`:''}
+      <span class="lb-stat" style="color:#74b9ff">${e.min}m</span>
+    </div>`;
+  }).join('');
+
+  document.getElementById('lb-inner').innerHTML=items+items;
+}
+
+// ─── CSS car animation ───
+const style=document.createElement('style');
+style.textContent=`@keyframes carScroll{0%{transform:translateX(110vw)}100%{transform:translateX(-200px)}}`;
+document.head.appendChild(style);
+
+// ─── Init ───
+applyScene('night');
+buildRoad();
+buildSocial();
+buildLeaderboard();
+updateClockUI();
+setInterval(()=>{buildLeaderboard();updateClockUI();},5000);
+
+// Animate moon bobbing
+setInterval(()=>{
+  const moon=document.getElementById('moon');
+  if(moon.style.display!=='none'){
+    const y=8+Math.sin(Date.now()/3000)*.5;
+    moon.style.top=y+'%';
+  }
+},100);
+</script>
+</body>
+</html>
