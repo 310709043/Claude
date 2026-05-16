@@ -1,92 +1,170 @@
-import { spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { FONTS, TOKENS } from "../design";
 
-const tips = [
-  { icon: "👋", text: "用溫暖的開場白破冰" },
-  { icon: "❓", text: "提問開放性問題" },
-  { icon: "👂", text: "積極傾聽、給予回應" },
-  { icon: "💡", text: "分享自己的故事" },
-  { icon: "😄", text: "保持輕鬆幽默的語氣" },
+const STEPS = [
+  { num: "01", zh: "別只說「嗨」", en: "Skip the lazy hi", color: "coral" as const },
+  { num: "02", zh: "從檔案找線索", en: "Mine the profile", color: "teal" as const },
+  { num: "03", zh: "問會引出故事的問題", en: "Ask for stories", color: "teal" as const },
+  { num: "04", zh: "答完順手遞球", en: "Pass the ball back", color: "coral" as const },
+  { num: "05", zh: "鏡像對方節奏", en: "Mirror the cadence", color: "teal" as const },
+  { num: "06", zh: "把對話帶到現實", en: "Make the ask", color: "coral" as const },
 ];
 
 export const OutroScene: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const titleProgress = spring({ frame, fps, config: { damping: 14, stiffness: 80 }, durationInFrames: 25 });
+  const kickerOp = interpolate(frame, [0, 15], [0, 1], { extrapolateRight: "clamp" });
+  const titleOp = interpolate(frame, [8, 30], [0, 1], { extrapolateRight: "clamp" });
+  const titleY = (1 - spring({ frame: frame - 8, fps, durationInFrames: 35 })) * 30;
+
+  const ctaOp = interpolate(frame, [140, 165], [0, 1], { extrapolateRight: "clamp" });
 
   return (
     <div
       style={{
         width: "100%",
         height: "100%",
-        background: "linear-gradient(135deg, #11998e 0%, #38ef7d 100%)",
+        background: `linear-gradient(135deg, ${TOKENS.bg} 0%, ${TOKENS.bg2} 100%)`,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        fontFamily: "'Noto Sans TC', 'PingFang TC', sans-serif",
-        padding: "0 80px",
+        padding: "80px 100px",
+        position: "relative",
       }}
     >
-      {/* Decorative */}
-      <div style={{ position: "absolute", top: 60, left: 60, width: 120, height: 120, borderRadius: "50%", background: "rgba(255,255,255,0.1)" }} />
-      <div style={{ position: "absolute", bottom: 80, right: 80, width: 180, height: 180, borderRadius: "50%", background: "rgba(255,255,255,0.07)" }} />
-
+      {/* Kicker */}
       <div
         style={{
-          fontSize: 52,
-          fontWeight: 900,
-          color: "#FFFFFF",
+          fontFamily: FONTS.mono,
+          fontSize: 16,
+          color: TOKENS.teal,
+          textTransform: "uppercase",
+          letterSpacing: "0.4em",
+          fontWeight: 500,
+          opacity: kickerOp,
+          marginBottom: 24,
+          display: "flex",
+          alignItems: "center",
+          gap: 16,
+        }}
+      >
+        <span style={{ width: 24, height: 1, background: TOKENS.teal, display: "inline-block" }} />
+        Recap
+        <span style={{ width: 24, height: 1, background: TOKENS.teal, display: "inline-block" }} />
+      </div>
+
+      {/* Title */}
+      <div
+        style={{
+          fontFamily: FONTS.cnSerif,
+          fontSize: 76,
+          color: TOKENS.navy,
+          fontWeight: 400,
+          letterSpacing: "-0.02em",
           textAlign: "center",
+          opacity: titleOp,
+          transform: `translateY(${titleY}px)`,
           marginBottom: 12,
-          transform: `translateY(${(1 - titleProgress) * -30}px)`,
-          opacity: Math.min(1, frame / 15),
-          textShadow: "0 4px 16px rgba(0,0,0,0.15)",
+          lineHeight: 1.1,
         }}
       >
-        🎉 你現在是聊天高手了！
+        從滑到約 · <span style={{ color: TOKENS.coral, fontStyle: "italic" }}>六步</span>
       </div>
-
       <div
         style={{
-          fontSize: 20,
-          color: "rgba(255,255,255,0.85)",
-          marginBottom: 40,
-          opacity: Math.min(1, Math.max(0, (frame - 10) / 12)),
+          fontFamily: FONTS.serif,
+          fontSize: 24,
+          color: TOKENS.muted,
+          fontStyle: "italic",
+          opacity: titleOp,
+          marginBottom: 56,
         }}
       >
-        記住這 5 個技巧，讓每次對話都精彩
+        Six moves, swipe to date
       </div>
 
-      {/* Tips list */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 14, width: "100%", maxWidth: 600 }}>
-        {tips.map((tip, i) => {
-          const tipProgress = spring({
-            frame: frame - (i * 8 + 15),
-            fps,
-            config: { damping: 14, stiffness: 100 },
-            durationInFrames: 20,
-          });
-          const tipOpacity = Math.min(1, Math.max(0, (frame - (i * 8 + 15)) / 10));
+      {/* Grid */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: 20,
+          maxWidth: 1100,
+          width: "100%",
+        }}
+      >
+        {STEPS.map((s, i) => {
+          const delay = 30 + i * 12;
+          const op = interpolate(frame, [delay, delay + 18], [0, 1], { extrapolateRight: "clamp" });
+          const progress = spring({ frame: frame - delay, fps, config: { damping: 16, stiffness: 90 }, durationInFrames: 30 });
+          const dy = (1 - progress) * 24;
+          const color = s.color === "coral" ? TOKENS.coral : TOKENS.teal;
 
           return (
             <div
               key={i}
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 16,
-                backgroundColor: "rgba(255,255,255,0.2)",
-                borderRadius: 14,
-                padding: "12px 20px",
-                backdropFilter: "blur(8px)",
-                border: "1px solid rgba(255,255,255,0.3)",
-                transform: `translateX(${(1 - tipProgress) * -40}px)`,
-                opacity: tipOpacity,
+                background: TOKENS.card,
+                borderRadius: 16,
+                padding: "22px 24px",
+                boxShadow: "0 10px 30px -10px rgba(17,45,78,0.12), 0 4px 10px rgba(17,45,78,0.04)",
+                border: `1px solid ${TOKENS.border}`,
+                opacity: op,
+                transform: `translateY(${dy}px)`,
+                position: "relative",
+                overflow: "hidden",
               }}
             >
-              <span style={{ fontSize: 28 }}>{tip.icon}</span>
-              <span style={{ fontSize: 20, color: "#FFFFFF", fontWeight: 600 }}>{tip.text}</span>
+              {/* Accent stripe */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: 3,
+                  height: "100%",
+                  background: color,
+                }}
+              />
+
+              <div
+                style={{
+                  fontFamily: FONTS.serif,
+                  fontSize: 36,
+                  color,
+                  fontStyle: "italic",
+                  fontWeight: 400,
+                  lineHeight: 1,
+                  marginBottom: 14,
+                }}
+              >
+                {s.num}
+              </div>
+              <div
+                style={{
+                  fontFamily: FONTS.cnSerif,
+                  fontSize: 22,
+                  color: TOKENS.navy,
+                  fontWeight: 500,
+                  lineHeight: 1.3,
+                  marginBottom: 6,
+                }}
+              >
+                {s.zh}
+              </div>
+              <div
+                style={{
+                  fontFamily: FONTS.mono,
+                  fontSize: 11,
+                  color: TOKENS.muted,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.12em",
+                }}
+              >
+                {s.en}
+              </div>
             </div>
           );
         })}
@@ -95,14 +173,17 @@ export const OutroScene: React.FC = () => {
       {/* CTA */}
       <div
         style={{
-          marginTop: 36,
-          fontSize: 17,
-          color: "rgba(255,255,255,0.8)",
-          opacity: Math.min(1, Math.max(0, (frame - 60) / 15)),
-          letterSpacing: "1px",
+          marginTop: 56,
+          fontFamily: FONTS.serif,
+          fontSize: 28,
+          fontStyle: "italic",
+          color: TOKENS.navy,
+          opacity: ctaOp,
+          textAlign: "center",
         }}
       >
-        立刻開始練習吧！ 💪
+        現在 — 打開 app，
+        <span style={{ color: TOKENS.coral }}>傳出那則訊息</span>
       </div>
     </div>
   );

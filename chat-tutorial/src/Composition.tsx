@@ -1,153 +1,134 @@
 import { AbsoluteFill, Sequence } from "remotion";
+import "./loadFonts";
+import { Ambient } from "./components/Ambient";
+import { CaptionBar, Caption } from "./components/CaptionBar";
+import { TOKENS, INTRO_DURATION, SCENE_DURATION, OUTRO_DURATION } from "./design";
+
 import { IntroScene } from "./scenes/IntroScene";
-import { ChatScene } from "./scenes/ChatScene";
+import { Scene1_FirstMessage } from "./scenes/Scene1_FirstMessage";
+import { Scene2_ProfileClues } from "./scenes/Scene2_ProfileClues";
+import { Scene3_OpenQuestions } from "./scenes/Scene3_OpenQuestions";
+import { Scene4_Reciprocity } from "./scenes/Scene4_Reciprocity";
+import { Scene5_Rhythm } from "./scenes/Scene5_Rhythm";
+import { Scene6_MoveOffline } from "./scenes/Scene6_MoveOffline";
 import { OutroScene } from "./scenes/OutroScene";
 
-// Timing (30fps)
-const INTRO_START = 0;
-const INTRO_DURATION = 75; // 2.5s
+const T = {
+  intro: 0,
+  s1: INTRO_DURATION,
+  s2: INTRO_DURATION + SCENE_DURATION,
+  s3: INTRO_DURATION + SCENE_DURATION * 2,
+  s4: INTRO_DURATION + SCENE_DURATION * 3,
+  s5: INTRO_DURATION + SCENE_DURATION * 4,
+  s6: INTRO_DURATION + SCENE_DURATION * 5,
+  outro: INTRO_DURATION + SCENE_DURATION * 6,
+};
 
-const SCENE1_START = INTRO_START + INTRO_DURATION;
-const SCENE1_DURATION = 150; // 5s
+export const TOTAL_FRAMES = T.outro + OUTRO_DURATION;
 
-const SCENE2_START = SCENE1_START + SCENE1_DURATION;
-const SCENE2_DURATION = 150;
+// Caption track (bilingual, frame-based)
+const CAPTIONS: Caption[] = [
+  // Intro
+  { start: T.intro + 20, end: T.intro + 80, zh: "六個技巧，讓配對真的變成約會", en: "Six moves from match to date" },
+  { start: T.intro + 80, end: T.intro + INTRO_DURATION, zh: "從你打的第一個字開始", en: "Starting with your first keystroke" },
 
-const SCENE3_START = SCENE2_START + SCENE2_DURATION;
-const SCENE3_DURATION = 150;
+  // Scene 1
+  { start: T.s1 + 10, end: T.s1 + 70, zh: "「嗨」是空無一物的開場", en: "“Hi” says nothing" },
+  { start: T.s1 + 70, end: T.s1 + 140, zh: "從對方檔案裡挑一個細節", en: "Pick a detail from their profile" },
+  { start: T.s1 + 140, end: T.s1 + SCENE_DURATION, zh: "讓你的第一句話無法被忽略", en: "Make your first line unignorable" },
 
-const SCENE4_START = SCENE3_START + SCENE3_DURATION;
-const SCENE4_DURATION = 150;
+  // Scene 2
+  { start: T.s2 + 10, end: T.s2 + 80, zh: "每張照片都是一個鉤子", en: "Every photo is a hook" },
+  { start: T.s2 + 80, end: T.s2 + 150, zh: "Bio 裡的關鍵字都是話題", en: "Bio keywords are conversation starters" },
+  { start: T.s2 + 150, end: T.s2 + SCENE_DURATION, zh: "你需要的素材，對方已經給了", en: "They already gave you the material" },
 
-const SCENE5_START = SCENE4_START + SCENE4_DURATION;
-const SCENE5_DURATION = 150;
+  // Scene 3
+  { start: T.s3 + 10, end: T.s3 + 80, zh: "是非題只能換來「對」或「不對」", en: "Yes/no questions get yes/no answers" },
+  { start: T.s3 + 80, end: T.s3 + 150, zh: "把問題改成需要描述的版本", en: "Rewrite questions to invite description" },
+  { start: T.s3 + 150, end: T.s3 + SCENE_DURATION, zh: "對方一旦開始說故事，氣氛就活了", en: "Once they tell a story, the chat is alive" },
 
-const OUTRO_START = SCENE5_START + SCENE5_DURATION;
-const OUTRO_DURATION = 120; // 4s
+  // Scene 4
+  { start: T.s4 + 10, end: T.s4 + 80, zh: "聊天像打網球", en: "Chatting is like tennis" },
+  { start: T.s4 + 80, end: T.s4 + 150, zh: "答完就把球輕輕打回去", en: "Answer, then send the ball back" },
+  { start: T.s4 + 150, end: T.s4 + SCENE_DURATION, zh: "對話才不會死在你手上", en: "Don't let it die on your side" },
 
-export const TOTAL_FRAMES = OUTRO_START + OUTRO_DURATION; // ~30s
+  // Scene 5
+  { start: T.s5 + 10, end: T.s5 + 80, zh: "別搶答，也別讓對方等太久", en: "Don’t rush, don’t ghost" },
+  { start: T.s5 + 80, end: T.s5 + 150, zh: "鏡像對方回覆的速度與字數", en: "Mirror their speed and length" },
+  { start: T.s5 + 150, end: T.s5 + SCENE_DURATION, zh: "節奏對了，吸引力自然出現", en: "Right tempo, real chemistry" },
+
+  // Scene 6
+  { start: T.s6 + 10, end: T.s6 + 80, zh: "聊得再好，不見面就是零", en: "All chat, no meet — equals zero" },
+  { start: T.s6 + 80, end: T.s6 + 150, zh: "話題還熱時，給一個具體邀請", en: "While the topic is hot, propose something concrete" },
+  { start: T.s6 + 150, end: T.s6 + SCENE_DURATION, zh: "時間、地點、活動，三選一就好", en: "Pick one: time, place, activity" },
+
+  // Outro
+  { start: T.outro + 20, end: T.outro + 80, zh: "六個動作，從滑到約", en: "Six moves, swipe to date" },
+  { start: T.outro + 80, end: T.outro + 140, zh: "技巧只是腳手架", en: "Technique is just scaffolding" },
+  { start: T.outro + 140, end: T.outro + OUTRO_DURATION, zh: "真正吸引人的，是真誠地好奇", en: "Real attraction is real curiosity" },
+];
+
+const CHAPTER_STARTS = [T.s1, T.s2, T.s3, T.s4, T.s5, T.s6, T.outro];
 
 export const MyComposition: React.FC = () => {
   return (
-    <AbsoluteFill style={{ backgroundColor: "#F0F2F8" }}>
-      {/* 場景 0：開場 */}
-      <Sequence from={INTRO_START} durationInFrames={INTRO_DURATION}>
+    <AbsoluteFill style={{ background: TOKENS.bg }}>
+      {/* Ambient layer */}
+      <AbsoluteFill>
+        <Ambient />
+      </AbsoluteFill>
+
+      {/* Scenes */}
+      <Sequence from={T.intro} durationInFrames={INTRO_DURATION}>
         <AbsoluteFill>
           <IntroScene />
         </AbsoluteFill>
       </Sequence>
 
-      {/* 場景 1：溫暖的開場白 */}
-      <Sequence from={SCENE1_START} durationInFrames={SCENE1_DURATION}>
+      <Sequence from={T.s1} durationInFrames={SCENE_DURATION}>
         <AbsoluteFill>
-          <ChatScene
-            sceneNumber={1}
-            sceneTitle="用溫暖的開場白破冰"
-            accentColor="#FF6B6B"
-            icon="👋"
-            messages={[
-              { text: "嗨！最近怎麼樣？", isSender: true, appearAt: 15 },
-              { text: "還不錯，謝謝你關心！", isSender: false, appearAt: 35 },
-              { text: "週末有沒有去哪裡玩？", isSender: true, appearAt: 55 },
-              { text: "有啊，去爬山了，超棒的！你呢？", isSender: false, appearAt: 75 },
-            ]}
-            tipTitle="破冰開場白技巧"
-            tipDescription={"避免只說「嗨」！用一個\n具體問題讓對話馬上有話題。"}
-            tipAppearAt={90}
-          />
+          <Scene1_FirstMessage />
         </AbsoluteFill>
       </Sequence>
 
-      {/* 場景 2：問開放性問題 */}
-      <Sequence from={SCENE2_START} durationInFrames={SCENE2_DURATION}>
+      <Sequence from={T.s2} durationInFrames={SCENE_DURATION}>
         <AbsoluteFill>
-          <ChatScene
-            sceneNumber={2}
-            sceneTitle="問開放性問題"
-            accentColor="#4F8EF7"
-            icon="❓"
-            messages={[
-              { text: "你最喜歡哪種音樂類型？", isSender: true, appearAt: 15 },
-              { text: "我很喜歡爵士樂和獨立音樂！", isSender: false, appearAt: 35 },
-              { text: "哇，是什麼讓你愛上爵士樂的？", isSender: true, appearAt: 55 },
-              { text: "小時候爸爸常播，就這樣愛上了 🎷", isSender: false, appearAt: 75 },
-            ]}
-            tipTitle="開放性問題 vs 封閉性問題"
-            tipDescription={"❌「你喜歡音樂嗎？」→ 只有是/否\n✅「你最喜歡哪種音樂？」→ 引發故事"}
-            tipAppearAt={90}
-          />
+          <Scene2_ProfileClues />
         </AbsoluteFill>
       </Sequence>
 
-      {/* 場景 3：積極傾聽 */}
-      <Sequence from={SCENE3_START} durationInFrames={SCENE3_DURATION}>
+      <Sequence from={T.s3} durationInFrames={SCENE_DURATION}>
         <AbsoluteFill>
-          <ChatScene
-            sceneNumber={3}
-            sceneTitle="積極傾聽與回應"
-            accentColor="#9C27B0"
-            icon="👂"
-            messages={[
-              { text: "最近工作壓力好大⋯", isSender: false, appearAt: 15 },
-              { text: "聽起來很辛苦，發生什麼事了嗎？", isSender: true, appearAt: 35 },
-              { text: "專案快截止了，一直加班", isSender: false, appearAt: 55 },
-              { text: "這樣真的很累，你有好好休息嗎？", isSender: true, appearAt: 75 },
-            ]}
-            tipTitle="積極傾聽 3 步驟"
-            tipDescription={"1️⃣ 確認對方的感受\n2️⃣ 問更多細節\n3️⃣ 表達關心與理解"}
-            tipAppearAt={90}
-          />
+          <Scene3_OpenQuestions />
         </AbsoluteFill>
       </Sequence>
 
-      {/* 場景 4：分享自己 */}
-      <Sequence from={SCENE4_START} durationInFrames={SCENE4_DURATION}>
+      <Sequence from={T.s4} durationInFrames={SCENE_DURATION}>
         <AbsoluteFill>
-          <ChatScene
-            sceneNumber={4}
-            sceneTitle="適時分享自己"
-            accentColor="#FF9800"
-            icon="💡"
-            messages={[
-              { text: "你有沒有什麼興趣愛好？", isSender: false, appearAt: 15 },
-              { text: "我很喜歡攝影！去年學的", isSender: true, appearAt: 35 },
-              { text: "哇，拍什麼主題呢？", isSender: false, appearAt: 55 },
-              { text: "主要拍街頭和人像，你有興趣嗎？", isSender: true, appearAt: 75 },
-            ]}
-            tipTitle="雙向分享原則"
-            tipDescription={"聊天是雙向的！分享自己的\n經歷，讓對方也更了解你，\n創造共鳴感。"}
-            tipAppearAt={90}
-          />
+          <Scene4_Reciprocity />
         </AbsoluteFill>
       </Sequence>
 
-      {/* 場景 5：輕鬆幽默 */}
-      <Sequence from={SCENE5_START} durationInFrames={SCENE5_DURATION}>
+      <Sequence from={T.s5} durationInFrames={SCENE_DURATION}>
         <AbsoluteFill>
-          <ChatScene
-            sceneNumber={5}
-            sceneTitle="保持輕鬆幽默"
-            accentColor="#4CAF50"
-            icon="😄"
-            messages={[
-              { text: "你昨天吃什麼？", isSender: false, appearAt: 15 },
-              { text: "我吃了一個後悔藥，叫做「外送炸雞」哈哈", isSender: true, appearAt: 35 },
-              { text: "哈哈哈！說說這個後悔藥的副作用？", isSender: false, appearAt: 55 },
-              { text: "副作用是錢包變薄、心情變好 😂", isSender: true, appearAt: 75 },
-            ]}
-            tipTitle="幽默感小技巧"
-            tipDescription={"用自嘲和誇張製造笑點，\n讓氣氛輕鬆。注意：幽默\n要自然，不用強迫搞笑！"}
-            tipAppearAt={90}
-          />
+          <Scene5_Rhythm />
         </AbsoluteFill>
       </Sequence>
 
-      {/* 場景 6：結語 */}
-      <Sequence from={OUTRO_START} durationInFrames={OUTRO_DURATION}>
+      <Sequence from={T.s6} durationInFrames={SCENE_DURATION}>
+        <AbsoluteFill>
+          <Scene6_MoveOffline />
+        </AbsoluteFill>
+      </Sequence>
+
+      <Sequence from={T.outro} durationInFrames={OUTRO_DURATION}>
         <AbsoluteFill>
           <OutroScene />
         </AbsoluteFill>
       </Sequence>
+
+      {/* Caption bar overlay */}
+      <CaptionBar captions={CAPTIONS} totalFrames={TOTAL_FRAMES} chapterStarts={CHAPTER_STARTS} />
     </AbsoluteFill>
   );
 };
