@@ -1,0 +1,90 @@
+[project]
+name = "focustown-backend"
+version = "0.1.0"
+description = "Focus Town backend — FastAPI + SQLAlchemy + Redis"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi[standard]>=0.115",
+  "uvicorn[standard]>=0.32",
+  "pydantic>=2.9",
+  "pydantic-settings>=2.5",
+  "sqlalchemy[asyncio]>=2.0.35",
+  "asyncpg>=0.29",
+  "alembic>=1.13",
+  "redis>=5.0",
+  "python-jose[cryptography]>=3.3",
+  "passlib[bcrypt]>=1.7.4",
+  # passlib's bcrypt backend has a startup probe that hashes a >72-byte
+  # secret; bcrypt 4.1+ enforces the 72-byte limit strictly, breaking the
+  # probe. Pin to <4.1 until passlib publishes a fix (or migrate to pwdlib).
+  "bcrypt<4.1",
+  "python-multipart>=0.0.12",
+  "apscheduler>=3.10",
+  "httpx>=0.27",
+  "structlog>=24.4",
+  "boto3>=1.34",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3",
+  "pytest-asyncio>=0.24",
+  "pytest-cov>=5.0",
+  "ruff>=0.7",
+  "mypy>=1.13",
+  "testcontainers[postgres,redis]>=4.8",
+  "anyio>=4.6",
+  # moto stubs out boto3 calls so unit tests for the Cognito/SES/Secrets
+  # adapters can run without an AWS account or LocalStack container.
+  "moto>=5",
+]
+
+[tool.setuptools.packages.find]
+# `app` is the only importable package; `alembic/` carries DDL scripts
+# loaded by alembic at runtime via `prepend_sys_path = .`, and `assets/`
+# is media — neither belongs in the wheel. Without this, setuptools
+# auto-discovery refuses to build with "Multiple top-level packages".
+include = ["app*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["alembic/versions"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "N", "ASYNC", "S", "RUF"]
+ignore = ["S101"]
+
+[tool.ruff.lint.per-file-ignores]
+# Tests legitimately use hardcoded fixture passwords/tokens and unused unpacks.
+"tests/**/*.py" = ["S105", "S106", "S107", "RUF059"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+# Coverage is reported, not gated. A fail-under threshold will be added
+# only after the meaningful test set is in place (see plan: PR2/PR4).
+addopts = "--cov=app --cov-report=term-missing"
+
+[tool.coverage.run]
+branch = true
+source = ["app"]
+omit = [
+  # Push-notification stub — body lands in a follow-up round.
+  "app/infrastructure/notifications/sns_notifier.py",
+  # Alembic migrations
+  "alembic/*",
+]
+
+[tool.coverage.report]
+exclude_also = [
+  "if TYPE_CHECKING:",
+  "raise NotImplementedError",
+  "@overload",
+  "\\.\\.\\.",
+]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["pydantic.mypy"]

@@ -1,0 +1,41 @@
+{
+  "music": {
+    "panelTitle": "♪ MUSIC",
+    "sourceRoom": " · ROOM",
+    "sourceLofi": " · LOFI",
+    "allTab": "All",
+    "lofiTab": "lofi",
+    "jazzTab": "jazz",
+    "rainTab": "🌧 Rain",
+    "ambientTab": "ambient",
+    "spotifyTab": "Spotify",
+    "spotifyTabLabel": "🎵 Spotify",
+    "empty": "(Curating your library — please bear with us)",
+    "trackCount": "♪ {current}/{total} · {mood}",
+    "uploadHint": "Explore our curated library →",
+    "phaseNote": "Curated by Focus Town"
+  },
+  "moods": {
+    "all": "All",
+    "lofi": "lofi",
+    "jazz": "jazz",
+    "rain": "🌧 rain",
+    "ambient": "ambient"
+  },
+  "tracks": {
+    "empty": "The library is still being prepared. Please check back in a moment.",
+    "playAria": "Play",
+    "pauseAria": "Pause",
+    "inRoom": "✓ Room",
+    "addToRoom": "+ Add to room"
+  },
+  "page": {
+    "breadcrumb": "FOCUS TOWN / LIBRARY",
+    "title": "Curated music library",
+    "backCta": "← Back to town",
+    "intro": "A calm collection of tracks we have curated for focus. Sign in when you are ready, and you can save your favourites to your own room.",
+    "signedOutHint": "Sign in when you are ready, and you can add tracks to your room playlist.",
+    "loading": "Loading…",
+    "loadFailedPrefix": "We could not load the library this time. Please try again: "
+  }
+}

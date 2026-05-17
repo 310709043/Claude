@@ -1,0 +1,216 @@
+{
+  "timer": {
+    "header": "FOCUS · SESSION",
+    "startCta": "▶  Start",
+    "pauseCta": "⏸  Pause",
+    "resumeCta": "▶  Resume",
+    "resetCta": "↺  Reset",
+    "startAria": "Start timer",
+    "pauseAria": "Pause timer",
+    "resetAria": "Reset timer",
+    "taskPlaceholder": "What are you working on tonight?",
+    "remainingLabel": "Time remaining",
+    "modeFocus": "Focus",
+    "modeShortBreak": "Short break",
+    "modeLongBreak": "Long break",
+    "modeFocusLabel": "🍅 Focus",
+    "modeShortLabel": "☕ Short break",
+    "modeLongLabel": "🌙 Long break"
+  },
+  "chat": {
+    "header": "💬 Room #{roomId}",
+    "placeholder": "Say something gentle…",
+    "sendCta": "Send",
+    "systemJoined": "{name} joined the room",
+    "systemLeft": "{name} left the room"
+  },
+  "notes": {
+    "title": "📝 Notes",
+    "countLabel": "{count, plural, one {# note} other {# notes}}",
+    "filterAll": "All",
+    "filterTodo": "To-do",
+    "emptyLine1": "No notes yet",
+    "emptyLine2": "Add your first one below ✦",
+    "untitled": "Untitled",
+    "titlePlaceholder": "Title…",
+    "bodyPlaceholder": "Capture a thought, task, or spark…",
+    "addCta": "＋ Add note"
+  },
+  "session": {
+    "solo": "Solo focus mode",
+    "paired": "Focus together",
+    "exitFullscreen": "✕  Exit fullscreen",
+    "completing": "Wrapping up your focus session…",
+    "completed": "Nice work. This session is complete.",
+    "abandonedConfirm": "End the current session now? You can always start a new one when you are ready."
+  },
+  "pairingHeader": {
+    "you": "You"
+  },
+  "enter": {
+    "cta": "✦ Enter focus mode ✦"
+  },
+  "solo": {
+    "topBar": {
+      "backCta": "Back",
+      "backAria": "Back to town",
+      "subtitle": "SOLO ROOM",
+      "guestName": "Guest",
+      "statusLine": "{minutes} min streak",
+      "focusingLine": "Focusing · {minutes} min streak"
+    },
+    "bigTimer": {
+      "headerFocus": "DEEP FOCUS",
+      "headerBreak": "BREAK",
+      "startCta": "Start",
+      "startingCta": "Starting",
+      "pauseCta": "Pause",
+      "resetCta": "Reset",
+      "skipCta": "Skip",
+      "statTodayLabel": "TODAY'S FOCUS",
+      "statStreakLabel": "STREAK DAYS",
+      "statStreakValue": "{days} d",
+      "statRankLabel": "WEEKLY RANK"
+    },
+    "sessionInsight": {
+      "goalLabel": "Today's goal {goal} 🍅",
+      "progressCounter": "{done} / {goal} done",
+      "hereLabel": "HERE",
+      "tips": {
+        "0": "Research: writing down your “next action” gets you back into flow faster.",
+        "1": "On breaks, stand up and look 20 feet away for 20 seconds — better than scrolling.",
+        "2": "Caffeine has a ~5-hour half-life; coffee after 3pm can wreck your sleep.",
+        "3": "Late-night focus: stand and walk every 90 min — more efficient than grinding through."
+      }
+    },
+    "notes": {
+      "header": "MY NOTES",
+      "defaultTitle": "Today's notes",
+      "placeholder": "What do you want to focus on?",
+      "toolbar": {
+        "bold": "Bold",
+        "italic": "Italic",
+        "bullet": "Bullet",
+        "check": "Checklist",
+        "header": "Header"
+      },
+      "notSavedYet": "Not saved yet",
+      "autoSavedAgo": "Auto-saved · {seconds}s ago",
+      "charLineCount": "{chars} chars · {lines} lines"
+    },
+    "friendsNow": {
+      "header": "FRIENDS NOW",
+      "onlineCount": "{count} online",
+      "joinCta": "+1",
+      "tasks": {
+        "writing": "writing",
+        "coding": "coding",
+        "reading": "reading",
+        "design": "design"
+      }
+    },
+    "tasksPanel": {
+      "header": "TASKS",
+      "doneOf": "{done} / {total}",
+      "addPlaceholder": "Add a task, press Enter…",
+      "addCta": "Add"
+    },
+    "ambientPanel": {
+      "header": "BACKGROUND",
+      "bg": {
+        "cafe": "Cafe",
+        "rain": "Rain",
+        "forest": "Forest",
+        "space": "Space",
+        "lofi": "lofi",
+        "fire": "Fire"
+      }
+    },
+    "soundMixer": {
+      "header": "SOUND MIX",
+      "tracks": {
+        "music": "🎵 lofi",
+        "rain": "☂ rain",
+        "cafe": "☕ cafe",
+        "fire": "🔥 fire"
+      }
+    },
+    "quickActions": {
+      "dndOn": "DND ON",
+      "dndOff": "DND OFF",
+      "lockPhone": "LOCK PHONE",
+      "backToTown": "BACK TO TOWN"
+    }
+  },
+  "buddy": {
+    "topBar": {
+      "leaveAria": "Leave room",
+      "leaveCta": "Leave room",
+      "subtitle": "BUDDY ROOM",
+      "sameFocusLabel": "SAME FOCUS",
+      "roomLine": "ROOM #{code} · {minutes} min"
+    },
+    "headerCard": {
+      "sameTagLabel": "SAME TAG"
+    },
+    "sharedTimer": {
+      "headerFocus": "SHARED FOCUS · #{num}",
+      "headerBreak": "BREAK",
+      "startCta": "Start",
+      "pauseCta": "Pause",
+      "resetCta": "Reset",
+      "skipCta": "Skip",
+      "startAria": "Start timer",
+      "pauseAria": "Pause timer",
+      "resetAria": "Reset timer",
+      "skipAria": "Skip",
+      "cooperationHint": "Both of you press start to begin · leaving early may interrupt your streak"
+    },
+    "statusMini": {
+      "header": "STATUS"
+    },
+    "agenda": {
+      "header": "SHARED AGENDA",
+      "nowLabel": "NOW",
+      "items": {
+        "0": "Tomato #1 · each writes 25 min",
+        "1": "5 min — read each other's drafts aloud",
+        "2": "Tomato #2 · each writes 25 min",
+        "3": "Tomato #3 · revise + peer critique",
+        "4": "Celebrate at LOFI BAR together ✦"
+      }
+    },
+    "roomMusic": {
+      "header": "ROOM SYNC",
+      "syncStatus": "2/2 in sync",
+      "trackTitle": "midnight city — lofi",
+      "trackSubLine": "♪ 1 / 5 · lofi radio",
+      "playAria": "Play",
+      "pauseAria": "Pause"
+    },
+    "sharedPanel": {
+      "chatTab": "Chat",
+      "notesTab": "Notes",
+      "liveLabel": "LIVE",
+      "onlineCount": "{count} ONLINE"
+    },
+    "chat": {
+      "noteLabel": "NOTE",
+      "modeChat": "Chat",
+      "modeNote": "Note",
+      "attach": "Attach",
+      "attachAria": "Attach a file",
+      "shareMusic": "Share music",
+      "shareMusicAria": "Share music",
+      "pause": "Pause",
+      "pauseAria": "Pause pomodoro",
+      "typeMsg": "Type a message…"
+    },
+    "notes": {
+      "defaultTitle": "Shared notes",
+      "partnerEditing": "Buddy is editing line {line}",
+      "autoSaved": "Auto-saved · synced",
+      "autoSavedIdle": "Not yet edited"
+    }
+  }
+}

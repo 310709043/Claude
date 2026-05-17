@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+coverage/
+
+# Node
+node_modules/
+.next/
+out/
+dist/
+.turbo/
+*.tsbuildinfo
+
+# AWS CDK build artifacts
+cdk.out/
+cdk.context.json
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+*.local
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Build / Local
+*.log
+*.sqlite
+*.db
+.docker/
+docker-compose.override.yml
+
+# Playwright / test output
+**/playwright/.auth/
+**/playwright-report/
+**/test-results/
+**/.playwright/
+
+# Generated API types are committed (regenerated via script)
+!frontend/lib/api/types.gen.ts
+
+# Reference docs and binary audio assets
+reference/
+*.mp3

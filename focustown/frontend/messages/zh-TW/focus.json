@@ -1,0 +1,216 @@
+{
+  "timer": {
+    "header": "FOCUS · SESSION",
+    "startCta": "▶  開始",
+    "pauseCta": "⏸  暫停",
+    "resumeCta": "▶  繼續",
+    "resetCta": "↺  重置",
+    "startAria": "開始計時",
+    "pauseAria": "暫停計時",
+    "resetAria": "重置計時",
+    "taskPlaceholder": "今晚在做什麼？",
+    "remainingLabel": "剩餘時間",
+    "modeFocus": "專注",
+    "modeShortBreak": "短休息",
+    "modeLongBreak": "長休息",
+    "modeFocusLabel": "🍅 專注",
+    "modeShortLabel": "☕ 短休息",
+    "modeLongLabel": "🌙 長休息"
+  },
+  "chat": {
+    "header": "💬 房間 #{roomId}",
+    "placeholder": "說點什麼…",
+    "sendCta": "送出",
+    "systemJoined": "{name} 加入了房間",
+    "systemLeft": "{name} 離開了房間"
+  },
+  "notes": {
+    "title": "📝 筆記本",
+    "countLabel": "{count} 則",
+    "filterAll": "全部",
+    "filterTodo": "待辦",
+    "emptyLine1": "還沒有筆記",
+    "emptyLine2": "在下方新增您的第一則 ✦",
+    "untitled": "無標題",
+    "titlePlaceholder": "標題…",
+    "bodyPlaceholder": "寫下想法、待辦、靈感…",
+    "addCta": "＋ 新增筆記"
+  },
+  "session": {
+    "solo": "Solo 專注模式",
+    "paired": "共同專注",
+    "exitFullscreen": "✕  退出全屏",
+    "completing": "正在結算這次的專注…",
+    "completed": "這次專注已完成，辛苦您了！",
+    "abandonedConfirm": "確定要結束目前的專注嗎？您可以隨時再開始一次。"
+  },
+  "pairingHeader": {
+    "you": "您"
+  },
+  "enter": {
+    "cta": "✦ 進入專注模式 ✦"
+  },
+  "solo": {
+    "topBar": {
+      "backCta": "返回",
+      "backAria": "返回小鎮",
+      "subtitle": "SOLO ROOM",
+      "guestName": "訪客",
+      "statusLine": "連續 {minutes} 分鐘",
+      "focusingLine": "專注中 · 連續 {minutes} min"
+    },
+    "bigTimer": {
+      "headerFocus": "DEEP FOCUS",
+      "headerBreak": "BREAK",
+      "startCta": "開始",
+      "startingCta": "啟動中",
+      "pauseCta": "暫停",
+      "resetCta": "重置",
+      "skipCta": "跳過",
+      "statTodayLabel": "今日專注",
+      "statStreakLabel": "連續天數",
+      "statStreakValue": "{days} 天",
+      "statRankLabel": "本週排名"
+    },
+    "sessionInsight": {
+      "goalLabel": "今日目標 {goal} 🍅",
+      "progressCounter": "{done} / {goal} 完成",
+      "hereLabel": "在這",
+      "tips": {
+        "0": "研究顯示：寫下你「下一個動作」會讓你更快重新進入心流。",
+        "1": "休息時起身、看遠方 20 秒，比滑手機讓你更專注。",
+        "2": "咖啡因半衰期約 5 小時，下午 3 點後喝可能影響睡眠。",
+        "3": "深夜專注：每 90 分鐘起身走動，比熬到底高效。"
+      }
+    },
+    "notes": {
+      "header": "我的筆記",
+      "defaultTitle": "今日筆記",
+      "placeholder": "寫下這次想專注的事…",
+      "toolbar": {
+        "bold": "粗體",
+        "italic": "斜體",
+        "bullet": "項目",
+        "check": "待辦",
+        "header": "標題"
+      },
+      "notSavedYet": "尚未儲存",
+      "autoSavedAgo": "自動儲存 · {seconds} 秒前",
+      "charLineCount": "{chars} 字 · {lines} 行"
+    },
+    "friendsNow": {
+      "header": "FRIENDS NOW",
+      "onlineCount": "{count} 在線",
+      "joinCta": "+1",
+      "tasks": {
+        "writing": "寫作",
+        "coding": "寫程式",
+        "reading": "閱讀",
+        "design": "設計"
+      }
+    },
+    "tasksPanel": {
+      "header": "TASKS",
+      "doneOf": "{done} / {total}",
+      "addPlaceholder": "新增任務，按 Enter…",
+      "addCta": "新增"
+    },
+    "ambientPanel": {
+      "header": "BACKGROUND",
+      "bg": {
+        "cafe": "咖啡館",
+        "rain": "雨夜",
+        "forest": "森林",
+        "space": "太空",
+        "lofi": "lofi 房",
+        "fire": "火爐"
+      }
+    },
+    "soundMixer": {
+      "header": "SOUND MIX",
+      "tracks": {
+        "music": "🎵 lofi",
+        "rain": "☂ 雨聲",
+        "cafe": "☕ 咖啡館",
+        "fire": "🔥 火爐"
+      }
+    },
+    "quickActions": {
+      "dndOn": "勿擾 開",
+      "dndOff": "勿擾 關",
+      "lockPhone": "鎖住手機",
+      "backToTown": "回到小鎮"
+    }
+  },
+  "buddy": {
+    "topBar": {
+      "leaveAria": "離開房間",
+      "leaveCta": "離開房間",
+      "subtitle": "BUDDY ROOM",
+      "sameFocusLabel": "同步專注",
+      "roomLine": "ROOM #{code} · {minutes} min"
+    },
+    "headerCard": {
+      "sameTagLabel": "SAME TAG"
+    },
+    "sharedTimer": {
+      "headerFocus": "SHARED FOCUS · #{num}",
+      "headerBreak": "BREAK",
+      "startCta": "開始",
+      "pauseCta": "暫停",
+      "resetCta": "重置",
+      "skipCta": "跳過",
+      "startAria": "開始計時",
+      "pauseAria": "暫停計時",
+      "resetAria": "重置計時",
+      "skipAria": "跳過",
+      "cooperationHint": "兩人都按下開始才會計時 · 中途離開可能影響本次連續紀錄"
+    },
+    "statusMini": {
+      "header": "即時狀態"
+    },
+    "agenda": {
+      "header": "共同行程",
+      "nowLabel": "NOW",
+      "items": {
+        "0": "番茄 #1 · 各自寫 25 min",
+        "1": "5 min 互唸對方寫的東西",
+        "2": "番茄 #2 · 各自寫 25 min",
+        "3": "番茄 #3 · 改寫 + 互評",
+        "4": "一起去 LOFI BAR 慶祝 ✦"
+      }
+    },
+    "roomMusic": {
+      "header": "ROOM SYNC",
+      "syncStatus": "2/2 同步中",
+      "trackTitle": "midnight city — lofi",
+      "trackSubLine": "♪ 1 / 5 · lofi radio",
+      "playAria": "播放",
+      "pauseAria": "暫停"
+    },
+    "sharedPanel": {
+      "chatTab": "共筆對話",
+      "notesTab": "我的筆記",
+      "liveLabel": "LIVE",
+      "onlineCount": "{count} 位在線"
+    },
+    "chat": {
+      "noteLabel": "NOTE",
+      "modeChat": "訊息",
+      "modeNote": "筆記",
+      "attach": "附件",
+      "attachAria": "附加檔案",
+      "shareMusic": "分享音樂",
+      "shareMusicAria": "分享音樂",
+      "pause": "暫停",
+      "pauseAria": "暫停番茄",
+      "typeMsg": "輸入訊息…"
+    },
+    "notes": {
+      "defaultTitle": "共同筆記",
+      "partnerEditing": "夥伴正在編輯第 {line} 行",
+      "autoSaved": "自動儲存 · 已同步",
+      "autoSavedIdle": "尚未編輯"
+    }
+  }
+}
