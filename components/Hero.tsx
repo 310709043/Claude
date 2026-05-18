@@ -67,20 +67,27 @@ export default function Hero() {
           className="relative mx-auto"
         >
           <div className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
-            <div className="absolute -inset-4 rounded-full bg-gradient-to-tr from-accent/40 via-fuchsia-500/30 to-accent2/40 blur-2xl" />
-            <div className="relative w-full h-full rounded-full overflow-hidden glow-ring border border-border bg-panel">
+            {/* outer pulsating glow */}
+            <div className="absolute -inset-8 rounded-full bg-gradient-to-tr from-accent/40 via-fuchsia-500/30 to-accent2/40 blur-3xl animate-pulse-slow" />
+            {/* rotating conic ring */}
+            <div className="absolute -inset-2 rounded-full conic-ring opacity-80" />
+            {/* shimmering border */}
+            <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-white/10 bg-panel shadow-[0_30px_80px_-20px_rgba(124,92,255,0.6)]">
+              <div className="absolute inset-0 z-10 flex items-center justify-center text-7xl font-bold text-gradient pointer-events-none">
+                ET
+              </div>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={profile.photo}
                 alt={profile.nameEn}
-                className="w-full h-full object-cover"
+                className="relative z-20 w-full h-full object-cover"
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).style.display = 'none';
                 }}
               />
-              <div className="absolute inset-0 flex items-center justify-center text-7xl font-bold text-gradient -z-0">
-                ET
-              </div>
+              {/* inner highlight */}
+              <div className="absolute inset-0 z-30 rounded-full ring-1 ring-inset ring-white/15 pointer-events-none" />
+              <div className="absolute inset-0 z-30 rounded-full bg-gradient-to-t from-bg/40 to-transparent pointer-events-none" />
             </div>
 
             <div className="absolute -bottom-4 -right-2 card px-4 py-3 text-xs">
