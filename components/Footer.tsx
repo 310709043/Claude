@@ -1,3 +1,5 @@
+'use client';
+
 import { profile } from '@/lib/data';
 
 export default function Footer() {
@@ -9,7 +11,7 @@ export default function Footer() {
           rights reserved.
         </div>
         <div className="font-mono">
-          Built with Next.js · Tailwind · Supabase · Deployed on Vercel
+          Built with Next.js · Tailwind · Deployed on Vercel
         </div>
       </div>
     </footer>
