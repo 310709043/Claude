@@ -536,8 +536,470 @@
   }
   footer a:hover { color: var(--accent); }
 
+  /* Use cases */
+  .usecase-bg { background: var(--bg); }
+  .usecases {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .usecase {
+    background: var(--bg-2);
+    border: 2px solid var(--border);
+    padding: 24px;
+    text-align: center;
+  }
+  .usecase .ico {
+    font-size: 56px;
+    margin-bottom: 12px;
+  }
+  .usecase h4 {
+    color: var(--accent);
+    font-size: 16px;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  .usecase p {
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+  .usecase .quote {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--border);
+    font-style: italic;
+    font-size: 12px;
+    color: var(--accent-2);
+  }
+
+  /* Pomodoro demo */
+  .demo-bg { background: var(--bg-2); }
+  .demo-window {
+    background: var(--panel);
+    border: 3px solid var(--border);
+    box-shadow: 8px 8px 0 var(--border);
+    max-width: 720px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .demo-titlebar {
+    background: var(--bg);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 2px solid var(--border);
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot.r { background: var(--danger); }
+  .dot.y { background: var(--accent); }
+  .dot.g { background: var(--success); }
+  .demo-body {
+    padding: 40px;
+    text-align: center;
+  }
+  .demo-timer {
+    font-size: 80px;
+    color: var(--accent);
+    letter-spacing: 4px;
+    margin: 20px 0;
+    font-family: 'Courier New', monospace;
+  }
+  .demo-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .demo-progress {
+    height: 8px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    margin: 24px 0;
+    overflow: hidden;
+  }
+  .demo-progress .bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-3));
+    width: 65%;
+    animation: progress 4s ease-in-out infinite alternate;
+  }
+  @keyframes progress {
+    from { width: 30%; }
+    to { width: 80%; }
+  }
+  .demo-coins {
+    background: var(--bg);
+    border: 2px solid var(--accent);
+    padding: 12px 24px;
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 14px;
+    color: var(--accent);
+  }
+  .demo-coins strong { font-size: 22px; }
+
+  /* Stats banner */
+  .stats-banner {
+    background: linear-gradient(135deg, #2a1f4d, #4a3a8a);
+    padding: 60px 40px;
+    border-top: 4px solid var(--accent);
+    border-bottom: 4px solid var(--accent);
+  }
+  .stats-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 32px;
+    text-align: center;
+  }
+  .stat-big .num {
+    font-size: 48px;
+    color: var(--accent);
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  .stat-big .lbl {
+    font-size: 12px;
+    color: var(--text);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* Achievements */
+  .achievement-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+  }
+  .achievement {
+    background: var(--bg-2);
+    border: 2px solid var(--border);
+    padding: 20px;
+    text-align: center;
+    position: relative;
+  }
+  .achievement.locked { opacity: 0.4; }
+  .achievement.rare { border-color: var(--accent-3); box-shadow: 0 0 12px rgba(255,158,199,0.3); }
+  .achievement.gold { border-color: var(--accent); box-shadow: 0 0 12px rgba(255,217,102,0.3); }
+  .achievement .badge-ico { font-size: 48px; margin-bottom: 8px; }
+  .achievement .badge-name { font-size: 12px; color: var(--text); }
+  .achievement .badge-desc { font-size: 10px; color: var(--text-dim); margin-top: 4px; }
+  .achievement .rarity {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font-size: 9px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+  }
+
+  /* Testimonials */
+  .testimonial-bg { background: var(--bg); }
+  .testimonials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .testimonial {
+    background: var(--bg-2);
+    border: 2px solid var(--border);
+    padding: 28px;
+    box-shadow: 4px 4px 0 var(--border);
+  }
+  .testimonial .stars {
+    color: var(--accent);
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    position: static;
+    background: none;
+    opacity: 1;
+    animation: none;
+  }
+  .testimonial .quote {
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .testimonial .person {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--border);
+  }
+  .testimonial .avatar {
+    width: 40px;
+    height: 40px;
+    background: var(--panel);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+  .testimonial .person .name {
+    font-size: 13px;
+    color: var(--accent);
+  }
+  .testimonial .person .role {
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  /* Pricing */
+  .pricing-bg { background: var(--bg-2); }
+  .pricing {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .price-card {
+    background: var(--panel);
+    border: 2px solid var(--border);
+    padding: 36px 32px;
+    position: relative;
+    box-shadow: 6px 6px 0 var(--border);
+  }
+  .price-card.featured {
+    border-color: var(--accent);
+    transform: scale(1.02);
+  }
+  .price-card .badge-top {
+    position: absolute;
+    top: -14px;
+    left: 24px;
+    background: var(--accent);
+    color: var(--bg);
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+  .price-name {
+    font-size: 14px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .price-amount {
+    font-size: 48px;
+    color: var(--accent);
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  .price-amount .small { font-size: 16px; color: var(--text-dim); }
+  .price-desc {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .price-features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 24px;
+  }
+  .price-features li {
+    padding: 8px 0;
+    padding-left: 28px;
+    position: relative;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .price-features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--success);
+    font-weight: bold;
+  }
+  .price-features li.dim { color: var(--text-dim); }
+  .price-features li.dim::before { content: "—"; color: var(--text-dim); }
+
+  /* Comparison */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-2);
+    border: 2px solid var(--border);
+    box-shadow: 6px 6px 0 var(--border);
+  }
+  .compare-table th, .compare-table td {
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .compare-table th {
+    background: var(--panel);
+    color: var(--text-dim);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .compare-table th.ours { color: var(--accent); background: var(--bg); }
+  .compare-table td.check { color: var(--success); font-size: 18px; text-align: center; }
+  .compare-table td.cross { color: var(--text-dim); font-size: 18px; text-align: center; }
+  .compare-table tr:last-child td { border-bottom: none; }
+
+  /* Roadmap */
+  .roadmap-bg { background: var(--bg); }
+  .roadmap {
+    position: relative;
+    padding-left: 40px;
+  }
+  .roadmap::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--border);
+  }
+  .roadmap-item {
+    position: relative;
+    padding: 20px 24px;
+    background: var(--bg-2);
+    border: 2px solid var(--border);
+    margin-bottom: 16px;
+  }
+  .roadmap-item::before {
+    content: "";
+    position: absolute;
+    left: -38px;
+    top: 28px;
+    width: 16px;
+    height: 16px;
+    background: var(--border);
+    border: 3px solid var(--bg);
+  }
+  .roadmap-item.done::before { background: var(--success); }
+  .roadmap-item.now::before { background: var(--accent); box-shadow: 0 0 12px var(--accent); animation: pulse 2s infinite; }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,217,102,0.6); }
+    50% { box-shadow: 0 0 0 12px rgba(255,217,102,0); }
+  }
+  .roadmap-item .status {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 8px;
+    background: var(--border);
+    color: var(--text);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .roadmap-item.done .status { background: var(--success); color: var(--bg); }
+  .roadmap-item.now .status { background: var(--accent); color: var(--bg); }
+  .roadmap-item h4 {
+    color: var(--text);
+    margin-bottom: 4px;
+    font-size: 16px;
+  }
+  .roadmap-item p {
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+
+  /* Press */
+  .press-bg { background: var(--bg-2); }
+  .press-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    gap: 32px;
+    padding: 20px 0;
+  }
+  .press-logo {
+    color: var(--text-dim);
+    font-size: 20px;
+    letter-spacing: 3px;
+    font-weight: bold;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+  .press-logo:hover { opacity: 1; color: var(--accent); }
+
+  /* Community */
+  .community-bg { background: var(--bg); }
+  .community-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .community-card {
+    background: var(--bg-2);
+    border: 2px solid var(--border);
+    padding: 24px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.15s;
+    display: block;
+  }
+  .community-card:hover {
+    border-color: var(--accent);
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 var(--border);
+  }
+  .community-card .ico { font-size: 40px; margin-bottom: 12px; }
+  .community-card h4 { font-size: 14px; color: var(--accent); margin-bottom: 4px; }
+  .community-card p { font-size: 11px; color: var(--text-dim); }
+
+  /* Newsletter */
+  .newsletter {
+    background: var(--panel);
+    border: 2px solid var(--border);
+    padding: 40px;
+    text-align: center;
+    box-shadow: 6px 6px 0 var(--border);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .newsletter h3 {
+    color: var(--accent);
+    font-size: 22px;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  .newsletter p {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+  .newsletter-form {
+    display: flex;
+    gap: 8px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .newsletter-form input {
+    flex: 1;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    color: var(--text);
+    padding: 12px 16px;
+    font-family: inherit;
+    font-size: 13px;
+  }
+  .newsletter-form input:focus { outline: none; border-color: var(--accent); }
+
   /* Responsive */
   @media (max-width: 768px) {
+    .pricing { grid-template-columns: 1fr; }
+    .demo-timer { font-size: 56px; }
+    .price-card.featured { transform: none; }
     .hero h1 { font-size: 40px; }
     .hero p.lead { font-size: 16px; }
     .nav { padding: 12px 20px; }
@@ -556,9 +1018,11 @@
   <div class="nav-logo">▣ FOCUS TOWN</div>
   <div class="nav-links">
     <a href="#features">特色</a>
+    <a href="#demo">Demo</a>
     <a href="#how">怎麼玩</a>
-    <a href="#showcase">房間</a>
-    <a href="#faq">常見問題</a>
+    <a href="#pricing">定價</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#faq">FAQ</a>
     <a href="#signup" class="btn">免費註冊</a>
   </div>
 </nav>
@@ -652,6 +1116,54 @@
   </div>
 </section>
 
+<!-- PRESS / AS SEEN ON -->
+<section class="press-bg" style="padding: 40px 40px;">
+  <div class="container">
+    <div style="text-align: center; color: var(--text-dim); font-size: 11px; letter-spacing: 3px; margin-bottom: 20px;">
+      AS SEEN ON · 媒體報導
+    </div>
+    <div class="press-row">
+      <div class="press-logo">▸ Product Hunt</div>
+      <div class="press-logo">▸ Hacker News</div>
+      <div class="press-logo">▸ INSIDE 硬塞</div>
+      <div class="press-logo">▸ TechCrunch</div>
+      <div class="press-logo">▸ 數位時代</div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section class="demo-bg" id="demo">
+  <div class="container">
+    <div class="section-tag">LIVE DEMO · 實際運作</div>
+    <h2 class="section-title">這就是你打開 Focus Town 時看到的</h2>
+    <p class="section-sub">25 分鐘專注計時 · 進度條同步街景燈光變化 · 結束自動入帳。</p>
+
+    <div class="demo-window">
+      <div class="demo-titlebar">
+        <div class="dot r"></div>
+        <div class="dot y"></div>
+        <div class="dot g"></div>
+        <span style="margin-left: 12px;">focustown.app/town/focus</span>
+      </div>
+      <div class="demo-body">
+        <div class="demo-label">▶ 專注中 · Deep Work</div>
+        <div class="demo-timer">16:24</div>
+        <div class="demo-progress">
+          <div class="bar"></div>
+        </div>
+        <div class="demo-label">完成後可獲得</div>
+        <div class="demo-coins">
+          <strong>◉ +25</strong> coins
+        </div>
+        <div style="margin-top: 20px; color: var(--text-dim); font-size: 12px;">
+          ▸ 街上有 67 位鎮民正在和你一起努力
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- HOW IT WORKS -->
 <section id="how" class="how-bg">
   <div class="container">
@@ -674,6 +1186,42 @@
         <div class="num">3</div>
         <h4>布置、邀請</h4>
         <p>到商店買喜歡的東西放進房間，分享房間連結給朋友，一起聽音樂、發呆。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="usecase-bg" id="usecases">
+  <div class="container">
+    <div class="section-tag">USE CASES · 適合誰用</div>
+    <h2 class="section-title">不管你今天在做什麼</h2>
+    <p class="section-sub">這些鎮民和你一樣，每天用 Focus Town 找回專注。</p>
+
+    <div class="usecases">
+      <div class="usecase">
+        <div class="ico">📚</div>
+        <h4>學生</h4>
+        <p>準備期中考、寫論文、刷題目。看到街上其他人也在讀書，就比較撐得下去。</p>
+        <div class="quote">「考研究所的孤獨被治癒了」</div>
+      </div>
+      <div class="usecase">
+        <div class="ico">💻</div>
+        <h4>遠端工作者</h4>
+        <p>在家工作容易分心，但同事不在身邊。讓街景陪你、讓朋友的房間音樂陪你。</p>
+        <div class="quote">「比 Cafe 噪音 app 有靈魂」</div>
+      </div>
+      <div class="usecase">
+        <div class="ico">✍️</div>
+        <h4>創作者</h4>
+        <p>寫稿、剪片、畫圖，需要長時間進入心流。專屬房間 + 自選音樂打造你的工作室。</p>
+        <div class="quote">「儀式感讓我提早 1 小時開工」</div>
+      </div>
+      <div class="usecase">
+        <div class="ico">🧘</div>
+        <h4>任何想專注的人</h4>
+        <p>不必很有生產力。只想安安靜靜做自己的事情、有人在旁邊陪一下，這裡就是你的角落。</p>
+        <div class="quote">「不是工具，是一個地方」</div>
       </div>
     </div>
   </div>
@@ -771,6 +1319,322 @@
         <div class="price">800</div>
         <div class="cat">DECORATION</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BANNER -->
+<div class="stats-banner">
+  <div class="stats-grid">
+    <div class="stat-big">
+      <div class="num">1,284</div>
+      <div class="lbl">已加入鎮民</div>
+    </div>
+    <div class="stat-big">
+      <div class="num">86,420</div>
+      <div class="lbl">累計專注次數</div>
+    </div>
+    <div class="stat-big">
+      <div class="num">2.4M</div>
+      <div class="lbl">分鐘專注時間</div>
+    </div>
+    <div class="stat-big">
+      <div class="num">4.8★</div>
+      <div class="lbl">使用者評分</div>
+    </div>
+  </div>
+</div>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="container">
+    <div class="section-tag">ACHIEVEMENTS · 成就徽章</div>
+    <h2 class="section-title">努力都被看見</h2>
+    <p class="section-sub">超過 30 種成就徽章，從第一次完成 25 分鐘到深夜貓頭鷹，每個里程碑都有紀念品。</p>
+
+    <div class="achievement-grid">
+      <div class="achievement gold">
+        <div class="rarity">★★★★★</div>
+        <div class="badge-ico">🏆</div>
+        <div class="badge-name">第一個 100 小時</div>
+        <div class="badge-desc">累積 100 hr 專注</div>
+      </div>
+      <div class="achievement rare">
+        <div class="rarity">★★★★</div>
+        <div class="badge-ico">🦉</div>
+        <div class="badge-name">夜貓子</div>
+        <div class="badge-desc">凌晨 0-4 點專注</div>
+      </div>
+      <div class="achievement">
+        <div class="rarity">★★★</div>
+        <div class="badge-ico">🔥</div>
+        <div class="badge-name">7 天連勝</div>
+        <div class="badge-desc">連續 7 天完成</div>
+      </div>
+      <div class="achievement">
+        <div class="rarity">★★</div>
+        <div class="badge-ico">🏠</div>
+        <div class="badge-name">好客主</div>
+        <div class="badge-desc">招待 10 位訪客</div>
+      </div>
+      <div class="achievement">
+        <div class="rarity">★★</div>
+        <div class="badge-ico">🎵</div>
+        <div class="badge-name">DJ 鎮民</div>
+        <div class="badge-desc">收藏 20 首歌</div>
+      </div>
+      <div class="achievement locked">
+        <div class="rarity">★★★★★</div>
+        <div class="badge-ico">🌟</div>
+        <div class="badge-name">??????</div>
+        <div class="badge-desc">尚未解鎖</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonial-bg" id="testimonials">
+  <div class="container">
+    <div class="section-tag">TESTIMONIALS · 鎮民心聲</div>
+    <h2 class="section-title">他們已經搬進來了</h2>
+    <p class="section-sub">真實使用者回饋，加入 Focus Town 90 天後的改變。</p>
+
+    <div class="testimonials">
+      <div class="testimonial">
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <div class="quote">「我考研期間每天都打開它，看到街上其他人也在讀書就覺得不孤單。最後上岸了，我把第一個月的 coins 都拿去買了一台復古小車當紀念。」</div>
+        <div class="person">
+          <div class="avatar">📚</div>
+          <div>
+            <div class="name">小薇</div>
+            <div class="role">研究生 · 鎮民 #0234</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <div class="quote">「比 Forest 更有趣，比一般 pomodoro 更有溫度。我會邀請 remote 同事到我的房間一起工作，聽同一首音樂，比 Zoom mute 開著好太多了。」</div>
+        <div class="person">
+          <div class="avatar">💻</div>
+          <div>
+            <div class="name">Kevin</div>
+            <div class="role">Software Engineer · 鎮民 #0891</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <div class="quote">「我每天起床第一件事就是登入看街上人多不多。布置房間變成我的紓壓嗜好，coins 不夠用又會逼我再多寫一份稿。良性循環。」</div>
+        <div class="person">
+          <div class="avatar">✍️</div>
+          <div>
+            <div class="name">Lily</div>
+            <div class="role">自由文字工作者 · 鎮民 #0412</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-bg" id="pricing">
+  <div class="container">
+    <div class="section-tag">PRICING · 訂閱方案</div>
+    <h2 class="section-title">永久免費，認真的</h2>
+    <p class="section-sub">核心功能完全免費。FOCUS+ 是給想支持我們、想要更多客製化的鎮民。</p>
+
+    <div class="pricing">
+      <div class="price-card">
+        <div class="price-name">FREE</div>
+        <div class="price-amount">$0 <span class="small">/ 永久</span></div>
+        <div class="price-desc">所有人都能用的核心功能</div>
+        <ul class="price-features">
+          <li>完整街景體驗</li>
+          <li>無限 Focus sessions</li>
+          <li>賺 coins 購買所有基本商品</li>
+          <li>專屬房間（最多 20 件裝飾）</li>
+          <li>每房 20 首音樂庫</li>
+          <li>最多 5 位訪客同時造訪</li>
+          <li class="dim">限定主題房</li>
+          <li class="dim">無廣告（其實也沒廣告）</li>
+        </ul>
+        <a href="#signup" class="btn btn-ghost" style="width: 100%; text-align: center; display: block;">免費註冊</a>
+      </div>
+
+      <div class="price-card featured">
+        <div class="badge-top">★ POPULAR</div>
+        <div class="price-name">FOCUS+</div>
+        <div class="price-amount">$4.99 <span class="small">/ 月</span></div>
+        <div class="price-desc">支持我們，解鎖收藏家的小確幸</div>
+        <ul class="price-features">
+          <li>FREE 全部功能</li>
+          <li>每月 +500 coins 加值</li>
+          <li>專屬 FOCUS+ 角色 / 車輛</li>
+          <li>4 種限定主題房（極光、深海…）</li>
+          <li>音樂上限增至 50 首/房</li>
+          <li>專屬徽章顯示在街上</li>
+          <li>優先客服回應</li>
+          <li>支持小團隊持續開發 💛</li>
+        </ul>
+        <a href="#signup" class="btn" style="width: 100%; text-align: center; display: block;">升級 FOCUS+</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section id="compare">
+  <div class="container">
+    <div class="section-tag">COMPARISON · 為什麼選 Focus Town</div>
+    <h2 class="section-title">和其他專注工具比起來</h2>
+    <p class="section-sub">不是要取代誰，只是想做出我們最想用的那個。</p>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>功能</th>
+          <th class="ours">FOCUS TOWN</th>
+          <th>Forest</th>
+          <th>Pomofocus</th>
+          <th>Study with me</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>番茄鐘 / 專注計時</td>
+          <td class="check">✓</td>
+          <td class="check">✓</td>
+          <td class="check">✓</td>
+          <td class="cross">✕</td>
+        </tr>
+        <tr>
+          <td>看得到其他真實使用者</td>
+          <td class="check">✓</td>
+          <td class="cross">✕</td>
+          <td class="cross">✕</td>
+          <td class="check">✓</td>
+        </tr>
+        <tr>
+          <td>虛擬貨幣 + 商店</td>
+          <td class="check">✓</td>
+          <td class="check">✓</td>
+          <td class="cross">✕</td>
+          <td class="cross">✕</td>
+        </tr>
+        <tr>
+          <td>個人房間 + 自由布置</td>
+          <td class="check">✓</td>
+          <td class="cross">✕</td>
+          <td class="cross">✕</td>
+          <td class="cross">✕</td>
+        </tr>
+        <tr>
+          <td>多人同步音樂播放</td>
+          <td class="check">✓</td>
+          <td class="cross">✕</td>
+          <td class="cross">✕</td>
+          <td class="cross">✕</td>
+        </tr>
+        <tr>
+          <td>無廣告</td>
+          <td class="check">✓</td>
+          <td class="cross">✕</td>
+          <td class="cross">✕</td>
+          <td class="cross">✕</td>
+        </tr>
+        <tr>
+          <td>有趣到願意每天打開</td>
+          <td class="check">✓</td>
+          <td class="check">✓</td>
+          <td class="cross">✕</td>
+          <td class="check">✓</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="roadmap-bg" id="roadmap">
+  <div class="container" style="max-width: 800px;">
+    <div class="section-tag">ROADMAP · 接下來會做什麼</div>
+    <h2 class="section-title">透明的開發進度</h2>
+    <p class="section-sub">我們不藏路線圖。看到想要的功能，到 Discord 投你那一票。</p>
+
+    <div class="roadmap">
+      <div class="roadmap-item done">
+        <span class="status">DONE · 2026 Q1</span>
+        <h4>核心系統上線</h4>
+        <p>街景、商店、Focus session、coins、房間、訪客系統、多人同步音樂。</p>
+      </div>
+      <div class="roadmap-item now">
+        <span class="status">NOW · 2026 Q2</span>
+        <h4>正式公開上線 + AWS 部署</h4>
+        <p>從測試環境搬到 AWS Lightsail，網域開放、SES 寄信、自動備份完備。</p>
+      </div>
+      <div class="roadmap-item">
+        <span class="status">NEXT · 2026 Q3</span>
+        <h4>朋友系統 + 房間連結分享</h4>
+        <p>加好友、看朋友線上狀態、分享房間連結。新增 5 種限定家具。</p>
+      </div>
+      <div class="roadmap-item">
+        <span class="status">PLANNED · 2026 Q4</span>
+        <h4>使用者自上傳音樂 + 行動版</h4>
+        <p>處理版權合規後開放上傳自己的 MP3。手機體驗大幅優化。</p>
+      </div>
+      <div class="roadmap-item">
+        <span class="status">FUTURE</span>
+        <h4>多語系 / 國際化</h4>
+        <p>英文、日文介面，海外鎮民歡迎加入。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section class="community-bg" id="community">
+  <div class="container">
+    <div class="section-tag">COMMUNITY · 找到我們</div>
+    <h2 class="section-title">這座城鎮是大家蓋的</h2>
+    <p class="section-sub">回饋、許願、聊天、看開發直播，在這些地方都找得到我們。</p>
+
+    <div class="community-grid">
+      <a href="#" class="community-card">
+        <div class="ico">💬</div>
+        <h4>Discord</h4>
+        <p>2,400+ 鎮民聊天室</p>
+      </a>
+      <a href="#" class="community-card">
+        <div class="ico">𝕏</div>
+        <h4>Twitter</h4>
+        <p>@focustown_app</p>
+      </a>
+      <a href="#" class="community-card">
+        <div class="ico">📰</div>
+        <h4>開發日誌</h4>
+        <p>每週更新筆記</p>
+      </a>
+      <a href="#" class="community-card">
+        <div class="ico">📧</div>
+        <h4>Email</h4>
+        <p>hello@focustown.app</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section style="background: var(--bg-2);">
+  <div class="container">
+    <div class="newsletter">
+      <h3>✉ 訂閱更新通知</h3>
+      <p>每月一封信，新功能、限定道具、開發者故事。可以隨時取消。</p>
+      <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Demo only — thanks!');">
+        <input type="email" placeholder="your@email.com" required>
+        <button class="btn" type="submit">訂閱</button>
+      </form>
     </div>
   </div>
 </section>
