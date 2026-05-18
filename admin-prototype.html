@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Focus Town · 管理後台 Prototype</title>
+<style>
+  :root {
+    --bg: #1a1d2e;
+    --panel: #232842;
+    --panel-2: #2d3354;
+    --border: #3d4576;
+    --accent: #ffd966;
+    --accent-2: #6bcfff;
+    --danger: #ff6b8a;
+    --success: #6fffaa;
+    --text: #e8eaf6;
+    --text-dim: #9aa0c7;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Courier New', 'Microsoft JhengHei', monospace;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    image-rendering: pixelated;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 240px;
+    background: var(--panel);
+    border-right: 4px solid var(--border);
+    padding: 20px 0;
+    flex-shrink: 0;
+  }
+
+  .logo {
+    padding: 0 20px 20px;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 16px;
+  }
+  .logo h1 {
+    font-size: 18px;
+    color: var(--accent);
+    letter-spacing: 2px;
+  }
+  .logo p {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+
+  .nav-item {
+    display: block;
+    padding: 12px 20px;
+    color: var(--text-dim);
+    text-decoration: none;
+    border-left: 4px solid transparent;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.15s;
+  }
+  .nav-item:hover {
+    background: var(--panel-2);
+    color: var(--text);
+  }
+  .nav-item.active {
+    background: var(--panel-2);
+    color: var(--accent);
+    border-left-color: var(--accent);
+  }
+  .nav-icon { display: inline-block; width: 24px; }
+
+  .admin-info {
+    margin-top: 40px;
+    padding: 16px 20px;
+    border-top: 2px solid var(--border);
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .admin-info strong { color: var(--text); display: block; margin-bottom: 2px; }
+
+  /* Main */
+  .main {
+    flex: 1;
+    padding: 32px 40px;
+    overflow-y: auto;
+  }
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--border);
+  }
+  .page-header h2 {
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+  .page-header .crumb {
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+
+  /* Buttons */
+  .btn {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    padding: 8px 16px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--border);
+    transition: transform 0.1s;
+  }
+  .btn:hover { transform: translate(1px, 1px); box-shadow: 2px 2px 0 var(--border); }
+  .btn:active { transform: translate(3px, 3px); box-shadow: none; }
+  .btn-secondary { background: var(--accent-2); }
+  .btn-danger { background: var(--danger); color: white; }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 2px solid var(--border);
+    box-shadow: none;
+  }
+  .btn-sm { padding: 4px 10px; font-size: 11px; }
+
+  /* Dashboard cards */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .stat-card {
+    background: var(--panel);
+    border: 2px solid var(--border);
+    padding: 20px;
+    box-shadow: 4px 4px 0 var(--border);
+  }
+  .stat-card .label {
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .stat-card .value {
+    font-size: 32px;
+    color: var(--accent);
+    margin: 8px 0 4px;
+    font-weight: bold;
+  }
+  .stat-card .delta {
+    font-size: 12px;
+    color: var(--success);
+  }
+  .stat-card .delta.down { color: var(--danger); }
+
+  /* Tables */
+  .table-wrap {
+    background: var(--panel);
+    border: 2px solid var(--border);
+    box-shadow: 4px 4px 0 var(--border);
+  }
+  .table-toolbar {
+    padding: 16px;
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .search {
+    flex: 1;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    color: var(--text);
+    padding: 8px 12px;
+    font-family: inherit;
+    font-size: 13px;
+  }
+  .search:focus { outline: none; border-color: var(--accent); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th {
+    text-align: left;
+    padding: 12px 16px;
+    background: var(--panel-2);
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--border);
+  }
+  td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  tr:hover td { background: var(--panel-2); }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 10px;
+    border-radius: 0;
+    background: var(--border);
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .badge-active { background: var(--success); color: var(--bg); }
+  .badge-banned { background: var(--danger); color: white; }
+  .badge-admin { background: var(--accent); color: var(--bg); }
+
+  .row-actions { display: flex; gap: 6px; }
+
+  /* Pages */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* Modal */
+  .modal-bg {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+  .modal-bg.show { display: flex; }
+  .modal {
+    background: var(--panel);
+    border: 3px solid var(--border);
+    padding: 24px;
+    width: 480px;
+    box-shadow: 8px 8px 0 rgba(0,0,0,0.4);
+  }
+  .modal h3 { color: var(--accent); margin-bottom: 16px; font-size: 18px; }
+  .form-row { margin-bottom: 14px; }
+  .form-row label {
+    display: block;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .form-row input, .form-row select, .form-row textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    color: var(--text);
+    padding: 8px 12px;
+    font-family: inherit;
+    font-size: 13px;
+  }
+  .form-row textarea { resize: vertical; min-height: 60px; }
+  .modal-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+
+  /* Audit log */
+  .audit-row {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    display: grid;
+    grid-template-columns: 140px 100px 1fr 120px;
+    gap: 16px;
+    align-items: center;
+  }
+  .audit-action {
+    color: var(--accent-2);
+    font-weight: bold;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .audit-action.danger { color: var(--danger); }
+  .audit-time { color: var(--text-dim); font-size: 11px; }
+
+  /* Room card */
+  .room-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .room-card {
+    background: var(--panel);
+    border: 2px solid var(--border);
+    padding: 16px;
+    box-shadow: 4px 4px 0 var(--border);
+  }
+  .room-thumb {
+    height: 100px;
+    background: linear-gradient(135deg, #4a3a8a, #2d3354);
+    border: 2px solid var(--border);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+  }
+  .room-card h4 { font-size: 14px; margin-bottom: 4px; }
+  .room-card .meta { font-size: 11px; color: var(--text-dim); margin-bottom: 10px; }
+  .room-card .actions { display: flex; gap: 6px; }
+
+  /* Pagination */
+  .pagination {
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid var(--border);
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .page-nav { display: flex; gap: 6px; }
+  .page-btn {
+    padding: 4px 10px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 11px;
+  }
+  .page-btn.active { background: var(--accent); color: var(--bg); }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="logo">
+    <h1>▣ FOCUS TOWN</h1>
+    <p>ADMIN CONSOLE v0.1</p>
+  </div>
+
+  <a class="nav-item active" data-page="dashboard">
+    <span class="nav-icon">▦</span>儀表板
+  </a>
+  <a class="nav-item" data-page="users">
+    <span class="nav-icon">👤</span>使用者管理
+  </a>
+  <a class="nav-item" data-page="shop">
+    <span class="nav-icon">🛒</span>商店商品
+  </a>
+  <a class="nav-item" data-page="tracks">
+    <span class="nav-icon">♪</span>音樂庫
+  </a>
+  <a class="nav-item" data-page="rooms">
+    <span class="nav-icon">🏠</span>房間審查
+  </a>
+  <a class="nav-item" data-page="audit">
+    <span class="nav-icon">📋</span>稽核日誌
+  </a>
+
+  <div class="admin-info">
+    <strong>admin@focustown.app</strong>
+    <span>管理員 · 線上</span>
+  </div>
+</aside>
+
+<main class="main">
+
+  <!-- DASHBOARD -->
+  <div class="page active" id="dashboard">
+    <div class="page-header">
+      <div>
+        <h2>儀表板</h2>
+        <div class="crumb">即時數據 · 2026-05-18 14:32</div>
+      </div>
+      <button class="btn btn-ghost">↻ 重新整理</button>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="label">今日新註冊</div>
+        <div class="value">23</div>
+        <div class="delta">↑ 較昨日 +15%</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">今日 Focus Sessions</div>
+        <div class="value">418</div>
+        <div class="delta">↑ +8%</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">現在在線</div>
+        <div class="value">67</div>
+        <div class="delta">街道 52 · 房間 15</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">總用戶數</div>
+        <div class="value">1,284</div>
+        <div class="delta">活躍 (7d) 892</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">今日 Coins 流出</div>
+        <div class="value">12,450</div>
+        <div class="delta down">↓ -3%</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">系統狀態</div>
+        <div class="value" style="color: var(--success); font-size: 22px;">✓ 正常</div>
+        <div class="delta">DB · Redis · S3</div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-toolbar">
+        <strong style="font-size: 14px;">最近活動</strong>
+      </div>
+      <div class="audit-row">
+        <div class="audit-time">14:31:22</div>
+        <div class="audit-action">註冊</div>
+        <div>新使用者 <strong>candy@gmail.com</strong> 加入</div>
+        <div></div>
+      </div>
+      <div class="audit-row">
+        <div class="audit-time">14:28:09</div>
+        <div class="audit-action">購買</div>
+        <div><strong>user_3812</strong> 購買 "Cyber Vehicle" · 500 coins</div>
+        <div></div>
+      </div>
+      <div class="audit-row">
+        <div class="audit-time">14:25:44</div>
+        <div class="audit-action">進房</div>
+        <div><strong>user_2901</strong> 進入 <strong>user_1004</strong> 的房間</div>
+        <div></div>
+      </div>
+      <div class="audit-row">
+        <div class="audit-time">14:22:11</div>
+        <div class="audit-action danger">回報</div>
+        <div>房間 <strong>room_4421</strong> 被回報不雅內容</div>
+        <div><button class="btn btn-sm btn-danger">處理</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- USERS -->
+  <div class="page" id="users">
+    <div class="page-header">
+      <div>
+        <h2>使用者管理</h2>
+        <div class="crumb">共 1,284 位使用者 · 今日活躍 312</div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-toolbar">
+        <input class="search" placeholder="🔍 搜尋 email 或 display_name...">
+        <button class="btn btn-ghost">篩選 ▾</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>使用者</th>
+            <th>角色</th>
+            <th>Coins</th>
+            <th>狀態</th>
+            <th>註冊日</th>
+            <th>最後活躍</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong>alice@example.com</strong><br>
+              <span style="color: var(--text-dim); font-size: 11px;">愛麗絲 · user_1001</span>
+            </td>
+            <td><span class="badge badge-admin">ADMIN</span></td>
+            <td>9,999</td>
+            <td><span class="badge badge-active">啟用</span></td>
+            <td>2026-01-15</td>
+            <td>2 分鐘前</td>
+            <td class="row-actions">
+              <button class="btn btn-sm" onclick="openModal('userEdit')">編輯</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>bob@gmail.com</strong><br>
+              <span style="color: var(--text-dim); font-size: 11px;">小明 · user_1002</span>
+            </td>
+            <td><span class="badge">USER</span></td>
+            <td>1,250</td>
+            <td><span class="badge badge-active">啟用</span></td>
+            <td>2026-02-03</td>
+            <td>5 小時前</td>
+            <td class="row-actions">
+              <button class="btn btn-sm" onclick="openModal('userEdit')">編輯</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>spammer@bad.com</strong><br>
+              <span style="color: var(--text-dim); font-size: 11px;">spammer · user_1003</span>
+            </td>
+            <td><span class="badge">USER</span></td>
+            <td>0</td>
+            <td><span class="badge badge-banned">已停用</span></td>
+            <td>2026-04-20</td>
+            <td>3 天前</td>
+            <td class="row-actions">
+              <button class="btn btn-sm btn-secondary">解封</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>candy@gmail.com</strong><br>
+              <span style="color: var(--text-dim); font-size: 11px;">candy · user_1284</span>
+            </td>
+            <td><span class="badge">USER</span></td>
+            <td>100</td>
+            <td><span class="badge badge-active">啟用</span></td>
+            <td>2026-05-18</td>
+            <td>剛剛</td>
+            <td class="row-actions">
+              <button class="btn btn-sm" onclick="openModal('userEdit')">編輯</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="pagination">
+        <div>顯示 1-4 / 1,284</div>
+        <div class="page-nav">
+          <button class="page-btn">‹</button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <button class="page-btn">...</button>
+          <button class="page-btn">321</button>
+          <button class="page-btn">›</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOP -->
+  <div class="page" id="shop">
+    <div class="page-header">
+      <div>
+        <h2>商店商品</h2>
+        <div class="crumb">42 個商品 · 38 上架 · 4 下架</div>
+      </div>
+      <button class="btn" onclick="openModal('shopAdd')">+ 新增商品</button>
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-toolbar">
+        <input class="search" placeholder="🔍 搜尋商品名稱...">
+        <select class="search" style="flex: 0 0 160px;">
+          <option>全部分類</option>
+          <option>car</option>
+          <option>avatar</option>
+          <option>furniture</option>
+          <option>decoration</option>
+        </select>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>商品</th>
+            <th>分類</th>
+            <th>價格</th>
+            <th>銷售數</th>
+            <th>狀態</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span style="font-size: 24px;">🚗</span>
+              <strong style="margin-left: 8px;">Cyber Vehicle</strong>
+            </td>
+            <td><span class="badge">CAR</span></td>
+            <td><strong style="color: var(--accent);">500</strong> coins</td>
+            <td>127</td>
+            <td><span class="badge badge-active">上架中</span></td>
+            <td class="row-actions">
+              <button class="btn btn-sm">編輯</button>
+              <button class="btn btn-sm btn-danger">下架</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span style="font-size: 24px;">🪴</span>
+              <strong style="margin-left: 8px;">復古盆栽</strong>
+            </td>
+            <td><span class="badge">FURNITURE</span></td>
+            <td><strong style="color: var(--accent);">120</strong> coins</td>
+            <td>58</td>
+            <td><span class="badge badge-active">上架中</span></td>
+            <td class="row-actions">
+              <button class="btn btn-sm">編輯</button>
+              <button class="btn btn-sm btn-danger">下架</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span style="font-size: 24px;">🎩</span>
+              <strong style="margin-left: 8px;">紳士帽 (限定)</strong>
+            </td>
+            <td><span class="badge">AVATAR</span></td>
+            <td><strong style="color: var(--accent);">999</strong> coins</td>
+            <td>3</td>
+            <td><span class="badge">已下架</span></td>
+            <td class="row-actions">
+              <button class="btn btn-sm">編輯</button>
+              <button class="btn btn-sm btn-secondary">上架</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TRACKS -->
+  <div class="page" id="tracks">
+    <div class="page-header">
+      <div>
+        <h2>音樂庫</h2>
+        <div class="crumb">28 首歌 · 總長 2 小時 14 分</div>
+      </div>
+      <button class="btn" onclick="openModal('trackAdd')">+ 上傳新曲</button>
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-toolbar">
+        <input class="search" placeholder="🔍 搜尋歌曲...">
+        <select class="search" style="flex: 0 0 160px;">
+          <option>全部氛圍</option>
+          <option>lofi</option>
+          <option>ambient</option>
+          <option>jazz</option>
+          <option>nature</option>
+        </select>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>歌曲</th>
+            <th>藝人</th>
+            <th>長度</th>
+            <th>氛圍</th>
+            <th>授權</th>
+            <th>播放次數</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span style="font-size: 18px;">♪</span>
+              <strong style="margin-left: 8px;">Midnight Study</strong>
+            </td>
+            <td>Lofi Producer</td>
+            <td>3:24</td>
+            <td><span class="badge">LOFI</span></td>
+            <td>CC-BY 4.0</td>
+            <td>1,284</td>
+            <td class="row-actions">
+              <button class="btn btn-sm">▶</button>
+              <button class="btn btn-sm btn-danger">刪除</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span style="font-size: 18px;">♪</span>
+              <strong style="margin-left: 8px;">Rain on Window</strong>
+            </td>
+            <td>Ambient Collective</td>
+            <td>5:12</td>
+            <td><span class="badge">NATURE</span></td>
+            <td>Public Domain</td>
+            <td>892</td>
+            <td class="row-actions">
+              <button class="btn btn-sm">▶</button>
+              <button class="btn btn-sm btn-danger">刪除</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span style="font-size: 18px;">♪</span>
+              <strong style="margin-left: 8px;">Coffee Shop Vibes</strong>
+            </td>
+            <td>Jazz Cat</td>
+            <td>4:01</td>
+            <td><span class="badge">JAZZ</span></td>
+            <td>CC-BY 4.0</td>
+            <td>567</td>
+            <td class="row-actions">
+              <button class="btn btn-sm">▶</button>
+              <button class="btn btn-sm btn-danger">刪除</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ROOMS -->
+  <div class="page" id="rooms">
+    <div class="page-header">
+      <div>
+        <h2>房間審查</h2>
+        <div class="crumb">1,284 間房 · 15 間目前有訪客 · 1 待審查</div>
+      </div>
+      <select class="search" style="flex: 0 0 200px;">
+        <option>排序：最後活動</option>
+        <option>排序：訪客數</option>
+        <option>排序：被回報</option>
+      </select>
+    </div>
+
+    <div class="room-grid">
+      <div class="room-card" style="border-color: var(--danger);">
+        <div class="room-thumb" style="background: linear-gradient(135deg, #5a2a3a, #3d1d28);">🏚️</div>
+        <h4>room_4421 ⚠️ 已回報</h4>
+        <div class="meta">屋主 spammer@bad.com · 3 人在房內 · 5 件裝飾</div>
+        <div class="actions">
+          <button class="btn btn-sm btn-secondary">查看</button>
+          <button class="btn btn-sm btn-danger">強制清空</button>
+        </div>
+      </div>
+      <div class="room-card">
+        <div class="room-thumb">🌙</div>
+        <h4>愛麗絲的書房</h4>
+        <div class="meta">屋主 alice@example.com · 2 人在房內 · 12 件裝飾</div>
+        <div class="actions">
+          <button class="btn btn-sm btn-secondary">查看</button>
+          <button class="btn btn-sm btn-ghost">···</button>
+        </div>
+      </div>
+      <div class="room-card">
+        <div class="room-thumb" style="background: linear-gradient(135deg, #2a5a4a, #1d3d2d);">🌿</div>
+        <h4>小明的森林小屋</h4>
+        <div class="meta">屋主 bob@gmail.com · 0 人 · 8 件裝飾</div>
+        <div class="actions">
+          <button class="btn btn-sm btn-secondary">查看</button>
+          <button class="btn btn-sm btn-ghost">···</button>
+        </div>
+      </div>
+      <div class="room-card">
+        <div class="room-thumb" style="background: linear-gradient(135deg, #8a6a2a, #5d4520);">☀️</div>
+        <h4>candy 的咖啡店</h4>
+        <div class="meta">屋主 candy@gmail.com · 1 人 · 4 件裝飾</div>
+        <div class="actions">
+          <button class="btn btn-sm btn-secondary">查看</button>
+          <button class="btn btn-sm btn-ghost">···</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUDIT -->
+  <div class="page" id="audit">
+    <div class="page-header">
+      <div>
+        <h2>稽核日誌</h2>
+        <div class="crumb">所有管理者操作紀錄</div>
+      </div>
+      <button class="btn btn-ghost">📥 匯出 CSV</button>
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-toolbar">
+        <input class="search" placeholder="🔍 搜尋操作或目標 ID...">
+        <select class="search" style="flex: 0 0 160px;">
+          <option>全部管理員</option>
+          <option>admin@focustown.app</option>
+        </select>
+        <select class="search" style="flex: 0 0 160px;">
+          <option>全部類型</option>
+          <option>user</option>
+          <option>shop_item</option>
+          <option>room</option>
+          <option>track</option>
+        </select>
+      </div>
+
+      <div class="audit-row">
+        <div class="audit-time">2026-05-18 14:35:02</div>
+        <div class="audit-action danger">USER.DEACTIVATE</div>
+        <div>停用使用者 <strong>spammer@bad.com</strong> · 原因：違反社群守則</div>
+        <div style="font-size: 11px; color: var(--text-dim);">admin@...</div>
+      </div>
+      <div class="audit-row">
+        <div class="audit-time">2026-05-18 14:30:18</div>
+        <div class="audit-action">USER.ADJUST_COINS</div>
+        <div>調整 <strong>bob@gmail.com</strong> 餘額 +500 · 原因：補償 bug</div>
+        <div style="font-size: 11px; color: var(--text-dim);">admin@...</div>
+      </div>
+      <div class="audit-row">
+        <div class="audit-time">2026-05-18 12:18:44</div>
+        <div class="audit-action">SHOP_ITEM.CREATE</div>
+        <div>新增商品 <strong>Cyber Vehicle</strong> · 500 coins · category=car</div>
+        <div style="font-size: 11px; color: var(--text-dim);">admin@...</div>
+      </div>
+      <div class="audit-row">
+        <div class="audit-time">2026-05-18 11:55:12</div>
+        <div class="audit-action">TRACK.UPLOAD</div>
+        <div>上傳新曲 <strong>Midnight Study</strong> · 3:24 · lofi</div>
+        <div style="font-size: 11px; color: var(--text-dim);">admin@...</div>
+      </div>
+      <div class="audit-row">
+        <div class="audit-time">2026-05-18 10:22:05</div>
+        <div class="audit-action danger">ROOM.CLEAR_DECORATIONS</div>
+        <div>清空房間 <strong>room_4421</strong> · 原因：被多人回報</div>
+        <div style="font-size: 11px; color: var(--text-dim);">admin@...</div>
+      </div>
+      <div class="audit-row">
+        <div class="audit-time">2026-05-17 23:14:08</div>
+        <div class="audit-action">SHOP_ITEM.UPDATE</div>
+        <div>下架商品 <strong>紳士帽 (限定)</strong></div>
+        <div style="font-size: 11px; color: var(--text-dim);">admin@...</div>
+      </div>
+
+      <div class="pagination">
+        <div>顯示 1-6 / 287</div>
+        <div class="page-nav">
+          <button class="page-btn">‹</button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <button class="page-btn">›</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Modals -->
+<div class="modal-bg" id="modal-userEdit">
+  <div class="modal">
+    <h3>編輯使用者</h3>
+    <div class="form-row">
+      <label>Email</label>
+      <input value="bob@gmail.com" disabled>
+    </div>
+    <div class="form-row">
+      <label>顯示名稱</label>
+      <input value="小明">
+    </div>
+    <div class="form-row">
+      <label>Coins 餘額（目前 1,250）</label>
+      <input type="number" value="1250">
+    </div>
+    <div class="form-row">
+      <label>操作原因（必填，會寫入稽核日誌）</label>
+      <textarea placeholder="例：補償 2026-05-15 server downtime"></textarea>
+    </div>
+    <div class="form-row">
+      <label>帳號狀態</label>
+      <select>
+        <option>啟用</option>
+        <option>停用（封禁）</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal()">取消</button>
+      <button class="btn btn-danger">強制登出</button>
+      <button class="btn">儲存</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-shopAdd">
+  <div class="modal">
+    <h3>新增商品</h3>
+    <div class="form-row">
+      <label>商品名稱</label>
+      <input placeholder="例：太空船">
+    </div>
+    <div class="form-row">
+      <label>分類</label>
+      <select>
+        <option>car（車輛）</option>
+        <option>avatar（角色）</option>
+        <option>furniture（家具）</option>
+        <option>decoration（裝飾）</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>價格（coins）</label>
+      <input type="number" placeholder="500">
+    </div>
+    <div class="form-row">
+      <label>渲染 metadata（JSON）</label>
+      <textarea placeholder='{"emoji": "🚀", "bodyColor": "#ff6b8a"}'></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal()">取消</button>
+      <button class="btn">建立</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-trackAdd">
+  <div class="modal">
+    <h3>上傳新曲</h3>
+    <div class="form-row">
+      <label>歌曲名稱</label>
+      <input placeholder="例：Cozy Afternoon">
+    </div>
+    <div class="form-row">
+      <label>藝人</label>
+      <input placeholder="例：Lofi Producer">
+    </div>
+    <div class="form-row">
+      <label>氛圍</label>
+      <select>
+        <option>lofi</option>
+        <option>ambient</option>
+        <option>jazz</option>
+        <option>nature</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>授權</label>
+      <input placeholder="例：CC-BY 4.0">
+    </div>
+    <div class="form-row">
+      <label>MP3 檔案（最大 15 MB）</label>
+      <input type="file" accept="audio/mpeg">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal()">取消</button>
+      <button class="btn">上傳</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Nav switching
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      item.classList.add('active');
+      document.getElementById(item.dataset.page).classList.add('active');
+    });
+  });
+
+  // Modals
+  function openModal(id) {
+    document.getElementById('modal-' + id).classList.add('show');
+  }
+  function closeModal() {
+    document.querySelectorAll('.modal-bg').forEach(m => m.classList.remove('show'));
+  }
+  document.querySelectorAll('.modal-bg').forEach(bg => {
+    bg.addEventListener('click', (e) => {
+      if (e.target === bg) closeModal();
+    });
+  });
+</script>
+
+</body>
+</html>
