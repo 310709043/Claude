@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(124, 92, 255, 0.18), transparent 60%),
+    radial-gradient(900px 500px at -10% 30%, rgba(34, 211, 238, 0.12), transparent 60%),
+    #0a0a0f;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0f;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f2030;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2a2c42;
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto max-w-6xl px-6 sm:px-8;
+  }
+  .section {
+    @apply py-20 sm:py-28;
+  }
+  .h-section {
+    @apply text-3xl sm:text-4xl font-bold tracking-tight;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-border bg-panel/60 px-3 py-1 text-xs text-muted;
+  }
+  .card {
+    @apply rounded-2xl border border-border bg-panel/60 backdrop-blur-sm;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all;
+  }
+  .btn-primary {
+    @apply btn bg-gradient-to-r from-accent to-accent2 text-bg hover:opacity-90 hover:shadow-lg hover:shadow-accent/20;
+  }
+  .btn-ghost {
+    @apply btn border border-border text-ink hover:bg-panel;
+  }
+  .glow-ring {
+    box-shadow:
+      0 0 0 1px rgba(124, 92, 255, 0.35),
+      0 10px 60px -10px rgba(124, 92, 255, 0.45);
+  }
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent via-fuchsia-400 to-accent2;
+  }
+}
