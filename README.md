@@ -1,99 +1,102 @@
-# Eric Tang — Personal Portfolio
+# LowBatteryTown / FocusTown
 
-A modern, free-to-host personal website built with **Next.js 14 + TypeScript + Tailwind CSS**, with **Supabase** for the contact form and one-click deploy on **Vercel**.
+> A pixel-art "focus city" web app — find your people, find your focus.
 
-## ✨ Features
+Production rebuild of the Claude Design handoff prototype, ported from Babel-standalone HTML/JSX to **Next.js 14 + TypeScript + Tailwind + Framer Motion**.
 
-- ⚡ Next.js App Router + React Server Components
-- 🎨 Dark theme with gradient accents, Framer Motion animations
-- 📱 Fully responsive (mobile / tablet / desktop)
-- 📝 All content driven by `lib/data.ts` — easy to edit
-- 📨 Contact form ready for Supabase (graceful fallback before keys are set)
-- 🚀 Free hosting: Vercel Hobby + Supabase Free tier
+## Stack
 
----
+- **Next.js 14** (App Router, static export-friendly)
+- **TypeScript** strict
+- **Framer Motion** for screen transitions + micro-interactions
+- **Tailwind CSS** for utility classes (pixel UI is mostly inline-styled to preserve the prototype's pixel-precision)
+- **next/font/google** for self-hosted retro fonts (Press Start 2P, Silkscreen, VT323, DotGothic16, Noto Sans TC)
 
-## 🛠 Local development
+## Run
 
 ```bash
 npm install
-npm run dev
+npm run dev       # http://localhost:3000
+npm run build     # production build
+npm start         # serve production
 ```
 
-Then open http://localhost:3000
-
-## 📁 Project structure
+## Project layout
 
 ```
 app/
-  layout.tsx        # Root layout, fonts, metadata
-  page.tsx          # Home page composition
-  globals.css       # Tailwind + custom styles
-components/         # Hero, About, Skills, Experience, Projects, Education, Contact, Nav, Footer
+  layout.tsx          # Fonts, ThemeProvider, ScanlineOverlay
+  page.tsx            # SPA-style screen switcher with <AnimatePresence/>
+  globals.css         # 3 visual directions (CSS vars) + shared @keyframes + retro utilities
+components/
+  ThemeProvider.tsx   # direction (neon/dusk/rain) + lang (zh/en/ko/ja) + scanlines
+  ScanlineOverlay.tsx
+  Splash.tsx          # Charge-up splash → shared-element morphs into Login logo
+  pixel/              # PixelSprite, AnimatedSprite, StarField, ShootingStars, RainOverlay
+  ui/                 # LogoImage, LangSwitcher, PixelWord, CoinIcon, TCoinBadge, CornerDeco
+  town/               # Weather effects (Snow, Clouds, LightningFlash, Fog)
+  screens/            # LoginScreen, PlaceholderScreen (others pending)
 lib/
-  data.ts           # All resume content — edit here
-  supabase.ts       # Supabase client (lazy-initialized)
+  pixel-engine.ts     # ASCII → canvas → memoized data URL
+  sprites.ts          # AVATARS, WALKERS, CAT_WALK, TREE, BENCH, LAMP, drawSkyline, items
+  buildings.ts        # 11 pixel-art buildings + placement metadata
+  i18n.ts             # zh/en/ko/ja strings + tFor(lang) helper
+  raf.ts              # RAF helper that pauses when tab is hidden + respects reduced-motion
 public/
-  images/           # Put profile.jpg here
+  logo.png            # LowBatteryTown wordmark logo
 ```
 
-## ✏️ Editing content
+## Visual directions
 
-Open `lib/data.ts` — every section reads from this single file (profile, about, skills, experience, projects, education, certifications, languages).
+Three full-app themes selected via `data-direction` on `<html>`:
 
-## 🖼 Profile photo
+- `neon` — deep purple night, magenta/cyan accents (default)
+- `dusk` — warm rose / amber sundown
+- `rain` — cool cyan synthwave with vertical rain
 
-Put your headshot at `public/images/profile.jpg` (square ratio recommended, ≥ 600×600). If missing, the hero shows a graceful fallback initials.
+Switch them via the dev menu (when added) or by setting `localStorage.setItem('lbt.theme', '{"direction":"dusk"}')`.
 
-## 📄 Resume PDF
+## Animation philosophy
 
-Drop your resume at `public/EricTang_Resume.pdf` so the "下載履歷" button works.
+- **CSS `@keyframes`** for tight pixel-correct loops (blink, neon flicker, drift, caret-blink) — Framer's spring physics would smear pixel art.
+- **Framer Motion** for higher-order motion: screen transitions, panel entrance, splash → logo shared-element morph, count-up tweens, hover springs.
+- **Canvas + RAF** for ambient particles (stars, shooting stars, rain, snow, drifting clouds). All canvases pause when `document.hidden` is true and throttle to ~12 fps when `prefers-reduced-motion` is set.
 
----
+## Performance
 
-## 🗄 Supabase setup (for contact form)
+- No CDN scripts at runtime (zero `babel-standalone`).
+- First Load JS for `/` is ~132 kB; screens are code-split via `next/dynamic`.
+- Sprite data URLs are memoized at module scope (`lib/pixel-engine.ts`), so re-renders are free.
 
-1. Create a free project at https://supabase.com
-2. In SQL editor, run:
+## Status
 
-```sql
-create table public.messages (
-  id uuid primary key default gen_random_uuid(),
-  name text not null,
-  email text not null,
-  message text not null,
-  created_at timestamptz not null default now()
-);
+| Screen | Status |
+|---|---|
+| Login | ✅ Ported (high fidelity) |
+| Character | 🚧 Placeholder |
+| Town | 🚧 Placeholder |
+| Solo Focus Room | 🚧 Placeholder |
+| Buddy Room | 🚧 Placeholder |
 
-alter table public.messages enable row level security;
+## Adding sprites
 
-create policy "Allow anonymous inserts"
-  on public.messages for insert
-  to anon
-  with check (true);
+Sprites are multi-line ASCII strings where each character is a pixel.
+"." or " " = transparent.  Any other char is a palette key.
+
+```ts
+import { PixelSprite } from '@/components/pixel/PixelSprite';
+
+const HEART = `
+.RR.RR.
+RRRRRRR
+.RRRRR.
+..RRR..
+...R...
+`;
+<PixelSprite sprite={HEART} palette={{ R: '#ec4899' }} scale={4} glow="#ec4899" />
 ```
 
-3. Copy the project URL and `anon` public key from **Project Settings → API**.
+## Credits
 
-4. Add to `.env.local` (and to Vercel env vars):
-
-```
-NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGc...
-```
-
-## 🚀 Deploy to Vercel (free)
-
-1. Push this repo to GitHub.
-2. Go to https://vercel.com/new and import the repo.
-3. Vercel auto-detects Next.js — keep defaults.
-4. Add the two `NEXT_PUBLIC_SUPABASE_*` environment variables.
-5. Deploy. Done.
-
-A custom domain can be added under **Settings → Domains** (free `.vercel.app` subdomain works out of the box).
-
----
-
-## 🪪 License
-
-Personal portfolio of Eric Tang (曾詳藝). Code is free to fork as a template.
+Original design: Claude Design handoff (`focus-town-remix`).
+Pixel art, palette, and string tables in `lib/sprites.ts` / `lib/buildings.ts` / `lib/i18n.ts` come from the prototype.

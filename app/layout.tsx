@@ -1,40 +1,77 @@
-import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
-import { LanguageProvider } from '@/lib/i18n';
+import type { Metadata, Viewport } from 'next';
+import {
+  Noto_Sans_TC,
+  Silkscreen,
+  Press_Start_2P,
+  VT323,
+  DotGothic16,
+} from 'next/font/google';
+import { ThemeProvider } from '@/components/ThemeProvider';
+import { ScanlineOverlay } from '@/components/ScanlineOverlay';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
-const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' });
+const notoTC = Noto_Sans_TC({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  variable: '--font-noto-tc',
+  display: 'swap',
+});
+const silkscreen = Silkscreen({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-silkscreen',
+  display: 'swap',
+});
+const pressStart = Press_Start_2P({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-press-start',
+  display: 'swap',
+});
+const vt323 = VT323({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-vt323',
+  display: 'swap',
+});
+const dotGothic = DotGothic16({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-dot-gothic',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
-  title: 'Eric Tang — Operations Manager & PM',
+  title: 'LowBatteryTown — 充電中的城市 · 找你的人 · 找你的專注',
   description:
-    'Eric Tang (曾詳藝) — 跨國營運分析 × 產品專案管理 × AI 應用。從 0 到 1 創造可量化的商業價值。',
-  keywords: [
-    'Eric Tang',
-    '曾詳藝',
-    'Product Manager',
-    'Operations Manager',
-    'Business Analyst',
-    '產品經理',
-    '營運管理',
-  ],
-  openGraph: {
-    title: 'Eric Tang — Operations Manager & PM',
-    description: '跨國營運分析 × 產品專案管理 × AI 應用',
-    type: 'website',
-  },
+    'LowBatteryTown is a pixel-art focus city. Find your people, find your focus.',
+  keywords: ['LowBatteryTown', 'FocusTown', '專注', 'Pomodoro', 'pixel art', 'lofi'],
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const viewport: Viewport = {
+  themeColor: '#07041a',
+  width: 'device-width',
+  initialScale: 1,
+};
+
+const fontVars = [
+  notoTC.variable,
+  silkscreen.variable,
+  pressStart.variable,
+  vt323.variable,
+  dotGothic.variable,
+].join(' ');
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh-Hant" className={`${inter.variable} ${mono.variable}`}>
-      <body className="bg-bg text-ink antialiased">
-        <LanguageProvider>{children}</LanguageProvider>
+    <html lang="zh-Hant" className={fontVars} suppressHydrationWarning>
+      <body>
+        <ThemeProvider>
+          <ScanlineOverlay />
+          <div id="root" className="crt" style={{ height: '100%' }}>
+            {children}
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
