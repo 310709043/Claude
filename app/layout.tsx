@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   title: 'LowBatteryTown — 充電中的城市 · 找你的人 · 找你的專注',
   description:
     'LowBatteryTown is a pixel-art focus city. Find your people, find your focus.',
-  keywords: ['LowBatteryTown', 'FocusTown', '專注', 'Pomodoro', 'pixel art', 'lofi'],
+  keywords: ['LowBatteryTown', '專注', 'Pomodoro', 'pixel art', 'lofi'],
 };
 
 export const viewport: Viewport = {

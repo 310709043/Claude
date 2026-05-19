@@ -1,8 +1,18 @@
-# LowBatteryTown / FocusTown
+# LowBatteryTown
 
 > A pixel-art "focus city" web app — find your people, find your focus.
 
 Production rebuild of the Claude Design handoff prototype, ported from Babel-standalone HTML/JSX to **Next.js 14 + TypeScript + Tailwind + Framer Motion**.
+
+## View the original prototype
+
+The original Claude Design handoff prototype is hosted alongside the rebuild for side-by-side comparison.
+After `npm run dev`, open:
+
+- **Production rebuild** — http://localhost:3000/
+- **Original prototype** — http://localhost:3000/prototype/FocusTown.html
+
+The prototype needs to be served over `http://` (not `file://`) because Babel-standalone fetches the sibling `.jsx` modules at runtime; serving it from Next.js's `public/prototype/` directory makes those fetches work.
 
 ## Stack
 
