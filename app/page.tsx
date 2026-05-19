@@ -12,6 +12,22 @@ const LoginScreen = dynamic(
   () => import('@/components/screens/LoginScreen').then((m) => m.LoginScreen),
   { ssr: false, loading: () => null },
 );
+const CharacterScreen = dynamic(
+  () => import('@/components/screens/CharacterScreen').then((m) => m.CharacterScreen),
+  { ssr: false, loading: () => null },
+);
+const TownScreen = dynamic(
+  () => import('@/components/screens/TownScreen').then((m) => m.TownScreen),
+  { ssr: false, loading: () => null },
+);
+const SoloFocusScreen = dynamic(
+  () => import('@/components/screens/SoloFocusScreen').then((m) => m.SoloFocusScreen),
+  { ssr: false, loading: () => null },
+);
+const BuddyRoomScreen = dynamic(
+  () => import('@/components/screens/BuddyRoomScreen').then((m) => m.BuddyRoomScreen),
+  { ssr: false, loading: () => null },
+);
 
 type Screen = 'login' | 'character' | 'town' | 'solo' | 'buddy';
 
@@ -52,41 +68,43 @@ export default function Page() {
           />
         )}
         {screen === 'character' && (
-          <PlaceholderScreen
+          <CharacterScreen
             key="character"
-            title={t('regTitle')}
-            subtitle="(porting in progress)"
             onBack={() => setScreen('login')}
-            backLabel={t('backToSignin') as string}
-            onPrimary={() => setScreen('town')}
-            primaryLabel={t('next') as string}
+            onContinue={(p) => {
+              setProfile({
+                ...profile,
+                name: p.name,
+                avatarId: p.avatarId,
+                interests: p.interests,
+                skills: p.skills,
+                goal: p.goal,
+              });
+              setScreen('town');
+            }}
           />
         )}
         {screen === 'town' && (
-          <PlaceholderScreen
+          <TownScreen
             key="town"
-            title={t('appName')}
-            subtitle={t('tagline') as string}
-            onBack={() => setScreen('login')}
-            backLabel={t('logout') as string}
-            onPrimary={() => setScreen('solo')}
-            primaryLabel={t('soloFocus') as string}
+            profile={profile}
+            onLogout={() => setScreen('login')}
+            onOpenSolo={() => setScreen('solo')}
+            onOpenBuddy={() => setScreen('buddy')}
           />
         )}
         {screen === 'solo' && (
-          <PlaceholderScreen
+          <SoloFocusScreen
             key="solo"
-            title={t('soloRoom')}
-            onBack={() => setScreen('town')}
-            backLabel={t('back') as string}
+            profile={profile}
+            onExit={() => setScreen('town')}
           />
         )}
         {screen === 'buddy' && (
-          <PlaceholderScreen
+          <BuddyRoomScreen
             key="buddy"
-            title={t('buddyRoom')}
-            onBack={() => setScreen('town')}
-            backLabel={t('back') as string}
+            profile={profile}
+            onExit={() => setScreen('town')}
           />
         )}
       </AnimatePresence>
