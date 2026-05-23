@@ -1,0 +1,27 @@
+{
+  "name": "nocturne-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Remotion intro/feature/user-flow video for the Nocturne (夜訊) prototype",
+  "scripts": {
+    "gen:ambient": "node scripts/gen-ambient.mjs",
+    "studio": "remotion studio",
+    "still": "remotion still src/index.ts Nocturne --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell",
+    "render": "remotion render src/index.ts Nocturne out/nocturne.mp4 --concurrency=4 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.465",
+    "@remotion/google-fonts": "^4.0.465",
+    "@remotion/noise": "^4.0.465",
+    "@remotion/shapes": "^4.0.465",
+    "@remotion/transitions": "^4.0.465",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.465"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.6.3"
+  }
+}
