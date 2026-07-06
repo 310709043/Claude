@@ -1,11 +1,15 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
-import {COLORS, FONT_FAMILY} from '../theme';
+import {APP, COLORS, FONT_FAMILY} from '../theme';
 import {ParticleBackground} from '../components/ParticleBackground';
 import {DataFlow} from '../components/DataFlow';
 import {CameraRig, SceneFade} from '../components/CameraRig';
-import {AppWindow, StatusPill} from '../components/AppWindow';
-import {ProductBadge} from '../components/BrandLogos';
+import {
+  AppCard,
+  AppHeader,
+  AppSectionLabel,
+  PhoneFrame,
+} from '../components/PhoneFrame';
 import {LobsterAssistant} from '../components/LobsterAssistant';
 import {AIProcessLog} from '../components/AIThinking';
 import {GlassCard} from '../components/GlassCard';
@@ -15,7 +19,7 @@ import {DonutChart} from '../components/KPIChart';
 import {progress} from '../easings';
 
 const VOICE_AT = 10;
-const ANALYZE_AT = 58;
+const ANALYZE_AT = 62;
 
 /** Host voice-command bubble above the lobster. */
 const VoiceCommand: React.FC = () => {
@@ -60,211 +64,216 @@ const VoiceCommand: React.FC = () => {
   );
 };
 
-const PROFILE_ROWS: {
+type ProfileRow = {
   label: string;
   labelEn: string;
   at: number;
-  content: (at: number) => React.ReactNode;
-}[] = [
+  chips: {text: string; color: string; icon?: string}[];
+};
+
+const ROWS: ProfileRow[] = [
   {
     label: '客戶意圖',
     labelEn: 'CUSTOMER INTENT',
-    at: ANALYZE_AT + 34,
-    content: (at) => (
-      <div style={{display: 'flex', gap: 9, flexWrap: 'wrap'}}>
-        <KeywordChip label="評估 AI 導入" enterAt={at + 6} fontSize={14.5} />
-        <KeywordChip label="尋求系統整合" enterAt={at + 14} fontSize={14.5} color={COLORS.blue} />
-      </div>
-    ),
+    at: ANALYZE_AT + 30,
+    chips: [
+      {text: '評估 AI 導入', color: APP.orangeDeep},
+      {text: '尋求系統整合', color: APP.blue},
+    ],
   },
   {
     label: '痛點分析',
     labelEn: 'PAIN POINTS',
-    at: ANALYZE_AT + 66,
-    content: (at) => (
-      <div style={{display: 'flex', gap: 9, flexWrap: 'wrap'}}>
-        <KeywordChip label="客服量能不足" enterAt={at + 6} fontSize={14.5} color={COLORS.red} />
-        <KeywordChip label="資料不可外流" enterAt={at + 14} fontSize={14.5} color={COLORS.red} />
-      </div>
-    ),
+    at: ANALYZE_AT + 62,
+    chips: [
+      {text: '客服量能不足', color: APP.red},
+      {text: '資料不可外流', color: APP.red},
+    ],
   },
   {
     label: '購買訊號',
     labelEn: 'BUYING SIGNALS',
-    at: ANALYZE_AT + 98,
-    content: (at) => (
-      <div style={{display: 'flex', gap: 9, flexWrap: 'wrap'}}>
-        <KeywordChip label="主動詢問 POC" enterAt={at + 6} fontSize={14.5} color={COLORS.green} />
-        <KeywordChip label="預算已編列" enterAt={at + 14} fontSize={14.5} color={COLORS.green} />
-        <KeywordChip label="時程:下季" enterAt={at + 22} fontSize={14.5} color={COLORS.green} />
-      </div>
-    ),
+    at: ANALYZE_AT + 94,
+    chips: [
+      {text: '主動詢問 POC', color: APP.green},
+      {text: '預算已編列', color: APP.green},
+      {text: '時程:下季', color: APP.green},
+    ],
   },
   {
     label: '決策角色',
     labelEn: 'DECISION MAKER',
-    at: ANALYZE_AT + 134,
-    content: (at) => {
-      return (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 12,
-            fontFamily: FONT_FAMILY,
-          }}
-        >
-          <KeywordChip label="陳經理 · IT 部門主管" enterAt={at + 6} fontSize={14.5} color={COLORS.amber} icon="👤" />
-          <KeywordChip label="具採購決策權" enterAt={at + 16} fontSize={14.5} color={COLORS.amber} />
-        </div>
-      );
-    },
+    at: ANALYZE_AT + 128,
+    chips: [
+      {text: '陳經理 · IT 主管', color: '#B07A10', icon: '👤'},
+      {text: '具採購決策權', color: '#B07A10'},
+    ],
   },
 ];
 
-/** Customer profile builder panel with staged AI-computed rows. */
-const ProfilePanel: React.FC = () => {
+/** MyClaw app — customer profile screen assembled by AI. */
+const ProfileScreen: React.FC = () => {
   const frame = useCurrentFrame();
-  const scoresAt = ANALYZE_AT + 170;
-  const scoresP = progress(frame, scoresAt, scoresAt + 16);
+  const scoresAt = ANALYZE_AT + 158;
 
   return (
-    <AppWindow
-      title="MyClaw AI · Customer Profile"
-      badge={<ProductBadge name="MyClaw AI" accent={COLORS.orange} size={12} />}
-      status={<StatusPill label="AI COMPUTING" color={COLORS.orange} />}
-      enterAt={ANALYZE_AT - 10}
-      width={860}
-      height={660}
-    >
-      <div style={{display: 'flex', height: '100%'}}>
-        {/* Profile rows */}
-        <div
-          style={{
-            flex: 1,
-            padding: '26px 30px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 21,
-            borderRight: `1px solid ${COLORS.border}`,
-          }}
-        >
-          {PROFILE_ROWS.map((row, i) => {
-            const p = progress(frame, row.at, row.at + 14);
-            return (
-              <div
-                key={i}
-                style={{
-                  opacity: p,
-                  transform: `translateY(${(1 - p) * 16}px)`,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 9,
-                }}
-              >
-                <div
-                  style={{
-                    fontFamily: FONT_FAMILY,
-                    display: 'flex',
-                    alignItems: 'baseline',
-                    gap: 10,
-                  }}
-                >
-                  <span style={{fontSize: 16.5, fontWeight: 800, color: COLORS.textPrimary}}>
-                    {row.label}
-                  </span>
-                  <span style={{fontSize: 11, letterSpacing: 1.5, color: COLORS.textTertiary}}>
-                    {row.labelEn}
-                  </span>
-                  <span
-                    style={{
-                      marginLeft: 'auto',
-                      fontSize: 11,
-                      color: COLORS.green,
-                      fontWeight: 700,
-                      opacity: progress(frame, row.at + 24, row.at + 34),
-                    }}
-                  >
-                    ✓ ANALYZED
-                  </span>
-                </div>
-                {row.content(row.at)}
+    <AbsoluteFill style={{backgroundColor: APP.bg, fontFamily: FONT_FAMILY}}>
+      <AppHeader title="MyClaw" subtitle="客戶輪廓 · CUSTOMER PROFILE" />
+      <div style={{padding: '12px 16px 0', display: 'flex', flexDirection: 'column', gap: 10}}>
+        {/* Customer header card */}
+        <AppCard enterAt={ANALYZE_AT} padding={14}>
+          <div style={{display: 'flex', alignItems: 'center', gap: 12}}>
+            <div
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 14,
+                backgroundColor: APP.orangeTint,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 19,
+                fontWeight: 800,
+                color: APP.orangeDeep,
+              }}
+            >
+              宏
+            </div>
+            <div style={{flex: 1}}>
+              <div style={{fontSize: 17, fontWeight: 800, color: APP.text}}>宏遠集團</div>
+              <div style={{fontSize: 11.5, color: APP.textSub, marginTop: 2}}>
+                金融 · 企業服務 · 通話來源 TAIPBX
               </div>
-            );
-          })}
-
-          {/* Profile completion */}
-          <div style={{marginTop: 'auto', fontFamily: FONT_FAMILY}}>
+            </div>
+            <div
+              style={{
+                fontSize: 10.5,
+                fontWeight: 800,
+                color: APP.orange,
+                letterSpacing: 0.8,
+                opacity: 0.5 + 0.5 * Math.sin(frame * 0.25),
+              }}
+            >
+              ✦ AI 分析中
+            </div>
+          </div>
+          {/* Completeness */}
+          <div style={{marginTop: 12}}>
             <div
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                fontSize: 12.5,
-                color: COLORS.textTertiary,
-                marginBottom: 7,
+                fontSize: 10.5,
+                color: APP.textFaint,
+                marginBottom: 5,
+                letterSpacing: 0.8,
               }}
             >
               <span>PROFILE COMPLETENESS</span>
               <NumberCount
                 to={96}
-                startAt={ANALYZE_AT + 30}
-                duration={160}
+                startAt={ANALYZE_AT + 20}
+                duration={150}
                 suffix="%"
-                fontSize={13}
-                fontWeight={700}
-                color={COLORS.orange}
+                fontSize={11}
+                fontWeight={800}
+                color={APP.orangeDeep}
               />
             </div>
-            <ProgressBar value={96} startAt={ANALYZE_AT + 30} duration={160} width={480} height={6} />
+            <ProgressBar
+              value={96}
+              startAt={ANALYZE_AT + 20}
+              duration={150}
+              width={296}
+              height={5}
+              color={APP.orange}
+              track="#EEEFF4"
+            />
           </div>
-        </div>
+        </AppCard>
 
-        {/* Score rail */}
-        <div
-          style={{
-            width: 262,
-            padding: 26,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 26,
-            opacity: scoresP,
-            fontFamily: FONT_FAMILY,
-          }}
-        >
-          <div
-            style={{
-              fontSize: 12.5,
-              fontWeight: 800,
-              letterSpacing: 2,
-              color: COLORS.textTertiary,
-              alignSelf: 'flex-start',
-            }}
-          >
-            AI 評分 · SCORING
+        {/* AI-computed rows */}
+        {ROWS.map((row, i) => {
+          const p = progress(frame, row.at, row.at + 14);
+          return (
+            <AppCard key={i} enterAt={row.at} padding={13}>
+              <div style={{display: 'flex', alignItems: 'baseline', gap: 8}}>
+                <span style={{fontSize: 13.5, fontWeight: 800, color: APP.text}}>
+                  {row.label}
+                </span>
+                <span style={{fontSize: 9, letterSpacing: 1, color: APP.textFaint}}>
+                  {row.labelEn}
+                </span>
+                <span
+                  style={{
+                    marginLeft: 'auto',
+                    fontSize: 9.5,
+                    fontWeight: 800,
+                    color: APP.green,
+                    opacity: progress(frame, row.at + 22, row.at + 32),
+                  }}
+                >
+                  ✓ ANALYZED
+                </span>
+              </div>
+              <div style={{display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 9, opacity: Math.max(0.001, p)}}>
+                {row.chips.map((c, j) => (
+                  <KeywordChip
+                    key={j}
+                    label={c.text}
+                    enterAt={row.at + 6 + j * 8}
+                    color={c.color}
+                    icon={c.icon}
+                    fontSize={11}
+                  />
+                ))}
+              </div>
+            </AppCard>
+          );
+        })}
+
+        {/* Scores */}
+        <AppCard enterAt={scoresAt} padding={14}>
+          <AppSectionLabel text="AI 評分 · SCORING" icon="📊" />
+          <div style={{display: 'flex', justifyContent: 'space-around', marginTop: 10}}>
+            <DonutChart
+              value={87}
+              size={104}
+              startAt={scoresAt + 8}
+              label="Opportunity"
+              color={APP.orange}
+              textColor={APP.text}
+              subColor={APP.textSub}
+              track="#EEEFF4"
+              thickness={9}
+            />
+            <DonutChart
+              value={92}
+              size={104}
+              startAt={scoresAt + 24}
+              label="AI Confidence"
+              color={APP.blue}
+              textColor={APP.text}
+              subColor={APP.textSub}
+              track="#EEEFF4"
+              thickness={9}
+            />
           </div>
-          <DonutChart value={87} size={150} startAt={scoresAt + 8} label="Opportunity Score" />
-          <DonutChart
-            value={92}
-            size={150}
-            startAt={scoresAt + 26}
-            label="AI Confidence"
-            color={COLORS.blue}
-          />
-        </div>
+        </AppCard>
       </div>
-    </AppWindow>
+    </AbsoluteFill>
   );
 };
 
-/** 第三幕 32–46s:主持人下指令,MyClaw AI 建立完整客戶輪廓。 */
+/** 第三幕 32–46s:主持人下指令,龍蝦 AI 在 App 中建立客戶輪廓。 */
 export const Scene3Analysis: React.FC = () => {
   const frame = useCurrentFrame();
   const lobsterMode = frame < ANALYZE_AT ? 'idle' : 'thinking';
+  const scoreTileP = progress(frame, ANALYZE_AT + 190, ANALYZE_AT + 210);
 
   return (
     <SceneFade fadeIn={12} fadeOut={16}>
-      <ParticleBackground count={44} energy={0.62} seed={3} />
+      <ParticleBackground count={46} energy={0.62} seed={3} />
       <DataFlow streams={7} opacity={0.5} seed={11} />
       <CameraRig from={{scale: 1.0, x: -14}} to={{scale: 1.045, x: 6}}>
         <AbsoluteFill
@@ -272,21 +281,21 @@ export const Scene3Analysis: React.FC = () => {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: 40,
+            gap: 90,
           }}
         >
-          {/* Lobster assistant + host command */}
+          {/* Lobster assistant + host command + process log */}
           <div
             style={{
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: 30,
-              width: 480,
+              gap: 28,
+              width: 500,
             }}
           >
             <VoiceCommand />
-            <LobsterAssistant size={300} enterAt={0} mode={lobsterMode} />
+            <LobsterAssistant size={290} enterAt={0} mode={lobsterMode} />
             <GlassCard enterAt={ANALYZE_AT + 4} padding={20} radius={18} width={400}>
               <AIProcessLog
                 steps={[
@@ -303,7 +312,55 @@ export const Scene3Analysis: React.FC = () => {
             </GlassCard>
           </div>
 
-          <ProfilePanel />
+          {/* Phone with profile screen */}
+          <div style={{position: 'relative'}}>
+            <PhoneFrame width={390} enterAt={ANALYZE_AT - 16} tilt={-6}>
+              <ProfileScreen />
+            </PhoneFrame>
+
+            {/* Floating stage score tile */}
+            <div
+              style={{
+                position: 'absolute',
+                right: -210,
+                top: '30%',
+                opacity: scoreTileP,
+                transform: `translateX(${(1 - scoreTileP) * 30}px)`,
+              }}
+            >
+              <GlassCard enterAt={ANALYZE_AT + 190} padding={22} radius={20} glow width={230}>
+                <div
+                  style={{
+                    fontFamily: FONT_FAMILY,
+                    fontSize: 11.5,
+                    fontWeight: 800,
+                    letterSpacing: 1.6,
+                    color: COLORS.textTertiary,
+                    marginBottom: 6,
+                  }}
+                >
+                  OPPORTUNITY SCORE
+                </div>
+                <NumberCount
+                  to={87}
+                  startAt={ANALYZE_AT + 196}
+                  duration={40}
+                  fontSize={58}
+                  color={COLORS.orange}
+                />
+                <div
+                  style={{
+                    fontFamily: FONT_FAMILY,
+                    fontSize: 13,
+                    color: COLORS.textSecondary,
+                    marginTop: 4,
+                  }}
+                >
+                  高潛力商機 · 建議立即跟進
+                </div>
+              </GlassCard>
+            </div>
+          </div>
         </AbsoluteFill>
       </CameraRig>
     </SceneFade>

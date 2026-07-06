@@ -1,325 +1,433 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
-import {COLORS, FONT_FAMILY} from '../theme';
+import {APP, COLORS, FONT_FAMILY} from '../theme';
 import {ParticleBackground} from '../components/ParticleBackground';
 import {CameraRig, SceneFade} from '../components/CameraRig';
-import {AppWindow, StatusPill} from '../components/AppWindow';
-import {ProductBadge, TaiwanMobileLogo} from '../components/BrandLogos';
-import {DashboardCard} from '../components/DashboardCard';
-import {BarChart, DonutChart, LineChart} from '../components/KPIChart';
+import {SceneTitle} from '../components/AppWindow';
+import {AppCard, AppHeader, AppSectionLabel, PhoneFrame} from '../components/PhoneFrame';
+import {GlassCard} from '../components/GlassCard';
+import {BarChart, LineChart} from '../components/KPIChart';
 import {NumberCount, ProgressBar} from '../components/NumberCount';
 import {progress} from '../easings';
 
-/** Small stat tile for the KPI strip. */
-const Stat: React.FC<{
+const PHONE_AT = 14;
+const LEFT_AT = 60;
+const RIGHT_AT = 84;
+
+/** Small in-app KPI stat. */
+const MiniStat: React.FC<{
   label: string;
   value: number;
   suffix?: string;
   prefix?: string;
   decimals?: number;
   delta: string;
-  deltaColor?: string;
+  up?: boolean;
   at: number;
-}> = ({label, value, suffix, prefix, decimals = 0, delta, deltaColor = COLORS.green, at}) => (
-  <DashboardCard title={label} enterAt={at} width={252} height={120} badge={delta} badgeColor={deltaColor}>
+}> = ({label, value, suffix, prefix, decimals = 0, delta, up = true, at}) => (
+  <div
+    style={{
+      flex: 1,
+      backgroundColor: '#F8F9FB',
+      borderRadius: 13,
+      border: `1px solid ${APP.border}`,
+      padding: '10px 12px',
+    }}
+  >
+    <div style={{fontSize: 10, color: APP.textSub, marginBottom: 3}}>{label}</div>
     <NumberCount
       to={value}
-      startAt={at + 8}
-      duration={38}
+      startAt={at}
+      duration={34}
       suffix={suffix}
       prefix={prefix}
       decimals={decimals}
-      fontSize={38}
+      fontSize={20}
+      color={APP.text}
     />
-  </DashboardCard>
+    <div
+      style={{
+        fontSize: 9.5,
+        fontWeight: 800,
+        color: up ? APP.green : APP.red,
+        marginTop: 2,
+      }}
+    >
+      {delta}
+    </div>
+  </div>
 );
 
-/** Compact ranked horizontal-bar list (拒絕原因 / 產業分析). */
-const RankBars: React.FC<{
-  items: {label: string; value: number}[];
-  at: number;
-  color?: string;
-  width?: number;
-  gap?: number;
-  fontSize?: number;
-}> = ({items, at, color = COLORS.blue, width = 220, gap = 15, fontSize = 13}) => {
+/** MyClaw app — manager insight screen (mobile BI). */
+const InsightScreen: React.FC = () => {
   const frame = useCurrentFrame();
   return (
-    <div style={{display: 'flex', flexDirection: 'column', gap, fontFamily: FONT_FAMILY}}>
-      {items.map((it, i) => {
-        const p = progress(frame, at + i * 6, at + i * 6 + 12);
-        return (
-          <div key={i} style={{opacity: p}}>
-            <div
+    <AbsoluteFill style={{backgroundColor: APP.bg, fontFamily: FONT_FAMILY}}>
+      <AppHeader title="MyClaw" subtitle="主管洞察 · MANAGER INSIGHTS" />
+      <div style={{padding: '12px 16px 0', display: 'flex', flexDirection: 'column', gap: 10}}>
+        {/* KPI row */}
+        <AppCard enterAt={PHONE_AT + 14} padding={12}>
+          <div style={{display: 'flex', gap: 8}}>
+            <MiniStat label="本月商機" value={247} delta="+18%" at={PHONE_AT + 22} />
+            <MiniStat label="成交率" value={34.2} suffix="%" decimals={1} delta="+5.1%" at={PHONE_AT + 28} />
+          </div>
+          <div style={{display: 'flex', gap: 8, marginTop: 8}}>
+            <MiniStat label="平均 Follow-up" value={1.8} suffix=" 天" decimals={1} delta="-42%" at={PHONE_AT + 34} />
+            <MiniStat label="Pipeline 總值" value={8.6} prefix="$" suffix="M" decimals={1} delta="+23%" at={PHONE_AT + 40} />
+          </div>
+        </AppCard>
+
+        {/* Trend */}
+        <AppCard enterAt={PHONE_AT + 30} padding={14}>
+          <div style={{display: 'flex', alignItems: 'center'}}>
+            <AppSectionLabel text="成交率趨勢 · 近 8 週" icon="📈" />
+            <span
               style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                fontSize,
-                color: COLORS.textSecondary,
-                marginBottom: 4,
+                marginLeft: 'auto',
+                fontSize: 10.5,
+                fontWeight: 800,
+                color: APP.green,
+                backgroundColor: APP.greenTint,
+                padding: '2px 8px',
+                borderRadius: 999,
               }}
             >
-              <span>{it.label}</span>
-              <span style={{color: COLORS.textTertiary}}>{it.value}%</span>
-            </div>
-            <ProgressBar value={it.value} startAt={at + i * 6} width={width} height={5} color={color} />
+              ↑ 34.2%
+            </span>
           </div>
-        );
-      })}
+          <div style={{marginTop: 10}}>
+            <LineChart
+              points={[22, 24, 23, 27, 29, 28, 32, 34.2]}
+              width={300}
+              height={110}
+              startAt={PHONE_AT + 44}
+              color={APP.orange}
+            />
+          </div>
+        </AppCard>
+
+        {/* Pipeline */}
+        <AppCard enterAt={PHONE_AT + 46} padding={14}>
+          <AppSectionLabel text="PIPELINE 階段分佈" icon="🧭" />
+          <div style={{display: 'flex', flexDirection: 'column', gap: 8, marginTop: 10}}>
+            {[
+              {label: 'Qualified', value: 92},
+              {label: 'Proposal', value: 61},
+              {label: 'Negotiation', value: 38},
+              {label: 'Closing', value: 24},
+            ].map((s, i) => {
+              const p = progress(frame, PHONE_AT + 56 + i * 7, PHONE_AT + 68 + i * 7);
+              return (
+                <div key={i} style={{opacity: p}}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      fontSize: 11,
+                      color: APP.textSub,
+                      marginBottom: 3,
+                    }}
+                  >
+                    <span>{s.label}</span>
+                    <span style={{fontWeight: 700, color: APP.text}}>{s.value}%</span>
+                  </div>
+                  <ProgressBar
+                    value={s.value}
+                    startAt={PHONE_AT + 56 + i * 7}
+                    width={296}
+                    height={5}
+                    color={APP.orange}
+                    track="#EEEFF4"
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </AppCard>
+
+        {/* High-potential list */}
+        <AppCard enterAt={PHONE_AT + 66} padding={14}>
+          <div style={{display: 'flex', alignItems: 'center'}}>
+            <AppSectionLabel text="高潛力客戶 · AI SCORE ≥ 85" icon="⭐" />
+            <span
+              style={{
+                marginLeft: 'auto',
+                fontSize: 10.5,
+                fontWeight: 800,
+                color: APP.orangeDeep,
+                backgroundColor: APP.orangeTint,
+                padding: '2px 8px',
+                borderRadius: 999,
+              }}
+            >
+              12
+            </span>
+          </div>
+          <div style={{display: 'flex', flexDirection: 'column', gap: 6, marginTop: 10}}>
+            {[
+              {name: '宏遠集團', ind: '金融', score: 87},
+              {name: '大正製造', ind: '製造', score: 91},
+              {name: '康泰醫療', ind: '醫療', score: 86},
+            ].map((c, i) => {
+              const p = progress(frame, PHONE_AT + 76 + i * 8, PHONE_AT + 88 + i * 8);
+              return (
+                <div
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 9,
+                    padding: '7px 10px',
+                    borderRadius: 11,
+                    backgroundColor: '#F8F9FB',
+                    border: `1px solid ${APP.border}`,
+                    opacity: p,
+                    transform: `translateY(${(1 - p) * 8}px)`,
+                  }}
+                >
+                  <span style={{fontSize: 12, fontWeight: 700, color: APP.text}}>{c.name}</span>
+                  <span style={{fontSize: 10, color: APP.textFaint}}>{c.ind}</span>
+                  <span style={{marginLeft: 'auto', fontSize: 13, fontWeight: 800, color: APP.orangeDeep}}>
+                    {c.score}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </AppCard>
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+/** Floating stage panel: top demands + industries (left of phone). */
+const DemandPanel: React.FC = () => {
+  const frame = useCurrentFrame();
+  return (
+    <div style={{display: 'flex', flexDirection: 'column', gap: 22, width: 470}}>
+      <SceneTitle
+        kicker="STEP 05 · INSIGHT"
+        title="主管視角,決策更快"
+        size={40}
+        align="left"
+        enterAt={2}
+      />
+      <GlassCard enterAt={LEFT_AT} width={470} padding={24} radius={20}>
+        <div
+          style={{
+            fontFamily: FONT_FAMILY,
+            fontSize: 12.5,
+            fontWeight: 800,
+            letterSpacing: 2,
+            color: COLORS.textTertiary,
+            marginBottom: 14,
+          }}
+        >
+          熱門需求 TOP 5 · 依 AI 辨識次數
+        </div>
+        <BarChart
+          data={[
+            {label: 'AI 導入', value: 86},
+            {label: 'CRM', value: 64},
+            {label: '地端', value: 58},
+            {label: '知識庫', value: 44},
+            {label: 'API', value: 37},
+          ]}
+          width={420}
+          height={190}
+          startAt={LEFT_AT + 10}
+          highlightIndex={0}
+        />
+      </GlassCard>
+      <GlassCard enterAt={LEFT_AT + 22} width={470} padding={24} radius={20}>
+        <div
+          style={{
+            fontFamily: FONT_FAMILY,
+            fontSize: 12.5,
+            fontWeight: 800,
+            letterSpacing: 2,
+            color: COLORS.textTertiary,
+            marginBottom: 14,
+          }}
+        >
+          產業分析 · 商機來源
+        </div>
+        <div style={{display: 'flex', flexDirection: 'column', gap: 11, fontFamily: FONT_FAMILY}}>
+          {[
+            {label: '金融 / 保險', value: 28},
+            {label: '製造', value: 22},
+            {label: '零售 / 百貨', value: 17},
+            {label: '醫療', value: 13},
+          ].map((it, i) => {
+            const p = progress(frame, LEFT_AT + 32 + i * 6, LEFT_AT + 44 + i * 6);
+            return (
+              <div key={i} style={{opacity: p}}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    fontSize: 13,
+                    color: COLORS.textSecondary,
+                    marginBottom: 4,
+                  }}
+                >
+                  <span>{it.label}</span>
+                  <span style={{color: COLORS.textTertiary}}>{it.value}%</span>
+                </div>
+                <ProgressBar value={it.value} startAt={LEFT_AT + 32 + i * 6} width={420} height={5} color={COLORS.blue} />
+              </div>
+            );
+          })}
+        </div>
+      </GlassCard>
     </div>
   );
 };
 
-/** 第六幕 73–82s:主管視角 — 企業級 BI Dashboard 全景。 */
-export const Scene6Dashboard: React.FC = () => {
+/** Floating stage panel: rejections, trending, AI suggestions (right). */
+const InsightPanel: React.FC = () => {
   const frame = useCurrentFrame();
+  return (
+    <div style={{display: 'flex', flexDirection: 'column', gap: 22, width: 470}}>
+      <GlassCard enterAt={RIGHT_AT} width={470} padding={24} radius={20}>
+        <div
+          style={{
+            fontFamily: FONT_FAMILY,
+            fontSize: 12.5,
+            fontWeight: 800,
+            letterSpacing: 2,
+            color: COLORS.textTertiary,
+            marginBottom: 14,
+          }}
+        >
+          拒絕原因 TOP 3 / TRENDING TOPICS
+        </div>
+        <div style={{display: 'flex', flexDirection: 'column', gap: 9, fontFamily: FONT_FAMILY}}>
+          {[
+            {label: '預算不足', value: 34},
+            {label: '時程未定', value: 26},
+            {label: '既有系統綁定', value: 21},
+          ].map((it, i) => {
+            const p = progress(frame, RIGHT_AT + 10 + i * 6, RIGHT_AT + 22 + i * 6);
+            return (
+              <div key={i} style={{opacity: p}}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    fontSize: 13,
+                    color: COLORS.textSecondary,
+                    marginBottom: 4,
+                  }}
+                >
+                  <span>{it.label}</span>
+                  <span style={{color: COLORS.textTertiary}}>{it.value}%</span>
+                </div>
+                <ProgressBar value={it.value} startAt={RIGHT_AT + 10 + i * 6} width={420} height={5} color={COLORS.red} />
+              </div>
+            );
+          })}
+        </div>
+        <div style={{display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 16}}>
+          {[
+            {t: '地端部署', hot: true},
+            {t: 'AI Agent', hot: true},
+            {t: '資料合規', hot: false},
+            {t: 'POC', hot: false},
+            {t: 'RAG 知識庫', hot: true},
+            {t: 'API 整合', hot: false},
+          ].map((k, i) => {
+            const p = progress(frame, RIGHT_AT + 34 + i * 5, RIGHT_AT + 44 + i * 5);
+            return (
+              <span
+                key={i}
+                style={{
+                  fontFamily: FONT_FAMILY,
+                  fontSize: 13.5,
+                  fontWeight: 700,
+                  padding: '5px 12px',
+                  borderRadius: 999,
+                  color: k.hot ? COLORS.orange : COLORS.textSecondary,
+                  backgroundColor: k.hot ? 'rgba(255,107,26,0.1)' : 'rgba(255,255,255,0.05)',
+                  border: `1px solid ${k.hot ? COLORS.orange + '55' : COLORS.border}`,
+                  opacity: p,
+                  transform: `scale(${0.7 + 0.3 * p})`,
+                }}
+              >
+                {k.t}
+              </span>
+            );
+          })}
+        </div>
+      </GlassCard>
 
+      <GlassCard enterAt={RIGHT_AT + 24} width={470} padding={24} radius={20} accent>
+        <div
+          style={{
+            fontFamily: FONT_FAMILY,
+            fontSize: 12.5,
+            fontWeight: 800,
+            letterSpacing: 2,
+            color: COLORS.orange,
+            marginBottom: 13,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 7,
+          }}
+        >
+          ✦ AI INSIGHTS · MANAGER SUGGESTIONS
+        </div>
+        <div style={{display: 'flex', flexDirection: 'column', gap: 11}}>
+          {[
+            '「地端部署」需求較上月成長 +65%,集中於金融與醫療產業。',
+            '金融產業商機成長最快 — 建議增派 2 名資深業務支援北區。',
+            '「預算不足」案件中 68% 未被推薦彈性方案 — 建議更新報價策略。',
+          ].map((s, i) => {
+            const p = progress(frame, RIGHT_AT + 36 + i * 12, RIGHT_AT + 50 + i * 12);
+            return (
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  gap: 10,
+                  fontFamily: FONT_FAMILY,
+                  fontSize: 14.5,
+                  lineHeight: 1.55,
+                  color: COLORS.textSecondary,
+                  opacity: p,
+                  transform: `translateX(${(1 - p) * 14}px)`,
+                }}
+              >
+                <span style={{color: COLORS.orange}}>▸</span>
+                {s}
+              </div>
+            );
+          })}
+        </div>
+      </GlassCard>
+    </div>
+  );
+};
+
+/** 第六幕 73–82s:主管手機洞察畫面 + 浮動 BI 圖表。 */
+export const Scene6Dashboard: React.FC = () => {
   return (
     <SceneFade fadeIn={12} fadeOut={16}>
-      <ParticleBackground count={30} energy={0.42} seed={6} grid={false} />
-      <CameraRig from={{scale: 1.1, y: 20}} to={{scale: 1.0, y: 0}} duration={110}>
-        <AbsoluteFill style={{alignItems: 'center', justifyContent: 'center'}}>
-          <AppWindow
-            title="MyClaw AI · Sales Intelligence Dashboard"
-            badge={<ProductBadge name="MANAGER VIEW" accent={COLORS.blue} size={11} />}
-            status={
-              <>
-                <TaiwanMobileLogo size={20} />
-                <StatusPill label="LIVE DATA" color={COLORS.green} />
-              </>
-            }
-            enterAt={0}
-            width={1780}
-            height={930}
-          >
-            <div
-              style={{
-                padding: 20,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 16,
-                height: '100%',
-              }}
-            >
-              {/* KPI strip */}
-              <div style={{display: 'flex', gap: 16}}>
-                <Stat label="本月新商機" value={247} delta="+18%" at={14} />
-                <Stat label="成交率" value={34.2} suffix="%" decimals={1} delta="+5.1%" at={20} />
-                <Stat label="平均 Follow-up" value={1.8} suffix=" 天" decimals={1} delta="-42%" at={26} />
-                <Stat label="Pipeline 總值" value={8.6} prefix="$" suffix="M" decimals={1} delta="+23%" at={32} />
-                <DashboardCard
-                  title="AI Insights"
-                  subtitle="本週摘要"
-                  enterAt={38}
-                  width={708}
-                  height={120}
-                  icon={<span style={{fontSize: 16}}>✦</span>}
-                  badge="3 NEW"
-                  badgeColor={COLORS.orange}
-                >
-                  <div
-                    style={{
-                      fontFamily: FONT_FAMILY,
-                      fontSize: 14.5,
-                      lineHeight: 1.55,
-                      color: COLORS.textSecondary,
-                      opacity: progress(frame, 48, 66),
-                    }}
-                  >
-                    「地端部署」需求較上月成長{' '}
-                    <span style={{color: COLORS.orange, fontWeight: 700}}>+65%</span>
-                    ,集中於金融與醫療產業。建議業務團隊優先主打資安合規案例。
-                  </div>
-                </DashboardCard>
-              </div>
-
-              {/* Middle row */}
-              <div style={{display: 'flex', gap: 16, flex: 1}}>
-                <DashboardCard title="熱門需求 Top 5" subtitle="依 AI 辨識次數" enterAt={44} width={400}>
-                  <BarChart
-                    data={[
-                      {label: 'AI 導入', value: 86},
-                      {label: 'CRM', value: 64},
-                      {label: '地端', value: 58},
-                      {label: '知識庫', value: 44},
-                      {label: 'API', value: 37},
-                    ]}
-                    width={352}
-                    height={300}
-                    startAt={54}
-                    highlightIndex={0}
-                  />
-                </DashboardCard>
-
-                <DashboardCard title="產業分析" subtitle="商機來源分佈" enterAt={50} width={330}>
-                  <RankBars
-                    at={60}
-                    width={276}
-                    items={[
-                      {label: '金融 / 保險', value: 28},
-                      {label: '製造', value: 22},
-                      {label: '零售 / 百貨', value: 17},
-                      {label: '醫療', value: 13},
-                      {label: '科技 / SaaS', value: 11},
-                    ]}
-                  />
-                </DashboardCard>
-
-                <DashboardCard title="成交率趨勢" subtitle="近 8 週" enterAt={56} width={430} badge="↑ 34.2%">
-                  <LineChart
-                    points={[22, 24, 23, 27, 29, 28, 32, 34.2]}
-                    width={380}
-                    height={280}
-                    startAt={66}
-                  />
-                </DashboardCard>
-
-                <DashboardCard title="Pipeline" subtitle="階段分佈" enterAt={62} width={300}>
-                  <RankBars
-                    at={72}
-                    width={246}
-                    color={COLORS.orange}
-                    items={[
-                      {label: 'Qualified', value: 92},
-                      {label: 'Proposal', value: 61},
-                      {label: 'Negotiation', value: 38},
-                      {label: 'Closing', value: 24},
-                    ]}
-                  />
-                </DashboardCard>
-
-                <DashboardCard title="高潛力客戶" subtitle="AI Score ≥ 85" enterAt={68} width={252} badge="12">
-                  <div style={{display: 'flex', flexDirection: 'column', gap: 9, fontFamily: FONT_FAMILY}}>
-                    {[
-                      {name: '宏遠集團', score: 87},
-                      {name: '大正製造', score: 91},
-                      {name: '康泰醫療', score: 86},
-                      {name: '博立科技', score: 89},
-                      {name: '全通物流', score: 85},
-                      {name: '遠成百貨', score: 88},
-                    ].map((c, i) => {
-                      const p = progress(frame, 78 + i * 7, 90 + i * 7);
-                      return (
-                        <div
-                          key={i}
-                          style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            padding: '8px 11px',
-                            borderRadius: 10,
-                            backgroundColor: 'rgba(255,255,255,0.045)',
-                            border: `1px solid ${COLORS.border}`,
-                            opacity: p,
-                            transform: `translateY(${(1 - p) * 8}px)`,
-                          }}
-                        >
-                          <span style={{fontSize: 13.5, fontWeight: 600, color: COLORS.textPrimary}}>
-                            {c.name}
-                          </span>
-                          <span style={{fontSize: 14, fontWeight: 800, color: COLORS.orange}}>
-                            {c.score}
-                          </span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </DashboardCard>
-              </div>
-
-              {/* Bottom row */}
-              <div style={{display: 'flex', gap: 16, height: 208}}>
-                <DashboardCard title="拒絕原因" subtitle="Top 4" enterAt={74} width={330}>
-                  <RankBars
-                    at={84}
-                    width={276}
-                    gap={7}
-                    fontSize={12}
-                    color={COLORS.red}
-                    items={[
-                      {label: '預算不足', value: 34},
-                      {label: '時程未定', value: 26},
-                      {label: '既有系統綁定', value: 21},
-                      {label: '需上層核准', value: 14},
-                    ]}
-                  />
-                </DashboardCard>
-
-                <DashboardCard title="Trending Topics" subtitle="對話熱詞" enterAt={80} width={430}>
-                  <div style={{display: 'flex', flexWrap: 'wrap', gap: 9, alignContent: 'flex-start'}}>
-                    {[
-                      {t: '地端部署', s: 19, hot: true},
-                      {t: 'AI Agent', s: 17, hot: true},
-                      {t: '資料合規', s: 15, hot: false},
-                      {t: 'POC', s: 15, hot: false},
-                      {t: 'RAG 知識庫', s: 14, hot: true},
-                      {t: 'API 整合', s: 13, hot: false},
-                      {t: '導入時程', s: 12.5, hot: false},
-                    ].map((k, i) => {
-                      const p = progress(frame, 90 + i * 5, 100 + i * 5);
-                      return (
-                        <span
-                          key={i}
-                          style={{
-                            fontFamily: FONT_FAMILY,
-                            fontSize: k.s,
-                            fontWeight: 700,
-                            padding: '6px 13px',
-                            borderRadius: 999,
-                            color: k.hot ? COLORS.orange : COLORS.textSecondary,
-                            backgroundColor: k.hot ? 'rgba(255,107,26,0.1)' : 'rgba(255,255,255,0.05)',
-                            border: `1px solid ${k.hot ? COLORS.orange + '55' : COLORS.border}`,
-                            opacity: p,
-                            transform: `scale(${0.7 + 0.3 * p})`,
-                          }}
-                        >
-                          {k.t}
-                        </span>
-                      );
-                    })}
-                  </div>
-                </DashboardCard>
-
-                <DashboardCard
-                  title="Manager Suggestions"
-                  subtitle="AI 管理建議"
-                  enterAt={86}
-                  width={694}
-                  icon={<span style={{fontSize: 16}}>🧭</span>}
-                  badge="ACTIONABLE"
-                  badgeColor={COLORS.blue}
-                >
-                  <div style={{display: 'flex', flexDirection: 'column', gap: 10}}>
-                    {[
-                      '金融產業商機成長最快 — 建議增派 2 名資深業務支援北區團隊。',
-                      '「預算不足」拒絕案件中,68% 未被推薦彈性方案 — 建議更新報價策略。',
-                      '高潛力客戶平均 Follow-up 1.8 天,較上月縮短 42% — 維持現行 AI 派工節奏。',
-                    ].map((s, i) => {
-                      const p = progress(frame, 96 + i * 10, 108 + i * 10);
-                      return (
-                        <div
-                          key={i}
-                          style={{
-                            display: 'flex',
-                            gap: 10,
-                            fontFamily: FONT_FAMILY,
-                            fontSize: 14.5,
-                            lineHeight: 1.5,
-                            color: COLORS.textSecondary,
-                            opacity: p,
-                            transform: `translateX(${(1 - p) * 14}px)`,
-                          }}
-                        >
-                          <span style={{color: COLORS.blue}}>▸</span>
-                          {s}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </DashboardCard>
-              </div>
-            </div>
-          </AppWindow>
+      <ParticleBackground count={32} energy={0.42} seed={6} grid={false} />
+      <CameraRig from={{scale: 1.09, y: 18}} to={{scale: 1.0, y: 0}} duration={110}>
+        <AbsoluteFill
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 60,
+          }}
+        >
+          <DemandPanel />
+          <PhoneFrame width={385} enterAt={PHONE_AT - 10} tilt={0} glow="rgba(59,158,255,0.25)">
+            <InsightScreen />
+          </PhoneFrame>
+          <InsightPanel />
         </AbsoluteFill>
       </CameraRig>
     </SceneFade>

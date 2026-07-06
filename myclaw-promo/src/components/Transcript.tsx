@@ -21,6 +21,8 @@ type TranscriptProps = {
   charSpeed?: number;
   /** Frame at which keyword highlights sweep in (per line offset added). */
   highlightDelay?: number;
+  /** Body text color (defaults to dark-mode white). */
+  textColor?: string;
 };
 
 /** Renders text with streamed reveal + keyword highlight sweep. */
@@ -30,7 +32,8 @@ const StreamedText: React.FC<{
   visibleChars: number;
   highlightP: number;
   fontSize: number;
-}> = ({text, keywords, visibleChars, highlightP, fontSize}) => {
+  textColor: string;
+}> = ({text, keywords, visibleChars, highlightP, fontSize, textColor}) => {
   // Split text into segments, marking keyword spans
   const segments: {text: string; isKeyword: boolean}[] = [];
   let rest = text;
@@ -71,8 +74,7 @@ const StreamedText: React.FC<{
               key={i}
               style={{
                 position: 'relative',
-                color:
-                  highlightP > 0 ? COLORS.orange : COLORS.textPrimary,
+                color: highlightP > 0 ? COLORS.orange : textColor,
                 fontWeight: highlightP > 0 ? 700 : 400,
                 transition: 'none',
               }}
@@ -95,7 +97,7 @@ const StreamedText: React.FC<{
           );
         }
         return (
-          <span key={i} style={{color: COLORS.textPrimary}}>
+          <span key={i} style={{color: textColor}}>
             {visible}
           </span>
         );
@@ -111,6 +113,7 @@ export const Transcript: React.FC<TranscriptProps> = ({
   fontSize = 21,
   charSpeed = 0.85,
   highlightDelay = 26,
+  textColor = COLORS.textPrimary,
 }) => {
   const frame = useCurrentFrame();
 
@@ -168,7 +171,7 @@ export const Transcript: React.FC<TranscriptProps> = ({
                 style={{
                   fontSize,
                   lineHeight: 1.65,
-                  color: COLORS.textPrimary,
+                  color: textColor,
                 }}
               >
                 <StreamedText
@@ -177,6 +180,7 @@ export const Transcript: React.FC<TranscriptProps> = ({
                   visibleChars={visibleChars}
                   highlightP={highlightP}
                   fontSize={fontSize}
+                  textColor={textColor}
                 />
                 {streaming ? (
                   <span

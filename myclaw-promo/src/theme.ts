@@ -36,6 +36,39 @@ export const COLORS = {
   amber: '#FBBF24',
 } as const;
 
+/** Taiwan Mobile 2020 brand palette — flat, no gradients. */
+export const TWM = {
+  orange: '#F5821F', // 活力橘
+  red: '#E8380D',
+  magenta: '#E4007F', // momo 桃紅
+  yellow: '#FFC20E',
+  green: '#00A551',
+  blue: '#0072BC',
+  purple: '#7F3F98',
+  navy: '#1B3A6B', // wordmark blue
+} as const;
+
+/** Light-mode mobile app UI tokens (MyClaw App). */
+export const APP = {
+  bg: '#F4F5F8',
+  card: '#FFFFFF',
+  text: '#182238',
+  textSub: '#6E7789',
+  textFaint: '#9AA3B5',
+  border: '#E9EBF1',
+  orange: '#F5821F',
+  orangeDeep: '#E06A00',
+  orangeTint: '#FFF3E8',
+  green: '#0DA65B',
+  greenTint: '#E9F9F0',
+  red: '#E5484D',
+  redTint: '#FDEDEE',
+  blue: '#2276D2',
+  blueTint: '#EAF3FD',
+  purple: '#7F3F98',
+  shadow: '0 12px 32px rgba(24,34,56,0.10)',
+} as const;
+
 export const FONT_FAMILY =
   "'Noto Sans TC', 'Noto Sans CJK TC', 'PingFang TC', 'Microsoft JhengHei', 'Inter', -apple-system, 'Segoe UI', sans-serif";
 

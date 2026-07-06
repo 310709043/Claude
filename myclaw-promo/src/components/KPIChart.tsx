@@ -142,7 +142,21 @@ export const DonutChart: React.FC<{
   color?: string;
   label?: string;
   thickness?: number;
-}> = ({value, size = 130, startAt = 0, duration = 42, color = COLORS.orange, label, thickness = 11}) => {
+  textColor?: string;
+  subColor?: string;
+  track?: string;
+}> = ({
+  value,
+  size = 130,
+  startAt = 0,
+  duration = 42,
+  color = COLORS.orange,
+  label,
+  thickness = 11,
+  textColor = COLORS.textPrimary,
+  subColor = COLORS.textTertiary,
+  track = 'rgba(255,255,255,0.08)',
+}) => {
   const frame = useCurrentFrame();
   const p = ease(frame, [startAt, startAt + duration], [0, value / 100], EASE_OUT);
   const r = (size - thickness) / 2;
@@ -163,7 +177,7 @@ export const DonutChart: React.FC<{
           cy={size / 2}
           r={r}
           fill="none"
-          stroke="rgba(255,255,255,0.08)"
+          stroke={track}
           strokeWidth={thickness}
         />
         <circle
@@ -193,15 +207,15 @@ export const DonutChart: React.FC<{
           style={{
             fontSize: size * 0.24,
             fontWeight: 800,
-            color: COLORS.textPrimary,
+            color: textColor,
             fontVariantNumeric: 'tabular-nums',
           }}
         >
           {Math.round(p * 100)}
-          <span style={{fontSize: size * 0.13, color: COLORS.textSecondary}}>%</span>
+          <span style={{fontSize: size * 0.13, color: subColor}}>%</span>
         </div>
         {label ? (
-          <div style={{fontSize: size * 0.095, color: COLORS.textTertiary, marginTop: 2}}>
+          <div style={{fontSize: size * 0.095, color: subColor, marginTop: 2}}>
             {label}
           </div>
         ) : null}

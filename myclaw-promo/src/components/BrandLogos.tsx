@@ -3,65 +3,52 @@ import {useCurrentFrame} from 'remotion';
 import {COLORS, FONT_FAMILY} from '../theme';
 
 /**
- * Taiwan Mobile "彩球" mark — stylized multicolor sphere built from
- * orbital petals, rendered as clean vector so it embeds into UI chrome.
+ * Taiwan Mobile 彩球 — 2020 flat identity: a pinwheel ball of six
+ * curved sail segments (no gradients), keeping the classic swirling
+ * silhouette. Each sail sweeps from the hub out to the rim like a
+ * turbine blade, with crisp white gaps between blades.
  */
-export const TaiwanMobileLogo: React.FC<{size?: number; withWordmark?: boolean}> = ({
-  size = 48,
-  withWordmark = false,
-}) => {
-  const petals = [
-    {rotate: 0, color: '#F5333F'},
-    {rotate: 60, color: '#F97316'},
-    {rotate: 120, color: '#FBBF24'},
-    {rotate: 180, color: '#22C55E'},
-    {rotate: 240, color: '#3B82F6'},
-    {rotate: 300, color: '#8B5CF6'},
-  ];
+export const TaiwanMobileLogo: React.FC<{
+  size?: number;
+  withWordmark?: boolean;
+  /** Wordmark color scheme: 'dark' bg → white text, 'light' bg → navy. */
+  onDark?: boolean;
+}> = ({size = 48, withWordmark = false, onDark = true}) => {
+  // Flat six-color palette (活力橘 / 紅 / 桃紅 / 紫 / 藍 / 綠)
+  const sails = ['#F5821F', '#E8380D', '#E4007F', '#7F3F98', '#0072BC', '#00A551'];
+  // One pinwheel blade: leaves the hub, bows out to the rim, rides the
+  // rim ~52°, then tapers back — six rotated copies leave crisp white
+  // gaps and form the swirling 彩球 silhouette.
+  const SAIL =
+    'M 3 -8 C 0 -25, -2 -42, 4.4 -49.8 A 50 50 0 0 1 41.9 -27.2 C 28 -18, 13 -10, 3 -8 Z';
   return (
-    <div style={{display: 'flex', alignItems: 'center', gap: size * 0.3}}>
-      <svg width={size} height={size} viewBox="0 0 100 100">
-        <defs>
-          <radialGradient id="tmGloss" cx="35%" cy="30%" r="80%">
-            <stop offset="0%" stopColor="rgba(255,255,255,0.55)" />
-            <stop offset="45%" stopColor="rgba(255,255,255,0.06)" />
-            <stop offset="100%" stopColor="rgba(0,0,0,0.25)" />
-          </radialGradient>
-        </defs>
-        <g transform="translate(50 50)">
-          {petals.map((p, i) => (
-            <g key={i} transform={`rotate(${p.rotate})`}>
-              <ellipse
-                cx={0}
-                cy={-24}
-                rx={17}
-                ry={26}
-                fill={p.color}
-                opacity={0.92}
-              />
-            </g>
-          ))}
-          <circle r={47} fill="url(#tmGloss)" />
-        </g>
+    <div style={{display: 'flex', alignItems: 'center', gap: size * 0.28}}>
+      <svg width={size} height={size} viewBox="-52 -52 104 104">
+        {sails.map((c, i) => (
+          <g key={i} transform={`rotate(${i * 60})`}>
+            <path d={SAIL} fill={c} />
+          </g>
+        ))}
       </svg>
       {withWordmark ? (
         <div style={{fontFamily: FONT_FAMILY}}>
           <div
             style={{
               fontSize: size * 0.42,
-              fontWeight: 700,
-              color: COLORS.textPrimary,
-              letterSpacing: 2,
+              fontWeight: 800,
+              color: onDark ? COLORS.textPrimary : '#1B3A6B',
+              letterSpacing: 3,
             }}
           >
             台灣大哥大
           </div>
           <div
             style={{
-              fontSize: size * 0.2,
-              fontWeight: 500,
-              color: COLORS.textTertiary,
-              letterSpacing: 3,
+              fontSize: size * 0.185,
+              fontWeight: 600,
+              color: onDark ? COLORS.textTertiary : 'rgba(27,58,107,0.6)',
+              letterSpacing: size * 0.055,
+              marginTop: 2,
             }}
           >
             TAIWAN MOBILE
