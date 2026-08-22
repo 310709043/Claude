@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { calculate } from '@/lib/braSize';
+import CameraMirror from './CameraMirror';
 
 export default function BraCalculator() {
   const [underbust, setUnderbust] = useState('');
@@ -64,7 +65,9 @@ export default function BraCalculator() {
         </div>
       )}
 
-      <p className="mt-7 text-xs leading-relaxed text-stone-400">
+      <CameraMirror />
+
+      <p className="mt-5 text-xs leading-relaxed text-stone-400">
         站直、穿無襯墊內衣或裸量，皮尺與地面平行；下胸圍拉緊，上胸圍輕貼不壓迫。
         計算在你的瀏覽器完成，不會上傳。各品牌版型有落差，實際以試穿為準；本站不提供醫療建議。
       </p>
