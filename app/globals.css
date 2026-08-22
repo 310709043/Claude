@@ -208,3 +208,36 @@ body {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-accent via-fuchsia-400 to-accent2;
   }
 }
+
+/* ============================================================
+   內衣尺碼子站 /bra-size — 淺色主題（覆蓋全站深色底）
+   ============================================================ */
+body:has(.bra-root) {
+  background: #fff5f7;
+  color-scheme: light;
+}
+
+.bra-root summary::-webkit-details-marker {
+  display: none;
+}
+
+.bra-root ::-webkit-scrollbar-track {
+  background: #fff5f7;
+}
+.bra-root ::-webkit-scrollbar-thumb {
+  background: #f8c8d2;
+}
+.bra-root ::-webkit-scrollbar-thumb:hover {
+  background: #f3a6b7;
+}
+
+/* 數字輸入框：拿掉上下箭頭，避免和右側單位標籤重疊 */
+.bra-root input[type='number']::-webkit-outer-spin-button,
+.bra-root input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.bra-root input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
