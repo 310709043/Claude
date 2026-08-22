@@ -94,33 +94,18 @@ A custom domain can be added under **Settings → Domains** (free `.vercel.app` 
 
 ---
 
-## 📏 內衣尺碼計算器 `/bra-size`
+## 📏 內衣尺碼計算 `/bra-size`
 
-同一個 Next.js 專案裡另外掛了一個獨立子站：**合身尺** — 女性內衣尺碼量測與換算工具。
-啟動後開 http://localhost:3000/bra-size 即可使用（部署後就是 `你的網域/bra-size`）。
+一頁式的內衣尺碼計算器：輸入下胸圍與上胸圍，直接得到尺碼（含英規／美規）。
+本機開 http://localhost:3000/bra-size，部署後就是 `你的網域/bra-size`。
 
-**功能**
-
-- 輸入上胸圍、下胸圍（可選填俯身 90° 上胸圍），即時換算台／日、歐、法、英、美尺碼
-- 姊妹尺碼建議、罩杯差顯示、公分／英吋單位切換
-- 六步驟量法教學（含示意圖）、罩杯與底圍對照表、試穿合身檢查清單、常見問題
-- 量測紀錄存在瀏覽器 `localStorage`，方便追蹤變化
-
-**設計原則**
-
-- 純前端計算，沒有 API、沒有分析追蹤，任何數字都不會離開使用者的裝置
-- 內容定位為「選購內衣用」，站上明確標示不構成醫療建議
-
-**程式位置**
+純前端計算，數字不會離開使用者的裝置。
 
 ```
-lib/braSize.ts          # 尺碼換算核心邏輯（純函式）
-components/bra/         # BraNav / BraHero / BraCalculator / MeasureGuide / SizeChart / FitCheck / Faq / BraFooter
-app/bra-size/           # layout.tsx（SEO metadata、淺色主題）+ page.tsx
+lib/braSize.ts                 # 換算邏輯
+components/bra/BraCalculator.tsx
+app/bra-size/                  # layout.tsx（metadata + 淺色主題）+ page.tsx
 ```
-
-尺碼規則若要調整（例如換成某品牌自家的級距），改 `lib/braSize.ts` 裡的
-`TW_CUPS` / `metricBand` / `chartBand` 幾個常數與函式即可，UI 不用動。
 
 ---
 
