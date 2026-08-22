@@ -7,5 +7,14 @@ export const metadata: Metadata = {
 };
 
 export default function BraSizeLayout({ children }: { children: React.ReactNode }) {
-  return <div className="bra-root min-h-screen bg-rose-50/40 text-stone-800">{children}</div>;
+  return (
+    <div className="bra-root min-h-screen bg-rose-50/40 text-stone-800">
+      {/* 尺碼卡在 canvas 上繪製，需要這幾套字型 */}
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500&family=Noto+Sans+TC:wght@400;500&family=IBM+Plex+Mono:wght@500;700&display=swap"
+      />
+      {children}
+    </div>
+  );
 }
