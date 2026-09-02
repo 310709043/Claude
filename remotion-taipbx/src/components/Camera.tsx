@@ -105,5 +105,8 @@ export const Defocus: React.FC<{
       )
     : blur;
 
-  return <AbsoluteFill style={{filter: `blur(${b}px)`}}>{children}</AbsoluteFill>;
+  // blur 為 0 時不套用濾鏡，避免建立不必要的合成層（4K 下影響明顯）
+  return (
+    <AbsoluteFill style={b > 0.01 ? {filter: `blur(${b}px)`} : undefined}>{children}</AbsoluteFill>
+  );
 };

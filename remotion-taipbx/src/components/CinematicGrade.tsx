@@ -14,13 +14,22 @@ import {grade, palette} from '../theme';
  * ============================================================
  */
 
-/** 底片顆粒：以 SVG turbulence 生成，逐格位移避免靜止的髒點 */
+/**
+ * 底片顆粒。
+ *
+ * 效能關鍵：turbulence 的 seed 固定不變，Chrome 只需計算一次濾鏡並快取；
+ * 每格改變的只有 transform 位移，讓顆粒「跳動」而不必重算雜訊。
+ * （若逐格更換 seed，4K 渲染會慢上數倍——濾鏡每格都得重新計算。）
+ * 畫布放大至 200% 並在其中位移取樣，確保移動後不會露出邊緣。
+ */
+const GRAIN_SEED = 7;
+
 const Grain: React.FC<{opacity?: number}> = ({opacity = grade.grainOpacity}) => {
   const frame = useCurrentFrame();
-  // 每 2 格換一次種子，接近真實 24/30fps 底片的顆粒跳動頻率
-  const seed = Math.floor(frame / 2);
-  const dx = random(`gx-${seed}`) * 100;
-  const dy = random(`gy-${seed}`) * 100;
+  // 每 2 格換一次取樣位置，接近真實底片的顆粒跳動頻率
+  const tick = Math.floor(frame / 2);
+  const dx = (random(`gx-${tick}`) - 0.5) * 40;
+  const dy = (random(`gy-${tick}`) - 0.5) * 40;
 
   return (
     <AbsoluteFill
@@ -28,26 +37,34 @@ const Grain: React.FC<{opacity?: number}> = ({opacity = grade.grainOpacity}) => 
         opacity,
         mixBlendMode: 'overlay',
         pointerEvents: 'none',
-        transform: `translate(${-dx / 2}px, ${-dy / 2}px)`,
-        width: '130%',
-        height: '130%',
-        left: '-15%',
-        top: '-15%',
+        overflow: 'hidden',
       }}
     >
-      <svg width="100%" height="100%">
-        <filter id="filmgrain">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.85"
-            numOctaves="3"
-            stitchTiles="stitch"
-            seed={seed}
-          />
-          <feColorMatrix type="saturate" values="0" />
-        </filter>
-        <rect width="100%" height="100%" filter="url(#filmgrain)" />
-      </svg>
+      <div
+        style={{
+          position: 'absolute',
+          left: '-50%',
+          top: '-50%',
+          width: '200%',
+          height: '200%',
+          transform: `translate(${dx}%, ${dy}%)`,
+          willChange: 'transform',
+        }}
+      >
+        <svg width="100%" height="100%">
+          <filter id="filmgrain" x="0" y="0" width="100%" height="100%">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.8"
+              numOctaves="3"
+              stitchTiles="stitch"
+              seed={GRAIN_SEED}
+            />
+            <feColorMatrix type="saturate" values="0" />
+          </filter>
+          <rect width="100%" height="100%" filter="url(#filmgrain)" />
+        </svg>
+      </div>
     </AbsoluteFill>
   );
 };

@@ -32,14 +32,13 @@ const ValueCard: React.FC<{
       style={{
         position: 'relative',
         padding: '32px 36px 34px 38px',
-        background: `linear-gradient(150deg, rgba(36,34,32,0.62) 0%, rgba(16,14,13,0.34) 100%)`,
+        background: `linear-gradient(150deg, rgba(38,35,33,0.80) 0%, rgba(16,14,13,0.52) 100%)`,
         border: `1px solid ${palette.edgeSoft}`,
         borderRadius: 3,
         opacity: p,
         transform: `translateY(${(1 - p) * 34}px)`,
         clipPath: `inset(0% 0% ${(1 - p) * 100}% 0%)`,
         boxShadow: `0 26px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04)`,
-        backdropFilter: 'blur(10px)',
       }}
     >
       {/* 左緣品牌光條 */}
