@@ -1,0 +1,35 @@
+{
+  "name": "taipbx-cinematic-film",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TAIPBX 企業級 AI 一體機 — 電影級商業宣傳片 (Remotion)",
+  "scripts": {
+    "dev": "remotion studio",
+    "studio": "remotion studio",
+    "render": "remotion render TAIPBX-Film out/TAIPBX-4K.mp4 --codec=h264 --crf=16",
+    "render:h265": "remotion render TAIPBX-Film out/TAIPBX-4K-h265.mp4 --codec=h265 --crf=20",
+    "render:1080p": "remotion render TAIPBX-Film out/TAIPBX-1080p.mp4 --codec=h264 --crf=17 --scale=0.5",
+    "render:preview": "remotion render TAIPBX-Film out/preview.mp4 --codec=h264 --crf=28 --scale=0.25",
+    "still": "remotion still TAIPBX-Film out/still.png",
+    "upgrade": "remotion upgrade",
+    "fonts:sync": "node scripts/sync-fonts.mjs",
+    "fonts:sync:all": "node scripts/sync-fonts.mjs --all"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.520",
+    "@remotion/google-fonts": "^4.0.520",
+    "@remotion/media-utils": "^4.0.520",
+    "@remotion/noise": "^4.0.520",
+    "@remotion/shapes": "^4.0.520",
+    "@remotion/transitions": "^4.0.520",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.520"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "typescript": "^5.9.3"
+  }
+}
