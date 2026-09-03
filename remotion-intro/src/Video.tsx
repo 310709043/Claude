@@ -24,7 +24,7 @@ const SCENES: {id: string; dur: number; el: React.FC}[] = [
   {id: 'core', dur: 264, el: S3Core},
   {id: 'nowfuture', dur: 246, el: S4NowFuture},
   {id: 'roadmap', dur: 396, el: S5Roadmap},
-  {id: 'platform', dur: 486, el: S6Platform},
+  {id: 'platform', dur: 642, el: S6Platform},
   {id: 'hybrid', dur: 282, el: S7Hybrid},
   {id: 'ai', dur: 264, el: S8Ai},
   {id: 'outro', dur: 186, el: S9Outro},

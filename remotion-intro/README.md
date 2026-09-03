@@ -1,7 +1,7 @@
 # TAIPBX Call Center — 介紹影片（Remotion）
 
 以 `TAIPBX_CallCenter` 簡報為腳本，用 [Remotion](https://remotion.dev) 產製的
-1920×1080 / 30fps 介紹影片，全長約 **76 秒**。
+1920×1080 / 30fps 介紹影片，全長約 **81 秒**。
 
 - 品牌：台灣大哥大（台灣大哥大 企業服務）標誌與品牌橘 `#FF7300`
 - 背景：暖白／淺灰漸層畫布（**非黑底**），搭配品牌色柔光、細格線與紙質噪點
@@ -30,7 +30,7 @@ npx remotion still src/index.ts TaipbxIntro out/frame.png --frame=800
 | 3 | 三大核心產品解決方案 | `src/scenes/S3Core.tsx` | 264f |
 | 4 | 客服中心 現況與未來 | `src/scenes/S4NowFuture.tsx` | 246f |
 | 5 | 四階段智能客服演進 | `src/scenes/S5Roadmap.tsx` | 396f |
-| 6 | 平台介面巡覽（6 幅實機畫面） | `src/scenes/S6Platform.tsx` | 486f |
+| 6 | 平台介面巡覽（6 幅實機畫面＋動態標註） | `src/scenes/S6Platform.tsx` | 642f |
 | 7 | 雲地混合架構 | `src/scenes/S7Hybrid.tsx` | 282f |
 | 8 | Bot Gateway 全開放 · AI 應用擴充 | `src/scenes/S8Ai.tsx` | 264f |
 | 9 | 結尾 | `src/scenes/S9Outro.tsx` | 186f |
@@ -52,6 +52,7 @@ src/
     Brand.tsx        # 台灣大哥大標誌元件
     Layout.tsx       # Scene／Stage／Kicker／Card 版面元件
     Screen.tsx       # 產品截圖外框（含各截圖原生比例表）
+    Callout.tsx      # 指向 UI 實際位置的動態標註
   scenes/            # 九個場景
   fontData.ts        # 由 scripts/embed-fonts.mjs 產生，勿手改
 scripts/
@@ -66,9 +67,22 @@ public/
 
 - **標誌**：自簡報母片背景圖 (`image95/96.png`) 萃取。彩色球標去白底、
   以圓形遮罩重建 alpha；「台灣大哥大 企業服務」字樣以白字 alpha 轉為深色版本。
-- **平台截圖**：取自簡報 P24–P33、P35。依簡報自身的「調整注記」，
-  截圖左上角的舊廠商品牌（Info360／Info／AICC-X）已用該列表頭色補平並改標 `TAIPBX`。
+- **平台截圖**：取自簡報 P24–P33、P35，由 `scripts/rebrand-shots.py` 重新產生。
+  依簡報自身的「調整注記」，截圖裡的舊廠商品牌一律置換：
+  - 左上角品牌（Info360／Info／AICC-X）→ 以該列表頭色補平，改為台灣大標誌 + `TAIPBX`，
+    並自動縮放至原廠商名稱佔用的寬度，不會蓋到旁邊的實際 UI。
+  - 狀態列的「AICC-X 客服系統 — 就緒中」→ 改為「TAIPBX 客服系統 — 就緒中」。
+    這串字在每個 build 落點不同，因此以文字段落切分自動定位，不寫死座標。
   若日後取得台灣大正式 Demo UI，直接替換 `public/ui/` 同名檔即可，版面無需更動。
+
+- **動態標註**：簡報用紅框箭頭標出畫面上的重點，影片改成即時繪出——
+  游標環落在被說明的控制項上、引線畫出、標籤最後到位。落點座標寫在
+  `S6Platform.tsx` 的 `callouts`，刻意選在各截圖確實留白的區域，避免蓋住內容。
+
+- **未使用的備用截圖**：`chat-inbound`、`customer-journey`、`outbound-preview`
+  仍留在 `public/ui/` 與 `Screen.tsx` 的 `SHOTS` 目錄中，隨時可換進巡覽。
+  （`customer-journey` 與 `customer-ivr` 其實是同一個畫面、只有日期不同，
+  兩張併用會看起來像重複，因此巡覽改用 `service-record`。）
 - **字型**：Noto Sans TC（繁中）與 Inter（拉丁／數字），已 subset 至本片實際用字。
   Remotion render 會同時開多個瀏覽器分頁，且把 `setTimeout` 接到時間軸而非真實時鐘，
   一旦有字型請求卡住便無從逾時、整個 render 會中斷；因此字型以 data URI

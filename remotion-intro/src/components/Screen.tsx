@@ -1,6 +1,7 @@
 import React from 'react';
 import {Img, staticFile} from 'remotion';
 import {C, FONT} from '../theme';
+import {Callout, CalloutLayer} from './Callout';
 
 /** Native aspect ratio of every product shot lifted from the deck. */
 export const SHOTS = {
@@ -34,7 +35,22 @@ export const Screen: React.FC<{
   label?: string;
   tilt?: number;
   style?: React.CSSProperties;
-}> = ({shot, width, zoom = 1, focus = [0.5, 0.5], label, tilt = 0, style}) => {
+  /** Annotations drawn onto the shot, with their reveal already computed. */
+  callouts?: Callout[];
+  calloutProgress?: number[];
+  calloutAccent?: string;
+}> = ({
+  shot,
+  width,
+  zoom = 1,
+  focus = [0.5, 0.5],
+  label,
+  tilt = 0,
+  style,
+  callouts,
+  calloutProgress,
+  calloutAccent = C.orange,
+}) => {
   const {src, aspect} = SHOTS[shot];
   const height = width / aspect;
   const [fx, fy] = focus;
@@ -84,7 +100,7 @@ export const Screen: React.FC<{
           </span>
         ) : null}
       </div>
-      <div style={{width, height, overflow: 'hidden'}}>
+      <div style={{width, height, overflow: 'hidden', position: 'relative'}}>
         <Img
           src={staticFile(src)}
           style={{
@@ -97,6 +113,15 @@ export const Screen: React.FC<{
             display: 'block',
           }}
         />
+        {callouts ? (
+          <CalloutLayer
+            callouts={callouts}
+            progress={calloutProgress ?? []}
+            accent={calloutAccent}
+            width={width}
+            height={height}
+          />
+        ) : null}
       </div>
     </div>
   );
