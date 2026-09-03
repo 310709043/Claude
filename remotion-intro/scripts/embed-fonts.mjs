@@ -1,10 +1,12 @@
 /**
  * Regenerates src/fontData.ts from the woff2 files in public/fonts.
  *
- * The film embeds its typefaces as data URIs rather than fetching them at
- * render time: Remotion drives several browser tabs at once and replaces
- * setTimeout with timeline-driven timers, so a single stalled font request
- * has no way to time out and takes the whole render down with it.
+ * The film carries its typefaces as base64 in the bundle rather than fetching
+ * them at render time. Remotion drives several browser tabs at once and
+ * replaces setTimeout with timeline-driven timers, so anything that can stall
+ * — a request, or a CSS @font-face the engine only fetches lazily when the
+ * glyph is first painted — has no way to time out, and takes the render down
+ * with it. Decoding a buffer we already hold cannot stall.
  *
  *   node scripts/embed-fonts.mjs
  */
@@ -32,17 +34,27 @@ if (missing.length) {
   throw new Error(`Missing font files: ${missing.map((m) => m[2]).join(', ')}`);
 }
 
-const rules = FACES.map(([family, weight, file]) => {
-  const b64 = readFileSync(join(dir, file)).toString('base64');
-  return `@font-face{font-family:'${family}';font-style:normal;font-weight:${weight};font-display:block;src:url(data:font/woff2;base64,${b64}) format('woff2');}`;
-}).join('\n');
+const entries = FACES.map(([family, weight, file]) => ({
+  family,
+  weight,
+  data: readFileSync(join(dir, file)).toString('base64'),
+}));
+
+const body = entries
+  .map(
+    (e) =>
+      `  {family: ${JSON.stringify(e.family)}, weight: ${e.weight}, data: ${JSON.stringify(e.data)}},`,
+  )
+  .join('\n');
 
 writeFileSync(
   join(root, 'src/fontData.ts'),
   `// GENERATED FILE — do not edit by hand.\n` +
     `// Run \`node scripts/embed-fonts.mjs\` after changing public/fonts.\n` +
-    `// Subset to the glyphs this film actually uses; see README.\n` +
-    `export const FONT_FACE_CSS = ${JSON.stringify(rules)};\n`,
+    `// woff2, subset to the glyphs this film actually uses; see README.\n` +
+    `export type EmbeddedFace = {family: string; weight: number; data: string};\n\n` +
+    `export const EMBEDDED_FACES: EmbeddedFace[] = [\n${body}\n];\n`,
 );
 
-console.log(`Embedded ${FACES.length} faces (${(rules.length / 1024) | 0} KB of CSS)`);
+const kb = entries.reduce((n, e) => n + e.data.length, 0) / 1024;
+console.log(`Embedded ${entries.length} faces (${kb | 0} KB base64)`);
