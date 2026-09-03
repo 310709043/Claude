@@ -1,79 +1,40 @@
-import {staticFile, continueRender, delayRender} from 'remotion';
+import {continueRender, delayRender} from 'remotion';
+import {FONT_FACE_CSS} from './fontData';
 
 /**
- * Fonts are bundled locally (subset to the glyphs this film uses) so a render
- * never depends on the network resolving Google Fonts.
+ * Typefaces are embedded as data URIs (see scripts/embed-fonts.mjs) and
+ * injected as plain CSS, so a render never waits on the network — or on a
+ * timer, which Remotion drives from the timeline rather than the clock.
+ *
+ * `document.fonts.ready` still settles asynchronously, so one delayRender
+ * handle keeps the first frame from being captured mid-swap.
  */
-const FACES = [
-  {family: 'Noto Sans TC', weight: 400, file: 'fonts/NotoSansTC-Regular.woff2'},
-  {family: 'Noto Sans TC', weight: 500, file: 'fonts/NotoSansTC-Medium.woff2'},
-  {family: 'Noto Sans TC', weight: 700, file: 'fonts/NotoSansTC-Bold.woff2'},
-  {family: 'Noto Sans TC', weight: 900, file: 'fonts/NotoSansTC-Black.woff2'},
-  {family: 'Inter', weight: 400, file: 'fonts/Inter-Regular.woff2'},
-  {family: 'Inter', weight: 600, file: 'fonts/Inter-SemiBold.woff2'},
-  {family: 'Inter', weight: 700, file: 'fonts/Inter-Bold.woff2'},
-  {family: 'Inter', weight: 800, file: 'fonts/Inter-ExtraBold.woff2'},
-];
-
-/** Give up waiting well before Remotion's own frame timeout would fire. */
-const LOAD_BUDGET_MS = 25_000;
-const FETCH_TIMEOUT_MS = 8_000;
-
-const fetchFace = async (file: string, attempt = 0): Promise<ArrayBuffer> => {
-  const ctrl = new AbortController();
-  const bail = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
-  try {
-    const res = await fetch(staticFile(file), {signal: ctrl.signal});
-    if (!res.ok) throw new Error(`${file}: HTTP ${res.status}`);
-    return await res.arrayBuffer();
-  } catch (err) {
-    // A render spins up several browser tabs at once; one stalled request
-    // should cost a retry, not the whole render.
-    if (attempt < 2) return fetchFace(file, attempt + 1);
-    throw err;
-  } finally {
-    clearTimeout(bail);
-  }
-};
-
 let started = false;
 
 export const loadFonts = () => {
   if (started || typeof document === 'undefined') return;
   started = true;
 
-  const handle = delayRender('Loading TAIPBX intro typefaces', {
-    timeoutInMilliseconds: 60_000,
-  });
+  const style = document.createElement('style');
+  style.setAttribute('data-taipbx-fonts', '');
+  style.textContent = FONT_FACE_CSS;
+  document.head.appendChild(style);
 
-  // The handle must be released on every path — a typeface that never
-  // resolves must not be able to abort an otherwise healthy render.
-  let released = false;
-  const release = () => {
-    if (released) return;
-    released = true;
-    continueRender(handle);
-  };
-  const budget = setTimeout(release, LOAD_BUDGET_MS);
-
-  Promise.all(
-    FACES.map(async ({family, weight, file}) => {
-      const buf = await fetchFace(file);
-      const face = new FontFace(family, buf, {
-        weight: String(weight),
-        style: 'normal',
-        display: 'block',
-      });
-      await face.load();
-      document.fonts.add(face);
-    }),
-  )
+  const handle = delayRender('Loading TAIPBX intro typefaces');
+  Promise.all([
+    document.fonts.load('900 100px "Noto Sans TC"'),
+    document.fonts.load('700 100px "Noto Sans TC"'),
+    document.fonts.load('500 100px "Noto Sans TC"'),
+    document.fonts.load('400 100px "Noto Sans TC"'),
+    document.fonts.load('800 100px "Inter"'),
+    document.fonts.load('700 100px "Inter"'),
+    document.fonts.load('600 100px "Inter"'),
+    document.fonts.load('400 100px "Inter"'),
+  ])
     .catch((err) => {
+      // Never hard-fail a render on a typeface; fall back to the stack.
       // eslint-disable-next-line no-console
       console.warn('Font load failed, falling back to the system stack', err);
     })
-    .finally(() => {
-      clearTimeout(budget);
-      release();
-    });
+    .then(() => continueRender(handle));
 };

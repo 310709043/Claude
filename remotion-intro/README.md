@@ -53,6 +53,9 @@ src/
     Layout.tsx       # Scene／Stage／Kicker／Card 版面元件
     Screen.tsx       # 產品截圖外框（含各截圖原生比例表）
   scenes/            # 九個場景
+  fontData.ts        # 由 scripts/embed-fonts.mjs 產生，勿手改
+scripts/
+  embed-fonts.mjs    # 將 public/fonts/*.woff2 內嵌成 data URI
 public/
   brand/             # 標誌（自簡報母片萃取，去背後放大）
   ui/                # 平台操作截圖
@@ -66,8 +69,11 @@ public/
 - **平台截圖**：取自簡報 P24–P33、P35。依簡報自身的「調整注記」，
   截圖左上角的舊廠商品牌（Info360／Info／AICC-X）已用該列表頭色補平並改標 `TAIPBX`。
   若日後取得台灣大正式 Demo UI，直接替換 `public/ui/` 同名檔即可，版面無需更動。
-- **字型**：Noto Sans TC（繁中）與 Inter（拉丁／數字），已 subset 至本片實際用字，
-  四個字重合計約 500KB，內嵌於 `public/fonts/`，離線亦可 render。
+- **字型**：Noto Sans TC（繁中）與 Inter（拉丁／數字），已 subset 至本片實際用字。
+  Remotion render 會同時開多個瀏覽器分頁，且把 `setTimeout` 接到時間軸而非真實時鐘，
+  一旦有字型請求卡住便無從逾時、整個 render 會中斷；因此字型以 data URI
+  內嵌（`src/fontData.ts`），render 期間完全不碰網路。
+  更換字型後執行 `node scripts/embed-fonts.mjs` 重新產生。
 
 ## 待確認事項（沿用簡報注記）
 
