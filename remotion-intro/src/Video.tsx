@@ -5,12 +5,12 @@ import {loadFonts} from './fonts';
 import {Backdrop} from './components/Backdrop';
 import {S1Logo} from './scenes/S1Logo';
 import {S2Title} from './scenes/S2Title';
-import {S3Core} from './scenes/S3Core';
-import {S4NowFuture} from './scenes/S4NowFuture';
-import {S5Roadmap} from './scenes/S5Roadmap';
-import {S6Platform} from './scenes/S6Platform';
-import {S7Hybrid} from './scenes/S7Hybrid';
-import {S8Ai} from './scenes/S8Ai';
+import {S3Barriers} from './scenes/S3Barriers';
+import {S4Appliance} from './scenes/S4Appliance';
+import {S5Industries} from './scenes/S5Industries';
+import {S6AgentUI} from './scenes/S6AgentUI';
+import {S7NoCode} from './scenes/S7NoCode';
+import {S8Value} from './scenes/S8Value';
 import {S9Outro} from './scenes/S9Outro';
 
 loadFonts();
@@ -20,13 +20,13 @@ const OVERLAP = 14;
 
 const SCENES: {id: string; dur: number; el: React.FC}[] = [
   {id: 'logo', dur: 108, el: S1Logo},
-  {id: 'title', dur: 168, el: S2Title},
-  {id: 'core', dur: 264, el: S3Core},
-  {id: 'nowfuture', dur: 246, el: S4NowFuture},
-  {id: 'roadmap', dur: 396, el: S5Roadmap},
-  {id: 'platform', dur: 642, el: S6Platform},
-  {id: 'hybrid', dur: 282, el: S7Hybrid},
-  {id: 'ai', dur: 264, el: S8Ai},
+  {id: 'title', dur: 186, el: S2Title},
+  {id: 'barriers', dur: 336, el: S3Barriers},
+  {id: 'appliance', dur: 432, el: S4Appliance},
+  {id: 'industries', dur: 336, el: S5Industries},
+  {id: 'agent', dur: 432, el: S6AgentUI},
+  {id: 'nocode', dur: 360, el: S7NoCode},
+  {id: 'value', dur: 306, el: S8Value},
   {id: 'outro', dur: 186, el: S9Outro},
 ];
 

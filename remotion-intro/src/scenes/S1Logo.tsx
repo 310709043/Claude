@@ -100,7 +100,7 @@ export const S1Logo: React.FC = () => {
             paddingLeft: '0.42em',
           }}
         >
-          企業 AI ・ 智能客服
+          企業 AI ・ 一體機就緒
         </div>
       </AbsoluteFill>
     </Scene>

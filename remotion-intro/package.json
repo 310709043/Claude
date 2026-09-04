@@ -5,7 +5,7 @@
   "description": "TAIPBX Call Center 智能客服平台 introduction video (Remotion)",
   "scripts": {
     "dev": "remotion studio src/index.ts",
-    "render": "remotion render src/index.ts TaipbxIntro out/taipbx-intro.mp4 --concurrency=2",
+    "render": "remotion render src/index.ts TaipbxIntro out/taipbx-aio-intro.mp4 --concurrency=3 --crf=17",
     "still": "remotion still src/index.ts TaipbxIntro out/frame.png",
     "upgrade": "remotion upgrade"
   },

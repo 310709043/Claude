@@ -5,15 +5,14 @@ import {Callout, CalloutLayer} from './Callout';
 
 /** Native aspect ratio of every product shot lifted from the deck. */
 export const SHOTS = {
-  'agent-status': {src: 'ui/agent-status.png', aspect: 2000 / 987},
-  'customer-ivr': {src: 'ui/customer-ivr.png', aspect: 2000 / 1057},
-  'chat-inbound': {src: 'ui/chat-inbound.png', aspect: 1913 / 862},
-  'customer-journey': {src: 'ui/customer-journey.png', aspect: 2000 / 1057},
-  'service-record': {src: 'ui/service-record.png', aspect: 2000 / 983},
-  'outbound-config': {src: 'ui/outbound-config.png', aspect: 2000 / 1224},
-  'outbound-preview': {src: 'ui/outbound-preview.png', aspect: 2000 / 986},
-  'ai-copilot': {src: 'ui/ai-copilot.png', aspect: 2000 / 1004},
-  'ai-quality': {src: 'ui/ai-quality.png', aspect: 2000 / 1079},
+  'ai-agent': {src: 'ui/ai-agent.png', aspect: 2000 / 1036},
+  'ai-summary': {src: 'ui/ai-summary.png', aspect: 1944 / 650},
+  'ai-qa-live': {src: 'ui/ai-qa-live.png', aspect: 1076 / 898},
+  'ai-qa-report': {src: 'ui/ai-qa-report.png', aspect: 1066 / 1026},
+  'nocode-urls': {src: 'ui/nocode-urls.png', aspect: 1916 / 990},
+  'nocode-url-add': {src: 'ui/nocode-url-add.png', aspect: 1915 / 989},
+  'kb-files': {src: 'ui/kb-files.png', aspect: 2000 / 1305},
+  'kb-faq': {src: 'ui/kb-faq.png', aspect: 2000 / 1281},
 } as const;
 
 export type ShotId = keyof typeof SHOTS;
