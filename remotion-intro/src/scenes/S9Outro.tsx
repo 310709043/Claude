@@ -5,7 +5,7 @@ import {rise, pop} from '../anim';
 import {Scene} from '../components/Layout';
 import {TwmLockup} from '../components/Brand';
 
-const POINTS = ['100% 地端部署', '單機整合', 'AI 快速導入', '長期增值'];
+const POINTS = ['100% 地端部署', '一站整合', 'AI 快速導入', '長期增值'];
 
 export const S9Outro: React.FC = () => {
   const frame = useCurrentFrame();
@@ -28,8 +28,8 @@ export const S9Outro: React.FC = () => {
           <TwmLockup height={92} />
         </div>
         <h2 style={{margin: '54px 0 0', fontFamily: FONT.sans, fontWeight: 900, fontSize: 72, letterSpacing: '-0.01em', color: C.ink, opacity: nameP, transform: `translateY(${(1 - nameP) * 22}px)`}}>
-          <span style={{fontFamily: FONT.latin, fontWeight: 800, letterSpacing: '-0.03em'}}>TAIPBX</span> 企業級{' '}
-          <span style={{background: `linear-gradient(96deg, ${C.orange}, ${C.magenta} 60%, ${C.indigo})`, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent'}}>AI 一體機</span>
+          <span style={{fontFamily: FONT.latin, fontWeight: 800, letterSpacing: '-0.03em'}}>TAIPBX</span>{' '}
+          <span style={{fontFamily: FONT.latin, fontWeight: 800, letterSpacing: '-0.03em', background: `linear-gradient(96deg, ${C.orange}, ${C.magenta} 60%, ${C.indigo})`, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent'}}>Call Center</span>
         </h2>
         <div style={{marginTop: 32, display: 'flex', gap: 16, alignItems: 'center'}}>
           {POINTS.map((p, i) => {
@@ -44,7 +44,7 @@ export const S9Outro: React.FC = () => {
         </div>
         <div style={{marginTop: 56, width: lineP * 520, height: 3, borderRadius: 2, background: `linear-gradient(90deg, ${C.orange}, ${C.magenta}, ${C.indigo})`}} />
         <div style={{marginTop: 34, fontFamily: FONT.sans, fontWeight: 500, fontSize: 27, letterSpacing: '0.2em', color: C.inkMid, opacity: teamP, transform: `translateY(${(1 - teamP) * 12}px)`, paddingLeft: '0.2em'}}>
-          企業 AI 轉型，從單機就緒開始
+          企業 AI 轉型，從 TAIPBX Call Center 開始
         </div>
       </AbsoluteFill>
     </Scene>

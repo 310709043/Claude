@@ -6,7 +6,7 @@ import {Backdrop} from './components/Backdrop';
 import {S1Logo} from './scenes/S1Logo';
 import {S2Title} from './scenes/S2Title';
 import {S3Barriers} from './scenes/S3Barriers';
-import {S4Appliance} from './scenes/S4Appliance';
+import {S4Platform} from './scenes/S4Platform';
 import {S5Industries} from './scenes/S5Industries';
 import {S6AgentUI} from './scenes/S6AgentUI';
 import {S7NoCode} from './scenes/S7NoCode';
@@ -22,7 +22,7 @@ const SCENES: {id: string; dur: number; el: React.FC}[] = [
   {id: 'logo', dur: 108, el: S1Logo},
   {id: 'title', dur: 186, el: S2Title},
   {id: 'barriers', dur: 336, el: S3Barriers},
-  {id: 'appliance', dur: 432, el: S4Appliance},
+  {id: 'platform', dur: 432, el: S4Platform},
   {id: 'industries', dur: 336, el: S5Industries},
   {id: 'agent', dur: 432, el: S6AgentUI},
   {id: 'nocode', dur: 360, el: S7NoCode},

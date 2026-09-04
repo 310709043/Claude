@@ -96,7 +96,7 @@ export const S3Barriers: React.FC = () => {
                   <div style={{display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12}}>
                     <span style={{width: 10, height: 10, borderRadius: 3, background: it.accent}} />
                     <span style={{fontFamily: FONT.sans, fontWeight: 700, fontSize: 18, letterSpacing: '0.18em', color: it.accent}}>
-                      一體機解法
+                      TAIPBX 解法
                     </span>
                   </div>
                   <div style={{fontFamily: FONT.sans, fontWeight: 500, fontSize: 22, lineHeight: 1.75, color: C.ink}}>{it.fix}</div>

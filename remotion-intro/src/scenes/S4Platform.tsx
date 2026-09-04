@@ -46,7 +46,7 @@ const Chassis: React.FC<{lit: Record<Part, number>; frame: number}> = ({lit, fra
       <rect x="20" y="40" width="640" height="40" rx="22" fill="url(#bezel)" />
       <rect x="20" y="62" width="640" height="18" fill="url(#bezel)" />
       <text x="48" y="67" fontFamily={FONT.latin} fontWeight="800" fontSize="15" letterSpacing="3" fill="#FFFFFF">
-        TAIPBX AI APPLIANCE
+        TAIPBX CALL CENTER
       </text>
       {[0, 1, 2].map((i) => (
         <circle key={i} cx={600 + i * 20} cy="60" r="4.5" fill={i === 0 ? C.teal : i === 1 ? C.amber : C.orange} opacity={0.6 + 0.4 * pulse} />
@@ -115,7 +115,7 @@ const Chassis: React.FC<{lit: Record<Part, number>; frame: number}> = ({lit, fra
   );
 };
 
-export const S4Appliance: React.FC = () => {
+export const S4Platform: React.FC = () => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const chassisP = pop(frame, fps, 10, 200, 80);

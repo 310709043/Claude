@@ -7,7 +7,7 @@ import {CornerBrand} from '../components/Brand';
 
 const PILLARS = [
   ['100%', '地端部署'],
-  ['單機', '整合'],
+  ['一站', '整合'],
   ['AI', '快速導入'],
 ];
 
@@ -66,7 +66,6 @@ export const S2Title: React.FC = () => {
           >
             <span style={{fontFamily: FONT.latin, fontWeight: 800, letterSpacing: '-0.03em'}}>TAIPBX</span>
             <br />
-            企業級{' '}
             <span
               style={{
                 background: `linear-gradient(96deg, ${C.orange}, ${C.magenta} 62%, ${C.indigo})`,
@@ -75,7 +74,7 @@ export const S2Title: React.FC = () => {
                 color: 'transparent',
               }}
             >
-              AI 一體機
+              Call Center
             </span>
           </h1>
 
@@ -118,7 +117,7 @@ export const S2Title: React.FC = () => {
           >
             一台主機，開箱即用。無需上雲、無需複雜系統整合，
             <br />
-            單機即可實現強大的 AI 應用，為企業構建安全可控、高效靈活的智能服務。
+            單一平台即可實現強大的 AI 應用，為企業構建安全可控、高效靈活的智能服務。
           </p>
 
           <div style={{marginTop: 30, display: 'flex', gap: 12, opacity: t3}}>
@@ -202,7 +201,7 @@ export const S2Title: React.FC = () => {
                 opacity: slab,
               }}
             >
-              一台主機・開箱即用
+              開箱即用・資料不出企業
             </div>
           </div>
         </div>

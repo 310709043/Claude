@@ -1,6 +1,6 @@
-# TAIPBX 企業級 AI 一體機 — 介紹影片（Remotion）
+# TAIPBX Call Center — 介紹影片（Remotion）
 
-以合作夥伴的《AICC AIO ／ AI 一體機》簡報（8 頁）為腳本，用
+以合作夥伴的新版簡報（8 頁）為腳本，用
 [Remotion](https://remotion.dev) 產製的 1920×1080 / 30fps 介紹影片，全長約 **86 秒**。
 
 - 品牌：台灣大哥大（台灣大哥大 企業服務）標誌與品牌橘 `#FF7300`
@@ -16,7 +16,7 @@
 ```bash
 npm install
 npm run dev      # Remotion Studio 預覽
-npm run render   # 輸出 out/taipbx-aio-intro.mp4
+npm run render   # 輸出 out/taipbx-callcenter-intro.mp4（走 Node API，見 scripts/render.mjs）
 npx remotion still src/index.ts TaipbxIntro out/frame.png --frame=800
 ```
 
@@ -25,9 +25,9 @@ npx remotion still src/index.ts TaipbxIntro out/frame.png --frame=800
 | # | 場景 | 簡報頁 | 檔案 | 長度 |
 |---|------|--------|------|------|
 | 1 | 品牌開場 | — | `S1Logo.tsx` | 108f |
-| 2 | TAIPBX 企業級 AI 一體機（主視覺） | P1 | `S2Title.tsx` | 186f |
+| 2 | TAIPBX Call Center（主視覺） | P1 | `S2Title.tsx` | 186f |
 | 3 | 化解企業 AI 導入的三大關卡（痛點→解法翻牌） | P2 | `S3Barriers.tsx` | 336f |
-| 4 | 六大核心技術能力（一體機機箱示意圖逐項點亮） | P3 | `S4Appliance.tsx` | 432f |
+| 4 | 六大核心技術能力（主機示意圖逐項點亮） | P3 | `S4Platform.tsx` | 432f |
 | 5 | 橫跨五大產業的全場景 AI 賦能 | P4 | `S5Industries.tsx` | 336f |
 | 6 | 多 AI Agent 值機介面（通話中 → 通話結束兩個節拍） | P5 | `S6AgentUI.tsx` | 432f |
 | 7 | no code 建置企業專屬 AI 助理（3 幅畫面） | P6–P7 | `S7NoCode.tsx` | 360f |
@@ -93,3 +93,5 @@ public/
 3. 改寫 `src/scenes/*`，在 `Video.tsx` 調整 `SCENES` 長度
 4. 重跑字型 subset + `embed-fonts.mjs`
 5. `npx remotion still` 逐場景檢查，再 `npm run render`
+
+> 產品名稱一律為 **TAIPBX Call Center**；簡報中的「一體機／單機」用語已依客戶要求移除。

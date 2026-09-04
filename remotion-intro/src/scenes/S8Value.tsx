@@ -53,7 +53,7 @@ export const S8Value: React.FC = () => {
         <div style={{textAlign: 'center', marginTop: 24, opacity: close, transform: `translateY(${(1 - close) * 14}px)`}}>
           <span style={{display: 'inline-block', width: close * 60, height: 2, background: C.orange, verticalAlign: 'middle', marginRight: 22}} />
           <span style={{fontFamily: FONT.sans, fontWeight: 800, fontSize: 34, color: C.ink, letterSpacing: '0.08em', verticalAlign: 'middle'}}>
-            企業 AI 轉型，從<span style={{color: C.orangeDeep}}>單機就緒</span>開始
+            企業 AI 轉型，從 <span style={{color: C.orangeDeep, fontFamily: FONT.latin}}>TAIPBX Call Center</span> 開始
           </span>
           <span style={{display: 'inline-block', width: close * 60, height: 2, background: C.orange, verticalAlign: 'middle', marginLeft: 22}} />
         </div>
