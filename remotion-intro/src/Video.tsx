@@ -3,6 +3,7 @@ import {AbsoluteFill, Sequence, useCurrentFrame, interpolate} from 'remotion';
 import {C} from './theme';
 import {loadFonts} from './fonts';
 import {Backdrop} from './components/Backdrop';
+import {Captions} from './components/Captions';
 import {S1Logo} from './scenes/S1Logo';
 import {S2Title} from './scenes/S2Title';
 import {S3Barriers} from './scenes/S3Barriers';
@@ -71,7 +72,7 @@ const Progress: React.FC = () => {
   );
 };
 
-export const TaipbxIntro: React.FC = () => (
+export const TaipbxIntro: React.FC<{captions?: boolean}> = ({captions = false}) => (
   <AbsoluteFill style={{background: C.canvas, fontKerning: 'normal'}}>
     <Backdrop />
     {SCENES.map((s, i) => {
@@ -82,6 +83,7 @@ export const TaipbxIntro: React.FC = () => (
         </Sequence>
       );
     })}
+    {captions ? <Captions /> : null}
     <Progress />
   </AbsoluteFill>
 );

@@ -14,7 +14,8 @@ import {bundle} from '@remotion/bundler';
 import {renderMedia, selectComposition} from '@remotion/renderer';
 import path from 'node:path';
 
-const out = process.argv[2] ?? 'out/taipbx-aio-intro.mp4';
+const out = process.argv[2] ?? 'out/taipbx-callcenter-intro.mp4';
+const compId = process.argv[4] ?? 'TaipbxIntro';
 const concurrency = Number(process.argv[3] ?? 3);
 
 const serveUrl = await bundle({
@@ -22,7 +23,7 @@ const serveUrl = await bundle({
   onProgress: (p) => p % 25 === 0 && console.log(`bundle ${p}%`),
 });
 
-const composition = await selectComposition({serveUrl, id: 'TaipbxIntro'});
+const composition = await selectComposition({serveUrl, id: compId});
 console.log(`render ${composition.durationInFrames} frames @ ${composition.fps}fps → ${out}`);
 
 let last = -1;

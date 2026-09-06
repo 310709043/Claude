@@ -95,3 +95,34 @@ public/
 5. `npx remotion still` 逐場景檢查，再 `npm run render`
 
 > 產品名稱一律為 **TAIPBX Call Center**；簡報中的「一體機／單機」用語已依客戶要求移除。
+
+## 字幕與旁白
+
+`src/captions.ts` 是字幕與旁白的**單一來源**：22 句、以 30fps 的格數對齊各場景，
+沒有任何一句跨越剪接點。
+
+```bash
+node scripts/make-subtitles.mjs   # 產生 subtitles/ 並檢查語速
+```
+
+產出三個檔案：
+
+| 檔案 | 用途 |
+|------|------|
+| `subtitles/taipbx-callcenter.zh-TW.srt` | YouTube／一般播放器外掛字幕 |
+| `subtitles/taipbx-callcenter.zh-TW.vtt` | 網頁 `<track>` |
+| `subtitles/narration-zh-TW.md` | 旁白稿，含每句進出點、可用秒數與估計秒數 |
+
+產生器會以每秒 4.5 個中文字的沉穩語速估算每句需時，超出畫面留給它的秒數就報錯，
+避免出現唸不完的字幕。
+
+兩個 composition：`TaipbxIntro`（乾淨母版）與 `TaipbxIntroSubtitled`（字幕燒錄版）。
+
+```bash
+node scripts/render.mjs out/film.mp4 3 TaipbxIntroSubtitled
+```
+
+**旁白配音**：本環境沒有可用的 TTS——未安裝任何語音引擎，且
+`speech.platform.bing.com`、`translate.google.com`、ElevenLabs、HuggingFace
+均被 agent proxy 阻擋。`narration-zh-TW.md` 已按秒數寫好，可直接交給配音員或
+外部 TTS 服務錄製；錄好的音軌對齊進點後用 ffmpeg 併入即可。
