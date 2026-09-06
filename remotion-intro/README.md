@@ -126,3 +126,26 @@ node scripts/render.mjs out/film.mp4 3 TaipbxIntroSubtitled
 `speech.platform.bing.com`、`translate.google.com`、ElevenLabs、HuggingFace
 均被 agent proxy 阻擋。`narration-zh-TW.md` 已按秒數寫好，可直接交給配音員或
 外部 TTS 服務錄製；錄好的音軌對齊進點後用 ffmpeg 併入即可。
+
+### 配音音軌組裝
+
+`scripts/mux-voiceover.mjs` 把旁白疊回影片，兩種輸入形態對應兩種取得配音的方式：
+
+```bash
+# 22 個分句音檔（TTS 逐句產生）——依 captions.ts 的進點逐一定位
+node scripts/mux-voiceover.mjs clips out/vo/ out/taipbx-callcenter-intro.mp4 out/film-vo.mp4
+
+# 一整條已對好時間的音軌（配音員對著 guide track 錄）——從 0 秒鋪下去
+node scripts/mux-voiceover.mjs track out/narration.wav out/taipbx-callcenter-intro.mp4 out/film-vo.mp4
+```
+
+兩者都會把人聲正規化到 **-16 LUFS**（網路影片常用值），影片流直接 copy 不重壓。
+
+`scripts/make-guide-track.mjs` 產生 `subtitles/recording-guide.wav`：85.7 秒的靜音軌，
+在每句進點放一個提示音（換段落時音高提高）。配音員戴耳機聽著它錄，就能準確踩點。
+
+管線已用 22 段合成音檔實測：輸出 2570 格未被裁切，22 段語音對齊 22 句字幕，
+**最大偏差 0.000 秒**。
+
+> 注意：`apad` 若不給 `whole_dur` 會產生無限音流，`-shortest` 從 filter graph 後方
+> 無法可靠終止它，ffmpeg 會卡死；因此腳本先以 ffprobe 讀出影片長度再明確收尾。
