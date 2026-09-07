@@ -1,6 +1,7 @@
 import React from 'react';
 import {Composition} from 'remotion';
 import {TaipbxIntro, TOTAL} from './Video';
+import {Poster} from './Poster';
 import {FPS} from './theme';
 
 export const RemotionRoot: React.FC = () => (
@@ -23,6 +24,15 @@ export const RemotionRoot: React.FC = () => (
       width={1920}
       height={1080}
       defaultProps={{captions: true}}
+    />
+    {/* Publishing poster; render with `remotion still ... Poster out.png` */}
+    <Composition
+      id="Poster"
+      component={Poster}
+      durationInFrames={1}
+      fps={FPS}
+      width={1920}
+      height={1080}
     />
   </>
 );

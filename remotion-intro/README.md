@@ -116,7 +116,8 @@ node scripts/make-subtitles.mjs   # 產生 subtitles/ 並檢查語速
 產生器會以每秒 4.5 個中文字的沉穩語速估算每句需時，超出畫面留給它的秒數就報錯，
 避免出現唸不完的字幕。
 
-兩個 composition：`TaipbxIntro`（乾淨母版）與 `TaipbxIntroSubtitled`（字幕燒錄版）。
+三個 composition：`TaipbxIntro`（乾淨母版）、`TaipbxIntroSubtitled`（字幕燒錄版），
+以及 `Poster`（發佈封面）。
 
 ```bash
 node scripts/render.mjs out/film.mp4 3 TaipbxIntroSubtitled
@@ -149,3 +150,13 @@ node scripts/mux-voiceover.mjs track out/narration.wav out/taipbx-callcenter-int
 
 > 注意：`apad` 若不給 `whole_dur` 會產生無限音流，`-shortest` 從 filter graph 後方
 > 無法可靠終止它，ffmpeg 會卡死；因此腳本先以 ffprobe 讀出影片長度再明確收尾。
+
+## 發佈封面
+
+```bash
+npx remotion still src/index.ts Poster out/poster.png
+```
+
+`src/Poster.tsx` 為**縮圖尺寸**排版：YouTube／LINE 卡片實際只有 320px 寬，
+影片標題幀在那個尺寸下內文會糊成雜訊，因此封面只留產品名、一行定位與主視覺，
+其餘一律捨去。輸出 1920×1080，縮到 320px 仍可讀。
