@@ -35,7 +35,10 @@ export const Captions: React.FC<{locale?: Locale}> = ({locale = 'zh'}) => {
     >
       <div
         style={{
-          maxWidth: locale === 'en' ? 1320 : 1180,
+          // Keep the box clear of the corner signature (which ends near x=380).
+          // English lines run long, so the cap makes them wrap to two lines
+          // rather than reach across the mark.
+          maxWidth: 1080,
           padding: '16px 32px',
           borderRadius: 14,
           background: 'rgba(255,255,255,0.95)',
