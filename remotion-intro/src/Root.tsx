@@ -25,6 +25,15 @@ export const RemotionRoot: React.FC = () => (
       height={1080}
       defaultProps={{captions: true}}
     />
+    <Composition
+      id="TaipbxIntroSubtitledEn"
+      component={TaipbxIntro}
+      durationInFrames={TOTAL}
+      fps={FPS}
+      width={1920}
+      height={1080}
+      defaultProps={{captions: true, locale: 'en' as const}}
+    />
     {/* Publishing poster; render with `remotion still ... Poster out.png` */}
     <Composition
       id="Poster"

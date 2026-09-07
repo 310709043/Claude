@@ -4,6 +4,7 @@ import {C} from './theme';
 import {loadFonts} from './fonts';
 import {Backdrop} from './components/Backdrop';
 import {Captions} from './components/Captions';
+import {Locale} from './captions';
 import {S1Logo} from './scenes/S1Logo';
 import {S2Title} from './scenes/S2Title';
 import {S3Barriers} from './scenes/S3Barriers';
@@ -72,7 +73,10 @@ const Progress: React.FC = () => {
   );
 };
 
-export const TaipbxIntro: React.FC<{captions?: boolean}> = ({captions = false}) => (
+export const TaipbxIntro: React.FC<{captions?: boolean; locale?: Locale}> = ({
+  captions = false,
+  locale = 'zh',
+}) => (
   <AbsoluteFill style={{background: C.canvas, fontKerning: 'normal'}}>
     <Backdrop />
     {SCENES.map((s, i) => {
@@ -83,7 +87,7 @@ export const TaipbxIntro: React.FC<{captions?: boolean}> = ({captions = false}) 
         </Sequence>
       );
     })}
-    {captions ? <Captions /> : null}
+    {captions ? <Captions locale={locale} /> : null}
     <Progress />
   </AbsoluteFill>
 );

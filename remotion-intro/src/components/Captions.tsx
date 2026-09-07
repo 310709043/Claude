@@ -1,7 +1,7 @@
 import React from 'react';
 import {useCurrentFrame} from 'remotion';
 import {C, FONT} from '../theme';
-import {CAPTIONS} from '../captions';
+import {CAPTIONS, Locale} from '../captions';
 
 /**
  * Burned-in caption layer, set in the film's own typeface rather than a
@@ -9,10 +9,11 @@ import {CAPTIONS} from '../captions';
  * signature. Only rendered by the `TaipbxIntroSubtitled` composition — the
  * clean master stays free of text so the .srt can be used instead.
  */
-export const Captions: React.FC = () => {
+export const Captions: React.FC<{locale?: Locale}> = ({locale = 'zh'}) => {
   const frame = useCurrentFrame();
   const cue = CAPTIONS.find((c) => frame >= c.from && frame < c.to);
   if (!cue) return null;
+  const text = cue[locale];
 
   // 6-frame fade at each end so cues never pop.
   const FADE = 6;
@@ -34,7 +35,7 @@ export const Captions: React.FC = () => {
     >
       <div
         style={{
-          maxWidth: 1180,
+          maxWidth: locale === 'en' ? 1320 : 1180,
           padding: '16px 32px',
           borderRadius: 14,
           background: 'rgba(255,255,255,0.95)',
@@ -42,7 +43,7 @@ export const Captions: React.FC = () => {
           boxShadow: `0 18px 44px -18px ${C.ink}3A`,
           fontFamily: FONT.sans,
           fontWeight: 600,
-          fontSize: 32,
+          fontSize: locale === 'en' ? 30 : 32,
           lineHeight: 1.45,
           letterSpacing: '0.01em',
           color: C.ink,
@@ -51,7 +52,7 @@ export const Captions: React.FC = () => {
           transform: `translateY(${(1 - o) * 8}px)`,
         }}
       >
-        {cue.text}
+        {text}
       </div>
     </div>
   );

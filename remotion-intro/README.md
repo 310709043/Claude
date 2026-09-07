@@ -96,10 +96,14 @@ public/
 
 > 產品名稱一律為 **TAIPBX Call Center**；簡報中的「一體機／單機」用語已依客戶要求移除。
 
-## 字幕與旁白
+## 字幕與旁白（繁中 / 英文）
 
 `src/captions.ts` 是字幕與旁白的**單一來源**：22 句、以 30fps 的格數對齊各場景，
-沒有任何一句跨越剪接點。
+沒有任何一句跨越剪接點。**兩種語言共用同一組時間軸**——畫面兩邊都一樣，
+時間要改就得一起改，分成兩個檔案手動同步正是字幕走鐘的起因。
+
+英文不是逐字翻譯。中文每秒承載的資訊量高於英文，直譯會超出窗口，
+因此每一句都是在可用秒數內重新表達同一個論點。
 
 ```bash
 node scripts/make-subtitles.mjs   # 產生 subtitles/ 並檢查語速
@@ -109,15 +113,19 @@ node scripts/make-subtitles.mjs   # 產生 subtitles/ 並檢查語速
 
 | 檔案 | 用途 |
 |------|------|
-| `subtitles/taipbx-callcenter.zh-TW.srt` | YouTube／一般播放器外掛字幕 |
-| `subtitles/taipbx-callcenter.zh-TW.vtt` | 網頁 `<track>` |
-| `subtitles/narration-zh-TW.md` | 旁白稿，含每句進出點、可用秒數與估計秒數 |
+| `subtitles/taipbx-callcenter.zh-TW.srt` / `.vtt` | 繁中字幕 |
+| `subtitles/taipbx-callcenter.en.srt` / `.vtt` | 英文字幕 |
+| `subtitles/narration-zh-TW.md` / `narration-en.md` | 旁白稿，含每句進出點、可用秒數與估計秒數 |
 
-產生器會以每秒 4.5 個中文字的沉穩語速估算每句需時，超出畫面留給它的秒數就報錯，
-避免出現唸不完的字幕。
+產生器對兩種語言用各自的尺規：中文以每秒 4.5 字、英文以每秒 2.6 字估算語速；
+字幕另有閱讀速度上限（英文 20 cps、中文 9 cps）。任一項超標就報錯，
+避免出現唸不完或來不及讀的字幕。
 
-三個 composition：`TaipbxIntro`（乾淨母版）、`TaipbxIntroSubtitled`（字幕燒錄版），
-以及 `Poster`（發佈封面）。
+四個 composition：`TaipbxIntro`（乾淨母版）、`TaipbxIntroSubtitled`（繁中燒錄）、
+`TaipbxIntroSubtitledEn`（英文燒錄），以及 `Poster`（發佈封面）。
+
+> 字幕是英文，但畫面上的標題、條列與標註仍是繁體中文。
+> 若需要**完整英文版**，那是另一件事：要把九個場景的文案全部在地化後重新 render。
 
 ```bash
 node scripts/render.mjs out/film.mp4 3 TaipbxIntroSubtitled
