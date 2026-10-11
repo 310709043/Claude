@@ -1,0 +1,2602 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TAIPBXCC Seminar 規劃</title>
+<meta name="description" content="台灣大哥大 × 承暉 AI Contact Center Seminar 活動規劃，呈 Min 決策用。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+<style>
+/* Layout: masthead + sticky 10-tab rail over one 1200px column; each tab is a briefing page built from cards, SVG diagrams and click-to-expand notes */
+:root{
+  --bg:#F6F4F1; --surface:#FFFFFF; --surface-2:#FAF8F6; --sunk:#EFEBE6;
+  --line:#E4DED7; --line-strong:#CDC4BA;
+  --fg:#1E1A17; --fg-2:#5F574F; --fg-3:#766D65;
+  --accent:#E8661C; --accent-strong:#C9560F; --accent-ink:#B4500F; --accent-soft:#FDEADB; --on-accent:#FFFFFF;
+  --accent2:#1E9A55; --accent2-ink:#157A43; --accent2-soft:#E1F3E8;
+  --warn:#C98A06; --warn-ink:#865A00; --warn-soft:#FBF0D4;
+  --danger:#C8432F; --danger-ink:#A8361F; --danger-soft:#FBE3DE;
+  /* categorical slots (validated order: orange, blue, green, violet, amber, magenta) + slate */
+  --c1:#E8661C; --c2:#2F76D2; --c3:#1E9A55; --c4:#7457D6; --c5:#D99A06; --c6:#D0508C; --c7:#66717E;
+  --seat:#CBC2B8; --floor:#EFEAE4; --wall:#E3DCD4;
+  --screen-bg:#1B1E23; --screen-line:#2C3139; --screen-fg:#EEF0F3; --screen-dim:#A3ACB7; --screen-ai:#FF9A57; --screen-ok:#5CD08F;
+  --shadow:0 1px 2px rgba(30,26,23,.06), 0 6px 18px rgba(30,26,23,.06);
+  --font-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;
+  --font-display:"Archivo","Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --fs-xs:12px; --fs-sm:13.5px; --fs-base:15px; --fs-md:17px; --fs-lg:20px; --fs-xl:clamp(22px,2.6vw,28px); --fs-hero:clamp(30px,5.2vw,56px);
+  --r-sm:6px; --r:10px; --r-lg:14px;
+  --gutter:clamp(16px,4vw,40px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141210; --surface:#1D1A17; --surface-2:#221E1A; --sunk:#191613;
+    --line:#36302A; --line-strong:#4C443C;
+    --fg:#F2EEEA; --fg-2:#C3BAB1; --fg-3:#A0968D;
+    --accent:#F7843A; --accent-strong:#F7843A; --accent-ink:#FF9A57; --accent-soft:#3B2415; --on-accent:#1E1A17;
+    --accent2:#36BE73; --accent2-ink:#5CD08F; --accent2-soft:#14301F;
+    --warn:#E2AA2C; --warn-ink:#F0C25A; --warn-soft:#3A2D10;
+    --danger:#E4644F; --danger-ink:#F58A78; --danger-soft:#3D1D17;
+    --c1:#E06A1F; --c2:#3E86E0; --c3:#1FA35B; --c4:#8B78E4; --c5:#B9840C; --c6:#D2588F; --c7:#7E8896;
+    --seat:#4D463F; --floor:#25211D; --wall:#2D2823;
+    --screen-bg:#0E1013; --screen-line:#262B32; --screen-fg:#EEF0F3; --screen-dim:#9AA3AE; --screen-ai:#FF9A57; --screen-ok:#5CD08F;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 22px rgba(0,0,0,.3);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141210; --surface:#1D1A17; --surface-2:#221E1A; --sunk:#191613;
+  --line:#36302A; --line-strong:#4C443C;
+  --fg:#F2EEEA; --fg-2:#C3BAB1; --fg-3:#A0968D;
+  --accent:#F7843A; --accent-strong:#F7843A; --accent-ink:#FF9A57; --accent-soft:#3B2415; --on-accent:#1E1A17;
+  --accent2:#36BE73; --accent2-ink:#5CD08F; --accent2-soft:#14301F;
+  --warn:#E2AA2C; --warn-ink:#F0C25A; --warn-soft:#3A2D10;
+  --danger:#E4644F; --danger-ink:#F58A78; --danger-soft:#3D1D17;
+  --c1:#E06A1F; --c2:#3E86E0; --c3:#1FA35B; --c4:#8B78E4; --c5:#B9840C; --c6:#D2588F; --c7:#7E8896;
+  --seat:#4D463F; --floor:#25211D; --wall:#2D2823;
+  --screen-bg:#0E1013; --screen-line:#262B32; --screen-fg:#EEF0F3; --screen-dim:#9AA3AE; --screen-ai:#FF9A57; --screen-ok:#5CD08F;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 22px rgba(0,0,0,.3);
+  color-scheme:dark;
+}
+
+/* ---------- base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:var(--fs-base);line-height:1.65;overflow-x:hidden}
+h1,h2,h3,h4{margin:0;line-height:1.3;text-wrap:balance;font-weight:700}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+a{color:var(--accent-ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.num{font-family:var(--font-display);font-variant-numeric:tabular-nums}
+.lat{font-family:var(--font-display)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.ico{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ico-u{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.wrap{max-width:1200px;margin-inline:auto;padding-inline:var(--gutter)}
+
+/* ---------- masthead + tabs ---------- */
+.masthead{background:var(--surface)}
+.mast-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand-mark{width:34px;height:34px;border-radius:9px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;flex:none}
+.brand-mark .ico{width:19px;height:19px}
+.brand-text{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.brand-text b{font-family:var(--font-display);font-weight:700;font-size:15px;letter-spacing:.01em}
+.brand-text span{font-size:var(--fs-xs);color:var(--fg-2)}
+.mast-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.mast-date{font-family:var(--font-display);font-size:var(--fs-xs);color:var(--fg-3)}
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:0 1px 0 var(--line)}
+.tabs-scroll{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity;margin-inline:calc(var(--gutter) * -1);padding-inline:var(--gutter)}
+.tabs-scroll::-webkit-scrollbar{display:none}
+.tab{position:relative;display:flex;align-items:baseline;gap:6px;padding:12px 12px 13px;white-space:nowrap;color:var(--fg-2);font-weight:500;font-size:14.5px;scroll-snap-align:start;border-radius:0}
+.tab .tab-n{font-family:var(--font-display);font-size:11px;font-weight:600;color:var(--fg-3);font-variant-numeric:tabular-nums}
+.tab:hover{color:var(--fg)}
+.tab[aria-selected="true"]{color:var(--fg);font-weight:700}
+.tab[aria-selected="true"] .tab-n{color:var(--accent-ink)}
+.tab[aria-selected="true"]::after{content:"";position:absolute;left:10px;right:10px;bottom:-1px;height:3px;border-radius:3px 3px 0 0;background:var(--accent)}
+.tab:focus-visible{outline-offset:-3px}
+
+/* ---------- panels ---------- */
+.main{padding-block:28px 56px}
+.panel[hidden]{display:none!important}
+.panel{display:flex;flex-direction:column;gap:36px}
+@media (prefers-reduced-motion: no-preference){
+  .panel.is-entering{animation:panelIn .28s ease-out}
+  @keyframes panelIn{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
+}
+.phead{display:flex;flex-direction:column;gap:8px;max-width:72ch}
+.eyebrow{font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:.08em;color:var(--accent-ink);text-transform:uppercase}
+.phead h2{font-size:var(--fs-xl);font-weight:900}
+.lead{color:var(--fg-2);font-size:var(--fs-md);line-height:1.6}
+.blk{display:flex;flex-direction:column;gap:14px;min-width:0}
+.blk-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.blk-head h3{font-size:var(--fs-lg);font-weight:700}
+.blk-head .hint{color:var(--fg-3);font-size:var(--fs-sm)}
+.blk-head .spacer{flex:1}
+
+/* ---------- small parts ---------- */
+.tag{display:inline-flex;align-items:center;gap:4px;padding:1px 8px;border-radius:999px;font-size:11.5px;font-weight:700;line-height:1.7;white-space:nowrap;letter-spacing:.02em;border:1px solid transparent;vertical-align:middle}
+.tag.est{background:var(--accent-soft);color:var(--accent-ink)}
+.tag.demo{background:var(--sunk);color:var(--fg-2);border-color:var(--line)}
+.tag.eval{background:var(--accent2-soft);color:var(--accent2-ink)}
+.tag.tbd{background:var(--warn-soft);color:var(--warn-ink)}
+.tag.core{background:var(--accent);color:var(--on-accent)}
+.tag.addon{background:transparent;color:var(--fg-2);border:1px dashed var(--fg-3)}
+.tag.plain{background:var(--surface-2);color:var(--fg-2);border-color:var(--line)}
+.tag.green{background:var(--accent2-soft);color:var(--accent2-ink)}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;background:var(--surface);border:1px solid var(--line-strong);font-size:var(--fs-sm);font-weight:500;white-space:nowrap}
+.chip .ico{width:16px;height:16px;color:var(--accent-ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px;min-width:0}
+.card.tight{padding:14px}
+.muted{color:var(--fg-2)}
+.small{font-size:var(--fs-sm)}
+.xs{font-size:var(--fs-xs)}
+.note{font-size:var(--fs-xs);color:var(--fg-3)}
+.ico-badge{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent-ink);flex:none}
+.ico-badge.g{background:var(--accent2-soft);color:var(--accent2-ink)}
+.ico-badge.n{background:var(--sunk);color:var(--fg-2)}
+.ico-badge .ico{width:20px;height:20px}
+
+details.more{border-top:1px dashed var(--line);margin-top:4px;padding-top:8px}
+details.more>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:4px;font-size:var(--fs-sm);font-weight:500;color:var(--accent-ink);user-select:none}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary::after{content:"";width:7px;height:7px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .15s;margin-left:2px}
+details.more[open]>summary::after{transform:translateY(1px) rotate(-135deg)}
+details.more .more-body{margin-top:8px;color:var(--fg-2);font-size:var(--fs-sm);line-height:1.7;display:flex;flex-direction:column;gap:6px}
+.more-body ul{display:flex;flex-direction:column;gap:4px}
+.more-body li{padding-left:14px;position:relative}
+.more-body li::before{content:"";position:absolute;left:2px;top:.72em;width:5px;height:5px;border-radius:50%;background:var(--fg-3)}
+
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.g5{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media (max-width:1023px){.g4,.g5{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.g2,.g3,.g4{grid-template-columns:minmax(0,1fr)}}
+
+.scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);max-width:100%}
+table.t{border-collapse:collapse;width:100%;font-size:var(--fs-sm);min-width:640px}
+table.t th,table.t td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+table.t thead th{background:var(--surface-2);font-weight:700;color:var(--fg-2);font-size:var(--fs-xs);letter-spacing:.03em;white-space:nowrap;position:sticky;top:0}
+table.t tbody tr:last-child td{border-bottom:0}
+table.t td.c,table.t th.c{text-align:center}
+table.t th[scope="row"]{font-weight:700;color:var(--fg);white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;border:1px solid var(--line-strong);background:var(--surface);font-size:var(--fs-sm);font-weight:500}
+.btn:hover{border-color:var(--accent)}
+.btn .ico{width:16px;height:16px}
+.btn.primary{background:var(--accent-strong);color:var(--on-accent);border-color:transparent;font-weight:700}
+.seg{display:inline-flex;flex-wrap:wrap;gap:4px;padding:3px;border-radius:999px;background:var(--sunk);border:1px solid var(--line)}
+.seg button{padding:5px 13px;border-radius:999px;font-size:var(--fs-sm);font-weight:500;color:var(--fg-2)}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--fg);font-weight:700;box-shadow:var(--shadow)}
+
+/* ---------- 01 overview ---------- */
+.hero{display:flex;flex-direction:column;gap:14px;padding-top:6px}
+.hero-kicker{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.hero h1{font-size:var(--fs-hero);font-weight:900;line-height:1.12;letter-spacing:-.01em}
+.hero h1 .h1-top{display:block;font-size:.5em;font-weight:700;color:var(--accent-ink);letter-spacing:.02em;margin-bottom:6px}
+.hero h1 .h1-main{font-family:var(--font-display);font-weight:800;font-stretch:108%}
+.hero-sub{font-size:var(--fs-md);color:var(--fg-2);max-width:60ch}
+.facts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.fact{display:flex;flex-direction:column;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px}
+.fact-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.fact-label{font-size:var(--fs-xs);font-weight:700;color:var(--fg-3);letter-spacing:.08em}
+.fact-val{font-size:var(--fs-md);font-weight:700;line-height:1.4}
+.fact-sub{font-size:var(--fs-sm);color:var(--fg-2);line-height:1.5}
+.fact.is-goal{background:var(--accent2-soft);border-color:transparent}
+.fact.is-main{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+@media (max-width:1023px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.fact.is-goal{grid-column:1 / -1}}
+
+figure{margin:0}
+.fig{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.fig svg{display:block;width:100%;height:auto}
+figcaption{font-size:var(--fs-sm);color:var(--fg-2)}
+.fig svg.concept-tall{display:none}
+@media (max-width:640px){.fig svg.concept-wide{display:none}.fig svg.concept-tall{display:block}}
+.cf-frame{fill:none;stroke:var(--accent);stroke-width:2;stroke-dasharray:7 6}
+.cf-tab rect{fill:var(--surface);stroke:var(--accent);stroke-width:2}
+.cf-tab text{fill:var(--accent-ink);font-weight:700;font-size:14px}
+.cf-card{fill:var(--surface-2);stroke:var(--line-strong);stroke-width:1.2}
+.cf-ic{fill:var(--accent-soft)}
+.cf-ic-u{color:var(--accent-ink)}
+.cf-eyebrow{fill:var(--accent-ink);font-size:13px;font-weight:700;letter-spacing:.06em}
+.cf-title{fill:var(--fg);font-size:18px;font-weight:700}
+.cf-sub{fill:var(--fg-2);font-size:12.5px}
+.cf-call{stroke:var(--accent);stroke-width:2.5;stroke-linecap:round}
+.cf-dot{fill:var(--accent);stroke:var(--surface);stroke-width:3}
+.cf-tick{stroke:var(--accent);stroke-width:1.5}
+.cf-cap{fill:var(--fg);font-size:13px;font-weight:700}
+.cf-arrow{stroke:var(--fg-2);stroke-width:1.6;fill:none}
+.cf-mk{fill:var(--fg-2)}
+.cf-alabel{fill:var(--fg-2);font-size:12px}
+.cf-pill rect{fill:var(--surface);stroke:var(--fg-3);stroke-dasharray:4 3}
+.cf-pill text{fill:var(--fg-2);font-size:12.5px}
+.cf-pill .ico-u{color:var(--fg-3)}
+.cf-band rect.b{stroke:var(--line);stroke-width:1}
+.cf-band.p rect.b{fill:var(--accent2-soft);stroke:transparent}
+.cf-band.d rect.b{fill:var(--surface-2)}
+.cf-band.h rect.b{fill:var(--sunk)}
+.cf-blabel{fill:var(--fg);font-size:16px;font-weight:700}
+.cf-band.p .cf-blabel{fill:var(--accent2-ink)}
+.cf-band .ico-u{color:var(--fg-2)}
+.cf-band.p .ico-u{color:var(--accent2-ink)}
+.cf-chip rect{fill:var(--surface);stroke:var(--line-strong)}
+.cf-chip text{fill:var(--fg);font-size:13px;font-weight:500}
+.cf-note{fill:var(--fg-3);font-size:12px}
+.cf-link{stroke:var(--line-strong);stroke-width:1.5;stroke-dasharray:3 4}
+.cf-runs{fill:var(--fg-3);font-size:12px}
+
+.show-grid{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1fr);gap:14px}
+@media (max-width:860px){.show-grid{grid-template-columns:minmax(0,1fr)}}
+.show-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px}
+.show-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--r);background:var(--surface-2);border:1px solid var(--line);font-weight:500;font-size:var(--fs-sm);min-width:0}
+.show-item .ico{color:var(--accent-ink)}
+.show-item.addon{background:transparent;border-style:dashed;border-color:var(--fg-3);color:var(--fg-2)}
+.show-item.addon .ico{color:var(--fg-3)}
+.show-col{display:flex;flex-direction:column;gap:10px}
+.show-col-h{display:flex;align-items:center;gap:8px;font-weight:700;font-size:var(--fs-sm)}
+
+/* timeline (clickable) */
+.tl{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);position:relative;gap:0}
+.tl::before{content:"";position:absolute;left:4%;right:4%;top:19px;height:2px;background:var(--line-strong)}
+.tl li{display:flex;justify-content:center;position:relative}
+.tl-btn{display:flex;flex-direction:column;align-items:center;gap:6px;padding:0 4px 4px;text-align:center;min-width:0;border-radius:var(--r-sm)}
+.tl-dot{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--surface);border:2px solid var(--line-strong);font-family:var(--font-display);font-weight:700;font-size:11px;color:var(--fg-2);position:relative;z-index:1;transition:transform .15s,background .15s}
+.tl-k{font-family:var(--font-display);font-weight:700;font-size:var(--fs-sm);color:var(--fg)}
+.tl-t{font-size:var(--fs-xs);color:var(--fg-2);line-height:1.4}
+.tl-btn:hover .tl-dot{border-color:var(--accent)}
+.tl-btn[aria-pressed="true"] .tl-dot{background:var(--accent);border-color:var(--accent);color:var(--on-accent);transform:scale(1.08)}
+.tl-btn.is-key .tl-dot{border-color:var(--accent2)}
+.tl-btn.is-key[aria-pressed="true"] .tl-dot{background:var(--accent2);border-color:var(--accent2);color:var(--on-accent)}
+.tl-detail{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 16px;align-items:start;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:var(--r);padding:14px 16px}
+.tl-detail .k{font-family:var(--font-display);font-weight:800;font-size:22px;color:var(--accent-ink);grid-row:span 3;line-height:1.1;min-width:64px}
+.tl-detail .t{font-weight:700}
+.tl-detail .meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:var(--fs-xs);color:var(--fg-2)}
+.tl-detail .meta b{color:var(--fg)}
+@media (max-width:700px){
+  .tl{grid-auto-flow:row;grid-auto-columns:auto;gap:6px}
+  .tl::before{left:19px;right:auto;top:8px;bottom:8px;width:2px;height:auto}
+  .tl li{justify-content:flex-start}
+  .tl-btn{flex-direction:row;text-align:left;gap:12px;padding:2px 0}
+  .tl-btn .tl-txt{display:flex;flex-direction:column}
+  .tl-detail{grid-template-columns:minmax(0,1fr)}
+  .tl-detail .k{grid-row:auto}
+}
+
+/* stacked proportion bar */
+.pbar{display:flex;height:44px;gap:2px;border-radius:8px;overflow:hidden}
+.pbar .s{display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--font-display);font-weight:700;font-size:13px;min-width:0;white-space:nowrap;overflow:visible}
+.pbar .s span{text-shadow:0 1px 1px rgba(0,0,0,.25)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:var(--fs-sm)}
+.legend li{display:flex;align-items:center;gap:7px;color:var(--fg-2)}
+.legend b{color:var(--fg);font-family:var(--font-display);font-variant-numeric:tabular-nums}
+.sw{width:12px;height:12px;border-radius:3px;flex:none}
+.bg-c1{background:var(--c1)}.bg-c2{background:var(--c2)}.bg-c3{background:var(--c3)}.bg-c4{background:var(--c4)}.bg-c5{background:var(--c5)}.bg-c6{background:var(--c6)}.bg-c7{background:var(--c7)}.bg-seat{background:var(--seat)}
+.axis{display:flex;justify-content:space-between;font-family:var(--font-display);font-size:11px;color:var(--fg-3);font-variant-numeric:tabular-nums}
+
+/* decisions */
+.dec-summary{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.dec-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:760px){.dec-grid{grid-template-columns:minmax(0,1fr)}}
+.dec{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px;transition:border-color .15s}
+.dec-n{font-family:var(--font-display);font-weight:800;font-size:26px;line-height:1;color:var(--line-strong);grid-row:span 4;min-width:34px;font-variant-numeric:tabular-nums}
+.dec h4{font-size:var(--fs-md);font-weight:700}
+.dec-rec{font-size:var(--fs-sm);color:var(--fg-2)}
+.dec-rec b{color:var(--accent2-ink);font-weight:700}
+.dec-act{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.dec-act button{padding:4px 11px;border-radius:999px;border:1px solid var(--line-strong);font-size:12.5px;font-weight:500;color:var(--fg-2);background:var(--surface)}
+.dec-act button:hover{border-color:var(--fg-3)}
+.dec-act button[aria-pressed="true"][data-v="ok"]{background:var(--accent2);border-color:var(--accent2);color:var(--on-accent);font-weight:700}
+.dec-act button[aria-pressed="true"][data-v="adj"]{background:var(--warn-soft);border-color:var(--warn);color:var(--warn-ink);font-weight:700}
+.dec-act button[aria-pressed="true"][data-v="hold"]{background:var(--sunk);border-color:var(--fg-3);color:var(--fg);font-weight:700}
+.dec[data-state="ok"]{border-color:var(--accent2)}
+.dec[data-state="ok"] .dec-n{color:var(--accent2-ink)}
+.dec[data-state="adj"]{border-color:var(--warn)}
+.dec[data-state="adj"] .dec-n{color:var(--warn-ink)}
+.dec .more{grid-column:2}
+
+/* ---------- 02 plans ---------- */
+.plan-groups{display:flex;flex-direction:column;gap:12px}
+.plan-group-h{display:flex;align-items:center;gap:8px;font-size:var(--fs-sm);font-weight:700;color:var(--fg-2)}
+.plan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.plan-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.plan-grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:1023px){.plan-grid.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.plan-grid.two,.plan-grid.four{grid-template-columns:minmax(0,1fr)}}
+.plan{display:flex;flex-direction:column;gap:10px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px;min-width:0;transition:border-color .15s, box-shadow .15s}
+.plan:hover{border-color:var(--line-strong);box-shadow:var(--shadow)}
+.plan[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.plan-top{display:flex;align-items:flex-start;gap:12px}
+.plan-id{font-family:var(--font-display);font-weight:800;font-size:22px;width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:var(--sunk);color:var(--fg-2);flex:none}
+.plan.is-ab .plan-id{background:var(--accent-soft);color:var(--accent-ink)}
+.plan[aria-pressed="true"] .plan-id{background:var(--accent);color:var(--on-accent)}
+.plan-name{font-weight:700;font-size:var(--fs-base);line-height:1.35}
+.plan-scale{font-family:var(--font-display);font-weight:600;font-size:var(--fs-sm);color:var(--fg-2);display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:2px}
+.plan-thumb{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r);padding:6px}
+.plan-thumb svg{display:block;width:100%;height:auto;max-height:110px}
+.plan-purpose{font-size:var(--fs-sm);color:var(--fg-2);line-height:1.5}
+.plan.is-ab .plan-thumb svg{max-height:140px}
+.plan-detail{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px}
+@media (max-width:900px){.plan-detail{grid-template-columns:minmax(0,1fr)}}
+.plan-detail h4{font-size:var(--fs-lg);font-weight:800}
+.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 14px;font-size:var(--fs-sm)}
+.kv dt{color:var(--fg-3);font-weight:700;white-space:nowrap}
+.kv dd{margin:0}
+.iso-wrap{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r);padding:8px;min-width:0}
+.iso-wrap .scroll-x svg{display:block;width:100%;height:auto;min-width:540px}
+@media (min-width:641px){.iso-wrap .scroll-x svg{min-width:0}}
+.iso-label{font-size:13px;font-weight:700;fill:var(--fg);paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round}
+.iso-label.sm{font-size:11.5px;font-weight:500;fill:var(--fg-2)}
+.iso-floor{fill:var(--floor);stroke:var(--line-strong);stroke-width:1}
+.iso-wall{fill:var(--wall);stroke:var(--line-strong);stroke-width:1}
+.iso-tile{stroke-width:1.2;fill-opacity:.16;stroke-opacity:.55;stroke-dasharray:4 3}
+.iso-shade1{fill:#000;opacity:.14}
+.iso-shade2{fill:#000;opacity:.3}
+.iso-path{fill:none;stroke:var(--fg);stroke-width:2;stroke-dasharray:6 5;stroke-linecap:round;stroke-linejoin:round}
+.iso-stop circle{fill:var(--fg)}
+.iso-stop text{fill:var(--bg);font-family:var(--font-display);font-weight:700;font-size:11px}
+.iso-mk{fill:var(--fg)}
+.zc1{fill:var(--c1);stroke:var(--c1)}.zc2{fill:var(--c2);stroke:var(--c2)}.zc3{fill:var(--c3);stroke:var(--c3)}.zc4{fill:var(--c4);stroke:var(--c4)}.zc5{fill:var(--c5);stroke:var(--c5)}.zc6{fill:var(--c6);stroke:var(--c6)}.zc7{fill:var(--c7);stroke:var(--c7)}.zseat{fill:var(--seat);stroke:var(--seat)}.zscreen{fill:var(--screen-bg);stroke:var(--screen-bg)}.zwall{fill:var(--line-strong);stroke:var(--line-strong)}
+.iso-item polygon,.iso-item ellipse,.iso-item rect{stroke:none}
+svg.has-hl [data-zone]{transition:opacity .2s}
+svg.has-hl [data-zone]:not(.hl){opacity:.18}
+svg.has-hl .iso-tile.hl{fill-opacity:.32;stroke-opacity:1;stroke-dasharray:none;stroke-width:2}
+.thumb-room{fill:var(--floor);stroke:var(--line-strong);stroke-width:.3}
+.zlegend{display:flex;flex-wrap:wrap;gap:6px}
+.zlegend button{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:12.5px;color:var(--fg-2)}
+.zlegend button[aria-pressed="true"]{border-color:var(--fg);color:var(--fg);font-weight:700}
+.zlegend .path-sw{width:18px;height:0;border-top:2px dashed var(--fg)}
+
+.dots{display:inline-flex;gap:4px;vertical-align:middle}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--line);display:block}
+.dots i.on{background:var(--accent)}
+.dots.g i.on{background:var(--accent2)}
+
+/* go / no-go */
+.gng{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:1023px){.gng{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.gng{grid-template-columns:minmax(0,1fr)}}
+.gng-card{display:flex;flex-direction:column;gap:10px}
+.gng-h{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.gng-h h4{font-size:var(--fs-base);font-weight:700}
+.gng-h h4 small{font-weight:500;color:var(--fg-3);margin-left:6px;font-size:var(--fs-xs)}
+.gng-count{font-family:var(--font-display);font-weight:700;font-size:var(--fs-sm);color:var(--fg-2)}
+.mini-bar{height:5px;border-radius:5px;background:var(--sunk);overflow:hidden}
+.mini-bar i{display:block;height:100%;background:var(--accent2);border-radius:5px;transition:width .2s}
+.checks{display:flex;flex-direction:column;gap:2px}
+.check{display:flex;align-items:center;gap:10px;padding:6px 6px;border-radius:var(--r-sm);cursor:pointer;font-size:var(--fs-sm)}
+.check:hover{background:var(--surface-2)}
+.check input{appearance:none;-webkit-appearance:none;width:18px;height:18px;border-radius:5px;border:1.6px solid var(--line-strong);background:var(--surface);display:grid;place-items:center;flex:none;margin:0;cursor:pointer}
+.check input::after{content:"";width:9px;height:5px;border-left:2px solid var(--on-accent);border-bottom:2px solid var(--on-accent);transform:translateY(-1px) rotate(-45deg);opacity:0}
+.check input:checked{background:var(--accent2);border-color:var(--accent2)}
+.check input:checked::after{opacity:1}
+.check input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.check .lbl{flex:1;min-width:0}
+.check input:checked + .lbl{color:var(--fg-2)}
+.verdict{display:flex;flex-direction:column;gap:10px;border-radius:var(--r-lg);padding:18px;border:2px solid var(--line)}
+.verdict[data-v="b"]{background:var(--warn-soft);border-color:var(--warn)}
+.verdict[data-v="cond"]{background:var(--accent-soft);border-color:var(--accent)}
+.verdict[data-v="go"]{background:var(--accent2-soft);border-color:var(--accent2)}
+.verdict-k{font-size:var(--fs-xs);font-weight:700;color:var(--fg-2);letter-spacing:.06em}
+.verdict-v{font-size:26px;font-weight:900;line-height:1.2}
+.verdict[data-v="b"] .verdict-v{color:var(--warn-ink)}
+.verdict[data-v="cond"] .verdict-v{color:var(--accent-ink)}
+.verdict[data-v="go"] .verdict-v{color:var(--accent2-ink)}
+.verdict-why{font-size:var(--fs-sm);color:var(--fg-2)}
+.verdict-pct{font-family:var(--font-display);font-weight:700;font-size:var(--fs-sm)}
+.verdict .mini-bar{height:8px;background:var(--surface)}
+.verdict-rule{display:flex;flex-direction:column;gap:4px;font-size:var(--fs-xs);color:var(--fg-2)}
+.verdict-rule li{display:flex;gap:6px;align-items:baseline}
+
+/* ---------- 03 content ---------- */
+.ag-ctrl{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.ag-rows{display:flex;flex-direction:column;gap:18px}
+.ag-row{display:flex;flex-direction:column;gap:8px}
+.ag-row-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.ag-row-h b{font-size:var(--fs-base)}
+.ag-stat{font-size:var(--fs-sm);color:var(--fg-2)}
+.ag-stat .num{font-weight:700;color:var(--fg)}
+.ag-bar{position:relative;padding-top:26px}
+.ag-segs{display:flex;gap:2px;height:46px}
+.ag-seg{display:flex;flex-direction:column;justify-content:center;padding:0 6px;color:#fff;border-radius:4px;min-width:0;overflow:hidden;transition:opacity .2s, filter .2s}
+.ag-seg b{font-size:12.5px;line-height:1.25;white-space:nowrap;overflow:hidden;text-shadow:0 1px 1px rgba(0,0,0,.25)}
+.ag-seg small{white-space:nowrap;overflow:hidden;font-family:var(--font-display);font-size:11px;opacity:.95;text-shadow:0 1px 1px rgba(0,0,0,.25)}
+.ag-seg.off{opacity:.22;filter:saturate(.3)}
+.ag-mark{position:absolute;top:0;transform:translateX(-1px);display:flex;flex-direction:column;align-items:flex-start;pointer-events:none}
+.ag-mark span{font-size:11.5px;font-weight:700;color:var(--fg);background:var(--surface);border:1px solid var(--fg);border-radius:999px;padding:0 8px;white-space:nowrap;line-height:20px}
+.ag-mark::after{content:"";width:2px;height:54px;background:var(--fg);margin-top:2px}
+.ag-mark.flip{align-items:flex-end;transform:translateX(calc(-100% + 1px))}
+.ag-layers{display:flex;flex-wrap:wrap;gap:6px 14px}
+
+.journey{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:16px}
+@media (max-width:900px){.journey{grid-template-columns:minmax(0,1fr)}}
+.acts{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+@media (max-width:760px){.acts{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.act-btn{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:9px 10px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);text-align:left;min-width:0}
+.act-btn .an{font-family:var(--font-display);font-weight:800;font-size:12px;color:var(--fg-3)}
+.act-btn .at{font-size:13px;font-weight:700;line-height:1.3}
+.act-btn[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.act-btn[aria-pressed="true"] .an{color:var(--accent-ink)}
+.act-track{display:flex;gap:2px;height:8px}
+.act-track i{border-radius:3px;background:var(--line);transition:background .2s}
+.act-track i.on{background:var(--accent)}
+.act-track i.done{background:var(--accent-soft)}
+.act-meta{display:flex;flex-direction:column;gap:12px}
+.act-min{display:flex;align-items:baseline;gap:6px}
+.act-min .num{font-size:40px;font-weight:800;line-height:1;color:var(--accent-ink)}
+.act-roles{display:flex;flex-wrap:wrap;gap:6px}
+.role{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:12.5px;font-weight:500;background:var(--surface-2);border:1px solid var(--line-strong)}
+.role .ico{width:15px;height:15px}
+.role.lead{background:var(--accent2-soft);border-color:transparent;color:var(--accent2-ink);font-weight:700}
+.role.addon{border-style:dashed;border-color:var(--fg-3);color:var(--fg-2)}
+.screen{background:var(--screen-bg);color:var(--screen-fg);border-radius:var(--r-lg);padding:14px;display:flex;flex-direction:column;gap:10px;min-height:340px;border:6px solid var(--screen-line)}
+.screen-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11.5px;color:var(--screen-dim);border-bottom:1px solid var(--screen-line);padding-bottom:8px}
+.screen-top b{color:var(--screen-fg);font-weight:700}
+.live{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-display);font-weight:700;color:var(--screen-ai)}
+.live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--screen-ai)}
+.msgs{display:flex;flex-direction:column;gap:8px}
+.msg{display:flex;flex-direction:column;gap:2px;max-width:88%;padding:8px 11px;border-radius:12px;font-size:13.5px;line-height:1.55;background:var(--screen-line)}
+.msg .who{font-size:11px;font-weight:700;color:var(--screen-dim);letter-spacing:.03em}
+.msg.me{align-self:flex-end;background:#2E3540}
+.msg.ai .who{color:var(--screen-ai)}
+.msg.ai{border:1px solid var(--screen-ai)}
+.msg.sys{max-width:100%;align-self:stretch;background:transparent;border:1px dashed var(--screen-dim);color:var(--screen-dim);font-size:12.5px}
+.msg.assist{border-left:3px solid var(--screen-ok)}
+.msg.assist .who{color:var(--screen-ok)}
+@media (prefers-reduced-motion: no-preference){
+  .screen.anim .msg{animation:msgIn .35s ease-out both}
+  @keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+}
+.scr-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (max-width:420px){.scr-tiles{grid-template-columns:minmax(0,1fr)}}
+.scr-tile{border:1px solid var(--screen-line);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px;font-size:13px;background:rgba(255,255,255,.03)}
+.scr-tile .ico{color:var(--screen-ai);width:22px;height:22px}
+.scr-tile b{font-size:14px}
+.scr-tile span{color:var(--screen-dim);font-size:12px}
+.scr-form{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 12px;font-size:13px;border:1px solid var(--screen-line);border-radius:10px;padding:10px 12px}
+.scr-form dt{color:var(--screen-dim)}
+.scr-form dd{margin:0}
+.scr-form dd::after{content:" · 自動填入";color:var(--screen-ok);font-size:11px}
+.scr-addon{border:1px dashed var(--screen-dim);border-radius:10px;padding:9px 12px;font-size:12.5px;color:var(--screen-dim);display:flex;flex-direction:column;gap:4px}
+.scr-addon b{color:var(--screen-fg);font-size:12.5px}
+.scr-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+@media (max-width:520px){.scr-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.scr-step{border:1px solid var(--screen-line);border-radius:10px;padding:9px;display:flex;flex-direction:column;gap:3px;font-size:12.5px}
+.scr-step .num{color:var(--screen-ai);font-weight:700;font-size:12px}
+.scr-step b{font-size:13.5px}
+.scr-cta{display:flex;align-items:center;gap:10px;border:1px solid var(--screen-ai);border-radius:10px;padding:10px 12px;font-size:13px}
+.scr-cta .ico{width:30px;height:30px;color:var(--screen-ai)}
+
+.zone-t td .sym{font-size:16px;line-height:1;font-weight:700;display:inline-block;width:18px}
+.sym-y{color:var(--accent2-ink)}
+.sym-p{color:var(--warn-ink)}
+.sym-n{color:var(--fg-3)}
+.zone-t td{min-width:118px}
+.zone-t td small{display:block;color:var(--fg-2);font-size:12px;line-height:1.45;margin-top:2px}
+.zone-t td.is-a{background:var(--accent-soft)}
+.station{display:flex;flex-direction:column;gap:10px}
+.station-h{display:flex;align-items:center;gap:10px}
+.station-h h4{font-size:var(--fs-base)}
+.station .chips{gap:6px}
+.station .chip{font-size:12px;padding:3px 9px}
+.st-n{font-family:var(--font-display);font-weight:800;color:var(--fg-3);font-size:12px}
+.status{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--warn-ink);white-space:nowrap}
+.status::before{content:"";width:8px;height:8px;border-radius:50%;border:2px solid var(--warn)}
+
+/* ---------- 04 venue ---------- */
+.venue{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:1023px){.venue{grid-template-columns:minmax(0,1fr)}}
+.venue-map{display:flex;flex-direction:column;gap:10px;position:sticky;top:64px}
+@media (max-width:1023px){.venue-map{position:static}}
+.ros{display:flex;flex-direction:column;gap:4px}
+.ros-btn{display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;align-items:start;padding:8px 10px;border-radius:var(--r);border:1px solid transparent;text-align:left;width:100%}
+.ros-btn:hover{background:var(--surface)}
+.ros-btn[aria-pressed="true"]{background:var(--surface);border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.ros-time{font-family:var(--font-display);font-weight:700;font-size:var(--fs-sm);font-variant-numeric:tabular-nums;color:var(--fg-2);padding-top:1px}
+.ros-btn[aria-pressed="true"] .ros-time{color:var(--accent-ink)}
+.ros-t{font-weight:700;font-size:var(--fs-sm);line-height:1.45}
+.ros-s{font-size:12px;color:var(--fg-2);line-height:1.45}
+.ros-btn.is-pre .ros-t{color:var(--fg-2)}
+.ros-z{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.ros-z span{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--fg-2)}
+.ros-z span i{width:8px;height:8px;border-radius:2px}
+.ctrl{display:flex;flex-direction:column;gap:10px}
+.ctrl-who{display:flex;flex-wrap:wrap;gap:6px}
+.ctrl h4{font-size:var(--fs-base)}
+.ctrl-do{font-size:var(--fs-sm);color:var(--fg-2)}
+.flow{display:flex;flex-direction:column;gap:10px}
+.flow-trunk{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.flow-node{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line-strong);font-size:var(--fs-sm);font-weight:500}
+.flow-node .ico{width:17px;height:17px;color:var(--fg-2)}
+.flow-arrow{color:var(--fg-3);display:inline-flex}
+.flow-arrow .ico{width:18px;height:18px}
+.flow-lanes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:640px){.flow-lanes{grid-template-columns:minmax(0,1fr)}}
+.lane{border-radius:var(--r-lg);padding:14px;display:flex;flex-direction:column;gap:8px;border:1px solid var(--line)}
+.lane.hot{background:var(--accent-soft);border-color:transparent}
+.lane.warm{background:var(--accent2-soft);border-color:transparent}
+.lane-h{display:flex;align-items:center;gap:8px;font-weight:700}
+.lane ol{display:flex;flex-direction:column;gap:0}
+.lane li{display:flex;align-items:flex-start;gap:10px;font-size:var(--fs-sm);padding:7px 0;position:relative}
+.lane li .n{font-family:var(--font-display);font-weight:700;font-size:11px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--surface);flex:none;border:1px solid var(--line-strong)}
+.lane li:not(:last-child)::after{content:"";position:absolute;left:10.5px;top:30px;bottom:-6px;width:1px;background:var(--line-strong)}
+.lane li b{font-weight:700}
+.lane .end{margin-top:2px;font-size:var(--fs-sm);font-weight:700;display:flex;align-items:center;gap:6px}
+
+/* ---------- 05 guests ---------- */
+.ta-fig .scroll-x svg{min-width:600px}
+@media (min-width:700px){.ta-fig .scroll-x svg{min-width:0}}
+.ta-node rect{fill:var(--surface);stroke:var(--line-strong);stroke-width:1.2}
+.ta-node.own rect{fill:var(--accent-soft);stroke:var(--accent)}
+.ta-node.veto rect{fill:var(--accent2-soft);stroke:var(--accent2)}
+.ta-t{fill:var(--fg);font-size:15px;font-weight:700}
+.ta-s{fill:var(--fg-2);font-size:12px}
+.ta-pair{fill:none;stroke:var(--fg-2);stroke-width:1.3;stroke-dasharray:5 4}
+.ta-pair-l{fill:var(--fg);font-size:12.5px;font-weight:700}
+.ta-core circle{fill:var(--accent);}
+.ta-core text{fill:var(--on-accent);font-size:15px;font-weight:800}
+.ta-core text.s{font-size:11.5px;font-weight:500}
+.ta-edge{stroke:var(--fg-3);stroke-width:1.4;fill:none}
+.ta-edge.strong{stroke:var(--fg);stroke-width:2}
+.ta-el{fill:var(--fg-2);font-size:12px;paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round}
+.ta-mk{fill:var(--fg-3)}
+.ta-mk2{fill:var(--fg)}
+.src{display:flex;flex-direction:column;gap:8px}
+.src-h{display:flex;align-items:center;gap:10px}
+.src-h h4{font-size:var(--fs-base)}
+.src-who{font-size:12px;color:var(--fg-2)}
+.fields{display:flex;flex-wrap:wrap;gap:6px}
+.field{font-size:12.5px;padding:4px 10px;border-radius:6px;background:var(--surface);border:1px solid var(--line);font-weight:500}
+.field.key{border-color:var(--accent);color:var(--accent-ink)}
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:16px}
+@media (max-width:860px){.calc{grid-template-columns:minmax(0,1fr)}}
+.sliders{display:flex;flex-direction:column;gap:14px}
+.sl{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center}
+.sl label{font-size:var(--fs-sm);font-weight:500}
+.sl output{font-family:var(--font-display);font-weight:700;font-size:var(--fs-base);font-variant-numeric:tabular-nums;min-width:56px;text-align:right}
+.sl input[type="range"]{grid-column:1 / -1;width:100%;accent-color:var(--accent);margin:0;height:22px}
+.calc-out{display:flex;flex-direction:column;gap:14px}
+.big{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.big .num{font-size:56px;font-weight:800;line-height:1;letter-spacing:-.02em}
+.big .unit{font-size:var(--fs-md);font-weight:700}
+.scale{position:relative;height:64px;margin-top:6px}
+.scale-track{position:absolute;left:0;right:0;top:24px;height:14px;border-radius:7px;background:var(--sunk)}
+.scale-band{position:absolute;top:24px;height:14px;border-radius:4px}
+.scale-band.b{background:var(--accent2);opacity:.75}
+.scale-band.a{background:var(--accent);opacity:.75}
+.scale-lbl{position:absolute;top:42px;font-size:11.5px;font-weight:700;transform:translateX(-50%);white-space:nowrap}
+.scale-lbl.b{color:var(--accent2-ink)}
+.scale-lbl.a{color:var(--accent-ink)}
+.scale-mk{position:absolute;top:0;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;transition:left .2s}
+.scale-mk span{font-family:var(--font-display);font-weight:800;font-size:12px;background:var(--fg);color:var(--bg);padding:0 7px;border-radius:999px;line-height:19px;white-space:nowrap}
+.scale-mk::after{content:"";width:3px;height:22px;background:var(--fg);border-radius:2px}
+.scale-ticks{position:relative;height:16px;font-family:var(--font-display);font-size:11px;color:var(--fg-3)}
+.scale-ticks span{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap}
+.calc-msg{border-radius:var(--r);padding:12px 14px;font-size:var(--fs-sm);display:flex;flex-direction:column;gap:4px}
+.calc-msg b{font-size:var(--fs-base)}
+.calc-msg.a{background:var(--accent-soft)}
+.calc-msg.b{background:var(--accent2-soft)}
+.calc-msg.low{background:var(--warn-soft)}
+
+/* ---------- 06 promo ---------- */
+.mx td{min-width:150px}
+.mx th[scope="row"]{min-width:120px}
+.mx .rowh{display:flex;align-items:center;gap:8px}
+.mx .rowh .ico{color:var(--accent-ink);width:18px;height:18px}
+.mx td.lv3{background:var(--accent-soft)}
+.mx td.lv2{background:var(--surface-2)}
+.mx .lvl{display:block;font-size:11px;font-weight:700;color:var(--fg-3);margin-bottom:2px;letter-spacing:.04em}
+.mx td.lv3 .lvl{color:var(--accent-ink)}
+
+/* ---------- 07 prep ---------- */
+.gantt{display:grid;grid-template-columns:170px repeat(13,minmax(44px,1fr));min-width:820px;font-size:12.5px;position:relative}
+.gantt .gh{font-family:var(--font-display);font-weight:700;font-size:11.5px;color:var(--fg-2);text-align:center;padding:8px 0;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.gantt .gh.ev{color:var(--accent-ink)}
+.gantt .gl{padding:10px 10px 10px 0;border-bottom:1px solid var(--line);display:flex;flex-direction:column;justify-content:center;line-height:1.35;min-height:52px}
+.gantt .gl b{font-size:13px}
+.gantt .gl span{font-size:11.5px;color:var(--fg-2)}
+.gantt .gc{border-bottom:1px solid var(--line);border-left:1px solid var(--line);position:relative}
+.gantt .gc.ev{background:var(--accent-soft)}
+.gbar{position:relative;align-self:center;height:22px;border-radius:5px;background:var(--c2);margin:0 3px;z-index:1;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden}
+.gbar.post{background:var(--c3)}
+.gms{position:relative;z-index:2;align-self:center;justify-self:center;display:flex;flex-direction:column;align-items:center;gap:2px;pointer-events:none}
+.gms i{width:14px;height:14px;background:var(--accent);transform:rotate(45deg);border:2px solid var(--surface);border-radius:2px;box-shadow:0 0 0 1px var(--accent)}
+.gms span{position:absolute;top:-19px;font-size:11px;font-weight:700;white-space:nowrap;background:var(--surface);padding:0 4px;border-radius:4px;color:var(--accent-ink)}
+.gantt-wrap{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:6px 14px 10px}
+.ms-legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:var(--fs-sm)}
+.ms-legend li{display:flex;align-items:center;gap:8px}
+.ms-legend i{width:11px;height:11px;background:var(--accent);transform:rotate(45deg);border-radius:2px;flex:none}
+.ms-legend b{font-family:var(--font-display)}
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.filters button{padding:5px 12px;border-radius:999px;border:1px solid var(--line-strong);font-size:var(--fs-sm);background:var(--surface);color:var(--fg-2)}
+.filters button[aria-pressed="true"]{background:var(--fg);border-color:var(--fg);color:var(--bg);font-weight:700}
+.phase-pill{display:inline-block;font-family:var(--font-display);font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;background:var(--sunk);color:var(--fg-2);white-space:nowrap}
+.raci td.c{width:72px;white-space:nowrap}
+.raci .r{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:7px;font-family:var(--font-display);font-weight:800;font-size:12.5px}
+.raci .r.R{background:var(--accent2-soft);color:var(--accent2-ink)}
+.raci .r.A{background:var(--accent);color:var(--on-accent)}
+.raci .r.C{background:var(--sunk);color:var(--fg-2);border:1px solid var(--line-strong)}
+.raci .r.I{color:var(--fg-3)}
+.raci-legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:var(--fs-sm);color:var(--fg-2)}
+.raci-legend li{display:flex;align-items:center;gap:6px}
+.roles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+@media (max-width:1023px){.roles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.roles{grid-template-columns:minmax(0,1fr)}}
+.rolec{display:flex;flex-direction:column;gap:6px;padding:14px;border-radius:var(--r-lg);background:var(--surface);border:1px solid var(--line)}
+.rolec h4{font-size:var(--fs-base);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.rolec .what{font-size:var(--fs-sm);font-weight:700;color:var(--accent-ink)}
+.rolec .do{font-size:12.5px;color:var(--fg-2);line-height:1.55}
+.rolec .not{font-size:12px;color:var(--danger-ink);font-weight:700}
+.rolec.me{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.rolec.boss{background:var(--accent2-soft);border-color:transparent}
+.budget{display:flex;flex-direction:column;gap:14px}
+.budget-row{display:grid;grid-template-columns:90px minmax(0,1fr);gap:12px;align-items:center}
+.budget-row .lbl{font-weight:700;font-size:var(--fs-sm)}
+.budget-row .lbl small{display:block;font-weight:500;color:var(--fg-3);font-size:11.5px}
+
+/* ---------- 08 kpi & risk ---------- */
+.kpi-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:860px){.kpi-cols{grid-template-columns:minmax(0,1fr)}}
+.kpi-col{display:flex;flex-direction:column;gap:10px}
+.kpi-col-h{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.kpi-col-h h4{font-size:var(--fs-base)}
+.kpi{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:4px 10px;padding:10px 0;border-top:1px solid var(--line)}
+.kpi .k{font-size:var(--fs-sm);color:var(--fg-2)}
+.kpi .v{font-family:var(--font-display);font-weight:800;font-size:22px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.kpi .v small{font-size:12px;font-weight:600;color:var(--fg-2);margin-left:2px}
+.kpi .d{grid-column:1 / -1;font-size:12px;color:var(--fg-3)}
+.funnel{display:flex;flex-direction:column;gap:4px}
+.fn{display:grid;grid-template-columns:110px minmax(0,1fr);gap:10px;align-items:center;font-size:12.5px}
+.fn .bar{height:22px;border-radius:0 5px 5px 0;background:var(--accent);display:flex;align-items:center;justify-content:flex-end;padding-right:8px;color:#fff;font-family:var(--font-display);font-weight:700;font-size:12px;min-width:34px}
+.fn.post .bar{background:var(--accent2)}
+.fn .lab{color:var(--fg-2);text-align:right}
+.lead-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px}
+@media (max-width:900px){.lead-grid{grid-template-columns:minmax(0,1fr)}}
+.grades{display:flex;flex-direction:column;gap:8px}
+.grade{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;align-items:start;padding:12px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface)}
+.grade .g{font-family:var(--font-display);font-weight:800;font-size:24px;width:44px;height:44px;border-radius:10px;display:grid;place-items:center}
+.grade.a .g{background:var(--accent);color:var(--on-accent)}
+.grade.b .g{background:var(--accent2-soft);color:var(--accent2-ink)}
+.grade.c .g{background:var(--sunk);color:var(--fg-2)}
+.grade h4{font-size:var(--fs-sm)}
+.grade p{font-size:12.5px;color:var(--fg-2)}
+.grade .act{font-size:12.5px;font-weight:700;color:var(--fg);margin-top:2px}
+.grade.a{border-color:var(--accent)}
+.risk{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.risk{grid-template-columns:minmax(0,1fr)}}
+.rm{display:grid;grid-template-columns:28px repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(96px,auto)) 28px;gap:4px}
+.rm-y{writing-mode:vertical-rl;letter-spacing:.1em;font-size:12px;font-weight:700;color:var(--fg-2);display:flex;align-items:center;justify-content:center;grid-row:1 / 4}
+.rm-x{grid-column:2 / 5;font-size:12px;font-weight:700;color:var(--fg-2);text-align:center;align-self:center}
+.rm-cell{border-radius:8px;padding:6px;display:flex;flex-direction:column;gap:4px;position:relative;min-width:0}
+.rm-cell .ax{font-size:10.5px;color:var(--fg-3);font-weight:700}
+.rm-cell.s1{background:var(--accent2-soft)}
+.rm-cell.s2{background:var(--warn-soft)}
+.rm-cell.s3{background:var(--danger-soft)}
+.rk{display:block;width:100%;text-align:left;padding:5px 8px;border-radius:6px;background:var(--surface);border:1px solid var(--line-strong);font-size:12px;font-weight:700;line-height:1.35}
+.rk:hover{border-color:var(--fg-3)}
+.rk[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.rk-detail{display:flex;flex-direction:column;gap:10px}
+.rk-detail h4{font-size:var(--fs-lg)}
+.rk-tags{display:flex;flex-wrap:wrap;gap:6px}
+.rk-detail ol{display:flex;flex-direction:column;gap:8px;counter-reset:c}
+.rk-detail ol li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;font-size:var(--fs-sm);counter-increment:c}
+.rk-detail ol li::before{content:counter(c);font-family:var(--font-display);font-weight:800;font-size:12px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent-ink)}
+.rk-owner{font-size:var(--fs-sm);color:var(--fg-2)}
+
+/* ---------- 09 strategy ---------- */
+.prio{display:flex;flex-direction:column;gap:8px}
+.prio-row{display:grid;grid-template-columns:28px minmax(0,1.3fr) minmax(0,1fr) 120px;gap:12px;align-items:center;padding:12px 14px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line)}
+@media (max-width:760px){.prio-row{grid-template-columns:28px minmax(0,1fr)}.prio-row .ans,.prio-row .pm{grid-column:2}}
+.prio-row .rk-n{font-family:var(--font-display);font-weight:800;font-size:20px;color:var(--accent-ink)}
+.prio-row .q{font-weight:700;font-size:var(--fs-sm)}
+.prio-row .ans{font-size:12.5px;color:var(--fg-2)}
+.prio-row .ans b{color:var(--fg)}
+.prio-row.addon{background:transparent;border-style:dashed;border-color:var(--fg-3)}
+.prio-row.addon .rk-n{color:var(--fg-3)}
+.pm{display:flex;gap:3px}
+.pm i{height:8px;flex:1;border-radius:3px;background:var(--line)}
+.pm i.on{background:var(--accent)}
+.path{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;position:relative}
+.path::before{content:"";position:absolute;left:10%;right:10%;top:23px;height:3px;background:linear-gradient(90deg,var(--accent) 0 60%,var(--line-strong) 60%);border-radius:2px}
+.path li{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;position:relative;padding:0 6px}
+.path .pd{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--surface);border:3px solid var(--accent);z-index:1;color:var(--accent-ink)}
+.path .pd .ico{width:20px;height:20px}
+.path li.later .pd{border-color:var(--line-strong);color:var(--fg-3)}
+.path li.now .pd{background:var(--accent);color:var(--on-accent)}
+.path .pw{font-family:var(--font-display);font-weight:700;font-size:12px;color:var(--accent-ink)}
+.path li.later .pw{color:var(--fg-3)}
+.path .pt{font-weight:700;font-size:var(--fs-sm);line-height:1.35}
+.path .ps{font-size:12px;color:var(--fg-2);line-height:1.45}
+@media (max-width:760px){
+  .path{grid-template-columns:minmax(0,1fr);gap:10px}
+  .path::before{left:23px;right:auto;top:10px;bottom:10px;width:3px;height:auto;background:linear-gradient(180deg,var(--accent) 0 60%,var(--line-strong) 60%)}
+  .path li{display:grid;grid-template-columns:48px minmax(0,1fr);text-align:left;align-items:center;column-gap:12px;row-gap:0;padding:0}
+  .path li .pd{grid-row:span 3}
+}
+.why3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:760px){.why3{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- 10 todo ---------- */
+.todo{display:flex;flex-direction:column;gap:6px}
+.todo-item{display:grid;grid-template-columns:auto 30px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 14px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line)}
+@media (max-width:640px){.todo-item{grid-template-columns:auto 26px minmax(0,1fr)}.todo-item .todo-type{grid-column:3}}
+.todo-item .check{padding:0}
+.todo-n{font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--fg-3);font-variant-numeric:tabular-nums}
+.todo-t{font-weight:700;font-size:var(--fs-sm);line-height:1.45}
+.todo-s{font-size:12px;color:var(--fg-2)}
+.todo-item.done .todo-t{text-decoration:line-through;color:var(--fg-3)}
+.todo-type{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap;justify-self:start}
+.ty-self{background:var(--accent);color:var(--on-accent)}
+.ty-ask{background:var(--accent2-soft);color:var(--accent2-ink)}
+.ty-chase{background:var(--warn-soft);color:var(--warn-ink)}
+.ty-mkt{background:var(--sunk);color:var(--fg-2);border:1px solid var(--line-strong)}
+.notmine{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+@media (max-width:1023px){.notmine{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:520px){.notmine{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.nm{display:flex;flex-direction:column;gap:6px;padding:14px;border-radius:var(--r-lg);border:1px dashed var(--line-strong);background:var(--surface-2)}
+.nm .ico{color:var(--fg-3);width:22px;height:22px}
+.nm b{font-size:var(--fs-sm)}
+.nm span{font-size:12px;color:var(--fg-2)}
+
+/* ---------- footer nav ---------- */
+.pnav{display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding-top:18px;flex-wrap:wrap}
+.pnav button{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);font-size:var(--fs-sm);font-weight:700;color:var(--fg)}
+.pnav button:hover{border-color:var(--accent)}
+.pnav button span{color:var(--fg-3);font-weight:500;font-size:12px}
+.pnav .ico{width:16px;height:16px}
+.pnav .prev .ico{transform:rotate(180deg)}
+.pnav .next{margin-left:auto}
+.foot{padding-block:22px 34px;color:var(--fg-3);font-size:var(--fs-xs);border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between}
+
+.tl-dot .ico{width:18px;height:18px}
+.zboard{fill:var(--surface);stroke:var(--surface)}
+.th-tile{fill-opacity:.22;stroke:none}
+.th-it{stroke:none}
+svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
+.ros-z span i{display:inline-block}
+.raci td.c .r + .r{margin-left:2px}
+.dec-act button:focus-visible,.rk:focus-visible,.ros-btn:focus-visible,.plan:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></symbol>
+    <symbol id="i-bot" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 8V5"/><circle cx="12" cy="4" r="1.2"/><circle cx="9" cy="13.5" r="1.2"/><circle cx="15" cy="13.5" r="1.2"/><path d="M2 12v3M22 12v3"/></symbol>
+    <symbol id="i-headset" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19a3 3 0 0 1-3 3h-3"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="7" rx="1.5"/><rect x="4" y="13" width="16" height="7" rx="1.5"/><path d="M8 7.5h.01M8 16.5h.01M12 7.5h5M12 16.5h5"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a4.5 4.5 0 0 1-.5-9A6 6 0 0 1 18 9.5a4 4 0 0 1-.5 8.5z"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 2.5l9 4.5-9 4.5-9-4.5z"/><path d="M3 12l9 4.5 9-4.5"/><path d="M3 16.5l9 4.5 9-4.5"/></symbol>
+    <symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></symbol>
+    <symbol id="i-wave" viewBox="0 0 24 24"><path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 11v2"/></symbol>
+    <symbol id="i-desktop" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M9 20h6M12 16v4"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M11 3l1.8 5.2L18 10l-5.2 1.8L11 17l-1.8-5.2L4 10l5.2-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 4h10a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9l-4 3v-3H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M19 9h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-1v3l-3-3h-4"/></symbol>
+    <symbol id="i-network" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="18" r="2.2"/><circle cx="19" cy="18" r="2.2"/><path d="M10.9 6.9L6.1 16M13.1 6.9l4.8 9.1M7.2 18h9.6"/></symbol>
+    <symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M3 10v4a1 1 0 0 0 1 1h2l5 4V5L6 9H4a1 1 0 0 0-1 1z"/><path d="M15 9a4 4 0 0 1 0 6M18 6a8 8 0 0 1 0 12"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.5M8.2 13.2l7.6 4.5"/></symbol>
+    <symbol id="i-news" viewBox="0 0 24 24"><rect x="3" y="4" width="15" height="16" rx="1.5"/><path d="M18 8h3v10a2 2 0 0 1-2 2M7 8h7M7 12h7M7 16h4"/></symbol>
+    <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v8h14v-8M12 8v12M12 8c-2-4-6-4-6-1.5S10 8 12 8zM12 8c2-4 6-4 6-1.5S14 8 12 8z"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H16a3 3 0 0 0 0-6H8a3 3 0 0 1 0-6h7.5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l9.5 17h-19z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></symbol>
+    <symbol id="i-stage" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="10" rx="1"/><path d="M8 21l1.5-5h5L16 21M6 21h12"/></symbol>
+    <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8h15l-3.5-3.5M20 16H5l3.5 3.5"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 10h1.5a2.5 2.5 0 0 1 0 5H17M8 3v3M12 3v3"/></symbol>
+    <symbol id="i-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v3M14 21h3M18 18h3v3"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 7h3l2-3h6l2 3h3a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="4"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z" fill="currentColor"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v15M6 13l6 6 6-6"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+    <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-clip" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h3"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-9V3"/><path d="M7.5 15h9"/></symbol>
+    <symbol id="i-board" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="11" rx="1"/><path d="M8 20l2-5M16 20l-2-5M12 4V2"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+    <symbol id="i-food" viewBox="0 0 24 24"><path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M16 3c-2 1.5-3 4-3 7h3v11"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M6 8h12v3a6 6 0 0 1-12 0zM12 17v4"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 6l3 3"/></symbol>
+  </defs>
+</svg>
+
+<header class="masthead">
+  <div class="wrap mast-row">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"><svg class="ico"><use href="#i-headset"/></svg></span>
+      <span class="brand-text"><b>TWM × 承暉</b><span>AI Contact Center Seminar · 活動規劃</span></span>
+    </div>
+    <div class="mast-meta">
+      <span class="tag est">呈 Min 決策</span>
+      <span class="mast-date">2026.10 · Eric</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="簡報分頁">
+  <div class="wrap">
+    <div class="tabs-scroll" role="tablist" id="tablist">
+      <button class="tab" role="tab" id="tab-overview" aria-controls="p-overview" data-tab="overview"><span class="tab-n">01</span><span>總覽</span></button>
+      <button class="tab" role="tab" id="tab-plans" aria-controls="p-plans" data-tab="plans"><span class="tab-n">02</span><span>方案</span></button>
+      <button class="tab" role="tab" id="tab-content" aria-controls="p-content" data-tab="content"><span class="tab-n">03</span><span>內容</span></button>
+      <button class="tab" role="tab" id="tab-venue" aria-controls="p-venue" data-tab="venue"><span class="tab-n">04</span><span>現場</span></button>
+      <button class="tab" role="tab" id="tab-guests" aria-controls="p-guests" data-tab="guests"><span class="tab-n">05</span><span>來賓</span></button>
+      <button class="tab" role="tab" id="tab-promo" aria-controls="p-promo" data-tab="promo"><span class="tab-n">06</span><span>推廣</span></button>
+      <button class="tab" role="tab" id="tab-prep" aria-controls="p-prep" data-tab="prep"><span class="tab-n">07</span><span>籌備</span></button>
+      <button class="tab" role="tab" id="tab-kpi" aria-controls="p-kpi" data-tab="kpi"><span class="tab-n">08</span><span>成效與風險</span></button>
+      <button class="tab" role="tab" id="tab-strategy" aria-controls="p-strategy" data-tab="strategy"><span class="tab-n">09</span><span>策略</span></button>
+      <button class="tab" role="tab" id="tab-todo" aria-controls="p-todo" data-tab="todo"><span class="tab-n">10</span><span>Eric 待辦</span></button>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap main" id="main">
+
+<!-- ======================= 01 總覽 ======================= -->
+<section class="panel" id="p-overview" role="tabpanel" aria-labelledby="tab-overview" tabindex="-1">
+  <div class="hero">
+    <div class="hero-kicker"><span class="eyebrow">01 · 總覽</span><span class="tag tbd">日期暫定</span></div>
+    <h1><span class="h1-top">台灣大哥大 × 承暉</span><span class="h1-main">AI Contact Center Seminar</span></h1>
+    <p class="hero-sub">半天實體活動，呈現從硬體、平台到 AI 應用的完整客服方案，搭配 Live Demo 與案例。</p>
+  </div>
+
+  <div class="facts">
+    <div class="fact">
+      <div class="fact-top"><span class="fact-label">何時</span><span class="ico-badge n"><svg class="ico"><use href="#i-calendar"/></svg></span></div>
+      <div class="fact-val">2026 年 11 月底至 12 月</div>
+      <div class="fact-sub">半天實體 · <span class="tag tbd">暫定</span></div>
+    </div>
+    <div class="fact">
+      <div class="fact-top"><span class="fact-label">主辦</span><span class="ico-badge n"><svg class="ico"><use href="#i-users"/></svg></span></div>
+      <div class="fact-val">台灣大 × 承暉</div>
+      <div class="fact-sub">Sponsor：Min</div>
+    </div>
+    <div class="fact is-main">
+      <div class="fact-top"><span class="fact-label">主方案</span><span class="ico-badge"><svg class="ico"><use href="#i-stage"/></svg></span></div>
+      <div class="fact-val">Plan A 大型 Seminar</div>
+      <div class="fact-sub"><span class="num">60–100</span> 人 <span class="tag est">建議值</span></div>
+    </div>
+    <div class="fact">
+      <div class="fact-top"><span class="fact-label">備案</span><span class="ico-badge n"><svg class="ico"><use href="#i-swap"/></svg></span></div>
+      <div class="fact-val">Plan B Executive Briefing</div>
+      <div class="fact-sub"><span class="num">20–40</span> 人 <span class="tag est">建議值</span></div>
+    </div>
+    <div class="fact is-goal">
+      <div class="fact-top"><span class="fact-label">目標</span><span class="ico-badge g"><svg class="ico"><use href="#i-target"/></svg></span></div>
+      <div class="fact-val">看 Pipeline</div>
+      <div class="fact-sub">不只看報名人數</div>
+    </div>
+  </div>
+
+  <section class="blk" aria-labelledby="h-concept">
+    <div class="blk-head"><h3 id="h-concept">一通電話，三個階段，一套地基</h3><span class="tag demo">概念圖</span></div>
+    <figure class="fig">
+      <svg class="concept-wide" viewBox="0 0 960 478" role="img" aria-label="概念圖：一通電話經過來電時 AI 語音客服先接、通話中真人專員加即時輔助、掛線後自動摘要與結案三個階段；下方是平台、部署、硬體三層地基；外框為台灣大整合。">
+        <defs><marker id="cfArrW" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="cf-mk" d="M0 0L10 5L0 10z"/></marker></defs>
+        <rect class="cf-frame" x="10" y="24" width="940" height="444" rx="18"/>
+        <g class="cf-tab"><rect x="30" y="8" width="214" height="32" rx="16"/><text x="137" y="29.5" text-anchor="middle">台灣大整合 · 單一窗口</text></g>
+        <use href="#i-phone" class="ico-u cf-ic-u" x="40" y="54" width="22" height="22"/>
+        <text class="cf-cap" x="68" y="70">一通電話</text>
+        <line class="cf-call" x1="136" y1="65" x2="920" y2="65"/>
+        <line class="cf-tick" x1="160" y1="65" x2="160" y2="88"/><line class="cf-tick" x1="480" y1="65" x2="480" y2="88"/><line class="cf-tick" x1="800" y1="65" x2="800" y2="88"/>
+        <circle class="cf-dot" cx="160" cy="65" r="7"/><circle class="cf-dot" cx="480" cy="65" r="7"/><circle class="cf-dot" cx="800" cy="65" r="7"/>
+
+        <rect class="cf-card" x="40" y="88" width="240" height="124" rx="12"/>
+        <circle class="cf-ic" cx="250" cy="118" r="19"/><use href="#i-bot" class="ico-u cf-ic-u" x="239" y="107" width="22" height="22"/>
+        <text class="cf-eyebrow" x="60" y="118">來電時</text>
+        <text class="cf-title" x="60" y="148">AI 語音客服先接</text>
+        <text class="cf-sub" x="60" y="176">ASR／TTS · 國台語混講</text>
+        <text class="cf-sub" x="60" y="197">能處理的直接結案</text>
+
+        <rect class="cf-card" x="360" y="88" width="240" height="124" rx="12"/>
+        <circle class="cf-ic" cx="570" cy="118" r="19"/><use href="#i-headset" class="ico-u cf-ic-u" x="559" y="107" width="22" height="22"/>
+        <text class="cf-eyebrow" x="380" y="118">通話中</text>
+        <text class="cf-title" x="380" y="148">真人專員＋即時輔助</text>
+        <text class="cf-sub" x="380" y="176">Agent Assist · AGD／Agent Desktop</text>
+        <text class="cf-sub" x="380" y="197">承暉 TAIPBXCC 進線</text>
+
+        <rect class="cf-card" x="680" y="88" width="240" height="124" rx="12"/>
+        <circle class="cf-ic" cx="890" cy="118" r="19"/><use href="#i-doc" class="ico-u cf-ic-u" x="879" y="107" width="22" height="22"/>
+        <text class="cf-eyebrow" x="700" y="118">掛線後</text>
+        <text class="cf-title" x="700" y="148">自動摘要與結案</text>
+        <text class="cf-sub" x="700" y="176">摘要 · 分類 · 工單結案</text>
+        <text class="cf-sub" x="700" y="197">專員直接接下一通</text>
+
+        <line class="cf-arrow" x1="286" y1="150" x2="353" y2="150" marker-end="url(#cfArrW)"/>
+        <text class="cf-alabel" x="320" y="141" text-anchor="middle">轉真人</text>
+        <text class="cf-alabel" x="320" y="168" text-anchor="middle">帶摘要</text>
+        <line class="cf-arrow" x1="606" y1="150" x2="673" y2="150" marker-end="url(#cfArrW)"/>
+        <text class="cf-alabel" x="640" y="141" text-anchor="middle">掛線</text>
+        <text class="cf-alabel" x="640" y="168" text-anchor="middle">自動接手</text>
+
+        <g class="cf-pill"><rect x="740" y="221" width="180" height="28" rx="14"/><use href="#i-mic" class="ico-u" x="752" y="226" width="18" height="18"/><text x="776" y="240">加值：AI 語音質檢</text></g>
+
+        <line class="cf-link" x1="160" y1="212" x2="160" y2="292"/><line class="cf-link" x1="480" y1="212" x2="480" y2="292"/><line class="cf-link" x1="720" y1="212" x2="720" y2="292"/>
+        <text class="cf-runs" x="320" y="262" text-anchor="middle">三個階段跑在同一套地基上</text>
+
+        <g class="cf-band p">
+          <rect class="b" x="40" y="292" width="880" height="48" rx="10"/>
+          <use href="#i-layers" class="ico-u" x="58" y="305" width="22" height="22"/><text class="cf-blabel" x="88" y="322">平台</text>
+          <g class="cf-chip"><rect x="190" y="301" width="104" height="30" rx="15"/><text x="242" y="321" text-anchor="middle">TAIPBXCC</text></g>
+          <g class="cf-chip"><rect x="306" y="301" width="92" height="30" rx="15"/><text x="352" y="321" text-anchor="middle">語音引擎</text></g>
+          <g class="cf-chip"><rect x="410" y="301" width="92" height="30" rx="15"/><text x="456" y="321" text-anchor="middle">系統整合</text></g>
+          <text class="cf-note" x="900" y="321" text-anchor="end">承暉 TAIPBXCC 為核心</text>
+        </g>
+        <g class="cf-band d">
+          <rect class="b" x="40" y="348" width="880" height="48" rx="10"/>
+          <use href="#i-cloud" class="ico-u" x="58" y="361" width="22" height="22"/><text class="cf-blabel" x="88" y="378">部署</text>
+          <g class="cf-chip"><rect x="190" y="357" width="70" height="30" rx="15"/><text x="225" y="377" text-anchor="middle">地端</text></g>
+          <g class="cf-chip"><rect x="272" y="357" width="70" height="30" rx="15"/><text x="307" y="377" text-anchor="middle">雲端</text></g>
+          <g class="cf-chip"><rect x="354" y="357" width="70" height="30" rx="15"/><text x="389" y="377" text-anchor="middle">混合</text></g>
+          <text class="cf-note" x="900" y="377" text-anchor="end">依客戶資安要求選擇</text>
+        </g>
+        <g class="cf-band h">
+          <rect class="b" x="40" y="404" width="880" height="48" rx="10"/>
+          <use href="#i-server" class="ico-u" x="58" y="417" width="22" height="22"/><text class="cf-blabel" x="88" y="434">硬體</text>
+          <g class="cf-chip"><rect x="190" y="413" width="104" height="30" rx="15"/><text x="242" y="433" text-anchor="middle">AI 一體機</text></g>
+          <g class="cf-chip"><rect x="306" y="413" width="112" height="30" rx="15"/><text x="362" y="433" text-anchor="middle">GPU 伺服器</text></g>
+          <text class="cf-note" x="900" y="433" text-anchor="end">HPE、凌華 · 依 Sizing 配置</text>
+        </g>
+      </svg>
+
+      <svg class="concept-tall" viewBox="0 0 360 744" role="img" aria-label="概念圖（直式）：一通電話三個階段與三層地基，外框為台灣大整合。">
+        <defs><marker id="cfArrT" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="cf-mk" d="M0 0L10 5L0 10z"/></marker></defs>
+        <rect class="cf-frame" x="6" y="22" width="348" height="714" rx="16"/>
+        <g class="cf-tab"><rect x="20" y="6" width="196" height="30" rx="15"/><text x="118" y="26" text-anchor="middle" style="font-size:13px">台灣大整合 · 單一窗口</text></g>
+        <use href="#i-phone" class="ico-u cf-ic-u" x="24" y="46" width="20" height="20"/>
+        <text class="cf-cap" x="50" y="61">一通電話的三個階段</text>
+
+        <rect class="cf-card" x="24" y="76" width="312" height="92" rx="12"/>
+        <circle class="cf-ic" cx="304" cy="106" r="18"/><use href="#i-bot" class="ico-u cf-ic-u" x="293" y="95" width="22" height="22"/>
+        <text class="cf-eyebrow" x="44" y="102">來電時</text>
+        <text class="cf-title" x="44" y="128">AI 語音客服先接</text>
+        <text class="cf-sub" x="44" y="152">ASR／TTS · 國台語混講</text>
+        <line class="cf-arrow" x1="60" y1="171" x2="60" y2="193" marker-end="url(#cfArrT)"/>
+        <text class="cf-alabel" x="74" y="187">轉真人，帶摘要</text>
+
+        <rect class="cf-card" x="24" y="196" width="312" height="92" rx="12"/>
+        <circle class="cf-ic" cx="304" cy="226" r="18"/><use href="#i-headset" class="ico-u cf-ic-u" x="293" y="215" width="22" height="22"/>
+        <text class="cf-eyebrow" x="44" y="222">通話中</text>
+        <text class="cf-title" x="44" y="248">真人專員＋即時輔助</text>
+        <text class="cf-sub" x="44" y="272">Agent Assist · AGD／Agent Desktop</text>
+        <line class="cf-arrow" x1="60" y1="291" x2="60" y2="313" marker-end="url(#cfArrT)"/>
+        <text class="cf-alabel" x="74" y="307">掛線，自動接手</text>
+
+        <rect class="cf-card" x="24" y="316" width="312" height="92" rx="12"/>
+        <circle class="cf-ic" cx="304" cy="346" r="18"/><use href="#i-doc" class="ico-u cf-ic-u" x="293" y="335" width="22" height="22"/>
+        <text class="cf-eyebrow" x="44" y="342">掛線後</text>
+        <text class="cf-title" x="44" y="368">自動摘要與結案</text>
+        <text class="cf-sub" x="44" y="392">摘要 · 分類 · 工單結案</text>
+
+        <g class="cf-pill"><rect x="24" y="418" width="196" height="28" rx="14"/><use href="#i-mic" class="ico-u" x="34" y="423" width="18" height="18"/><text x="56" y="437">加值：AI 語音質檢</text></g>
+        <text class="cf-runs" x="180" y="476" text-anchor="middle">三個階段跑在同一套地基上</text>
+
+        <g class="cf-band p">
+          <rect class="b" x="24" y="490" width="312" height="72" rx="10"/>
+          <use href="#i-layers" class="ico-u" x="40" y="500" width="20" height="20"/><text class="cf-blabel" x="66" y="516">平台</text>
+          <text class="cf-note" x="322" y="516" text-anchor="end" style="font-size:11.5px">承暉 TAIPBXCC 為核心</text>
+          <g class="cf-chip"><rect x="40" y="526" width="92" height="26" rx="13"/><text x="86" y="544" text-anchor="middle" style="font-size:12.5px">TAIPBXCC</text></g>
+          <g class="cf-chip"><rect x="140" y="526" width="80" height="26" rx="13"/><text x="180" y="544" text-anchor="middle" style="font-size:12.5px">語音引擎</text></g>
+          <g class="cf-chip"><rect x="228" y="526" width="80" height="26" rx="13"/><text x="268" y="544" text-anchor="middle" style="font-size:12.5px">系統整合</text></g>
+        </g>
+        <g class="cf-band d">
+          <rect class="b" x="24" y="570" width="312" height="72" rx="10"/>
+          <use href="#i-cloud" class="ico-u" x="40" y="580" width="20" height="20"/><text class="cf-blabel" x="66" y="596">部署</text>
+          <text class="cf-note" x="322" y="596" text-anchor="end" style="font-size:11.5px">依客戶資安要求選擇</text>
+          <g class="cf-chip"><rect x="40" y="606" width="60" height="26" rx="13"/><text x="70" y="624" text-anchor="middle" style="font-size:12.5px">地端</text></g>
+          <g class="cf-chip"><rect x="108" y="606" width="60" height="26" rx="13"/><text x="138" y="624" text-anchor="middle" style="font-size:12.5px">雲端</text></g>
+          <g class="cf-chip"><rect x="176" y="606" width="60" height="26" rx="13"/><text x="206" y="624" text-anchor="middle" style="font-size:12.5px">混合</text></g>
+        </g>
+        <g class="cf-band h">
+          <rect class="b" x="24" y="650" width="312" height="72" rx="10"/>
+          <use href="#i-server" class="ico-u" x="40" y="660" width="20" height="20"/><text class="cf-blabel" x="66" y="676">硬體</text>
+          <text class="cf-note" x="322" y="676" text-anchor="end" style="font-size:11.5px">HPE、凌華 · 依 Sizing</text>
+          <g class="cf-chip"><rect x="40" y="686" width="92" height="26" rx="13"/><text x="86" y="704" text-anchor="middle" style="font-size:12.5px">AI 一體機</text></g>
+          <g class="cf-chip"><rect x="140" y="686" width="104" height="26" rx="13"/><text x="192" y="704" text-anchor="middle" style="font-size:12.5px">GPU 伺服器</text></g>
+        </g>
+      </svg>
+      <figcaption>來賓看到的是「一通電話」從進線到結案；台灣大負責把平台、部署、硬體整合成一個窗口。AI 語音質檢只在掛線後帶到，屬加值推廣。</figcaption>
+    </figure>
+  </section>
+
+  <section class="blk" aria-labelledby="h-show">
+    <div class="blk-head"><h3 id="h-show">現場展示什麼</h3></div>
+    <div class="show-grid">
+      <div class="card show-col">
+        <div class="show-col-h"><span class="tag core">完整方案</span><span class="muted small">活動主軸</span></div>
+        <ul class="show-list">
+          <li class="show-item"><svg class="ico"><use href="#i-layers"/></svg>TAIPBXCC</li>
+          <li class="show-item"><svg class="ico"><use href="#i-desktop"/></svg>AGD／Agent Desktop</li>
+          <li class="show-item"><svg class="ico"><use href="#i-bot"/></svg>AI 語音客服</li>
+          <li class="show-item"><svg class="ico"><use href="#i-spark"/></svg>AI 客服助手 Agent Assist</li>
+          <li class="show-item"><svg class="ico"><use href="#i-wave"/></svg>ASR／TTS</li>
+          <li class="show-item"><svg class="ico"><use href="#i-box"/></svg>AI 一體機</li>
+          <li class="show-item"><svg class="ico"><use href="#i-cloud"/></svg>雲端／地端／混合部署</li>
+        </ul>
+      </div>
+      <div class="card show-col">
+        <div class="show-col-h"><span class="tag addon">加值推廣</span></div>
+        <ul class="show-list">
+          <li class="show-item addon"><svg class="ico"><use href="#i-mic"/></svg>AI 語音質檢</li>
+        </ul>
+        <details class="more"><summary>為什麼只當加值</summary><div class="more-body"><p>主軸是完整客服方案。質檢只在 Live Demo 第 3 段最後 2 分鐘、通話後自動化體驗站與活動加碼（錄音試跑）出現，不單獨排舞台時段。</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-split">
+    <div class="blk-head"><h3 id="h-split">下午時間怎麼分</h3><span class="tag est">建議值</span><span class="hint">14:00–16:45，共 165 分鐘</span></div>
+    <div class="card">
+      <div class="pbar" role="img" aria-label="時間分配：開場與方案 25 分、舞台 Live Demo 47 分、案例 20 分、體驗區與一對一諮詢 73 分">
+        <div class="s bg-c1" style="flex:25" title="開場與方案 25 分"><span>25 分</span></div>
+        <div class="s bg-c2" style="flex:47" title="舞台 Live Demo 47 分"><span>47 分</span></div>
+        <div class="s bg-c3" style="flex:20" title="案例 20 分"><span>20 分</span></div>
+        <div class="s bg-c4" style="flex:73" title="體驗區與一對一諮詢 73 分"><span>73 分</span></div>
+      </div>
+      <div class="axis" style="margin-top:6px"><span>14:00</span><span>16:45</span></div>
+      <ul class="legend" style="margin-top:12px">
+        <li><i class="sw bg-c1"></i>開場與方案 <b>25 分</b></li>
+        <li><i class="sw bg-c2"></i>舞台 Live Demo <b>47 分</b></li>
+        <li><i class="sw bg-c3"></i>案例 <b>20 分</b></li>
+        <li><i class="sw bg-c4"></i>體驗區與一對一諮詢 <b>73 分</b></li>
+      </ul>
+      <details class="more" style="margin-top:12px"><summary>設計邏輯</summary><div class="more-body"><ul><li>台上 92 分、台下 73 分：近一半時間留給體驗與諮詢，商機在台下發生。</li><li>Live Demo 分三段跟著「一通電話」走，避免一家廠商講一段。</li><li>夥伴每次上台不超過 10 分鐘。</li></ul></div></details>
+    </div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-tl">
+    <div class="blk-head"><h3 id="h-tl">時間軸：會前對齊到會後 Pipeline</h3><span class="hint">點節點看細節 · 間距非等比例</span></div>
+    <ol class="tl" id="tlMain"></ol>
+    <div class="tl-detail" id="tlMainDetail" aria-live="polite"></div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-dec">
+    <div class="blk-head"><h3 id="h-dec">請 Min 決定的十件事</h3><span class="spacer"></span><div class="dec-summary" id="decSummary"></div></div>
+    <p class="note">每項可直接點選「同意建議／需調整／再議」，紀錄只存在這台瀏覽器。</p>
+    <div class="dec-grid" id="decGrid"></div>
+  </section>
+  <div class="pnav" data-pnav></div>
+</section>
+
+<!-- ======================= 02 方案 ======================= -->
+<section class="panel" id="p-plans" role="tabpanel" aria-labelledby="tab-plans" tabindex="-1" hidden>
+  <div class="phead">
+    <span class="eyebrow">02 · 方案</span>
+    <h2>A 或 B 二選一，C 到 F 接著辦</h2>
+    <p class="lead">點任一方案看立體場地概念圖。每個方案配置都不同。</p>
+  </div>
+
+  <div class="plan-groups">
+    <div class="plan-group-h"><span class="tag core">請 Min 二選一</span>年底 Seminar</div>
+    <div class="plan-grid two" id="planAB"></div>
+    <div class="plan-group-h" style="margin-top:6px"><span class="tag plain">後續場次</span>2027 起可接著辦</div>
+    <div class="plan-grid four" id="planCF"></div>
+  </div>
+
+  <section class="blk" aria-labelledby="h-pd">
+    <div class="blk-head"><h3 id="h-pd">場地概念圖</h3><span class="tag demo">等角投影 · 示意</span></div>
+    <div class="plan-detail" id="planDetail"></div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-cmp">
+    <div class="blk-head"><h3 id="h-cmp">方案比較</h3><span class="tag eval">評估值</span><span class="hint">5 點為最高，非實績</span></div>
+    <div class="table-wrap"><table class="t" id="planCompare"></table></div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-gng">
+    <div class="blk-head"><h3 id="h-gng">D−14 Go／No-Go 檢核</h3><span class="hint">勾選結果存在這台瀏覽器</span><span class="spacer"></span><button class="btn" type="button" id="gngReset">清除勾選</button></div>
+    <div class="gng" id="gng"></div>
+  </section>
+  <div class="pnav" data-pnav></div>
+</section>
+
+<!-- ======================= 03 內容 ======================= -->
+<section class="panel" id="p-content" role="tabpanel" aria-labelledby="tab-content" tabindex="-1" hidden>
+  <div class="phead">
+    <span class="eyebrow">03 · 內容</span>
+    <h2>一條故事線，跟著一通電話走</h2>
+    <p class="lead">同樣五層內容，排法不同，聽眾「有感」的時間差很多。</p>
+  </div>
+
+  <section class="blk" aria-labelledby="h-ag">
+    <div class="blk-head"><h3 id="h-ag">議程對照：兩種排法</h3><span class="tag est">建議值</span><span class="hint">舞台 67 分鐘</span></div>
+    <div class="card" style="display:flex;flex-direction:column;gap:16px">
+      <div class="ag-ctrl"><span class="small muted">切換聽眾</span><div class="seg" id="agAud" role="group" aria-label="切換聽眾"></div></div>
+      <div class="ag-rows" id="agRows"></div>
+      <ul class="legend ag-layers" id="agLayers"></ul>
+      <details class="more"><summary>結論與補位</summary><div class="more-body"><ul><li>主舞台採「由成果往下」：需求擁有者（客服主管）第 0 分鐘就有感。</li><li>IT／資安在故事線版本較晚有感，用「部署與資安」體驗站、諮詢區與會前技術資料補位。</li><li>由下往上的排法容易變成一家廠商一段產品介紹，客服主管要等到後半場。</li></ul></div></details>
+    </div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-jr">
+    <div class="blk-head"><h3 id="h-jr">一通電話的旅程（六幕）</h3><span class="tag demo">虛構案例</span><span class="hint">某銀行信用卡客服中心 · 300 席</span><span class="spacer"></span><button class="btn" type="button" id="actPlay" aria-pressed="false"><svg class="ico"><use href="#i-play"/></svg><span>自動播放</span></button></div>
+    <div class="acts" id="acts" role="group" aria-label="選擇幕次"></div>
+    <div class="act-track" id="actTrack" aria-hidden="true"></div>
+    <div class="journey">
+      <div class="card act-meta" id="actMeta" aria-live="polite"></div>
+      <div class="screen" id="actScreen" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-zone">
+    <div class="blk-head"><h3 id="h-zone">各方案需要哪些區</h3><span class="hint">● 需要　◐ 精簡　— 不設</span></div>
+    <div class="table-wrap">
+      <table class="t zone-t">
+        <thead><tr><th scope="col">區域</th><th scope="col">Plan A</th><th scope="col">Plan B</th><th scope="col">C 體驗日</th><th scope="col">D 案例論壇</th><th scope="col">E 共創日</th><th scope="col">F 調查</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Partner 區</th>
+            <td class="is-a"><span class="sym sym-y">●</span><small>依方案分層：硬體／雲端／平台／AI 應用，不依公司排</small></td>
+            <td><span class="sym sym-n">—</span><small>不設</small></td>
+            <td><span class="sym sym-p">◐</span><small>併在體驗站旁</small></td>
+            <td><span class="sym sym-p">◐</span><small>案例相關夥伴</small></td>
+            <td><span class="sym sym-y">●</span><small>主場：分組共創桌</small></td>
+            <td><span class="sym sym-n">—</span><small>不設</small></td></tr>
+          <tr><th scope="row">傳統攤位</th>
+            <td class="is-a"><span class="sym sym-n">—</span><small>不設，併入分層 Partner 區</small></td>
+            <td><span class="sym sym-n">—</span><small>不設攤位</small></td>
+            <td><span class="sym sym-n">—</span></td>
+            <td><span class="sym sym-n">—</span></td>
+            <td><span class="sym sym-n">—</span></td>
+            <td><span class="sym sym-n">—</span></td></tr>
+          <tr><th scope="row">Demo</th>
+            <td class="is-a"><span class="sym sym-y">●</span><small>舞台 Live Demo ×3＋體驗站 ×4</small></td>
+            <td><span class="sym sym-y">●</span><small>Demo Pod 2–3 個</small></td>
+            <td><span class="sym sym-y">●</span><small>體驗站 ×4 是主角</small></td>
+            <td><span class="sym sym-p">◐</span><small>Demo 角 ×2</small></td>
+            <td><span class="sym sym-p">◐</span><small>共同方案 Demo</small></td>
+            <td><span class="sym sym-n">—</span><small>以調查數據為主</small></td></tr>
+          <tr><th scope="row">TWM Solution Hub</th>
+            <td class="is-a"><span class="sym sym-y">●</span><small>完整方案一站看</small></td>
+            <td><span class="sym sym-p">◐</span><small>併入 Demo Pod</small></td>
+            <td><span class="sym sym-y">●</span><small>體驗動線起點</small></td>
+            <td><span class="sym sym-p">◐</span><small>案例牆旁</small></td>
+            <td><span class="sym sym-p">◐</span><small>方案包說明</small></td>
+            <td><span class="sym sym-p">◐</span><small>調查結果對應方案</small></td></tr>
+          <tr><th scope="row">交流區</th>
+            <td class="is-a"><span class="sym sym-y">●</span><small>報到後與中場</small></td>
+            <td><span class="sym sym-y">●</span><small>圓桌即交流</small></td>
+            <td><span class="sym sym-y">●</span><small>咖啡區</small></td>
+            <td><span class="sym sym-y">●</span><small>會後交流</small></td>
+            <td><span class="sym sym-p">◐</span><small>咖啡角</small></td>
+            <td><span class="sym sym-p">◐</span><small>會後交流</small></td></tr>
+          <tr><th scope="row">諮詢區</th>
+            <td class="is-a"><span class="sym sym-y">●</span><small>1 對 1 桌 ×3</small></td>
+            <td><span class="sym sym-y">●</span><small>1 對 1 諮詢室 ×2</small></td>
+            <td><span class="sym sym-y">●</span><small>預約制</small></td>
+            <td><span class="sym sym-p">◐</span><small>會後諮詢桌</small></td>
+            <td><span class="sym sym-n">—</span><small>改為分組討論</small></td>
+            <td><span class="sym sym-p">◐</span><small>成熟度評估諮詢</small></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-st">
+    <div class="blk-head"><h3 id="h-st">四個體驗站</h3><span class="hint">跟著一通電話的順序排</span></div>
+    <div class="grid g4">
+      <div class="card station">
+        <div class="station-h"><span class="ico-badge"><svg class="ico"><use href="#i-bot"/></svg></span><div><span class="st-n">站 1</span><h4>AI 接聽</h4></div></div>
+        <p class="small">用國台語打進去，看 AI 怎麼聽懂、怎麼回。</p>
+        <div class="chips"><span class="chip">AI 語音客服</span><span class="chip">ASR／TTS</span></div>
+        <details class="more"><summary>Owner 與備援</summary><div class="more-body"><p>Owner：承暉＋Kevin</p><p>備援：預錄影片</p></div></details>
+      </div>
+      <div class="card station">
+        <div class="station-h"><span class="ico-badge"><svg class="ico"><use href="#i-headset"/></svg></span><div><span class="st-n">站 2</span><h4>即時輔助</h4></div></div>
+        <p class="small">坐上專員座位，看即時提示與知識卡。</p>
+        <div class="chips"><span class="chip">Agent Assist</span><span class="chip">AGD／Agent Desktop</span><span class="chip">TAIPBXCC 進線</span></div>
+        <details class="more"><summary>Owner 與備援</summary><div class="more-body"><p>Owner：承暉（Bobson）＋IT</p><p>備援：預錄影片＋模擬進線</p></div></details>
+      </div>
+      <div class="card station">
+        <div class="station-h"><span class="ico-badge"><svg class="ico"><use href="#i-doc"/></svg></span><div><span class="st-n">站 3</span><h4>通話後自動化</h4></div></div>
+        <p class="small">掛線後的摘要、分類、結案一次看完。</p>
+        <div class="chips"><span class="chip">自動摘要</span><span class="chip">工單結案</span><span class="chip" style="border-style:dashed">加值：AI 語音質檢</span></div>
+        <details class="more"><summary>Owner 與備援</summary><div class="more-body"><p>Owner：承暉</p><p>備援：預錄影片＋報表截圖</p></div></details>
+      </div>
+      <div class="card station">
+        <div class="station-h"><span class="ico-badge g"><svg class="ico"><use href="#i-shield"/></svg></span><div><span class="st-n">站 4</span><h4>部署與資安</h4></div></div>
+        <p class="small">看 AI 一體機實機，問地端／雲端怎麼選。</p>
+        <div class="chips"><span class="chip">AI 一體機</span><span class="chip">GPU 伺服器</span><span class="chip">雲端／地端／混合</span></div>
+        <details class="more"><summary>Owner 與備援</summary><div class="more-body"><p>Owner：Alan＋IT</p><p>備援：機櫃照片＋架構圖＋預錄影片</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-rd">
+    <div class="blk-head"><h3 id="h-rd">Readiness</h3><span class="tag tbd">全部待確認</span><span class="hint">D−14 前逐項更新</span></div>
+    <div class="grid" style="gap:16px">
+      <div class="blk"><h4 class="small muted">內容</h4><div class="table-wrap"><table class="t" id="rdContent"></table></div></div>
+      <div class="blk"><h4 class="small muted">Demo（每項都有備援）</h4><div class="table-wrap"><table class="t" id="rdDemo"></table></div></div>
+    </div>
+  </section>
+  <div class="pnav" data-pnav></div>
+</section>
+
+<!-- ======================= 04 現場 ======================= -->
+<section class="panel" id="p-venue" role="tabpanel" aria-labelledby="tab-venue" tabindex="-1" hidden>
+  <div class="phead">
+    <span class="eyebrow">04 · 現場（Plan A）</span>
+    <h2>場地一張圖，流程點了就亮</h2>
+    <p class="lead">點選當天流程，場地圖上對應的區域會亮起；虛線是來賓動線，終點是報名檯。</p>
+  </div>
+
+  <div class="venue">
+    <div class="venue-map">
+      <figure class="iso-wrap" id="venueFig">
+        <div class="scroll-x" id="venueScroll"><div id="venueSvg"></div></div>
+      </figure>
+      <div class="zlegend" id="venueLegend" role="group" aria-label="依功能篩選區域"></div>
+      <p class="note">立體場地概念圖 · 示意，非實際比例。座位 70–80 席為建議值。</p>
+    </div>
+    <div>
+      <div class="blk-head" style="margin-bottom:8px"><h3 style="font-size:var(--fs-md)">當天流程 12:00–18:00</h3><span class="tag est">建議值</span></div>
+      <ol class="ros" id="ros"></ol>
+    </div>
+  </div>
+
+  <section class="blk" aria-labelledby="h-cmd">
+    <div class="blk-head"><h3 id="h-cmd">現場指揮</h3><span class="hint">四個指揮點，各自有決定權</span></div>
+    <div class="grid g4">
+      <div class="card ctrl">
+        <div class="station-h"><span class="ico-badge n"><svg class="ico"><use href="#i-sliders"/></svg></span><h4>Event Control</h4></div>
+        <div class="ctrl-who"><span class="role lead">Marketing</span><span class="role">Eric</span></div>
+        <p class="ctrl-do">Marketing：場務、動線、餐飲。Eric：議程時間與講者進場，不負責場務。</p>
+      </div>
+      <div class="card ctrl">
+        <div class="station-h"><span class="ico-badge n"><svg class="ico"><use href="#i-desktop"/></svg></span><h4>Demo Control</h4></div>
+        <div class="ctrl-who"><span class="role lead">Kevin</span><span class="role">IT</span></div>
+        <p class="ctrl-do">Demo 環境與網路；有權當場切換預錄影片。</p>
+      </div>
+      <div class="card ctrl">
+        <div class="station-h"><span class="ico-badge n"><svg class="ico"><use href="#i-network"/></svg></span><h4>Partner Control</h4></div>
+        <div class="ctrl-who"><span class="role lead">Bobson</span><span class="role">Alan</span></div>
+        <p class="ctrl-do">夥伴報到、出場時間（每次 ≤10 分鐘）、Partner 區。</p>
+      </div>
+      <div class="card ctrl">
+        <div class="station-h"><span class="ico-badge"><svg class="ico"><use href="#i-clip"/></svg></span><h4>Lead Command</h4></div>
+        <div class="ctrl-who"><span class="role lead">業務／AM</span></div>
+        <p class="ctrl-do">Lead 當天記錄完整、A 級即時標記、隔天分派 Sales Owner。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-flow">
+    <div class="blk-head"><h3 id="h-flow">來賓動線：兩種人，兩條路</h3></div>
+    <div class="flow">
+      <div class="flow-trunk">
+        <span class="flow-node"><svg class="ico"><use href="#i-qr"/></svg>報到</span><span class="flow-arrow"><svg class="ico"><use href="#i-arrow"/></svg></span>
+        <span class="flow-node"><svg class="ico"><use href="#i-stage"/></svg>主舞台 Live Demo</span><span class="flow-arrow"><svg class="ico"><use href="#i-arrow"/></svg></span>
+        <span class="flow-node"><svg class="ico"><use href="#i-coffee"/></svg>中場體驗站</span><span class="flow-arrow"><svg class="ico"><use href="#i-arrow"/></svg></span>
+        <span class="small muted">依需求分流</span>
+      </div>
+      <div class="flow-lanes">
+        <div class="lane hot">
+          <div class="lane-h"><svg class="ico"><use href="#i-target"/></svg>有具體需求</div>
+          <ol>
+            <li><span class="n">1</span><span><b>對應需求的體驗站</b>：深入問</span></li>
+            <li><span class="n">2</span><span><b>諮詢區 1 對 1</b>：Sales Owner＋承暉</span></li>
+            <li><span class="n">3</span><span><b>報名檯</b>：預約 Assessment／POC</span></li>
+          </ol>
+          <div class="end"><span class="tag core">A 級 Lead</span>48 小時內聯繫</div>
+        </div>
+        <div class="lane warm">
+          <div class="lane-h"><svg class="ico"><use href="#i-search"/></svg>還在觀望</div>
+          <ol>
+            <li><span class="n">1</span><span><b>自由逛體驗站與 Partner 區</b></span></li>
+            <li><span class="n">2</span><span><b>交流區</b>：聽同業怎麼做</span></li>
+            <li><span class="n">3</span><span><b>報名檯</b>：領資料、報名 Workshop</span></li>
+          </ol>
+          <div class="end"><span class="tag green">B／C 級 Lead</span>D+7 安排下一步</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="pnav" data-pnav></div>
+</section>
+
+<!-- ======================= 05 來賓 ======================= -->
+<section class="panel" id="p-guests" role="tabpanel" aria-labelledby="tab-guests" tabindex="-1" hidden>
+  <div class="phead">
+    <span class="eyebrow">05 · 來賓</span>
+    <h2>邀對人，比邀多人重要</h2>
+    <p class="lead">需求擁有者與否決者成對邀請，同一家公司一起來、一起決定。</p>
+  </div>
+
+  <section class="blk" aria-labelledby="h-ta">
+    <div class="blk-head"><h3 id="h-ta">TA 關係圖</h3></div>
+    <figure class="fig ta-fig">
+      <div class="scroll-x">
+        <svg viewBox="0 0 760 392" role="img" aria-label="TA 關係圖：需求擁有者與否決者成對邀請，構成決策核心；通路帶客戶來、技術互補者補齊方案、內部業務負責邀約與跟進、影響者負責背書與擴散。">
+          <defs>
+            <marker id="taArr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ta-mk" d="M0 0L10 5L0 10z"/></marker>
+            <marker id="taArr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ta-mk2" d="M0 0L10 5L0 10z"/></marker>
+          </defs>
+          <rect class="ta-pair" x="20" y="46" width="252" height="304" rx="16"/>
+          <text class="ta-pair-l" x="40" y="74">成對邀請 · 同一家公司</text>
+          <g class="ta-node own"><rect x="40" y="90" width="212" height="84" rx="12"/><text class="ta-t" x="58" y="124">需求擁有者</text><text class="ta-s" x="58" y="150">客服主管・客服中心處長</text></g>
+          <g class="ta-node veto"><rect x="40" y="246" width="212" height="84" rx="12"/><text class="ta-t" x="58" y="280">否決者</text><text class="ta-s" x="58" y="306">IT／資安主管・採購</text></g>
+          <line class="ta-edge strong" x1="110" y1="180" x2="110" y2="240" marker-start="url(#taArr2)" marker-end="url(#taArr2)"/>
+          <text class="ta-el" x="124" y="215">一起聽、一起決定</text>
+
+          <line class="ta-edge strong" x1="272" y1="198" x2="340" y2="198" marker-end="url(#taArr2)"/>
+          <text class="ta-el" x="306" y="188" text-anchor="middle">決策核心</text>
+
+          <g class="ta-core"><circle cx="410" cy="198" r="62"/><text x="410" y="194" text-anchor="middle">Seminar</text><text class="s" x="410" y="216" text-anchor="middle">台灣大 × 承暉</text></g>
+
+          <g class="ta-node"><rect x="540" y="14" width="200" height="64" rx="12"/><text class="ta-t" x="558" y="42">通路</text><text class="ta-s" x="558" y="64">經銷商・SI</text></g>
+          <g class="ta-node"><rect x="540" y="106" width="200" height="64" rx="12"/><text class="ta-t" x="558" y="134">技術互補者</text><text class="ta-s" x="558" y="156">CRM・AI 應用・硬體夥伴</text></g>
+          <g class="ta-node"><rect x="540" y="198" width="200" height="64" rx="12"/><text class="ta-t" x="558" y="226">內部業務</text><text class="ta-s" x="558" y="248">AM・企業業務</text></g>
+          <g class="ta-node"><rect x="540" y="290" width="200" height="64" rx="12"/><text class="ta-t" x="558" y="318">影響者</text><text class="ta-s" x="558" y="340">顧問・產業協會・媒體</text></g>
+
+          <line class="ta-edge" x1="538" y1="52" x2="455" y2="146" marker-end="url(#taArr)"/>
+          <text class="ta-el" x="490" y="96" text-anchor="middle">帶客戶來</text>
+          <line class="ta-edge" x1="538" y1="140" x2="472" y2="170" marker-end="url(#taArr)"/>
+          <text class="ta-el" x="503" y="150" text-anchor="middle">補齊方案</text>
+          <line class="ta-edge" x1="538" y1="230" x2="477" y2="211" marker-end="url(#taArr)"/>
+          <text class="ta-el" x="494" y="240" text-anchor="middle">邀約與跟進</text>
+          <line class="ta-edge" x1="538" y1="320" x2="460" y2="243" marker-end="url(#taArr)"/>
+          <text class="ta-el" x="487" y="296" text-anchor="middle">背書與擴散</text>
+        </svg>
+      </div>
+      <figcaption>決策核心是「需求擁有者＋否決者」成對到場；其他四種角色負責把人帶來、把方案補齊、把聲量放大。</figcaption>
+    </figure>
+  </section>
+
+  <section class="blk" aria-labelledby="h-src">
+    <div class="blk-head"><h3 id="h-src">六種名單來源</h3></div>
+    <div class="grid g3">
+      <div class="card src"><div class="src-h"><span class="ico-badge"><svg class="ico"><use href="#i-building"/></svg></span><div><h4>企業業務</h4><span class="src-who">業務／AM</span></div></div><p class="small muted">各產業 AM 提名有客服中心的客戶。</p></div>
+      <div class="card src"><div class="src-h"><span class="ico-badge"><svg class="ico"><use href="#i-link"/></svg></span><div><h4>夥伴的客戶</h4><span class="src-who">承暉與各夥伴</span></div></div><p class="small muted">夥伴帶自己的客戶來，夥伴同時是 TA。</p></div>
+      <div class="card src"><div class="src-h"><span class="ico-badge"><svg class="ico"><use href="#i-star"/></svg></span><div><h4>既有客戶</h4><span class="src-who">業務＋客服營運</span></div></div><p class="small muted">已用台灣大服務、可擴充 AI 客服的客戶。</p></div>
+      <div class="card src"><div class="src-h"><span class="ico-badge n"><svg class="ico"><use href="#i-mail"/></svg></span><div><h4>行銷名單</h4><span class="src-who">Marketing</span></div></div><p class="small muted">過往活動與官網名單，用 EDM 邀請。</p></div>
+      <div class="card src"><div class="src-h"><span class="ico-badge n"><svg class="ico"><use href="#i-chat"/></svg></span><div><h4>IT／客服／品管交流圈</h4><span class="src-who">Eric＋業務</span></div></div><p class="small muted">社群、協會與交流群組裡的主管。</p></div>
+      <div class="card src"><div class="src-h"><span class="ico-badge g"><svg class="ico"><use href="#i-network"/></svg></span><div><h4>夥伴生態系</h4><span class="src-who">Partner／BD</span></div></div><p class="small muted">硬體、雲端、AI 應用夥伴與它們的通路。</p></div>
+    </div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-fd">
+    <div class="blk-head"><h3 id="h-fd">邀請追蹤欄位</h3><span class="hint">橘框為成對邀請必填</span></div>
+    <div class="card">
+      <div class="fields">
+        <span class="field">姓名</span><span class="field">公司</span><span class="field">部門／職稱</span><span class="field key">角色：需求擁有者／否決者／其他</span><span class="field key">成對對象</span><span class="field">名單來源</span><span class="field key">邀請人</span><span class="field">邀請日</span><span class="field">回覆狀態</span><span class="field">確認出席</span><span class="field">D−7 電話確認</span><span class="field">D−1 提醒</span><span class="field">到場</span><span class="field">備註</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-calc">
+    <div class="blk-head"><h3 id="h-calc">邀客試算</h3><span class="tag demo">試算・示意</span><span class="hint">拉動滑桿看會落在哪個方案</span></div>
+    <div class="card calc">
+      <div class="sliders">
+        <div class="sl"><label for="sCh">承暉邀請</label><output id="oCh" for="sCh">10 位</output><input type="range" id="sCh" min="0" max="40" step="1" value="10"></div>
+        <div class="sl"><label for="sPn">其他夥伴家數</label><output id="oPn" for="sPn">10 家</output><input type="range" id="sPn" min="0" max="20" step="1" value="10"></div>
+        <div class="sl"><label for="sPp">每家夥伴邀請數</label><output id="oPp" for="sPp">3 位</output><input type="range" id="sPp" min="0" max="10" step="1" value="3"></div>
+        <div class="sl"><label for="sSa">業務邀請</label><output id="oSa" for="sSa">30 位</output><input type="range" id="sSa" min="0" max="80" step="1" value="30"></div>
+        <div class="sl"><label for="sMk">行銷名單</label><output id="oMk" for="sMk">0 位</output><input type="range" id="sMk" min="0" max="100" step="1" value="0"></div>
+        <div class="sl"><label for="sRt">到場率</label><output id="oRt" for="sRt">70%</output><input type="range" id="sRt" min="30" max="90" step="5" value="70"></div>
+        <div><button class="btn" type="button" id="calcReset">回到預設值</button></div>
+      </div>
+      <div class="calc-out">
+        <span class="fact-label">預計到場</span>
+        <div class="big"><span class="num" id="cAtt">49</span><span class="unit">人</span><span class="muted small" id="cInv"></span></div>
+        <div>
+          <div class="scale" id="cScale" aria-hidden="true">
+            <div class="scale-track"></div>
+            <div class="scale-band b" style="left:16.667%;width:16.667%"></div>
+            <div class="scale-band a" style="left:50%;width:33.333%"></div>
+            <span class="scale-lbl b" style="left:25%">Plan B 20–40</span>
+            <span class="scale-lbl a" style="left:66.667%">Plan A 60–100</span>
+            <div class="scale-mk" id="cMk" style="left:40.8%"><span id="cMkT">49</span></div>
+          </div>
+          <div class="scale-ticks"><span style="left:0;transform:none">0</span><span style="left:25%">30</span><span style="left:50%">60</span><span style="left:75%">90</span><span style="left:100%;transform:translateX(-100%)">120 人</span></div>
+        </div>
+        <div class="calc-msg" id="cMsg" aria-live="polite"></div>
+        <div>
+          <div class="small muted" style="margin-bottom:6px">邀請來源組成</div>
+          <div class="pbar" id="cSrc" style="height:28px"></div>
+          <ul class="legend" id="cSrcLegend" style="margin-top:8px"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="pnav" data-pnav></div>
+</section>
+
+<!-- ======================= 06 推廣 ======================= -->
+<section class="panel" id="p-promo" role="tabpanel" aria-labelledby="tab-promo" tabindex="-1" hidden>
+  <div class="phead">
+    <span class="eyebrow">06 · 推廣</span>
+    <h2>七個管道，三個時間點</h2>
+    <p class="lead">業務邀約是主力，其他管道負責提醒與加溫。</p>
+  </div>
+
+  <section class="blk" aria-labelledby="h-mx">
+    <div class="blk-head"><h3 id="h-mx">推廣矩陣</h3><span class="hint">橘底為主力</span></div>
+    <div class="table-wrap">
+      <table class="t mx">
+        <thead><tr><th scope="col">管道</th><th scope="col">會前</th><th scope="col">會中</th><th scope="col">會後</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><span class="rowh"><svg class="ico"><use href="#i-users"/></svg>業務邀約</span></th>
+            <td class="lv3"><span class="lvl">主力</span>名單分派、一對一邀約、成對邀請</td>
+            <td class="lv2"><span class="lvl">輔助</span>陪同客戶、帶到諮詢區</td>
+            <td class="lv3"><span class="lvl">主力</span>A 級 Lead 48 小時內聯繫</td></tr>
+          <tr><th scope="row"><span class="rowh"><svg class="ico"><use href="#i-mail"/></svg>邀請函與信件</span></th>
+            <td class="lv3"><span class="lvl">主力</span>Save the date、正式邀請、D−1 提醒</td>
+            <td><span class="lvl">一般</span>報到 QR</td>
+            <td class="lv2"><span class="lvl">輔助</span>感謝信＋簡報＋下一步選項</td></tr>
+          <tr><th scope="row"><span class="rowh"><svg class="ico"><use href="#i-globe"/></svg>官網與報名頁</span></th>
+            <td class="lv2"><span class="lvl">輔助</span>報名頁、議程、講者</td>
+            <td class="lv2"><span class="lvl">輔助</span>現場報名 QR（CTA）</td>
+            <td class="lv2"><span class="lvl">輔助</span>精華影片與 Demo 片段</td></tr>
+          <tr><th scope="row"><span class="rowh"><svg class="ico"><use href="#i-share"/></svg>社群</span></th>
+            <td><span class="lvl">一般</span>預告、講者介紹</td>
+            <td><span class="lvl">一般</span>現場貼文（取得同意）</td>
+            <td class="lv2"><span class="lvl">輔助</span>精華回顧</td></tr>
+          <tr><th scope="row"><span class="rowh"><svg class="ico"><use href="#i-news"/></svg>媒體公關</span></th>
+            <td><span class="lvl">一般</span>視方案邀請媒體</td>
+            <td class="lv2"><span class="lvl">輔助</span>媒體區、高階受訪</td>
+            <td class="lv2"><span class="lvl">輔助</span>新聞稿（案例需授權）</td></tr>
+          <tr><th scope="row"><span class="rowh"><svg class="ico"><use href="#i-route"/></svg>承暉通路</span></th>
+            <td class="lv3"><span class="lvl">主力</span>承暉客戶與經銷邀約</td>
+            <td class="lv2"><span class="lvl">輔助</span>Partner 區接待</td>
+            <td class="lv2"><span class="lvl">輔助</span>共同跟進、名單分派</td></tr>
+          <tr><th scope="row"><span class="rowh"><svg class="ico"><use href="#i-gift"/></svg>活動加碼</span></th>
+            <td class="lv2"><span class="lvl">輔助</span>報名即可申請 AI 質檢錄音試跑（加值）</td>
+            <td class="lv2"><span class="lvl">輔助</span>現場預約 Assessment 加碼</td>
+            <td class="lv2"><span class="lvl">輔助</span>試跑結果回報，帶入 POC 討論</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-rh">
+    <div class="blk-head"><h3 id="h-rh">邀約節奏</h3><span class="hint">點節點看要做什麼</span></div>
+    <ol class="tl" id="rhythm"></ol>
+    <div class="tl-detail" id="rhythmDetail" aria-live="polite"></div>
+  </section>
+  <div class="pnav" data-pnav></div>
+</section>
+
+<!-- ======================= 07 籌備 ======================= -->
+<section class="panel" id="p-prep" role="tabpanel" aria-labelledby="tab-prep" tabindex="-1" hidden>
+  <div class="phead">
+    <span class="eyebrow">07 · 籌備</span>
+    <h2>八週倒數，每件事都有 Owner</h2>
+    <p class="lead">Eric 管內容，場務交給 Marketing。</p>
+  </div>
+
+  <section class="blk" aria-labelledby="h-gt">
+    <div class="blk-head"><h3 id="h-gt">八週甘特圖</h3><span class="tag est">建議值</span><span class="hint">W−8 到 W+4，W0 為活動週</span></div>
+    <ul class="ms-legend">
+      <li><i></i><b>W−6</b> 場地簽約</li><li><i></i><b>W−4</b> 發邀請</li><li><i></i><b>W−2</b> 內容凍結＋Go／No-Go</li><li><i></i><b>W−1</b> 全體彩排</li>
+    </ul>
+    <div class="scroll-x"><div class="gantt-wrap"><div class="gantt" id="gantt" role="img" aria-label="八週甘特圖，八條工作線與四個里程碑"></div></div></div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-ph">
+    <div class="blk-head"><h3 id="h-ph">五階段檢核表</h3><span class="spacer"></span><div class="filters" id="phaseFilters" role="group" aria-label="依階段篩選"></div></div>
+    <div class="table-wrap"><table class="t" id="phaseTable"></table></div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-raci">
+    <div class="blk-head"><h3 id="h-raci">RACI</h3></div>
+    <ul class="raci-legend">
+      <li><span class="raci"><span class="r A">A</span></span>拍板負責（每列一位）</li>
+      <li><span class="raci"><span class="r R">R</span></span>執行</li>
+      <li><span class="raci"><span class="r C">C</span></span>諮詢</li>
+      <li><span class="raci"><span class="r I">I</span></span>知會</li>
+    </ul>
+    <div class="table-wrap"><table class="t raci" id="raci"></table></div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-roles">
+    <div class="blk-head"><h3 id="h-roles">分工（請 Min 確認）</h3></div>
+    <div class="roles">
+      <div class="rolec me"><h4>Eric</h4><span class="what">內容 Owner</span><p class="do">Theme、Agenda、Speaker 協調、Demo Storyline、Lead 規則彙整</p><span class="not">不負責場務</span></div>
+      <div class="rolec boss"><h4>Min</h4><span class="what">Sponsor 與決策</span><p class="do">十件事拍板、D−14 Go／No-Go、會後 Pipeline 檢視</p></div>
+      <div class="rolec"><h4>Kevin</h4><span class="what">Solution Readiness</span><p class="do">SaaS Demo、POC 條件、一體機 Package／Pricing</p></div>
+      <div class="rolec"><h4>Bobson／承暉</h4><span class="what">產品口徑與案例</span><p class="do">產品口徑、案例、Speaker、可邀客戶</p></div>
+      <div class="rolec"><h4>Alan</h4><span class="what">硬體與 Sizing</span><p class="do">HPE、凌華、GPU、Sizing</p></div>
+      <div class="rolec"><h4>IT</h4><span class="what">Demo 技術支援</span><p class="do">網路、Demo 環境、備援影片</p></div>
+      <div class="rolec"><h4>客服營運</h4><span class="what">內部案例</span><p class="do">台灣大客服中心自身導入經驗</p></div>
+      <div class="rolec"><h4>Marketing</h4><span class="what">場務與推廣</span><p class="do">場地、報名、EDM、視覺、製作、餐飲</p></div>
+      <div class="rolec"><h4>業務</h4><span class="what">邀客與跟進</span><p class="do">邀客、成對邀請、48 小時跟進</p></div>
+      <div class="rolec"><h4>Partner／BD</h4><span class="what">夥伴生態</span><p class="do">夥伴同時是 TA，也是邀客來源</p></div>
+    </div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-bd">
+    <div class="blk-head"><h3 id="h-bd">預算配置比例</h3><span class="tag est">起始假設</span><span class="hint">只列比例，金額待 Min 核定</span></div>
+    <div class="card budget">
+      <div class="budget-row"><div class="lbl">Plan A<small>大型 Seminar</small></div>
+        <div class="pbar" role="img" aria-label="Plan A 預算比例：場地與餐飲 30%、製作與視覺 20%、Demo 與設備 15%、推廣 15%、講者與禮品 10%、預備金 10%">
+          <div class="s bg-c1" style="flex:30" title="場地與餐飲 30%"><span>30%</span></div><div class="s bg-c2" style="flex:20" title="製作與視覺 20%"><span>20%</span></div><div class="s bg-c3" style="flex:15" title="Demo 與設備 15%"><span>15%</span></div><div class="s bg-c4" style="flex:15" title="推廣 15%"><span>15%</span></div><div class="s bg-c5" style="flex:10" title="講者與禮品 10%"><span>10%</span></div><div class="s bg-c6" style="flex:10" title="預備金 10%"><span>10%</span></div>
+        </div></div>
+      <div class="budget-row"><div class="lbl">Plan B<small>Executive Briefing</small></div>
+        <div class="pbar" role="img" aria-label="Plan B 預算比例：場地與餐飲 35%、製作與視覺 10%、Demo 與設備 20%、推廣 10%、講者與禮品 15%、預備金 10%">
+          <div class="s bg-c1" style="flex:35" title="場地與餐飲 35%"><span>35%</span></div><div class="s bg-c2" style="flex:10" title="製作與視覺 10%"><span>10%</span></div><div class="s bg-c3" style="flex:20" title="Demo 與設備 20%"><span>20%</span></div><div class="s bg-c4" style="flex:10" title="推廣 10%"><span>10%</span></div><div class="s bg-c5" style="flex:15" title="講者與禮品 15%"><span>15%</span></div><div class="s bg-c6" style="flex:10" title="預備金 10%"><span>10%</span></div>
+        </div></div>
+      <ul class="legend">
+        <li><i class="sw bg-c1"></i>場地與餐飲</li><li><i class="sw bg-c2"></i>製作與視覺</li><li><i class="sw bg-c3"></i>Demo 與設備</li><li><i class="sw bg-c4"></i>推廣</li><li><i class="sw bg-c5"></i>講者與禮品</li><li><i class="sw bg-c6"></i>預備金</li>
+      </ul>
+      <details class="more"><summary>兩版差在哪</summary><div class="more-body"><ul><li>Plan B 人少，製作與推廣比例下降，場地餐飲與 Demo 比例上升（精品型場地、Demo Pod 品質）。</li><li>分攤方式（台灣大／承暉／夥伴）待 Min 決定。</li></ul></div></details>
+    </div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-vc">
+    <div class="blk-head"><h3 id="h-vc">場地條件與物料清單</h3><span class="hint">Marketing 主責 · 勾選存在這台瀏覽器</span></div>
+    <div class="grid g2">
+      <div class="card"><div class="gng-h"><h4>場地條件</h4><span class="gng-count" id="condCount"></span></div><div class="checks" id="venueCond" style="margin-top:8px"></div></div>
+      <div class="card"><div class="gng-h"><h4>物料清單</h4><span class="gng-count" id="matCount"></span></div><div class="checks" id="venueMat" style="margin-top:8px"></div></div>
+    </div>
+  </section>
+  <div class="pnav" data-pnav></div>
+</section>
+
+<!-- ======================= 08 成效與風險 ======================= -->
+<section class="panel" id="p-kpi" role="tabpanel" aria-labelledby="tab-kpi" tabindex="-1" hidden>
+  <div class="phead">
+    <span class="eyebrow">08 · 成效與風險</span>
+    <h2>看 Pipeline，不只看人數</h2>
+    <p class="lead">以下 KPI 都是建議值，待 Min 確認後才定案。</p>
+  </div>
+
+  <section class="blk" aria-labelledby="h-kpi">
+    <div class="blk-head"><h3 id="h-kpi">KPI</h3><span class="tag est">建議值</span><span class="hint">以 Plan A 試算</span></div>
+    <div class="kpi-cols">
+      <div class="card kpi-col">
+        <div class="kpi-col-h"><h4>會前</h4><span class="ico-badge n"><svg class="ico"><use href="#i-mail"/></svg></span></div>
+        <div class="kpi"><span class="k">邀請</span><span class="v">120<small>位</small></span></div>
+        <div class="kpi"><span class="k">確認出席</span><span class="v">85<small>位</small></span></div>
+        <div class="kpi"><span class="k">成對邀請比例</span><span class="v">40<small>%</small></span><span class="d">出席公司中，需求擁有者＋否決者都到的比例</span></div>
+      </div>
+      <div class="card kpi-col">
+        <div class="kpi-col-h"><h4>會中</h4><span class="ico-badge"><svg class="ico"><use href="#i-stage"/></svg></span></div>
+        <div class="kpi"><span class="k">到場</span><span class="v">70<small>位</small></span></div>
+        <div class="kpi"><span class="k">Lead 完整記錄</span><span class="v">90<small>%</small></span><span class="d">11 個欄位填齊的比例</span></div>
+        <div class="kpi"><span class="k">A 級 Lead</span><span class="v">10<small>家</small></span></div>
+      </div>
+      <div class="card kpi-col" style="border-color:var(--accent2)">
+        <div class="kpi-col-h"><h4>會後</h4><span class="ico-badge g"><svg class="ico"><use href="#i-target"/></svg></span></div>
+        <div class="kpi"><span class="k">A 級 48 小時聯繫率</span><span class="v">100<small>%</small></span></div>
+        <div class="kpi"><span class="k">Assessment／Workshop</span><span class="v">6<small>家</small></span><span class="d">D+30 內</span></div>
+        <div class="kpi"><span class="k">POC</span><span class="v">2<small>家</small></span><span class="d">D+90 內啟動</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-cta">
+    <div class="blk-head"><h3 id="h-cta">CTA：給來賓明確的下一步</h3><span class="hint">不只是「聯絡業務」</span></div>
+    <div class="table-wrap">
+      <table class="t">
+        <thead><tr><th scope="col">CTA</th><th scope="col">適合誰</th><th scope="col">下一步</th><th scope="col">Owner</th><th scope="col">是否收費</th><th scope="col">完成時間</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Workshop</th><td>有興趣、需求還沒定</td><td>半天需求盤點 Workshop</td><td>業務＋Eric</td><td>免費</td><td class="num">D+30 內</td></tr>
+          <tr><th scope="row">Solution Assessment</th><td>已有汰換或擴充計畫</td><td>現況系統與流程評估報告</td><td>Kevin＋承暉</td><td><span class="tag tbd">待定</span></td><td class="num">D+45 內</td></tr>
+          <tr><th scope="row">Live Demo</th><td>要說服內部決策者（如 IT）</td><td>到府或線上專屬 Demo</td><td>業務＋承暉</td><td>免費</td><td class="num">D+14 內</td></tr>
+          <tr><th scope="row">POC</th><td>有預算與時程</td><td>限定範圍 POC（範圍與期間待定）</td><td>Kevin</td><td><span class="tag tbd">待定</span></td><td class="num">D+90 內啟動</td></tr>
+          <tr><th scope="row"><span class="tag addon">活動加碼</span><br>AI 質檢錄音試跑</th><td>有品管需求的客服中心</td><td>提供去識別化錄音試跑，回報結果</td><td>承暉</td><td>活動限定免費</td><td class="num">D+30 內</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-lead">
+    <div class="blk-head"><h3 id="h-lead">Lead 管理</h3><span class="hint">當天記錄、隔天分級、A 級 48 小時內聯繫</span></div>
+    <div class="lead-grid">
+      <div class="card" style="display:flex;flex-direction:column;gap:12px">
+        <h4 class="small muted">11 個記錄欄位</h4>
+        <div class="fields">
+          <span class="field">1 公司</span><span class="field">2 姓名</span><span class="field">3 部門</span><span class="field">4 職稱</span><span class="field key">5 有興趣的方案</span><span class="field">6 現行系統</span><span class="field key">7 痛點</span><span class="field key">8 專案時程</span><span class="field key">9 預算狀態</span><span class="field">10 下一步</span><span class="field key">11 Sales Owner</span>
+        </div>
+        <p class="note">橘框欄位決定分級。</p>
+      </div>
+      <div class="grades">
+        <div class="grade a"><span class="g">A</span><div><h4>時程明確＋預算明確或編列中＋決策者到場</h4><p class="act">48 小時內聯繫，約 Assessment 或專屬 Demo</p></div></div>
+        <div class="grade b"><span class="g">B</span><div><h4>有痛點，時程未定</h4><p class="act">D+7 內約 Workshop</p></div></div>
+        <div class="grade c"><span class="g">C</span><div><h4>資訊蒐集</h4><p class="act">列入培育名單，D+30 寄送內容</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-risk">
+    <div class="blk-head"><h3 id="h-risk">風險矩陣</h3><span class="tag eval">評估值</span><span class="hint">點風險看對策</span></div>
+    <div class="risk">
+      <div class="card"><div class="rm" id="riskGrid"></div></div>
+      <div class="card rk-detail" id="riskDetail" aria-live="polite"></div>
+    </div>
+  </section>
+  <div class="pnav" data-pnav></div>
+</section>
+
+<!-- ======================= 09 策略 ======================= -->
+<section class="panel" id="p-strategy" role="tabpanel" aria-labelledby="tab-strategy" tabindex="-1" hidden>
+  <div class="phead">
+    <span class="eyebrow">09 · 策略（內部參考）</span>
+    <h2>先解哪個商業問題，再決定辦什麼場</h2>
+    <p class="lead">Seminar 是起點，後面接案例論壇、體驗日與產業巡迴。</p>
+  </div>
+
+  <section class="blk" aria-labelledby="h-prio">
+    <div class="blk-head"><h3 id="h-prio">商業問題優先順序</h3><span class="tag eval">評估值</span></div>
+    <div class="prio">
+      <div class="prio-row"><span class="rk-n">1</span><span class="q">想導入 AI 客服，不知道從哪開始</span><span class="ans">→ <b>完整方案＋90 天起步</b></span><span class="pm" aria-label="優先度 5／5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+      <div class="prio-row"><span class="rk-n">2</span><span class="q">PBX／客服系統到了汰換期</span><span class="ans">→ <b>TAIPBXCC</b>＋雲端或地端</span><span class="pm" aria-label="優先度 4／5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div>
+      <div class="prio-row"><span class="rk-n">3</span><span class="q">資料不能出機房</span><span class="ans">→ <b>地端／混合＋AI 一體機</b></span><span class="pm" aria-label="優先度 4／5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div>
+      <div class="prio-row"><span class="rk-n">4</span><span class="q">人力短缺、新人流動高</span><span class="ans">→ <b>AI 語音客服＋Agent Assist</b></span><span class="pm" aria-label="優先度 3／5"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></div>
+      <div class="prio-row addon"><span class="rk-n">5</span><span class="q">品質管理靠人工抽聽</span><span class="ans">→ AI 語音質檢 <span class="tag addon">加值推廣</span></span><span class="pm" aria-label="優先度 2／5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></div>
+    </div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-path">
+    <div class="blk-head"><h3 id="h-path">建議路徑</h3></div>
+    <div class="card">
+      <ol class="path">
+        <li class="now"><span class="pd"><svg class="ico"><use href="#i-check"/></svg></span><span class="pw">現在</span><span class="pt">Min 決策</span><span class="ps">十件事拍板</span></li>
+        <li><span class="pd"><svg class="ico"><use href="#i-flag"/></svg></span><span class="pw">D−14</span><span class="pt">Go／No-Go</span><span class="ps">A、有條件 Go 或切 B</span></li>
+        <li><span class="pd"><svg class="ico"><use href="#i-stage"/></svg></span><span class="pw">年底</span><span class="pt">Seminar</span><span class="ps">11 月底至 12 月（暫定）</span></li>
+        <li class="later"><span class="pd"><svg class="ico"><use href="#i-calendar"/></svg></span><span class="pw">2027 Q1</span><span class="pt">案例論壇或體驗日</span><span class="ps">承接年底 Lead</span></li>
+        <li class="later"><span class="pd"><svg class="ico"><use href="#i-map"/></svg></span><span class="pw">之後</span><span class="pt">產業系列巡迴</span><span class="ps">依產業分場</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-why">
+    <div class="blk-head"><h3 id="h-why">三方各自帶什麼</h3></div>
+    <div class="why3">
+      <div class="card src"><div class="src-h"><span class="ico-badge"><svg class="ico"><use href="#i-plug"/></svg></span><h4>台灣大</h4></div><p class="small muted">整合與單一窗口、網路與雲端、企業客戶關係</p></div>
+      <div class="card src"><div class="src-h"><span class="ico-badge g"><svg class="ico"><use href="#i-layers"/></svg></span><h4>承暉</h4></div><p class="small muted">TAIPBXCC 平台、客服中心 know-how、案例</p></div>
+      <div class="card src"><div class="src-h"><span class="ico-badge n"><svg class="ico"><use href="#i-network"/></svg></span><h4>夥伴</h4></div><p class="small muted">硬體、雲端、AI 應用，把方案補齊</p></div>
+    </div>
+  </section>
+  <div class="pnav" data-pnav></div>
+</section>
+
+<!-- ======================= 10 Eric 待辦 ======================= -->
+<section class="panel" id="p-todo" role="tabpanel" aria-labelledby="tab-todo" tabindex="-1" hidden>
+  <div class="phead">
+    <span class="eyebrow">10 · Eric 待辦</span>
+    <h2>Top 10，先做這些</h2>
+    <p class="lead">每項都標清楚：自己做、找人要、追進度，還是交給 Marketing。</p>
+  </div>
+
+  <section class="blk" aria-labelledby="h-todo">
+    <div class="blk-head"><h3 id="h-todo">行動項目</h3><span class="spacer"></span><div class="filters" id="todoFilter" role="group" aria-label="依類型篩選"></div></div>
+    <ol class="todo" id="todo"></ol>
+  </section>
+
+  <section class="blk" aria-labelledby="h-nm">
+    <div class="blk-head"><h3 id="h-nm">不用自己做</h3><span class="hint">交出去，只要確認有人負責</span></div>
+    <div class="notmine">
+      <div class="nm"><svg class="ico"><use href="#i-building"/></svg><b>場地</b><span>Marketing</span></div>
+      <div class="nm"><svg class="ico"><use href="#i-food"/></svg><b>餐飲</b><span>Marketing</span></div>
+      <div class="nm"><svg class="ico"><use href="#i-qr"/></svg><b>報名系統</b><span>Marketing</span></div>
+      <div class="nm"><svg class="ico"><use href="#i-mail"/></svg><b>EDM</b><span>Marketing</span></div>
+      <div class="nm"><svg class="ico"><use href="#i-server"/></svg><b>現場硬體</b><span>IT＋Alan</span></div>
+      <div class="nm"><svg class="ico"><use href="#i-truck"/></svg><b>製作公司</b><span>Marketing</span></div>
+    </div>
+  </section>
+  <div class="pnav" data-pnav></div>
+</section>
+
+</main>
+
+<footer class="wrap foot">
+  <span>本頁所有 KPI、席次、比例、預算比例皆為建議值或示意，非實績。</span>
+  <span>TAIPBXCC Seminar 規劃 · 2026.10 · Eric</span>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var ico = function (id, cls) { return '<svg class="' + (cls || 'ico') + '" aria-hidden="true"><use href="#' + id + '"/></svg>'; };
+  var store = {
+    get: function (k, d) { try { var v = localStorage.getItem('twmsem:' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set: function (k, v) { try { localStorage.setItem('twmsem:' + k, JSON.stringify(v)); } catch (e) { /* storage unavailable */ } }
+  };
+  var pad2 = function (n) { return (n < 10 ? '0' : '') + n; };
+
+  /* ================= tabs ================= */
+  var TAB_BTNS = $$('.tab');
+  var TABS = TAB_BTNS.map(function (b) { return b.dataset.tab; });
+  var TAB_NAMES = {};
+  TAB_BTNS.forEach(function (b) { TAB_NAMES[b.dataset.tab] = b.lastElementChild.textContent; });
+  var onTabChange = [];
+
+  function showTab(id, opts) {
+    opts = opts || {};
+    if (TABS.indexOf(id) < 0) id = 'overview';
+    TAB_BTNS.forEach(function (b) {
+      var on = b.dataset.tab === id;
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+      b.tabIndex = on ? 0 : -1;
+      if (on) { try { b.scrollIntoView({ inline: 'nearest', block: 'nearest' }); } catch (e) { /* older browsers */ } }
+    });
+    $$('.panel').forEach(function (p) {
+      var on = p.id === 'p-' + id;
+      p.hidden = !on;
+      if (on && opts.animate !== false) { p.classList.remove('is-entering'); void p.offsetWidth; p.classList.add('is-entering'); }
+    });
+    store.set('tab', id);
+    if (opts.hash !== false) { try { history.replaceState(null, '', '#' + id); } catch (e) { /* sandboxed */ } }
+    onTabChange.forEach(function (fn) { fn(id); });
+  }
+  function scrollToMain() {
+    var main = $('#main'); var bar = $('.tabs');
+    var y = main.getBoundingClientRect().top + window.scrollY - bar.offsetHeight;
+    if (window.scrollY > y) window.scrollTo(0, y);
+  }
+  $('#tablist').addEventListener('click', function (e) {
+    var b = e.target.closest('.tab'); if (!b) return;
+    showTab(b.dataset.tab); scrollToMain();
+  });
+  $('#tablist').addEventListener('keydown', function (e) {
+    var i = TABS.indexOf(store.get('tab', 'overview')); var n = -1;
+    if (e.key === 'ArrowRight') n = (i + 1) % TABS.length;
+    else if (e.key === 'ArrowLeft') n = (i - 1 + TABS.length) % TABS.length;
+    else if (e.key === 'Home') n = 0;
+    else if (e.key === 'End') n = TABS.length - 1;
+    if (n < 0) return;
+    e.preventDefault(); showTab(TABS[n]); TAB_BTNS[n].focus();
+  });
+  window.addEventListener('hashchange', function () {
+    var h = (location.hash || '').slice(1);
+    if (TABS.indexOf(h) >= 0) showTab(h, { hash: false });
+  });
+  $$('[data-pnav]').forEach(function (el) {
+    var pid = el.closest('.panel').id.slice(2); var i = TABS.indexOf(pid); var h = '';
+    if (i > 0) h += '<button type="button" class="prev" data-go="' + TABS[i - 1] + '">' + ico('i-arrow') + '<span>上一頁</span>' + esc(TAB_NAMES[TABS[i - 1]]) + '</button>';
+    if (i < TABS.length - 1) h += '<button type="button" class="next" data-go="' + TABS[i + 1] + '"><span>下一頁</span>' + esc(TAB_NAMES[TABS[i + 1]]) + ico('i-arrow') + '</button>';
+    el.innerHTML = h;
+  });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-go]'); if (!b) return;
+    showTab(b.dataset.go); scrollToMain(); var t = $('.tab[aria-selected="true"]'); if (t) t.focus({ preventScroll: true });
+  });
+
+  /* ================= generic clickable timeline ================= */
+  function buildTimeline(listEl, detailEl, data, start) {
+    listEl.innerHTML = data.map(function (d, i) {
+      return '<li><button type="button" class="tl-btn' + (d.key ? ' is-key' : '') + '" aria-pressed="false" data-i="' + i + '">' +
+        '<span class="tl-dot">' + ico(d.icon) + '</span><span class="tl-txt"><span class="tl-k">' + esc(d.k) + '</span><span class="tl-t">' + esc(d.t) + '</span></span></button></li>';
+    }).join('');
+    function sel(i) {
+      $$('.tl-btn', listEl).forEach(function (b) { b.setAttribute('aria-pressed', String(+b.dataset.i === i)); });
+      var d = data[i];
+      detailEl.innerHTML = '<span class="k">' + esc(d.k) + '</span><span class="t">' + esc(d.t) + '</span><span class="muted small">' + esc(d.d) + '</span>' +
+        '<span class="meta"><span>負責：<b>' + esc(d.who) + '</b></span><span>' + esc(d.outLabel || '產出') + '：<b>' + esc(d.out) + '</b></span></span>';
+    }
+    listEl.addEventListener('click', function (e) { var b = e.target.closest('.tl-btn'); if (b) sel(+b.dataset.i); });
+    sel(start || 0);
+  }
+
+  buildTimeline($('#tlMain'), $('#tlMainDetail'), [
+    { k: 'D−28', t: '內容與名單對齊', icon: 'i-users', d: 'Theme、Agenda 草案與 Target List 第一版對齊，開始發邀請。', who: 'Eric、業務、承暉', out: 'Agenda v1、Target List v1' },
+    { k: 'D−14', t: 'Go／No-Go', icon: 'i-flag', key: true, d: '用檢核表確認 CTA、SaaS Demo、Target List 三個核心，決定辦 Plan A、有條件 Go 或切換 Plan B。', who: 'Min 決策、Eric 彙整', out: 'Go／No-Go 結論' },
+    { k: '活動日', t: 'Seminar 當天', icon: 'i-stage', d: 'Live Demo、體驗站、諮詢區；每位來賓的 Lead 欄位當天記錄完整。', who: '全體', out: 'Lead 原始資料' },
+    { k: 'D+1', t: 'Lead 整理與分派', icon: 'i-clip', d: '依 A／B／C 分級，每筆 Lead 指定 Sales Owner。', who: '業務／AM、Eric', out: 'Lead 分級表' },
+    { k: '48 小時內', t: '聯繫 Hot Lead', icon: 'i-phone', key: true, d: 'A 級 Lead 在活動後 48 小時內聯繫，約 Workshop、Assessment 或專屬 Demo。', who: 'Sales Owner', out: '聯繫紀錄' },
+    { k: 'D+7', t: '確認下一步', icon: 'i-check', d: '每家 A／B 級客戶都有排定日期的下一步。', who: '業務、Kevin、承暉', out: '下一步清單' },
+    { k: 'D+30', t: '檢視 Pipeline', icon: 'i-target', d: '看商機數、Assessment／Workshop 家數與 POC 進度，決定 2027 Q1 場次。', who: 'Min、業務、Eric', out: 'Pipeline 檢視報告' }
+  ], 1);
+
+  /* ================= decisions ================= */
+  var DECISIONS = [
+    { t: '是否辦', rec: '辦，並以 D−14 Go／No-Go 作為保險', mat: ['一頁活動概要', 'Pipeline 目標（建議值）', '各單位需投入的人力'] },
+    { t: 'Plan A 或 B', rec: 'Plan A 為主、Plan B 為備案', mat: ['A／B 比較表與場地概念圖', '邀客試算', 'Go／No-Go 檢核表'] },
+    { t: '日期', rec: '11 月底至 12 月，提三個候選日', mat: ['三個候選日期', '與周副總、承暉行程比對', '場地檔期'] },
+    { t: '預算', rec: '依比例起始假設，A／B 各編一版', mat: ['預算配置比例（起始假設）', 'A／B 兩版差異', '台灣大／承暉／夥伴分攤方式'] },
+    { t: 'TA', rec: '客服主管＋IT／資安成對邀請', mat: ['TA 關係圖', '六種名單來源與負責人', '邀請追蹤欄位'] },
+    { t: 'Speaker', rec: '台灣大與承暉為主，夥伴每次 ≤10 分鐘', mat: ['Speaker 候選名單', '六幕旅程與分鐘數', '講者簡報規範'] },
+    { t: '高階主管 Opening（周副總）', rec: '請周副總開場 5 分鐘（待確認）', mat: ['致詞三重點草稿', '行程確認信', '備案：由 Min 開場'] },
+    { t: 'Partner List', rec: '依層別各邀 1–2 家：硬體、雲端、平台、AI 應用', mat: ['夥伴分層名單', '各家出場分鐘與邀客責任', 'Partner 區配置'] },
+    { t: '大型 Demo', rec: '舞台三段 Live Demo，全部有預錄備援', mat: ['Demo Readiness 表', 'Demo Flow 與腳本', 'Kevin 的穩定度判斷'] },
+    { t: '活動 KPI', rec: '看 Pipeline：A 級 Lead、Assessment／Workshop、POC', mat: ['KPI 建議值三欄', 'Lead A／B／C 分級', '48 小時跟進規則'] }
+  ];
+  var DEC_OPTS = [['ok', '同意建議'], ['adj', '需調整'], ['hold', '再議']];
+  var decState = store.get('dec', {});
+  function renderDecisions() {
+    $('#decGrid').innerHTML = DECISIONS.map(function (d, i) {
+      var st = decState[i] || '';
+      return '<article class="dec" data-state="' + st + '" data-i="' + i + '"><span class="dec-n">' + pad2(i + 1) + '</span>' +
+        '<h4>' + esc(d.t) + '</h4><p class="dec-rec"><b>建議</b>　' + esc(d.rec) + '</p>' +
+        '<div class="dec-act" role="group" aria-label="' + esc(d.t) + ' 的決定">' + DEC_OPTS.map(function (o) {
+          return '<button type="button" data-v="' + o[0] + '" aria-pressed="' + (st === o[0]) + '">' + o[1] + '</button>';
+        }).join('') + '</div>' +
+        '<details class="more"><summary>Eric 要準備的材料</summary><div class="more-body"><ul>' + d.mat.map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul></div></details></article>';
+    }).join('');
+    renderDecSummary();
+  }
+  function renderDecSummary() {
+    var c = { ok: 0, adj: 0, hold: 0 };
+    Object.keys(decState).forEach(function (k) { if (c[decState[k]] != null) c[decState[k]]++; });
+    var none = DECISIONS.length - c.ok - c.adj - c.hold;
+    $('#decSummary').innerHTML = '<span class="tag green">同意 ' + c.ok + '</span><span class="tag tbd">需調整 ' + c.adj + '</span><span class="tag plain">再議 ' + c.hold + '</span><span class="tag demo">未決定 ' + none + '</span>';
+  }
+  $('#decGrid').addEventListener('click', function (e) {
+    var b = e.target.closest('.dec-act button'); if (!b) return;
+    var card = b.closest('.dec'); var i = card.dataset.i; var v = b.dataset.v;
+    if (decState[i] === v) delete decState[i]; else decState[i] = v;
+    store.set('dec', decState);
+    card.dataset.state = decState[i] || '';
+    $$('button', card.querySelector('.dec-act')).forEach(function (x) { x.setAttribute('aria-pressed', String(decState[i] === x.dataset.v)); });
+    renderDecSummary();
+  });
+  renderDecisions();
+
+  /* ================= isometric venue renderer ================= */
+  var FN = {
+    stage: { c: 'zc1', n: '舞台／講台' }, demo: { c: 'zc2', n: '體驗站／Demo' }, partner: { c: 'zc3', n: 'Partner 區' },
+    consult: { c: 'zc4', n: '諮詢區' }, desk: { c: 'zc5', n: '報到／報名檯' }, social: { c: 'zc6', n: '交流區' },
+    ops: { c: 'zc7', n: '控台／媒體' }, seat: { c: 'zseat', n: '座位' }
+  };
+  var FILL = { screen: 'zscreen', seat: 'zseat', board: 'zboard' };
+  function box(zone, x, y, w, d, h, o) { var b = { zone: zone, x: x, y: y, w: w, d: d, h: h, z0: 0, shape: 'box' }; for (var k in o) b[k] = o[k]; return b; }
+  function cyl(zone, cx, cy, r, h, o) { var b = { zone: zone, x: cx - r, y: cy - r, w: 2 * r, d: 2 * r, h: h, z0: 0, shape: 'cyl', r: r, cx: cx, cy: cy }; for (var k in o) b[k] = o[k]; return b; }
+  function grid(zone, x0, y0, cols, rows, px, py, s, h) {
+    var a = []; s = s || 0.8; h = h || 0.8;
+    for (var r = 0; r < rows; r++) for (var c = 0; c < cols; c++) a.push(box(zone, x0 + c * px, y0 + r * py, s, s * 0.9, h, { fill: 'seat' }));
+    return a;
+  }
+  function around(zone, cx, cy, R, n, s) {
+    var a = []; s = s || 0.55;
+    for (var k = 0; k < n; k++) { var t = k / n * Math.PI * 2 + Math.PI / n; a.push(box(zone, cx + Math.cos(t) * R - s / 2, cy + Math.sin(t) * R - s / 2, s, s, 0.75, { fill: 'seat' })); }
+    return a;
+  }
+  function zone(id, f, area, label, lp, extra) { var z = { id: id, f: f, area: area, label: label, lp: lp }; for (var k in extra) z[k] = extra[k]; return z; }
+
+  var LAYOUTS = {};
+  (function () {
+    /* ---- Plan A：大型 Seminar ---- */
+    var items = [
+      box('stage', 10, 0.6, 16, 4, 0.8), box('stage', 12, 0.3, 12, 0.4, 5.2, { z0: 0.8, fill: 'screen' }), box('stage', 23.5, 2, 0.9, 0.7, 1.2, { z0: 0.8 }),
+      box('control', 19.6, 18.6, 3.6, 1.2, 1.1), box('control', 20, 18.7, 1, 0.15, 0.6, { z0: 1.1, fill: 'screen' }), box('control', 21.8, 18.7, 1, 0.15, 0.6, { z0: 1.1, fill: 'screen' }),
+      box('media', 12.2, 18.6, 3.4, 1.5, 0.4), box('media', 12.8, 19, 0.35, 0.35, 1.5, { z0: 0.4 }), box('media', 14.6, 19, 0.35, 0.35, 1.5, { z0: 0.4 }),
+      box('social', 9.4, 26.6, 7, 0.7, 1),
+      box('consult', 24.5, 22.2, 0.15, 4.6, 1.8),
+      box('reg', 1.4, 23.4, 5, 1, 1.1), box('reg', 6.8, 25.4, 0.25, 0.9, 2),
+      box('signup', 29.4, 23.4, 5, 1, 1.1), box('signup', 34.6, 25.4, 0.25, 0.9, 2)
+    ];
+    items = items.concat(grid('seat', 10.6, 7, 5, 8, 1.3, 1.4), grid('seat', 19.2, 7, 5, 8, 1.3, 1.4));
+    for (var i = 0; i < 4; i++) {
+      var y0 = 5.2 + i * 4;
+      items.push(box('partner', 0.9, y0, 0.35, 3.4, 2.8), box('partner', 3, y0 + 0.7, 1.3, 2.2, 1.1));
+      items.push(box('demo', 31, y0 + 0.7, 1.4, 2.2, 1.1), box('demo', 31.05, y0 + 1.2, 0.15, 1.2, 0.8, { z0: 1.1, fill: 'screen' }));
+      if (i === 3) items.push(box('demo', 33.6, y0 + 1.6, 1.1, 1.4, 2.3));
+    }
+    [[11, 23.4], [14, 23.4], [17, 23.4], [12.5, 25.4], [15.5, 25.4], [18.5, 25.4]].forEach(function (p) { items.push(cyl('social', p[0], p[1], 0.55, 1.1)); });
+    [[23, 23.8], [26.2, 23.8]].forEach(function (p) { items.push(cyl('consult', p[0], p[1], 0.7, 0.9)); items = items.concat(around('consult', p[0], p[1], 1.2, 3)); });
+    LAYOUTS.A = {
+      id: 'A', name: 'Plan A 大型 Seminar', W: 36, D: 28,
+      zones: [
+        zone('stage', 'stage', [9, 0, 18, 5.2], '主舞台＋大螢幕', [18, 0.2, 7.3]),
+        zone('seat', 'seat', [10, 6.4, 16, 11.6], '劇院式 70–80 席', [18, 12.2, 1.4]),
+        zone('partner', 'partner', [0.6, 4.6, 8, 16.6], 'Partner 區（依層別）', [-3, 13, 2]),
+        zone('demo', 'demo', [28, 4.6, 7.4, 16.6], '', [31.7, 12.9, 0]),
+        zone('social', 'social', [8.6, 21.8, 12, 5.6], '交流區', [14.6, 24.4, 1.9]),
+        zone('consult', 'consult', [21.4, 21.8, 6.4, 5.6], '諮詢區', [24.6, 24.6, 2.6]),
+        zone('reg', 'desk', [0.6, 22.6, 7, 4.8], '報到', [4, 24.4, 2]),
+        zone('signup', 'desk', [28.6, 22.6, 6.8, 4.8], '報名檯（終點）', [32, 24.4, 2]),
+        zone('control', 'ops', [19.4, 18.4, 4, 2], '控台', [21.4, 19.2, 2.1]),
+        zone('media', 'ops', [12, 18.4, 4, 2], '媒體區', [13.9, 19.2, 2.6])
+      ],
+      sub: [
+        ['硬體', 3.6, 6.6, 'partner'], ['雲端', 3.6, 10.6, 'partner'], ['平台', 3.6, 14.6, 'partner'], ['AI 應用', 3.6, 18.6, 'partner'],
+        ['站1 AI 接聽', 35, 7, 'demo', 3.4], ['站2 即時輔助', 35, 11, 'demo', 3.4], ['站3 通話後自動化', 35, 15, 'demo', 3.4], ['站4 部署與資安', 35, 19, 'demo', 3.4],
+        ['入口', 4, 29.4, null]
+      ],
+      items: items,
+      path: [[4, 29.6], [4, 25.8], [8.4, 24.4], [13.5, 24.4], [17.9, 24.4], [17.9, 6], [9.4, 6], [9.4, 12.6], [6.4, 12.6], [9.4, 12.6], [9.4, 21], [27.2, 21], [27.2, 6.6], [29.6, 6.6], [28.2, 7.6], [28.2, 21.6], [26.2, 22.4], [28.6, 25.6], [31.9, 25.6]],
+      stops: [[4, 25.8], [13.5, 24.4], [17.9, 12], [6.4, 12.6], [29.6, 6.6], [26.2, 22.4], [31.9, 25.6]],
+      stopNames: ['報到', '交流區', '座位', 'Partner 區', '體驗站', '諮詢區', '報名檯']
+    };
+
+    /* ---- Plan B：Executive Briefing ---- */
+    var b = [
+      box('stage', 6.5, 0.5, 11, 2.4, 0.4), box('stage', 8, 0.25, 8, 0.35, 3.6, { z0: 0.4, fill: 'screen' }), box('stage', 15.8, 1.2, 0.8, 0.6, 1.1, { z0: 0.4 }),
+      box('consult', 0.5, 14.4, 8.4, 0.15, 2), box('consult', 4.6, 14.55, 0.15, 3.2, 2),
+      box('reg', 15.6, 15.8, 3.8, 0.9, 1.1), box('av', 0.8, 0.8, 2.2, 1, 1.1)
+    ];
+    [[5.5, 7], [10.5, 7], [15.5, 7], [8, 11.6], [13, 11.6]].forEach(function (p) { b.push(cyl('round', p[0], p[1], 1.3, 0.9)); b = b.concat(around('round', p[0], p[1], 1.9, 8)); });
+    [4.2, 7.8, 11.4].forEach(function (y0) { b.push(box('pods', 20.4, y0 + 0.4, 1.2, 2, 1.1), box('pods', 23.3, y0 + 0.2, 0.3, 2.4, 2.2, { z0: 0.4, fill: 'screen' })); });
+    [[2.6, 16.3], [6.8, 16.3]].forEach(function (p) { b.push(cyl('consult', p[0], p[1], 0.6, 0.9)); b = b.concat(around('consult', p[0], p[1], 1, 2)); });
+    LAYOUTS.B = {
+      id: 'B', name: 'Plan B Executive Briefing', W: 24, D: 18,
+      zones: [
+        zone('stage', 'stage', [6, 0, 12, 3.2], '高階分享', [12, 0.2, 5]),
+        zone('round', 'social', [2.4, 4.2, 15.6, 10], '圓桌 ×5', [10.5, 9.3, 2.4]),
+        zone('pods', 'demo', [19.6, 3.6, 4, 11.2], 'Demo Pod ×3', [27, 6, 2.5]),
+        zone('consult', 'consult', [0.4, 14.2, 8.6, 3.6], '一對一諮詢 ×2', [4.7, 16.6, 2.6]),
+        zone('reg', 'desk', [15, 15, 5, 2.8], '報到', [17.5, 16.4, 2]),
+        zone('av', 'ops', [0.4, 0.4, 3.2, 2.2], 'AV', [2, 1.4, 2])
+      ],
+      sub: [['不設攤位', 12, 17.2, null]],
+      items: b
+    };
+
+    /* ---- Plan C：體驗日 ---- */
+    var c = [box('brief', 11, 0.25, 6, 0.35, 3, { z0: 0.2, fill: 'screen' }), box('reg', 1.6, 18.2, 4.6, 0.9, 1.1), box('signup', 11.8, 19.2, 4.4, 0.9, 1.1), box('hub', 11, 13.2, 6, 0.6, 1)];
+    c = c.concat(grid('brief', 10.8, 1.8, 5, 2, 1.3, 1.2, 0.6, 0.6));
+    [['st1', 1, 11], ['st2', 1, 2], ['st3', 20, 2], ['st4', 20, 11]].forEach(function (s) {
+      c.push(box(s[0], s[1] + 1, s[2] + 0.3, 4, 0.3, 2.2, { z0: 0.3, fill: 'screen' }), box(s[0], s[1] + 2.4, s[2] + 1.8, 2.2, 1.2, 1.1));
+    });
+    [[12, 9.8], [15.6, 9.8], [13.8, 11.8]].forEach(function (p) { c.push(cyl('hub', p[0], p[1], 0.55, 1.1)); });
+    [[21.8, 19.6], [25.4, 19.6]].forEach(function (p) { c.push(cyl('consult', p[0], p[1], 0.65, 0.9)); c = c.concat(around('consult', p[0], p[1], 1.1, 2)); });
+    LAYOUTS.C = {
+      id: 'C', name: 'C AI 客服能力展示體驗日', W: 28, D: 22,
+      zones: [
+        zone('brief', 'stage', [10, 0, 8, 4.6], '簡報角', [14, 0.2, 4.4]),
+        zone('st1', 'demo', [1, 11, 7, 5], '站 1 AI 接聽', [4.5, 13, 2.8]),
+        zone('st2', 'demo', [1, 2, 7, 5], '站 2 即時輔助', [4.5, 4, 2.8]),
+        zone('st3', 'demo', [20, 2, 7, 5], '站 3 通話後', [23.5, 4, 2.8]),
+        zone('st4', 'demo', [20, 11, 7, 5], '站 4 部署與資安', [23.5, 13, 2.8]),
+        zone('hub', 'social', [10.4, 8, 7.2, 6], '咖啡＋Solution Hub', [14, 10.8, 2.4]),
+        zone('consult', 'consult', [19.5, 17.6, 8, 4], '諮詢（預約制）', [23.5, 19.6, 2.4]),
+        zone('reg', 'desk', [1, 17.6, 6, 4], '報到', [4, 19, 2]),
+        zone('signup', 'desk', [11, 18.6, 6, 3], '報名檯', [14, 19.6, 2])
+      ],
+      items: c,
+      path: [[4, 22.4], [4, 17.2], [7.2, 13.5], [7.2, 4.5], [20.8, 4.5], [20.8, 13.5], [23.2, 17.2], [14, 18]],
+      stops: [[4, 17.2], [7.2, 13.5], [7.2, 4.5], [20.8, 4.5], [20.8, 13.5], [23.2, 17.2], [14, 18]],
+      sub: [['入口', 4, 23.2, null]],
+      stopNames: ['報到', '站 1', '站 2', '站 3', '站 4', '諮詢', '報名檯']
+    };
+
+    /* ---- Plan D：案例論壇 ---- */
+    var d = [box('stage', 7.5, 0.6, 13, 4, 0.7), box('stage', 10, 0.25, 8, 0.35, 4, { z0: 0.7, fill: 'screen' }), box('stage', 12.6, 3.2, 2.6, 0.6, 0.4, { z0: 0.7 }), box('reg', 1.2, 15.8, 4.2, 0.9, 1.1)];
+    for (var k = 0; k < 4; k++) d.push(box('stage', 9.5 + k * 2.4, 2.4, 0.8, 0.8, 0.9, { z0: 0.7, fill: 'seat' }));
+    d = d.concat(grid('seat', 6.6, 6.6, 6, 5, 1.2, 1.4), grid('seat', 15.2, 6.6, 6, 5, 1.2, 1.4));
+    [6, 10].forEach(function (y0) { d.push(box('demo', 23.8, y0 + 0.4, 1.2, 2, 1.1), box('demo', 27.1, y0 + 0.2, 0.3, 2.6, 2.2, { z0: 0.3, fill: 'screen' })); });
+    [[9.5, 16.6], [13, 16.6], [16.5, 16.6], [11.2, 18.6], [14.8, 18.6]].forEach(function (p) { d.push(cyl('social', p[0], p[1], 0.5, 1.1)); });
+    d.push(cyl('consult', 25, 17.6, 0.65, 0.9)); d = d.concat(around('consult', 25, 17.6, 1.1, 3));
+    LAYOUTS.D = {
+      id: 'D', name: 'D 導入案例論壇', W: 28, D: 20,
+      zones: [
+        zone('stage', 'stage', [7, 0, 14, 5], '案例對談舞台', [14, 0.2, 5.6]),
+        zone('seat', 'seat', [6, 6, 16, 8], '40–60 席', [14, 10, 1.4]),
+        zone('demo', 'demo', [23, 5, 4.6, 9], 'Demo 角 ×2', [31, 6, 2]),
+        zone('social', 'social', [7, 15.2, 14, 4.4], '會後交流', [13, 17.6, 1.9]),
+        zone('reg', 'desk', [0.6, 15.2, 5.4, 4.4], '報到', [3.3, 16.8, 2]),
+        zone('consult', 'consult', [22.4, 15.2, 5.2, 4.4], '諮詢桌', [25, 17.6, 2.2])
+      ],
+      items: d
+    };
+
+    /* ---- Plan E：Partner 共創日 ---- */
+    var e = [box('board', 2, 0.25, 5, 0.25, 3, { z0: 0.3, fill: 'board' }), box('board', 8, 0.25, 5, 0.25, 3, { z0: 0.3, fill: 'screen' }), box('board', 14, 0.25, 5, 0.25, 3, { z0: 0.3, fill: 'board' }),
+      box('social', 20, 16, 3, 0.8, 1), box('reg', 2, 15.4, 4.4, 0.9, 1.1)];
+    [[3, 5], [11.4, 5], [3, 10.4], [11.4, 10.4]].forEach(function (p) {
+      e.push(box('tables', p[0], p[1], 4.6, 2.2, 0.9));
+      for (var c2 = 0; c2 < 3; c2++) { e.push(box('tables', p[0] + 0.5 + c2 * 1.5, p[1] - 0.9, 0.55, 0.55, 0.75, { fill: 'seat' }), box('tables', p[0] + 0.5 + c2 * 1.5, p[1] + 2.5, 0.55, 0.55, 0.75, { fill: 'seat' })); }
+    });
+    [[21, 12], [22.6, 13.8]].forEach(function (p) { e.push(cyl('social', p[0], p[1], 0.5, 1.1)); });
+    LAYOUTS.E = {
+      id: 'E', name: 'E Partner 共創日', W: 24, D: 18,
+      zones: [
+        zone('board', 'stage', [1.5, 0, 18, 2.4], '白板牆＋引導', [10.5, 0.2, 4.6]),
+        zone('tables', 'partner', [1.5, 3.6, 17, 10.4], '分組共創桌 ×4', [10.2, 14.6, 0.3]),
+        zone('social', 'social', [19.5, 10.5, 4, 6.8], '咖啡角', [21.5, 13.6, 2.2]),
+        zone('reg', 'desk', [1.5, 14.8, 6, 2.8], '報到', [4.5, 16.2, 2])
+      ],
+      items: e
+    };
+
+    /* ---- Plan F：成熟度調查發表 ---- */
+    var f = [box('stage', 8.5, 0.6, 13, 4, 0.7), box('stage', 10, 0.25, 10, 0.35, 4.8, { z0: 0.7, fill: 'screen' }), box('stage', 5.4, 0.25, 2.4, 0.35, 3.6, { z0: 0.2, fill: 'screen' }), box('stage', 22.2, 0.25, 2.4, 0.35, 3.6, { z0: 0.2, fill: 'screen' }), box('stage', 19.6, 2, 0.8, 0.6, 1.1, { z0: 0.7 }),
+      box('media', 10, 15.4, 10, 1.8, 0.5), box('interview', 29, 5.4, 0.3, 5.6, 2.6), box('interview', 26.8, 7.2, 0.8, 0.8, 0.9, { fill: 'seat' }), box('interview', 26.8, 9.2, 0.8, 0.8, 0.9, { fill: 'seat' }),
+      box('reg', 1.2, 18.4, 4.6, 0.9, 1.1)];
+    [11, 13.6, 16.2, 18.8].forEach(function (x) { f.push(box('media', x, 15.9, 0.35, 0.35, 1.5, { z0: 0.5 })); });
+    f = f.concat(grid('seat', 7.6, 6.6, 6, 6, 1.2, 1.3), grid('seat', 16.2, 6.6, 6, 6, 1.2, 1.3));
+    [[24, 19.4], [27, 19.4]].forEach(function (p) { f.push(cyl('social', p[0], p[1], 0.5, 1.1)); });
+    LAYOUTS.F = {
+      id: 'F', name: 'F 客服中心 AI 成熟度調查發表', W: 30, D: 22,
+      zones: [
+        zone('stage', 'stage', [5, 0, 20, 5], '主講台＋數據牆', [15, 0.2, 6.4]),
+        zone('seat', 'seat', [7, 6, 16.6, 8.4], '50–80 席', [15, 10.4, 1.4]),
+        zone('media', 'ops', [9.5, 15, 11, 2.6], '媒體區（攝影平台）', [15, 16.2, 2.6]),
+        zone('interview', 'consult', [25, 5, 4.6, 6.6], '媒體訪談區', [27.3, 4.6, 3.6]),
+        zone('reg', 'desk', [0.6, 17.6, 6, 4], '報到', [3.6, 19.2, 2]),
+        zone('social', 'social', [22, 17.6, 7.6, 4], '交流', [25.8, 19.6, 2])
+      ],
+      items: f
+    };
+  })();
+
+  var ISO_K = 12, CX = 0.866 * ISO_K, SY = 0.5 * ISO_K, HZ = 0.85 * ISO_K;
+  function P(x, y, z) { return [(x - y) * CX, (x + y) * SY - (z || 0) * HZ]; }
+  function pts(arr) { return arr.map(function (p) { var q = P(p[0], p[1], p[2]); return q[0].toFixed(1) + ',' + q[1].toFixed(1); }).join(' '); }
+  function zoneOf(L, id) { for (var i = 0; i < L.zones.length; i++) if (L.zones[i].id === id) return L.zones[i]; return null; }
+  function itemCls(L, it) { if (it.fill) return FILL[it.fill]; var z = zoneOf(L, it.zone); return z ? FN[z.f].c : 'zc7'; }
+  function sortItems(items) {
+    var n = items.length, eps = 1e-6, adj = [], indeg = [];
+    for (var i = 0; i < n; i++) { adj.push([]); indeg.push(0); }
+    function before(a, b) {
+      var xo = a.x < b.x + b.w - eps && b.x < a.x + a.w - eps, yo = a.y < b.y + b.d - eps && b.y < a.y + a.d - eps;
+      if (xo && yo) return (a.z0 || 0) < (b.z0 || 0);
+      return a.x + a.w <= b.x + eps || a.y + a.d <= b.y + eps;
+    }
+    for (var a = 0; a < n; a++) for (var b2 = a + 1; b2 < n; b2++) {
+      var ab = before(items[a], items[b2]), ba = before(items[b2], items[a]);
+      if (ab && !ba) { adj[a].push(b2); indeg[b2]++; } else if (ba && !ab) { adj[b2].push(a); indeg[a]++; }
+    }
+    var key = items.map(function (it) { return it.x + it.y + it.w / 2 + it.d / 2 + (it.z0 || 0) * 0.01; });
+    var out = [], done = [], avail = [];
+    for (var j = 0; j < n; j++) if (!indeg[j]) avail.push(j);
+    while (out.length < n) {
+      if (!avail.length) { for (var m = 0; m < n; m++) if (!done[m]) { avail.push(m); break; } }
+      avail.sort(function (p, q) { return key[p] - key[q]; });
+      var cur = avail.shift(); if (done[cur]) continue;
+      done[cur] = true; out.push(items[cur]);
+      adj[cur].forEach(function (t) { if (--indeg[t] === 0 && !done[t]) avail.push(t); });
+    }
+    return out;
+  }
+  function boxSVG(it, cls) {
+    var x = it.x, y = it.y, w = it.w, d = it.d, b = it.z0 || 0, t = b + it.h;
+    var top = [[x, y, t], [x + w, y, t], [x + w, y + d, t], [x, y + d, t]];
+    var fy = [[x, y + d, b], [x + w, y + d, b], [x + w, y + d, t], [x, y + d, t]];
+    var fx = [[x + w, y, b], [x + w, y + d, b], [x + w, y + d, t], [x + w, y, t]];
+    return '<g class="iso-item" data-zone="' + it.zone + '"><polygon class="' + cls + '" points="' + pts(fy) + '"/><polygon class="iso-shade1" points="' + pts(fy) + '"/>' +
+      '<polygon class="' + cls + '" points="' + pts(fx) + '"/><polygon class="iso-shade2" points="' + pts(fx) + '"/><polygon class="' + cls + '" points="' + pts(top) + '"/></g>';
+  }
+  function cylSVG(it, cls) {
+    var b = it.z0 || 0, t = b + it.h, pb = P(it.cx, it.cy, b), pt = P(it.cx, it.cy, t);
+    var rx = (Math.SQRT2 * it.r * CX).toFixed(1), ry = (Math.SQRT2 * it.r * SY).toFixed(1);
+    var side = '<ellipse class="' + cls + '" cx="' + pb[0].toFixed(1) + '" cy="' + pb[1].toFixed(1) + '" rx="' + rx + '" ry="' + ry + '"/>' +
+      '<rect class="' + cls + '" x="' + (pb[0] - rx).toFixed(1) + '" y="' + pt[1].toFixed(1) + '" width="' + (2 * rx).toFixed(1) + '" height="' + (pb[1] - pt[1]).toFixed(1) + '"/>';
+    var shade = side.replace(new RegExp('class="' + cls + '"', 'g'), 'class="iso-shade1"');
+    return '<g class="iso-item" data-zone="' + it.zone + '">' + side + shade + '<ellipse class="' + cls + '" cx="' + pt[0].toFixed(1) + '" cy="' + pt[1].toFixed(1) + '" rx="' + rx + '" ry="' + ry + '"/></g>';
+  }
+  function renderIso(L, uid) {
+    var W = L.W, D = L.D, wallH = 3.2;
+    var xs = [], ys = [];
+    [[0, 0, wallH], [W, 0, wallH], [0, D, wallH], [W, D, 0], [0, D, 0], [W, 0, 0]].forEach(function (c) { var p = P(c[0], c[1], c[2]); xs.push(p[0]); ys.push(p[1]); });
+    L.items.forEach(function (it) { var p = P(it.x, it.y, (it.z0 || 0) + it.h); ys.push(p[1]); });
+    L.zones.forEach(function (z) { var p = P(z.lp[0], z.lp[1], z.lp[2]); ys.push(p[1] - 14); });
+    var minX = Math.min.apply(null, xs) - 30, maxX = Math.max.apply(null, xs) + 30, minY = Math.min.apply(null, ys) - 14, maxY = Math.max.apply(null, ys) + 16;
+    var s = '<svg viewBox="' + minX.toFixed(0) + ' ' + minY.toFixed(0) + ' ' + (maxX - minX).toFixed(0) + ' ' + (maxY - minY).toFixed(0) + '" role="img" aria-label="' + esc(L.name) + ' 立體場地概念圖（示意）">';
+    s += '<defs><marker id="isoArr-' + uid + '" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="iso-mk" d="M0 0L10 5L0 10z"/></marker></defs>';
+    s += '<polygon class="iso-floor" points="' + pts([[0, 0, 0], [W, 0, 0], [W, D, 0], [0, D, 0]]) + '"/>';
+    s += '<polygon class="iso-wall" points="' + pts([[0, 0, 0], [0, D, 0], [0, D, wallH], [0, 0, wallH]]) + '"/>';
+    s += '<polygon class="iso-wall" points="' + pts([[0, 0, 0], [W, 0, 0], [W, 0, wallH], [0, 0, wallH]]) + '"/>';
+    L.zones.forEach(function (z) {
+      var a = z.area;
+      s += '<polygon class="iso-tile ' + FN[z.f].c + '" data-zone="' + z.id + '" points="' + pts([[a[0], a[1], 0.02], [a[0] + a[2], a[1], 0.02], [a[0] + a[2], a[1] + a[3], 0.02], [a[0], a[1] + a[3], 0.02]]) + '"/>';
+    });
+    sortItems(L.items).forEach(function (it) { var cls = itemCls(L, it); s += it.shape === 'cyl' ? cylSVG(it, cls) : boxSVG(it, cls); });
+    if (L.path) {
+      s += '<polyline class="iso-path" points="' + pts(L.path.map(function (p) { return [p[0], p[1], 0.05]; })) + '" marker-end="url(#isoArr-' + uid + ')"/>';
+      L.stops.forEach(function (p, i) { var q = P(p[0], p[1], 0.05); s += '<g class="iso-stop"><circle cx="' + q[0].toFixed(1) + '" cy="' + q[1].toFixed(1) + '" r="8"/><text x="' + q[0].toFixed(1) + '" y="' + (q[1] + 3.8).toFixed(1) + '" text-anchor="middle">' + (i + 1) + '</text></g>'; });
+    }
+    (L.sub || []).forEach(function (t) { var q = P(t[1], t[2], t[4] != null ? t[4] : (t[3] ? 3 : 0.1)); s += '<text class="iso-label sm"' + (t[3] ? ' data-zone="' + t[3] + '"' : '') + ' x="' + q[0].toFixed(1) + '" y="' + q[1].toFixed(1) + '" text-anchor="middle">' + esc(t[0]) + '</text>'; });
+    L.zones.forEach(function (z) { if (!z.label) return; var q = P(z.lp[0], z.lp[1], z.lp[2]); s += '<text class="iso-label" data-zone="' + z.id + '" x="' + q[0].toFixed(1) + '" y="' + q[1].toFixed(1) + '" text-anchor="middle">' + esc(z.label) + '</text>'; });
+    return s + '</svg>';
+  }
+  function renderThumb(L) {
+    var s = '<svg viewBox="-0.6 -0.6 ' + (L.W + 1.2) + ' ' + (L.D + 1.2) + '" aria-hidden="true">';
+    s += '<rect class="thumb-room" x="0" y="0" width="' + L.W + '" height="' + L.D + '" rx="0.4"/>';
+    L.zones.forEach(function (z) { var a = z.area; s += '<rect class="th-tile ' + FN[z.f].c + '" x="' + a[0] + '" y="' + a[1] + '" width="' + a[2] + '" height="' + a[3] + '" rx="0.3"/>'; });
+    L.items.forEach(function (it) {
+      var cls = 'th-it ' + itemCls(L, it);
+      if (it.shape === 'cyl') s += '<circle class="' + cls + '" cx="' + it.cx + '" cy="' + it.cy + '" r="' + it.r + '"/>';
+      else s += '<rect class="' + cls + '" x="' + it.x + '" y="' + it.y + '" width="' + it.w + '" height="' + it.d + '"/>';
+    });
+    return s + '</svg>';
+  }
+  function setHighlight(svg, ids) {
+    if (!svg) return;
+    if (!ids || !ids.length) { svg.classList.remove('has-hl'); $$('.hl', svg).forEach(function (e) { e.classList.remove('hl'); }); return; }
+    svg.classList.add('has-hl');
+    $$('[data-zone]', svg).forEach(function (e) { e.classList.toggle('hl', ids.indexOf(e.dataset.zone) >= 0); });
+  }
+  function legendHTML(L) {
+    var seen = [], h = '';
+    L.zones.forEach(function (z) { if (seen.indexOf(z.f) < 0) seen.push(z.f); });
+    seen.forEach(function (f) { h += '<button type="button" aria-pressed="false" data-fn="' + f + '"><i class="sw ' + FN[f].c.replace('zc', 'bg-c').replace('zseat', 'bg-seat') + '"></i>' + FN[f].n + '</button>'; });
+    if (L.path) h += '<span class="xs muted" style="display:inline-flex;align-items:center;gap:6px;padding:4px 6px"><i class="path-sw"></i>來賓動線 ' + L.stopNames.map(function (n, i) { return (i + 1) + ' ' + n; }).join(' → ') + '</span>';
+    return h;
+  }
+  function wireLegend(legendEl, L, getSvg, after) {
+    legendEl.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-fn]'); if (!b) return;
+      var on = b.getAttribute('aria-pressed') !== 'true';
+      $$('button[data-fn]', legendEl).forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', String(on));
+      var ids = on ? L.zones.filter(function (z) { return z.f === b.dataset.fn; }).map(function (z) { return z.id; }) : null;
+      setHighlight(getSvg(), ids);
+      if (after) after(ids);
+    });
+  }
+
+  /* ================= plans ================= */
+  var PLANS = [
+    { id: 'A', ab: true, name: '大型 Seminar', scale: '60–100 人', purpose: '聲量、名單、夥伴生態、方案定位', setup: '主舞台＋Partner 區＋方案展示＋Live Demo＋交流＋諮詢區', when: 'Go／No-Go 三個核心齊全', pros: '一次建立市場定位與夥伴生態，名單量最大', cons: '執行最重，Demo 與到場風險最高', need: '100 人劇院式場地＋獨立展區、4 個體驗站、邀請至少約 86 位（以到場率 70% 試算）', r: [5, 4, 5, 2] },
+    { id: 'B', ab: true, name: 'Executive Briefing／Roundtable', scale: '20–40 人', purpose: '精準 TA、深度交流、POC', setup: '高階分享＋圓桌＋2–3 個 Demo Pod＋一對一諮詢；不設攤位', when: '核心客戶明確，但名單或 Demo 還沒全部到位', pros: '對話深、執行輕，容易談到 POC', cons: '聲量小，夥伴曝光有限', need: '精品型會議室、高階講者 1–2 位、Demo Pod 2–3 個', r: [4, 5, 2, 4] },
+    { id: 'C', name: 'AI 客服能力展示體驗日', scale: '30–50 人・分梯', purpose: '讓客服主管親手試，帶出 Assessment', setup: '4 個體驗站環狀動線＋簡報角＋諮詢區', when: '2027 Q1，承接年底 Lead', pros: '最貼近產品，轉 Assessment 快', cons: 'Demo 穩定度要求最高', need: '4 站 Demo 環境、站務人員、預約制報名', r: [4, 4, 3, 3] },
+    { id: 'D', name: '導入案例論壇', scale: '40–60 人', purpose: '用客戶案例建立信任', setup: '案例對談舞台＋劇院座位＋Demo 角', when: '有 1–2 個可公開的導入案例後', pros: '說服力最強，適合觀望型客戶', cons: '受案例授權限制', need: '客戶講者、案例授權、主持人', r: [3, 4, 3, 3] },
+    { id: 'E', name: 'Partner 共創日', scale: '20–30 人（夥伴）', purpose: '共同方案包、聯合名單、通路分工', setup: '分組共創桌＋白板牆＋咖啡角', when: '年底 Seminar 前後皆可', pros: '擴大邀客來源，夥伴投入度高', cons: '對終端客戶商機是間接的', need: '引導者、共創題目、會後方案包', r: [2, 3, 2, 4] },
+    { id: 'F', name: '客服中心 AI 成熟度調查發表', scale: '50–80 人＋媒體', purpose: '產業聲量、媒體露出、用評估問卷收名單', setup: '主講台＋數據牆＋媒體區＋訪談區', when: '調查完成後（至少需 2–3 個月）', pros: '聲量最大，可當產業話題', cons: '調查設計與樣本耗時', need: '調查問卷與樣本、數據分析、媒體公關', r: [3, 2, 4, 2] }
+  ];
+  function planCard(p) {
+    return '<button type="button" class="plan' + (p.ab ? ' is-ab' : '') + '" aria-pressed="false" data-plan="' + p.id + '">' +
+      '<span class="plan-top"><span class="plan-id">' + p.id + '</span><span><span class="plan-name">' + esc(p.name) + '</span>' +
+      '<span class="plan-scale">' + esc(p.scale) + ' <span class="tag est">建議值</span></span></span></span>' +
+      '<span class="plan-thumb">' + renderThumb(LAYOUTS[p.id]) + '</span><span class="plan-purpose">' + esc(p.purpose) + '</span></button>';
+  }
+  $('#planAB').innerHTML = PLANS.filter(function (p) { return p.ab; }).map(planCard).join('');
+  $('#planCF').innerHTML = PLANS.filter(function (p) { return !p.ab; }).map(planCard).join('');
+  var planSvg = null;
+  function selectPlan(id) {
+    var p = PLANS.filter(function (x) { return x.id === id; })[0] || PLANS[0]; var L = LAYOUTS[p.id];
+    $$('.plan').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.plan === p.id)); });
+    $('#planDetail').innerHTML =
+      '<div class="iso-wrap" style="display:flex;flex-direction:column;gap:8px"><div class="scroll-x">' + renderIso(L, 'plan') + '</div><div class="zlegend" id="planLegend" role="group" aria-label="依功能篩選區域">' + legendHTML(L) + '</div></div>' +
+      '<div style="display:flex;flex-direction:column;gap:12px;min-width:0"><div class="blk-head"><span class="plan-id" style="background:var(--accent);color:var(--on-accent)">' + p.id + '</span><h4>' + esc(p.name) + '</h4></div>' +
+      (p.ab ? '<span class="tag core" style="align-self:flex-start">請 Min 二選一</span>' : '<span class="tag plain" style="align-self:flex-start">後續場次</span>') +
+      '<dl class="kv"><dt>規模</dt><dd>' + esc(p.scale) + ' <span class="tag est">建議值</span></dd><dt>配置</dt><dd>' + esc(p.setup) + '</dd><dt>目的</dt><dd>' + esc(p.purpose) + '</dd></dl>' +
+      '<details class="more"><summary>完整內容</summary><div class="more-body"><dl class="kv"><dt>適合時機</dt><dd>' + esc(p.when) + '</dd><dt>優點</dt><dd>' + esc(p.pros) + '</dd><dt>限制</dt><dd>' + esc(p.cons) + '</dd><dt>需要</dt><dd>' + esc(p.need) + '</dd></dl></div></details></div>';
+    planSvg = $('#planDetail svg');
+    wireLegend($('#planLegend'), L, function () { return planSvg; });
+    store.set('plan', p.id);
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('.plan'); if (!b) return;
+    selectPlan(b.dataset.plan);
+    var det = $('#planDetail'); var r = det.getBoundingClientRect();
+    if (r.top > window.innerHeight - 120 || r.top < 0) det.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  selectPlan(store.get('plan', 'A'));
+
+  var dots = function (v, g) { var h = '<span class="dots' + (g ? ' g' : '') + '" role="img" aria-label="' + v + '／5">'; for (var i = 1; i <= 5; i++) h += '<i class="' + (i <= v ? 'on' : '') + '"></i>'; return h + '</span>'; };
+  $('#planCompare').innerHTML = '<thead><tr><th scope="col">方案</th><th scope="col" class="c">符合主軸</th><th scope="col" class="c">產生商機</th><th scope="col" class="c">市場聲量</th><th scope="col" class="c">執行容易度</th><th scope="col">規模（建議值）</th></tr></thead><tbody>' +
+    PLANS.map(function (p) {
+      return '<tr><th scope="row">' + p.id + '　' + esc(p.name) + (p.ab ? ' <span class="tag core">決策</span>' : '') + '</th>' +
+        p.r.map(function (v, i) { return '<td class="c">' + dots(v, i === 1) + '</td>'; }).join('') + '<td class="num">' + esc(p.scale) + '</td></tr>';
+    }).join('') + '</tbody>';
+
+  /* ================= go / no-go ================= */
+  var GNG = [
+    { k: 'content', g: 'Content', zh: '內容', items: [['Theme'], ['TA'], ['Agenda'], ['Speaker'], ['Case'], ['CTA', 1]] },
+    { k: 'solution', g: 'Solution', zh: '方案', items: [['SaaS Demo（1–2 個穩定）', 1], ['Demo Flow'], ['POC 條件'], ['一體機 Package'], ['Pricing']] },
+    { k: 'audience', g: 'Audience', zh: '來賓', items: [['Target List', 1], ['VIP List'], ['Partner 邀請'], ['客戶邀請']] },
+    { k: 'event', g: 'Event', zh: '活動', items: [['場地'], ['Booth 與 Demo 區'], ['報名'], ['EDM'], ['Run of Show']] },
+    { k: 'commercial', g: 'Commercial', zh: '商務', items: [['Lead Capture'], ['Sales Owner'], ['Workshop'], ['POC'], ['Follow-up 規則']] }
+  ];
+  var gState = store.get('gng', {});
+  var GTOTAL = GNG.reduce(function (s, g) { return s + g.items.length; }, 0);
+  function renderGng() {
+    var h = '<div class="verdict" id="verdict" aria-live="polite"></div>';
+    GNG.forEach(function (g) {
+      h += '<div class="card gng-card"><div class="gng-h"><h4>' + g.g + '<small>' + g.zh + '</small></h4><span class="gng-count" data-gc="' + g.k + '"></span></div><div class="mini-bar"><i data-gb="' + g.k + '"></i></div><div class="checks">';
+      g.items.forEach(function (it, i) {
+        var id = g.k + '-' + i;
+        h += '<label class="check"><input type="checkbox" id="gng-' + id + '" data-k="' + id + '"' + (gState[id] ? ' checked' : '') + '><span class="lbl">' + esc(it[0]) + '</span>' + (it[1] ? '<span class="tag core">核心</span>' : '') + '</label>';
+      });
+      h += '</div></div>';
+    });
+    $('#gng').innerHTML = h;
+    updateGng();
+  }
+  function updateGng() {
+    var done = 0, missing = [];
+    GNG.forEach(function (g) {
+      var c = 0;
+      g.items.forEach(function (it, i) { var on = !!gState[g.k + '-' + i]; if (on) c++; if (it[1] && !on) missing.push(it[0].replace(/（.*）/, '')); });
+      done += c;
+      $('[data-gc="' + g.k + '"]').textContent = c + '／' + g.items.length;
+      $('[data-gb="' + g.k + '"]').style.width = (c / g.items.length * 100) + '%';
+    });
+    var pct = Math.round(done / GTOTAL * 100), v, title, why;
+    if (missing.length) { v = 'b'; title = '切換 Plan B'; why = '核心未齊：' + missing.join('、'); }
+    else if (done / GTOTAL < 0.8) { v = 'cond'; title = '有條件 Go'; why = '核心齊全，但完成度未達 80%。列出缺項，D−7 前補齊。'; }
+    else { v = 'go'; title = 'Go，辦 Plan A'; why = '核心齊全，完成度達 80% 以上。'; }
+    var el = $('#verdict'); el.dataset.v = v;
+    el.innerHTML = '<span class="verdict-k">D−14 判定</span><span class="verdict-v">' + title + '</span><span class="verdict-why">' + esc(why) + '</span>' +
+      '<div style="display:flex;flex-direction:column;gap:6px"><div class="mini-bar"><i style="width:' + pct + '%"></i></div><span class="verdict-pct">完成 ' + done + '／' + GTOTAL + ' · ' + pct + '%</span></div>' +
+      '<ul class="verdict-rule"><li>任一核心未勾 → 切換 Plan B</li><li>核心齊全、完成不到八成 → 有條件 Go</li><li>其餘 → Go，辦 Plan A</li></ul>';
+  }
+  $('#gng').addEventListener('change', function (e) {
+    var k = e.target.dataset.k; if (!k) return;
+    if (e.target.checked) gState[k] = 1; else delete gState[k];
+    store.set('gng', gState); updateGng();
+  });
+  $('#gngReset').addEventListener('click', function () { gState = {}; store.set('gng', gState); renderGng(); });
+  renderGng();
+
+  /* ================= agenda comparison ================= */
+  var LAYER = { hw: ['硬體', 'c7'], cloud: ['雲端', 'c2'], plat: ['平台', 'c3'], ai: ['AI 軟體', 'c4'], full: ['完整方案', 'c1'] };
+  var AG = [
+    { name: '由成果往下 · 一條故事線', rec: true, seq: [['full', '現況痛點與成果', 8, 'cs pt'], ['ai', 'AI 接聽', 15, 'cs'], ['plat', '真人＋即時輔助（TAIPBXCC）', 17, 'cs it pt'], ['ai', '通話後摘要與結案', 15, 'cs'], ['cloud', '雲端', 5, 'it pt'], ['hw', '硬體', 4, 'it pt'], ['full', '90 天', 3, 'cs it pt']] },
+    { name: '由下往上 · 一家廠商一段', seq: [['hw', '硬體夥伴：一體機、GPU', 13, 'it'], ['cloud', '雲端夥伴', 13, 'it'], ['plat', '承暉：TAIPBXCC 平台', 14, 'it pt'], ['ai', 'AI 軟體：語音客服、Agent Assist', 14, 'cs pt'], ['full', '台灣大：完整方案', 13, 'cs pt']] }
+  ];
+  var AUD = [['cs', '客服主管'], ['it', 'IT／資安'], ['pt', '夥伴']];
+  var agAud = 'cs';
+  $('#agAud').innerHTML = AUD.map(function (a) { return '<button type="button" data-a="' + a[0] + '" aria-pressed="' + (a[0] === agAud) + '">' + a[1] + '</button>'; }).join('');
+  $('#agLayers').innerHTML = Object.keys(LAYER).map(function (k) { return '<li><i class="sw bg-' + LAYER[k][1] + '"></i>' + LAYER[k][0] + '</li>'; }).join('') + '<li class="muted">淡色＝與此聽眾無關</li>';
+  function renderAgenda() {
+    $('#agRows').innerHTML = AG.map(function (row) {
+      var total = 0, first = -1, rel = 0;
+      row.seq.forEach(function (s) { var on = s[3].split(' ').indexOf(agAud) >= 0; if (on && first < 0) first = total; if (on) rel += s[2]; total += s[2]; });
+      var left = first / total * 100;
+      var segs = row.seq.map(function (s) {
+        var on = s[3].split(' ').indexOf(agAud) >= 0;
+        return '<div class="ag-seg' + (on ? '' : ' off') + '" style="flex:' + s[2] + ';background:var(--' + LAYER[s[0]][1] + ')" title="' + esc(s[1]) + '（' + LAYER[s[0]][0] + '）' + s[2] + ' 分"><b>' + esc(s[1]) + '</b><small>' + s[2] + ' 分</small></div>';
+      }).join('');
+      return '<div class="ag-row"><div class="ag-row-h"><b>' + esc(row.name) + '</b>' + (row.rec ? '<span class="tag green">建議</span>' : '') +
+        '<span class="ag-stat">第 <span class="num">' + first + '</span> 分鐘開始有感 · 相關 <span class="num">' + rel + '</span>／' + total + ' 分</span></div>' +
+        '<div class="ag-bar"><div class="ag-mark' + (left > 70 ? ' flip' : '') + '" style="left:' + left + '%"><span>第 ' + first + ' 分鐘</span></div><div class="ag-segs">' + segs + '</div></div></div>';
+    }).join('');
+    fitSegs();
+  }
+  function fitSegs() { $$('.ag-seg').forEach(function (s) { $$('b,small', s).forEach(function (t) { t.style.visibility = ''; t.style.visibility = t.scrollWidth > t.clientWidth + 1 ? 'hidden' : ''; }); }); }
+  $('#agAud').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return; agAud = b.dataset.a;
+    $$('button', $('#agAud')).forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+    renderAgenda();
+  });
+  renderAgenda();
+
+  /* ================= call journey ================= */
+  var R = function (n, i, cls) { return '<span class="role' + (cls ? ' ' + cls : '') + '">' + ico(i) + esc(n) + '</span>'; };
+  var M = function (who, text, cls) { return '<div class="msg' + (cls ? ' ' + cls : '') + '"><span class="who">' + esc(who) + '</span>' + esc(text) + '</div>'; };
+  var ACTS = [
+    { t: '現況痛點', min: 8, mode: '簡報', line: '先讓客服主管點頭：這就是我們的日常。',
+      roles: R('台灣大 Keynote', 'i-user', 'lead'),
+      screen: '<div class="scr-tiles"><div class="scr-tile">' + ico('i-clock') + '<b>等候過長</b><span>尖峰時段排隊</span></div><div class="scr-tile">' + ico('i-users') + '<b>新人流動高</b><span>培訓跟不上</span></div><div class="scr-tile">' + ico('i-doc') + '<b>通話後文書耗時</b><span>每通都要手打紀錄</span></div></div>' +
+        '<div class="msgs">' + M('客戶（虛構）', '我已經等很久了，可以快一點嗎？') + '<div class="msg sys">某銀行信用卡客服中心 · 300 席（虛構案例）</div></div>' },
+    { t: 'AI 接聽', min: 15, mode: 'LIVE', line: '客戶國台語混講，AI 先聽懂、先處理。',
+      roles: R('AI 語音客服', 'i-bot', 'lead') + R('ASR／TTS', 'i-wave') + R('主持：台灣大', 'i-user'),
+      screen: '<div class="msgs">' + M('客戶', '喂，我的卡昨天刷袂過，是按怎？') + M('AI 語音客服', '了解，您是說昨天刷卡沒有成功。請問是末四碼 0827 的那張卡嗎？', 'me ai') + M('客戶', '著，就是彼張。') + M('AI 語音客服', '昨晚有一筆交易因為額度暫時不足沒有成功。要幫您轉專員申請臨時調高額度嗎？', 'me ai') + '<div class="msg sys">轉接真人 · 對話摘要已帶到專員畫面</div></div>' },
+    { t: '真人＋即時輔助', min: 17, mode: 'LIVE', line: '專員接手不用重問；承暉 TAIPBXCC 進線，Agent Assist 即時提示。',
+      roles: R('承暉 TAIPBXCC', 'i-layers', 'lead') + R('真人專員', 'i-headset') + R('AI 客服助手 Agent Assist', 'i-spark') + R('AGD／Agent Desktop', 'i-desktop'),
+      screen: '<div class="msgs"><div class="msg sys">AI 摘要：昨日刷卡失敗（額度不足），客戶要申請臨時調額，已完成身分驗證</div>' + M('專員', '陳先生您好，剛剛的狀況我都看到了，直接幫您處理臨時額度。', 'me') + M('Agent Assist · 建議話術', '說明臨時額度的有效期間與調整方式', 'assist') + M('Agent Assist · 知識卡', '臨時額度調整規則（示意）', 'assist') + M('Agent Assist · 提醒', '結束前告知會發簡訊通知', 'assist') + '</div>' },
+    { t: '通話後摘要與結案', min: 15, mode: 'LIVE', line: '掛線後摘要、分類、結案自動完成。最後 2 分鐘帶到 AI 質檢（加值）。',
+      roles: R('AI 自動摘要', 'i-doc', 'lead') + R('工單／CRM', 'i-clip') + R('加值：AI 語音質檢', 'i-mic', 'addon'),
+      screen: '<dl class="scr-form"><dt>來電原因</dt><dd>刷卡失敗（額度不足）</dd><dt>處理結果</dt><dd>已申請臨時調高額度</dd><dt>後續動作</dt><dd>發送簡訊通知</dd><dt>結案分類</dt><dd>額度調整／臨時</dd></dl>' +
+        '<div class="scr-addon"><b>最後 2 分鐘 · 加值：AI 語音質檢</b><span>這通電話自動檢查：開場、身分驗證、告知義務（示意）</span></div>' },
+    { t: '部署與資安', min: 9, mode: '簡報', line: '同一套方案，地端、雲端、混合都能部署。夥伴每次出場 ≤10 分鐘。',
+      roles: R('硬體夥伴：AI 一體機、GPU · 5 分', 'i-server', 'lead') + R('雲端夥伴 · 4 分', 'i-cloud') + R('台灣大整合', 'i-plug'),
+      screen: '<div class="scr-tiles"><div class="scr-tile">' + ico('i-server') + '<b>地端</b><span>資料不出機房 · AI 一體機</span></div><div class="scr-tile">' + ico('i-cloud') + '<b>雲端</b><span>快速上線 · 彈性擴充</span></div><div class="scr-tile">' + ico('i-layers') + '<b>混合</b><span>敏感資料留地端 · 尖峰用雲端</span></div></div>' +
+        '<div class="msgs"><div class="msg sys">資安：個資遮罩 · 權限分級 · 稽核紀錄</div></div>' },
+    { t: '90 天怎麼開始', min: 3, mode: '簡報', line: '給具體的下一步，現場掃 QR Code 預約。',
+      roles: R('台灣大業務', 'i-users', 'lead') + R('承暉', 'i-layers'),
+      screen: '<div class="scr-steps"><div class="scr-step"><span class="num">第 1–2 週</span><b>Workshop</b><span>需求盤點</span></div><div class="scr-step"><span class="num">第 3–6 週</span><b>Assessment</b><span>現況評估</span></div><div class="scr-step"><span class="num">第 7–12 週</span><b>POC</b><span>限定範圍試行</span></div><div class="scr-step"><span class="num">第 90 天</span><b>決定</b><span>是否導入</span></div></div>' +
+        '<div class="scr-cta">' + ico('i-qr') + '<span>現場掃 QR Code，選一個下一步：Workshop、Assessment、專屬 Demo 或 POC</span></div>' }
+  ];
+  var actIdx = 0, actTimer = null;
+  $('#acts').innerHTML = ACTS.map(function (a, i) { return '<button type="button" class="act-btn" data-i="' + i + '" aria-pressed="false"><span class="an">第 ' + i + ' 幕</span><span class="at">' + esc(a.t) + '</span></button>'; }).join('');
+  $('#actTrack').innerHTML = ACTS.map(function (a) { return '<i style="flex:' + a.min + '"></i>'; }).join('');
+  function showAct(i, anim) {
+    actIdx = i; var a = ACTS[i];
+    $$('.act-btn').forEach(function (b) { b.setAttribute('aria-pressed', String(+b.dataset.i === i)); });
+    $$('#actTrack i').forEach(function (t, k) { t.className = k === i ? 'on' : (k < i ? 'done' : ''); });
+    $('#actMeta').innerHTML = '<div class="act-min"><span class="num">' + a.min + '</span><span>分鐘</span><span class="tag est">建議值</span></div>' +
+      '<h4 style="font-size:var(--fs-lg)">第 ' + i + ' 幕 · ' + esc(a.t) + '</h4><p class="small muted">' + esc(a.line) + '</p>' +
+      '<div style="display:flex;flex-direction:column;gap:6px"><span class="xs muted">出場角色</span><div class="act-roles">' + a.roles + '</div></div>' +
+      '<p class="note">舞台合計 67 分鐘（建議值）；夥伴每次出場不超過 10 分鐘。</p>';
+    var scr = $('#actScreen');
+    scr.classList.remove('anim'); void scr.offsetWidth; if (anim) scr.classList.add('anim');
+    scr.innerHTML = '<div class="screen-top"><span>大螢幕示意 · <b>第 ' + i + ' 幕</b></span>' + (a.mode === 'LIVE' ? '<span class="live">LIVE DEMO</span>' : '<span>簡報</span>') + '</div>' + a.screen;
+  }
+  function stopPlay() {
+    if (actTimer) { clearInterval(actTimer); actTimer = null; }
+    var b = $('#actPlay'); b.setAttribute('aria-pressed', 'false'); b.innerHTML = ico('i-play') + '<span>自動播放</span>';
+  }
+  $('#acts').addEventListener('click', function (e) { var b = e.target.closest('.act-btn'); if (!b) return; stopPlay(); showAct(+b.dataset.i, true); });
+  $('#actPlay').addEventListener('click', function () {
+    if (actTimer) { stopPlay(); return; }
+    var b = $('#actPlay'); b.setAttribute('aria-pressed', 'true'); b.innerHTML = ico('i-pause') + '<span>暫停</span>';
+    showAct((actIdx + 1) % ACTS.length, true);
+    actTimer = setInterval(function () { if (actIdx >= ACTS.length - 1) { stopPlay(); return; } showAct(actIdx + 1, true); }, 5500);
+  });
+  onTabChange.push(function (id) { if (id !== 'content') stopPlay(); else fitSegs(); });
+  showAct(0, false);
+
+  /* ================= readiness ================= */
+  var STATUS = '<span class="status">待確認</span>';
+  $('#rdContent').innerHTML = '<thead><tr><th scope="col">項目</th><th scope="col">Owner</th><th scope="col">需要什麼</th><th scope="col">狀態</th></tr></thead><tbody>' + [
+    ['Theme 與 Agenda', 'Eric', '一通電話故事線、六幕分鐘數'],
+    ['Speaker', 'Eric 協調 Bobson／承暉', '講者名單與主題'],
+    ['Opening', 'Min → 周副總辦公室', '行程確認、致詞重點'],
+    ['台灣大客服案例', '客服營運', '可公開範圍與資料授權'],
+    ['TAIPBX 案例', 'Bobson／承暉', '客戶同意與簡報'],
+    ['台北文創等案例', '業務／AM＋承暉', '客戶同意、講者意願'],
+    ['Demo Storyline', 'Eric＋Kevin', '六幕腳本與對話'],
+    ['一體機方案與定價', 'Kevin＋Alan', 'Package、Pricing、交期'],
+    ['POC 模式', 'Kevin', '範圍、期間、收費方式'],
+    ['CTA', 'Eric＋業務', '四種下一步與報名方式'],
+    ['加值方案素材', '承暉＋Marketing', 'AI 質檢說明與錄音試跑流程']
+  ].map(function (r) { return '<tr><th scope="row">' + esc(r[0]) + '</th><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td><td>' + STATUS + '</td></tr>'; }).join('') + '</tbody>';
+  $('#rdDemo').innerHTML = '<thead><tr><th scope="col">Demo</th><th scope="col">Owner</th><th scope="col">環境</th><th scope="col">依賴</th><th scope="col">備援</th><th scope="col">狀態</th></tr></thead><tbody>' + [
+    ['AI 語音客服', 'Kevin＋承暉', 'SaaS 測試環境＋現場專線', '國台語模型、語音線路、腳本', '預錄影片＋錄音回放'],
+    ['Agent Assist／AGD', '承暉（Bobson）', 'SaaS＋專員筆電', '知識庫範例、TAIPBXCC 進線', '預錄影片'],
+    ['TAIPBXCC 進線', '承暉＋IT', '測試門號與 SIP Trunk', '現場網路、門號開通', '預錄影片＋模擬進線'],
+    ['AI 一體機', 'Alan', '實機（HPE／凌華）', 'GPU 到貨、電力、搬運', '照片＋架構圖＋預錄影片'],
+    ['加值：AI 質檢', '承暉', 'SaaS', '去識別化錄音樣本', '預錄影片＋報表截圖']
+  ].map(function (r) { return '<tr><th scope="row">' + esc(r[0]) + '</th><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td><td>' + esc(r[3]) + '</td><td>' + esc(r[4]) + '</td><td>' + STATUS + '</td></tr>'; }).join('') + '</tbody>';
+
+  /* ================= venue (Plan A) ================= */
+  var LA = LAYOUTS.A;
+  $('#venueSvg').innerHTML = renderIso(LA, 'venue');
+  var venueSvg = $('#venueSvg svg');
+  $('#venueLegend').innerHTML = legendHTML(LA);
+  var ZNAME = { stage: '舞台', seat: '座位', partner: 'Partner 區', demo: '體驗站', social: '交流區', consult: '諮詢區', reg: '報到', signup: '報名檯', control: '控台', media: '媒體區' };
+  var ROS = [
+    { t: '12:00', n: '工作人員集合', s: '分工確認，動線走一遍', z: ['control', 'media'], pre: 1 },
+    { t: '12:30', n: 'Partner 報到與 Demo 檢查', s: '每站實測一次，備援影片就位', z: ['partner', 'demo', 'control'], pre: 1 },
+    { t: '13:30', n: '來賓報到（VIP 13:45）', s: 'VIP 由業務陪同', z: ['reg', 'social'] },
+    { t: '14:00', n: 'Opening：周副總致詞（待確認）', s: '5 分', z: ['stage', 'seat'] },
+    { t: '14:05', n: 'Keynote：客服中心的現況痛點', s: '8 分', z: ['stage', 'seat'] },
+    { t: '14:13', n: 'Live Demo 三段', s: 'AI 接聽 15 · 真人＋即時輔助 17 · 通話後 15 分', z: ['stage', 'seat', 'control'] },
+    { t: '15:00', n: 'Networking & Solution Experience', s: '25 分，逛體驗站與 Partner 區', z: ['social', 'partner', 'demo'] },
+    { t: '15:25', n: 'Solution：部署與一體機', s: '9 分，硬體與雲端夥伴各 ≤10 分', z: ['stage', 'seat'] },
+    { t: '15:34', n: 'Case Sharing', s: '20 分', z: ['stage', 'seat'] },
+    { t: '15:54', n: 'CTA：90 天怎麼開始', s: '3 分，掃 QR Code 選下一步', z: ['stage', 'signup'] },
+    { t: '15:57', n: 'Demo 與 Consultation', s: '48 分，一對一諮詢', z: ['demo', 'consult', 'signup'] },
+    { t: '16:45', n: 'Closing 與 Networking', s: '報名檯收尾、VIP 送客', z: ['social', 'signup'] },
+    { t: '17:15', n: '撤場與檢討', s: 'Lead 當天彙整，隔天分派', z: ['control', 'signup'], pre: 1 }
+  ];
+  var zSw = function (id) { var z = zoneOf(LA, id); return FN[z.f].c.replace('zc', 'bg-c').replace('zseat', 'bg-seat'); };
+  $('#ros').innerHTML = ROS.map(function (r, i) {
+    return '<li><button type="button" class="ros-btn' + (r.pre ? ' is-pre' : '') + '" aria-pressed="false" data-i="' + i + '"><span class="ros-time">' + r.t + '</span><span><span class="ros-t">' + esc(r.n) + '</span><span class="ros-s" style="display:block">' + esc(r.s) + '</span>' +
+      '<span class="ros-z">' + r.z.map(function (z) { return '<span><i class="' + zSw(z) + '"></i>' + ZNAME[z] + '</span>'; }).join('') + '</span></span></button></li>';
+  }).join('');
+  function centerHighlight() {
+    var sc = $('#venueScroll'); var t = $('.iso-tile.hl', venueSvg);
+    if (!t || sc.scrollWidth <= sc.clientWidth) return;
+    var tr = t.getBoundingClientRect(), cr = sc.getBoundingClientRect();
+    sc.scrollLeft += (tr.left + tr.width / 2) - (cr.left + cr.width / 2);
+  }
+  $('#ros').addEventListener('click', function (e) {
+    var b = e.target.closest('.ros-btn'); if (!b) return;
+    var on = b.getAttribute('aria-pressed') !== 'true';
+    $$('.ros-btn').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+    $$('#venueLegend button').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+    b.setAttribute('aria-pressed', String(on));
+    setHighlight(venueSvg, on ? ROS[+b.dataset.i].z : null);
+    if (on) {
+      var map = $('#venueFig'); var r = map.getBoundingClientRect();
+      if (r.bottom < 80 || r.top > window.innerHeight - 80) map.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      centerHighlight();
+    }
+  });
+  wireLegend($('#venueLegend'), LA, function () { return venueSvg; }, function () { $$('.ros-btn').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); }); centerHighlight(); });
+
+  /* ================= invite calculator ================= */
+  var CALC_DEF = { sCh: 10, sPn: 10, sPp: 3, sSa: 30, sMk: 0, sRt: 70 };
+  var UNITS = { sCh: ' 位', sPn: ' 家', sPp: ' 位', sSa: ' 位', sMk: ' 位', sRt: '%' };
+  function calc() {
+    var v = {}; Object.keys(CALC_DEF).forEach(function (k) { v[k] = +$('#' + k).value; $('#o' + k.slice(1)).textContent = v[k] + UNITS[k]; });
+    var partners = v.sPn * v.sPp, inv = v.sCh + partners + v.sSa + v.sMk, rate = v.sRt / 100;
+    var att = Math.round(inv * rate), needA = Math.ceil(60 / rate - 1e-9);
+    $('#cAtt').textContent = att;
+    $('#cInv').textContent = '＝ 邀請 ' + inv + ' 位 × 到場率 ' + v.sRt + '%';
+    $('#cMk').style.left = (Math.min(att, 120) / 120 * 100) + '%'; $('#cMkT').textContent = att;
+    var msg = $('#cMsg'), gap = needA - inv;
+    var hint = '<span>Plan A 邀請數至少需約 <b class="num">' + needA + '</b> 位' + (gap > 0 ? '（目前 ' + inv + ' 位，還差 ' + gap + ' 位）' : '') + '。</span>';
+    if (att >= 60) { msg.className = 'calc-msg a'; msg.innerHTML = '<b>落在 Plan A 規模</b><span>' + (att > 100 ? '超過 100 人，需確認場地容量。' : '60–100 人區間。') + '</span>'; }
+    else if (att >= 20) { msg.className = 'calc-msg b'; msg.innerHTML = '<b>未達 Plan A，落在 Plan B 規模</b>' + (att > 40 ? '<span>超過 Plan B 上限 40 人：可辦擴大版 B，或補邀請衝 A。</span>' : '') + hint; }
+    else { msg.className = 'calc-msg low'; msg.innerHTML = '<b>低於 Plan B 下限 20 人</b><span>需先補邀請。</span>' + hint; }
+    var src = [['承暉', v.sCh, 'c1'], ['其他夥伴', partners, 'c2'], ['業務', v.sSa, 'c3'], ['行銷名單', v.sMk, 'c4']];
+    $('#cSrc').innerHTML = src.filter(function (s) { return s[1] > 0; }).map(function (s) { return '<div class="s bg-' + s[2] + '" style="flex:' + s[1] + '" title="' + s[0] + ' ' + s[1] + ' 位"><span>' + (s[1] / Math.max(inv, 1) > 0.08 ? s[1] : '') + '</span></div>'; }).join('');
+    $('#cSrcLegend').innerHTML = src.map(function (s) { return '<li><i class="sw bg-' + s[2] + '"></i>' + s[0] + ' <b>' + s[1] + '</b></li>'; }).join('');
+  }
+  Object.keys(CALC_DEF).forEach(function (k) { $('#' + k).addEventListener('input', calc); });
+  $('#calcReset').addEventListener('click', function () { Object.keys(CALC_DEF).forEach(function (k) { $('#' + k).value = CALC_DEF[k]; }); calc(); });
+  calc();
+
+  /* ================= promo rhythm ================= */
+  buildTimeline($('#rhythm'), $('#rhythmDetail'), [
+    { k: 'D−28', t: 'Save the date', icon: 'i-calendar', d: '業務拿到 Target List 並分派；承暉與夥伴提交邀請名單；寄出 Save the date。', who: '業務、承暉、Marketing', outLabel: '指標', out: '邀請名單 120 筆（建議值）' },
+    { k: 'D−21', t: '正式邀請＋報名頁', icon: 'i-mail', d: '正式邀請函與報名頁上線；成對邀請逐家確認（需求擁有者＋否決者）。', who: 'Marketing、業務', outLabel: '指標', out: '邀請全數送出' },
+    { k: 'D−14', t: 'Go／No-Go＋第二波', icon: 'i-flag', key: true, d: '檢核表過會；未回覆者第二波邀請；夥伴名單回收。', who: 'Min、Eric、業務', outLabel: '指標', out: '確認出席達 Plan A 門檻（建議值）' },
+    { k: 'D−7', t: '電話確認', icon: 'i-phone', d: '業務逐一電話確認；安排 VIP 座位與一對一諮詢預約。', who: '業務、Marketing', outLabel: '指標', out: '已確認名單全數電話確認' },
+    { k: 'D−1', t: '行前通知', icon: 'i-check', d: '寄出交通、報到 QR 與議程；VIP 最終確認；夥伴行前會。', who: 'Marketing、Bobson', outLabel: '指標', out: '行前通知全數送達' }
+  ], 0);
+
+  /* ================= gantt ================= */
+  var WEEKS = [-8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4];
+  var wl = function (w) { return w === 0 ? '活動週' : (w < 0 ? 'W−' + (-w) : 'W+' + w); };
+  var GANTT = [
+    { n: '策略與決策', o: 'Min／Eric', bars: [[-8, -6]], ms: [[-2, 'Go／No-Go']] },
+    { n: '內容與議程', o: 'Eric', bars: [[-7, -2]], ms: [[-2, '內容凍結']] },
+    { n: 'Demo 與 Solution', o: 'Kevin／IT', bars: [[-7, -1]] },
+    { n: '夥伴與 Speaker', o: 'Bobson／Alan', bars: [[-8, -3]] },
+    { n: '場地與製作', o: 'Marketing', bars: [[-7, 0]], ms: [[-6, '場地簽約']] },
+    { n: '邀約與報名', o: '業務／Marketing', bars: [[-5, -1]], ms: [[-4, '發邀請']] },
+    { n: '彩排與現場', o: '全體（Marketing 主持）', bars: [[-1, 0]], ms: [[-1, '全體彩排']] },
+    { n: 'Lead 跟進', o: '業務／AM', bars: [[0, 4]], post: 1 }
+  ];
+  (function () {
+    var col = function (w) { return WEEKS.indexOf(w) + 2; };
+    var h = '<div class="gh" style="grid-row:1;grid-column:1"></div>' + WEEKS.map(function (w) { return '<div class="gh' + (w === 0 ? ' ev' : '') + '" style="grid-row:1;grid-column:' + col(w) + '">' + wl(w) + '</div>'; }).join('');
+    GANTT.forEach(function (g, i) {
+      var r = i + 2;
+      h += '<div class="gl" style="grid-row:' + r + ';grid-column:1"><b>' + esc(g.n) + '</b><span>' + esc(g.o) + '</span></div>';
+      WEEKS.forEach(function (w) { h += '<div class="gc' + (w === 0 ? ' ev' : '') + '" style="grid-row:' + r + ';grid-column:' + col(w) + '"></div>'; });
+      g.bars.forEach(function (b) { h += '<div class="gbar' + (g.post ? ' post' : '') + '" style="grid-row:' + r + ';grid-column:' + col(b[0]) + ' / ' + (col(b[1]) + 1) + '" title="' + esc(g.n) + '：' + wl(b[0]) + '–' + wl(b[1]) + '"></div>'; });
+      (g.ms || []).forEach(function (m) { h += '<div class="gms" style="grid-row:' + r + ';grid-column:' + col(m[0]) + '"><span>' + esc(m[1]) + '</span><i></i></div>'; });
+    });
+    $('#gantt').innerHTML = h;
+  })();
+
+  /* ================= phase checklist ================= */
+  var PH = [['all', '全部'], ['Strategy', 'Strategy 策略'], ['Content', 'Content 內容'], ['Solution', 'Solution 方案'], ['Event', 'Event 活動'], ['Invitation', 'Invitation 邀約']];
+  var TASKS = [
+    ['Strategy', '是否辦、Plan A 或 B', 'Min', 'W−8', '一頁活動概要'],
+    ['Strategy', '預算與分攤', 'Min', 'W−7', '預算比例（起始假設）'],
+    ['Strategy', 'TA 與產業優先順序', 'Eric', 'W−7', '業務名單'],
+    ['Strategy', 'KPI 建議值定案', 'Min', 'W−6', 'Eric 提案'],
+    ['Content', 'Theme 與 Agenda 定稿', 'Eric', 'W−5', 'Speaker 確認'],
+    ['Content', 'Speaker 邀請與簡報', 'Bobson／承暉', 'W−4', 'Agenda'],
+    ['Content', '案例授權（台灣大、TAIPBX、台北文創）', '客服營運／承暉／業務', 'W−4', '客戶同意'],
+    ['Content', '內容凍結', 'Eric', 'W−2', '全部簡報到齊'],
+    ['Solution', 'SaaS Demo 1–2 個穩定', 'Kevin', 'W−3', '測試環境'],
+    ['Solution', 'Demo Flow 與腳本', 'Kevin＋Eric', 'W−3', 'Demo Storyline'],
+    ['Solution', '一體機 Package／Pricing', 'Kevin＋Alan', 'W−3', 'GPU 交期'],
+    ['Solution', 'POC 條件', 'Kevin', 'W−2', 'Pricing'],
+    ['Solution', 'Demo 備援影片', 'IT', 'W−2', 'Demo Flow'],
+    ['Event', '場地簽約', 'Marketing', 'W−6', '預算核可'],
+    ['Event', '報名頁與 EDM', 'Marketing', 'W−4', '活動文案'],
+    ['Event', '視覺與製作', 'Marketing', 'W−3', '內容主軸'],
+    ['Event', 'Run of Show', 'Marketing（議程時間由 Eric 提供）', 'W−1', '內容凍結'],
+    ['Event', '全體彩排', 'Marketing 主持', 'W−1', 'Run of Show'],
+    ['Invitation', 'Target List 與 VIP List', '業務', 'W−5', 'TA 定義'],
+    ['Invitation', 'Partner 邀請', 'Partner／BD', 'W−5', 'Partner List'],
+    ['Invitation', '發邀請', '業務＋Marketing', 'W−4', '報名頁'],
+    ['Invitation', 'Lead Capture 與 Sales Owner 規則', '業務', 'W−2', 'Lead 欄位'],
+    ['Invitation', 'D−7 電話確認', '業務', 'W−1', '邀請追蹤表']
+  ];
+  var phSel = store.get('phase', 'all');
+  function renderPhases() {
+    $('#phaseFilters').innerHTML = PH.map(function (p) {
+      var n = p[0] === 'all' ? TASKS.length : TASKS.filter(function (t) { return t[0] === p[0]; }).length;
+      return '<button type="button" data-ph="' + p[0] + '" aria-pressed="' + (phSel === p[0]) + '">' + p[1] + ' <span class="num">' + n + '</span></button>';
+    }).join('');
+    $('#phaseTable').innerHTML = '<thead><tr><th scope="col">階段</th><th scope="col">工作</th><th scope="col">Owner</th><th scope="col">期限</th><th scope="col">依賴</th></tr></thead><tbody>' +
+      TASKS.filter(function (t) { return phSel === 'all' || t[0] === phSel; }).map(function (t) {
+        return '<tr><td><span class="phase-pill">' + t[0] + '</span></td><th scope="row" style="white-space:normal">' + esc(t[1]) + '</th><td>' + esc(t[2]) + '</td><td class="num">' + t[3] + '</td><td>' + esc(t[4]) + '</td></tr>';
+      }).join('') + '</tbody>';
+  }
+  $('#phaseFilters').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; phSel = b.dataset.ph; store.set('phase', phSel); renderPhases(); });
+  renderPhases();
+
+  /* ================= RACI ================= */
+  var RC = ['Eric', 'Min', 'Kevin', '承暉', 'Alan', 'IT', '客服營運', 'Marketing', '業務'];
+  var RACI = [
+    ['活動決策與預算', 'R A C C I I I C C'],
+    ['內容與議程', 'AR C C R C I C I C'],
+    ['Speaker 與案例', 'A C I R C I R I R'],
+    ['Demo Readiness', 'C I A R C R I I I'],
+    ['一體機 Package／Pricing', 'I C A C R C I I C'],
+    ['場地、餐飲、製作', 'C I I I I C I AR I'],
+    ['報名與 EDM', 'C I I C I I I AR C'],
+    ['邀客', 'I I I R R I I C AR'],
+    ['現場 Demo 運作', 'I I A R R R I C I'],
+    ['Lead 記錄與 48 小時跟進', 'C I C C I I I C AR'],
+    ['會後 Pipeline 檢視', 'R A C C I I I I R']
+  ];
+  $('#raci').innerHTML = '<thead><tr><th scope="col">工作</th>' + RC.map(function (c) { return '<th scope="col" class="c">' + c + '</th>'; }).join('') + '</tr></thead><tbody>' +
+    RACI.map(function (r) {
+      return '<tr><th scope="row" style="white-space:normal;min-width:150px">' + esc(r[0]) + '</th>' + r[1].split(' ').map(function (v) {
+        return '<td class="c">' + v.split('').map(function (ch) { return '<span class="r ' + ch + '">' + ch + '</span>'; }).join(' ') + '</td>';
+      }).join('') + '</tr>';
+    }).join('') + '</tbody>';
+
+  /* ================= checklists (venue) ================= */
+  function checklist(el, countEl, key, items) {
+    var st = store.get(key, {});
+    el.innerHTML = items.map(function (t, i) { return '<label class="check"><input type="checkbox" id="' + key + '-' + i + '" data-i="' + i + '"' + (st[i] ? ' checked' : '') + '><span class="lbl">' + esc(t) + '</span></label>'; }).join('');
+    var upd = function () { var n = Object.keys(st).length; countEl.textContent = n + '／' + items.length; };
+    el.addEventListener('change', function (e) { var i = e.target.dataset.i; if (i == null) return; if (e.target.checked) st[i] = 1; else delete st[i]; store.set(key, st); upd(); });
+    upd();
+  }
+  checklist($('#venueCond'), $('#condCount'), 'cond', ['可容納 100 人劇院式座位', '層高足以架設大螢幕', '獨立的 Partner 區與體驗站空間', '可隔出 2–3 個諮詢桌', '有線網路專線＋4G/5G 備援', 'GPU 設備用電與散熱', '貨梯與搬運動線', '報到區與交流區分開', '捷運可達', '無障礙動線']);
+  checklist($('#venueMat'), $('#matCount'), 'mat', ['大螢幕與投影', '音響＋無線麥克風 ×4', '講台與計時器', '報到 QR 與名牌', '四個體驗站立牌', 'Partner 分層標示（硬體／雲端／平台／AI 應用）', '諮詢桌椅與隔板', '報名檯平板（Lead 表單）', '備援筆電與預錄影片', '延長線與網路交換器', '指示牌', '伴手禮']);
+
+  /* ================= risk matrix ================= */
+  var RISKS = [
+    { id: 'demo', n: 'Demo 失敗', p: 2, i: 3, o: 'Kevin（Demo Control）', a: ['每個 Live Demo 都備預錄影片，Demo Control 有權當場切換', 'D−3 全流程彩排，活動當天 12:30 再測一次', 'Demo 不依賴場地 Wi-Fi：有線專線＋4G/5G 備援'] },
+    { id: 'att', n: '到場不足', p: 3, i: 3, o: '業務、Marketing', a: ['邀請數 ≥ 目標到場 ÷ 到場率（Plan A 至少約 86 位）', 'D−7 逐一電話確認，D−1 行前通知', 'D−14 未達門檻就切換 Plan B'] },
+    { id: 'ready', n: '內容或 Demo 沒到位', p: 2, i: 3, o: 'Eric、Kevin', a: ['W−2 內容凍結，之後只修字不改架構', 'Readiness 表每週更新，D−14 檢核三個核心', '未到位的段落改為預錄影片＋講解'] },
+    { id: 'case', n: '案例無法公開', p: 3, i: 2, o: '客服營運、承暉、業務', a: ['W−4 前取得書面授權', '改用匿名案例（產業＋規模＋成效方向）', '改由客戶口述，或用台灣大自身客服案例'] },
+    { id: 'gpu', n: 'GPU 來不及', p: 2, i: 2, o: 'Alan', a: ['W−6 確認 GPU 交期', '改用雲端 GPU 展示同一個 Demo', '一體機以照片、架構圖與影片展示'] },
+    { id: 'net', n: '網路不穩', p: 1, i: 3, o: 'IT', a: ['場勘測速，專線與 4G/5G 雙備援', 'Demo 設備與來賓 Wi-Fi 分開', '預錄影片存在本機，不靠網路播放'] },
+    { id: 'pitch', n: '夥伴上台變產品推銷', p: 2, i: 2, o: 'Bobson、Eric', a: ['每次出場 ≤10 分鐘，跟著故事線講', 'W−2 審簡報', '由主持人串場收尾'] },
+    { id: 'follow', n: '會後沒人跟進', p: 2, i: 3, o: '業務／AM', a: ['D+1 分派 Sales Owner', 'A 級 48 小時內聯繫，Lead Command 每日追蹤', 'D+7、D+30 由 Min 檢視'] },
+    { id: 'vip', n: '周副總行程無法出席', p: 1, i: 2, o: 'Min', a: ['W−6 前確認行程', '備案由 Min 開場', '預錄 1 分鐘致詞影片'] }
+  ];
+  var LV = ['', '低', '中', '高'];
+  (function () {
+    var h = '<div class="rm-y">影響　高 → 低</div>';
+    [3, 2, 1].forEach(function (imp, r) {
+      [1, 2, 3].forEach(function (pr, c) {
+        var sc = imp * pr, sev = sc >= 6 ? 's3' : (sc >= 3 ? 's2' : 's1');
+        var list = RISKS.filter(function (k) { return k.i === imp && k.p === pr; });
+        h += '<div class="rm-cell ' + sev + '" style="grid-row:' + (r + 1) + ';grid-column:' + (c + 2) + '"><span class="ax">影響' + LV[imp] + '・可能性' + LV[pr] + '</span>' +
+          list.map(function (k) { return '<button type="button" class="rk" data-r="' + k.id + '" aria-pressed="false">' + esc(k.n) + '</button>'; }).join('') + '</div>';
+      });
+    });
+    h += '<div class="rm-x" style="grid-row:4">可能性（低 → 高）</div>';
+    $('#riskGrid').innerHTML = h;
+  })();
+  function showRisk(id) {
+    var k = RISKS.filter(function (x) { return x.id === id; })[0]; if (!k) return;
+    $$('.rk').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.r === id)); });
+    var sc = k.p * k.i, sev = sc >= 6 ? ['高', 'tag tbd'] : (sc >= 3 ? ['中', 'tag est'] : ['低', 'tag green']);
+    $('#riskDetail').innerHTML = '<h4>' + esc(k.n) + '</h4><div class="rk-tags"><span class="tag plain">可能性 ' + LV[k.p] + '</span><span class="tag plain">影響 ' + LV[k.i] + '</span><span class="' + sev[1] + '">風險 ' + sev[0] + '</span></div>' +
+      '<span class="xs muted">對策</span><ol>' + k.a.map(function (t) { return '<li><span>' + esc(t) + '</span></li>'; }).join('') + '</ol><p class="rk-owner">負責：<b>' + esc(k.o) + '</b></p>';
+  }
+  $('#riskGrid').addEventListener('click', function (e) { var b = e.target.closest('.rk'); if (b) showRisk(b.dataset.r); });
+  showRisk('att');
+
+  /* ================= Eric todo ================= */
+  var TY = { self: ['自己完成', 'ty-self', 'i-pen'], ask: ['找誰提供資料', 'ty-ask', 'i-search'], chase: ['追誰', 'ty-chase', 'i-clock'], mkt: ['交給 Marketing', 'ty-mkt', 'i-megaphone'] };
+  var TODO = [
+    { t: '寫一頁活動概要＋十件事決策清單給 Min', s: '附 A／B 比較與邀客試算', ty: 'self', due: '本週' },
+    { t: '場地、報名頁、EDM、視覺需求單交給 Marketing', s: '附 Plan A／B 兩版場地需求', ty: 'mkt', due: 'W−7' },
+    { t: '向 Bobson／承暉要產品口徑、TAIPBX 案例、Speaker、可邀客戶', s: '同時確認台北文創等案例能否公開', ty: 'ask', due: 'W−6' },
+    { t: '向 Alan 要 HPE／凌華一體機規格、GPU 交期、Sizing', s: '交期不確定就先備雲端 GPU 方案', ty: 'ask', due: 'W−6' },
+    { t: '定稿 Theme 與「一通電話」六幕 Agenda', s: '含分鐘數與夥伴出場安排', ty: 'self', due: 'W−5' },
+    { t: '追業務：Target List、VIP List、成對邀請', s: '每家至少一位需求擁有者＋一位否決者', ty: 'chase', due: 'W−5' },
+    { t: '向客服營運要台灣大客服內部案例', s: '可公開範圍與資料授權', ty: 'ask', due: 'W−4' },
+    { t: '追 Kevin：SaaS Demo 穩定度、一體機 Package／Pricing、POC 條件', s: '三項都是 Go／No-Go 依據', ty: 'chase', due: 'W−3' },
+    { t: '準備 D−14 Go／No-Go 檢核會議', s: '更新 Readiness 表與檢核表', ty: 'self', due: 'W−2' },
+    { t: '與業務對齊 Lead 欄位、A／B／C 分級與 48 小時規則', s: '確認每位 Sales Owner', ty: 'chase', due: 'W−2' }
+  ];
+  var todoSt = store.get('todo', {}), todoF = 'all';
+  function renderTodo() {
+    var cnt = { all: TODO.length }; TODO.forEach(function (t) { cnt[t.ty] = (cnt[t.ty] || 0) + 1; });
+    $('#todoFilter').innerHTML = [['all', '全部']].concat(Object.keys(TY).map(function (k) { return [k, TY[k][0]]; })).map(function (f) {
+      return '<button type="button" data-f="' + f[0] + '" aria-pressed="' + (todoF === f[0]) + '">' + f[1] + ' <span class="num">' + (cnt[f[0]] || 0) + '</span></button>';
+    }).join('');
+    $('#todo').innerHTML = TODO.map(function (t, i) {
+      var ty = TY[t.ty];
+      return '<li class="todo-item' + (todoSt[i] ? ' done' : '') + '"' + (todoF !== 'all' && todoF !== t.ty ? ' hidden' : '') + '>' +
+        '<label class="check"><input type="checkbox" id="todo-' + i + '" data-i="' + i + '"' + (todoSt[i] ? ' checked' : '') + '><span class="sr-only">完成：' + esc(t.t) + '</span></label>' +
+        '<span class="todo-n">' + pad2(i + 1) + '</span><div><div class="todo-t">' + esc(t.t) + '</div><div class="todo-s">期限 ' + esc(t.due) + ' · ' + esc(t.s) + '</div></div>' +
+        '<span class="todo-type ' + ty[1] + '">' + ico(ty[2]) + ty[0] + '</span></li>';
+    }).join('');
+  }
+  $('#todoFilter').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; todoF = b.dataset.f; renderTodo(); });
+  $('#todo').addEventListener('change', function (e) {
+    var i = e.target.dataset.i; if (i == null) return;
+    if (e.target.checked) todoSt[i] = 1; else delete todoSt[i];
+    store.set('todo', todoSt); e.target.closest('.todo-item').classList.toggle('done', e.target.checked);
+  });
+  renderTodo();
+
+  /* ================= boot ================= */
+  var resizeT; window.addEventListener('resize', function () { clearTimeout(resizeT); resizeT = setTimeout(fitSegs, 120); });
+  var initial = (location.hash || '').slice(1);
+  showTab(TABS.indexOf(initial) >= 0 ? initial : store.get('tab', 'overview'), { animate: false, hash: TABS.indexOf(initial) >= 0 });
+})();
+</script>
+</body>
+</html>
