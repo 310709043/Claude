@@ -762,6 +762,34 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
 .ros-z span i{display:inline-block}
 .raci td.c .r + .r{margin-left:2px}
 .dec-act button:focus-visible,.rk:focus-visible,.ros-btn:focus-visible,.plan:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ---------- 12 月初版 ---------- */
+.adj{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:1023px){.adj{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.adj{grid-template-columns:minmax(0,1fr)}}
+.adj-card{display:flex;flex-direction:column;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px;min-width:0}
+.adj-h{display:flex;align-items:center;gap:10px}
+.adj-h h4{font-size:var(--fs-base);line-height:1.35}
+.adj-n{display:block;font-family:var(--font-display);font-weight:800;font-size:11.5px;color:var(--fg-3)}
+.ba{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 10px;font-size:var(--fs-sm);align-items:baseline;margin:0}
+.ba dt{font-size:11px;font-weight:700;padding:0 7px;border-radius:999px;white-space:nowrap;line-height:1.8}
+.ba dt.was{background:var(--sunk);color:var(--fg-3)}
+.ba dt.now{background:var(--accent-soft);color:var(--accent-ink)}
+.ba dd{margin:0;line-height:1.55}
+.ba dd.was{color:var(--fg-3)}
+.ba dd.now{font-weight:500}
+.countdown{display:inline-flex;align-items:baseline;gap:4px;font-size:var(--fs-sm);color:var(--fg-2)}
+.countdown b{font-family:var(--font-display);font-size:20px;font-weight:800;color:var(--accent-ink);font-variant-numeric:tabular-nums}
+.dec-due{display:inline-block;font-family:var(--font-display);font-size:11.5px;font-weight:700;padding:0 8px;border-radius:999px;background:var(--sunk);color:var(--fg-2);margin-left:8px;vertical-align:middle;white-space:nowrap;line-height:1.8}
+.dec-due.now{background:var(--accent-strong);color:var(--on-accent)}
+.tl-txt{display:flex;flex-direction:column;align-items:center;gap:1px;min-width:0}
+@media (max-width:700px){.tl-btn .tl-txt{align-items:flex-start}}
+.tl-date{font-size:11px;color:var(--fg-3);font-family:var(--font-display);font-variant-numeric:tabular-nums}
+.tl-detail .k small{display:block;font-size:12px;font-weight:600;color:var(--fg-3);margin-top:4px}
+.gantt .gh small{display:block;font-weight:500;color:var(--fg-3);font-size:10.5px}
+td.due{font-family:var(--font-display);font-variant-numeric:tabular-nums;white-space:nowrap}
+td.due small{display:block;color:var(--fg-3);font-size:11px}
+.calc-btns{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 </style>
 </head>
 <body>
@@ -833,7 +861,7 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
     </div>
     <div class="mast-meta">
       <span class="tag est">呈 Min 決策</span>
-      <span class="mast-date">2026.10 · Eric</span>
+      <span class="mast-date">12 月初版 · Eric</span>
     </div>
   </div>
 </header>
@@ -860,7 +888,7 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
 <!-- ======================= 01 總覽 ======================= -->
 <section class="panel" id="p-overview" role="tabpanel" aria-labelledby="tab-overview" tabindex="-1">
   <div class="hero">
-    <div class="hero-kicker"><span class="eyebrow">01 · 總覽</span><span class="tag tbd">日期暫定</span></div>
+    <div class="hero-kicker"><span class="eyebrow">01 · 總覽</span><span class="tag est">12 月初版</span><span class="countdown" id="countdown"></span></div>
     <h1><span class="h1-top">台灣大哥大 × 承暉</span><span class="h1-main">AI Contact Center Seminar</span></h1>
     <p class="hero-sub">半天實體活動，呈現從硬體、平台到 AI 應用的完整客服方案，搭配 Live Demo 與案例。</p>
   </div>
@@ -868,8 +896,8 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
   <div class="facts">
     <div class="fact">
       <div class="fact-top"><span class="fact-label">何時</span><span class="ico-badge n"><svg class="ico"><use href="#i-calendar"/></svg></span></div>
-      <div class="fact-val">2026 年 11 月底至 12 月</div>
-      <div class="fact-sub">半天實體 · <span class="tag tbd">暫定</span></div>
+      <div class="fact-val">2026 年 12 月 3 日（四）下午</div>
+      <div class="fact-sub">備選 12/10（四）<span class="tag tbd">待 Min 確認</span></div>
     </div>
     <div class="fact">
       <div class="fact-top"><span class="fact-label">主辦</span><span class="ico-badge n"><svg class="ico"><use href="#i-users"/></svg></span></div>
@@ -892,6 +920,52 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
       <div class="fact-sub">不只看報名人數</div>
     </div>
   </div>
+
+  <section class="blk" aria-labelledby="h-adj">
+    <div class="blk-head"><h3 id="h-adj">12 月初版：要調整的 8 件事</h3><span class="tag est">建議</span><span class="hint">原規劃 → 12/3 版</span></div>
+    <div class="adj">
+      <div class="adj-card">
+        <div class="adj-h"><span class="ico-badge"><svg class="ico"><use href="#i-clock"/></svg></span><div><span class="adj-n">01</span><h4>時程從 8 週縮成 7 週</h4></div></div>
+        <dl class="ba"><dt class="was">原</dt><dd class="was">W−8 開始倒數</dd><dt class="now">改</dt><dd class="now">今天就是 W−7，Gate 1 在本週五 10/16</dd></dl>
+        <details class="more"><summary>為什麼</summary><div class="more-body"><p>12/3 往回推只剩 52 天。原本 W−8 的決策工作全部壓進本週，其他工作線同步啟動，不等決策完才開始。</p></div></details>
+      </div>
+      <div class="adj-card">
+        <div class="adj-h"><span class="ico-badge"><svg class="ico"><use href="#i-swap"/></svg></span><div><span class="adj-n">02</span><h4>A／B 切換要切得動</h4></div></div>
+        <dl class="ba"><dt class="was">原</dt><dd class="was">D−14 才決定 A 或 B</dd><dt class="now">改</dt><dd class="now">本週定 A 規模、訂可隔半場的場地；11/19 只決定開全場或隔半場</dd></dl>
+        <details class="more"><summary>為什麼</summary><div class="more-body"><p>場地 10/23 就要簽約、正式邀請 11/5 就發出，D−14 再換場地來不及。場地能隔間，Go／No-Go 的「切換 Plan B」才做得到。</p></div></details>
+      </div>
+      <div class="adj-card">
+        <div class="adj-h"><span class="ico-badge"><svg class="ico"><use href="#i-building"/></svg></span><div><span class="adj-n">03</span><h4>場地是關鍵路徑</h4></div></div>
+        <dl class="ba"><dt class="was">原</dt><dd class="was">W−6 簽約</dd><dt class="now">改</dt><dd class="now">本週詢價 3 個場地、10/23 簽約；12/3 訂不到就整體順延 12/10（四）</dd></dl>
+        <details class="more"><summary>為什麼</summary><div class="more-body"><p>年底活動多，檔期最容易卡住。12/3 與 12/10 一起詢價；兩天都是週四，順延時所有日期 +7 天即可。</p></div></details>
+      </div>
+      <div class="adj-card">
+        <div class="adj-h"><span class="ico-badge"><svg class="ico"><use href="#i-mail"/></svg></span><div><span class="adj-n">04</span><h4>邀請提早、量加大</h4></div></div>
+        <dl class="ba"><dt class="was">原</dt><dd class="was">D−28 第一波，到場率 70%</dd><dt class="now">改</dt><dd class="now">10/21 先發 Save the date；邀請 120 位，到場率以 60–65% 估</dd></dl>
+        <details class="more"><summary>為什麼</summary><div class="more-body"><p>年底主管行程滿，到場率可能比平常低（建議值）。120 位 × 60% ≈ 72 人，才穩過 Plan A 的 60 人門檻。可到「來賓」頁套用 12 月建議配置試算。</p></div></details>
+      </div>
+      <div class="adj-card">
+        <div class="adj-h"><span class="ico-badge"><svg class="ico"><use href="#i-desktop"/></svg></span><div><span class="adj-n">05</span><h4>Live Demo 依穩定度分級</h4></div></div>
+        <dl class="ba"><dt class="was">原</dt><dd class="was">舞台 3 段全部 Live</dd><dt class="now">改</dt><dd class="now">11/19 Gate 2 決定哪幾段 Live，其餘「預錄＋現場講解」</dd></dl>
+        <details class="more"><summary>為什麼</summary><div class="more-body"><p>只剩 7 週，Demo 穩定度是最大變數。檢核標準是 SaaS Demo 1–2 個穩定：穩定的段落 Live，其他不冒險。</p></div></details>
+      </div>
+      <div class="adj-card">
+        <div class="adj-h"><span class="ico-badge"><svg class="ico"><use href="#i-server"/></svg></span><div><span class="adj-n">06</span><h4>一體機先確認 GPU</h4></div></div>
+        <dl class="ba"><dt class="was">原</dt><dd class="was">現場展示實機</dd><dt class="now">改</dt><dd class="now">Alan 10/23 前確認 GPU 交期；趕不上改雲端 GPU 展示同一個 Demo</dd></dl>
+        <details class="more"><summary>為什麼</summary><div class="more-body"><p>硬體交期不在我們手上。10/23 先做決定，部署與資安體驗站才有時間準備替代展示。</p></div></details>
+      </div>
+      <div class="adj-card">
+        <div class="adj-h"><span class="ico-badge"><svg class="ico"><use href="#i-star"/></svg></span><div><span class="adj-n">07</span><h4>案例先鎖可控的</h4></div></div>
+        <dl class="ba"><dt class="was">原</dt><dd class="was">台灣大、TAIPBX、台北文創等並行</dd><dt class="now">改</dt><dd class="now">先鎖台灣大自身客服案例＋1 個匿名案例；外部案例 11/6 前授權才上台</dd></dl>
+        <details class="more"><summary>為什麼</summary><div class="more-body"><p>客戶授權常要走法務與公關流程，7 週內不一定來得及。舞台上至少要有一個確定能講的案例。</p></div></details>
+      </div>
+      <div class="adj-card">
+        <div class="adj-h"><span class="ico-badge g"><svg class="ico"><use href="#i-calendar"/></svg></span><div><span class="adj-n">08</span><h4>會後跟進避開年底假期</h4></div></div>
+        <dl class="ba"><dt class="was">原</dt><dd class="was">48 小時、D+7、D+30</dd><dt class="now">改</dt><dd class="now">A 級 12/4（五）前聯繫；Workshop 12/18 前約定；Pipeline 檢視改 1/8；CTA 主打 2027 Q1 POC 名額</dd></dl>
+        <details class="more"><summary>為什麼</summary><div class="more-body"><ul><li>活動在週四，48 小時會跨週末，A 級週五就要打。</li><li>聖誕到元旦客戶難約，D+30 剛好是元旦。</li><li>年底不少企業在規劃隔年預算，「2027 Q1 POC 名額（數量待定）」讓來賓有理由年底前約下一步。</li></ul></div></details>
+      </div>
+    </div>
+  </section>
 
   <section class="blk" aria-labelledby="h-concept">
     <div class="blk-head"><h3 id="h-concept">一通電話，三個階段，一套地基</h3><span class="tag demo">概念圖</span></div>
@@ -1050,7 +1124,7 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
   </section>
 
   <section class="blk" aria-labelledby="h-split">
-    <div class="blk-head"><h3 id="h-split">下午時間怎麼分</h3><span class="tag est">建議值</span><span class="hint">14:00–16:45，共 165 分鐘</span></div>
+    <div class="blk-head"><h3 id="h-split">下午時間怎麼分</h3><span class="tag est">建議值</span><span class="hint">12/3（四）14:00–16:45，共 165 分鐘</span></div>
     <div class="card">
       <div class="pbar" role="img" aria-label="時間分配：開場與方案 25 分、舞台 Live Demo 47 分、案例 20 分、體驗區與一對一諮詢 73 分">
         <div class="s bg-c1" style="flex:25" title="開場與方案 25 分"><span>25 分</span></div>
@@ -1070,14 +1144,14 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
   </section>
 
   <section class="blk" aria-labelledby="h-tl">
-    <div class="blk-head"><h3 id="h-tl">時間軸：會前對齊到會後 Pipeline</h3><span class="hint">點節點看細節 · 間距非等比例</span></div>
+    <div class="blk-head"><h3 id="h-tl">時間軸：本週拍板到 1 月 Pipeline</h3><span class="hint">點節點看細節 · 間距非等比例</span></div>
     <ol class="tl" id="tlMain"></ol>
     <div class="tl-detail" id="tlMainDetail" aria-live="polite"></div>
   </section>
 
   <section class="blk" aria-labelledby="h-dec">
     <div class="blk-head"><h3 id="h-dec">請 Min 決定的十件事</h3><span class="spacer"></span><div class="dec-summary" id="decSummary"></div></div>
-    <p class="note">每項可直接點選「同意建議／需調整／再議」，紀錄只存在這台瀏覽器。</p>
+    <p class="note">橘色期限的四件請在本週五 10/16（Gate 1）前決定。每項可直接點選「同意建議／需調整／再議」，紀錄只存在這台瀏覽器。</p>
     <div class="dec-grid" id="decGrid"></div>
   </section>
   <div class="pnav" data-pnav></div>
@@ -1092,7 +1166,7 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
   </div>
 
   <div class="plan-groups">
-    <div class="plan-group-h"><span class="tag core">請 Min 二選一</span>年底 Seminar</div>
+    <div class="plan-group-h"><span class="tag core">請 Min 二選一</span>12/3 Seminar</div>
     <div class="plan-grid two" id="planAB"></div>
     <div class="plan-group-h" style="margin-top:6px"><span class="tag plain">後續場次</span>2027 起可接著辦</div>
     <div class="plan-grid four" id="planCF"></div>
@@ -1109,7 +1183,7 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
   </section>
 
   <section class="blk" aria-labelledby="h-gng">
-    <div class="blk-head"><h3 id="h-gng">D−14 Go／No-Go 檢核</h3><span class="hint">勾選結果存在這台瀏覽器</span><span class="spacer"></span><button class="btn" type="button" id="gngReset">清除勾選</button></div>
+    <div class="blk-head"><h3 id="h-gng">Gate 2 · 11/19（D−14）Go／No-Go</h3><span class="hint">勾選結果存在這台瀏覽器</span><span class="spacer"></span><button class="btn" type="button" id="gngReset">清除勾選</button></div>
     <div class="gng" id="gng"></div>
   </section>
   <div class="pnav" data-pnav></div>
@@ -1227,7 +1301,7 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
   </section>
 
   <section class="blk" aria-labelledby="h-rd">
-    <div class="blk-head"><h3 id="h-rd">Readiness</h3><span class="tag tbd">全部待確認</span><span class="hint">D−14 前逐項更新</span></div>
+    <div class="blk-head"><h3 id="h-rd">Readiness</h3><span class="tag tbd">全部待確認</span><span class="hint">11/19 Gate 2 前逐項更新</span></div>
     <div class="grid" style="gap:16px">
       <div class="blk"><h4 class="small muted">內容</h4><div class="table-wrap"><table class="t" id="rdContent"></table></div></div>
       <div class="blk"><h4 class="small muted">Demo（每項都有備援）</h4><div class="table-wrap"><table class="t" id="rdDemo"></table></div></div>
@@ -1253,7 +1327,7 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
       <p class="note">立體場地概念圖 · 示意，非實際比例。座位 70–80 席為建議值。</p>
     </div>
     <div>
-      <div class="blk-head" style="margin-bottom:8px"><h3 style="font-size:var(--fs-md)">當天流程 12:00–18:00</h3><span class="tag est">建議值</span></div>
+      <div class="blk-head" style="margin-bottom:8px"><h3 style="font-size:var(--fs-md)">12/3（四）當天流程</h3><span class="tag est">建議值</span></div>
       <ol class="ros" id="ros"></ol>
     </div>
   </div>
@@ -1397,7 +1471,8 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
         <div class="sl"><label for="sSa">業務邀請</label><output id="oSa" for="sSa">30 位</output><input type="range" id="sSa" min="0" max="80" step="1" value="30"></div>
         <div class="sl"><label for="sMk">行銷名單</label><output id="oMk" for="sMk">0 位</output><input type="range" id="sMk" min="0" max="100" step="1" value="0"></div>
         <div class="sl"><label for="sRt">到場率</label><output id="oRt" for="sRt">70%</output><input type="range" id="sRt" min="30" max="90" step="5" value="70"></div>
-        <div><button class="btn" type="button" id="calcReset">回到預設值</button></div>
+        <div class="calc-btns"><button class="btn primary" type="button" id="calcDec">套用 12 月建議配置</button><button class="btn" type="button" id="calcReset">回到預設值</button></div>
+        <p class="note">12 月建議配置：承暉 15、夥伴 10 家 × 5、業務 40、行銷 15，到場率 60%（年底估計，建議值）。</p>
       </div>
       <div class="calc-out">
         <span class="fact-label">預計到場</span>
@@ -1473,7 +1548,7 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
   </section>
 
   <section class="blk" aria-labelledby="h-rh">
-    <div class="blk-head"><h3 id="h-rh">邀約節奏</h3><span class="hint">點節點看要做什麼</span></div>
+    <div class="blk-head"><h3 id="h-rh">邀約節奏</h3><span class="hint">以 12/3（四）推算 · 點節點看要做什麼</span></div>
     <ol class="tl" id="rhythm"></ol>
     <div class="tl-detail" id="rhythmDetail" aria-live="polite"></div>
   </section>
@@ -1484,16 +1559,16 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
 <section class="panel" id="p-prep" role="tabpanel" aria-labelledby="tab-prep" tabindex="-1" hidden>
   <div class="phead">
     <span class="eyebrow">07 · 籌備</span>
-    <h2>八週倒數，每件事都有 Owner</h2>
-    <p class="lead">Eric 管內容，場務交給 Marketing。</p>
+    <h2>七週倒數，每件事都有 Owner</h2>
+    <p class="lead">10/12 起倒數 7 週。Eric 管內容，場務交給 Marketing。</p>
   </div>
 
   <section class="blk" aria-labelledby="h-gt">
-    <div class="blk-head"><h3 id="h-gt">八週甘特圖</h3><span class="tag est">建議值</span><span class="hint">W−8 到 W+4，W0 為活動週</span></div>
+    <div class="blk-head"><h3 id="h-gt">七週甘特圖</h3><span class="tag est">建議值</span><span class="hint">原 8 週壓縮為 7 週：W−7（10/12）到 W+5，活動週 11/30–12/4</span></div>
     <ul class="ms-legend">
-      <li><i></i><b>W−6</b> 場地簽約</li><li><i></i><b>W−4</b> 發邀請</li><li><i></i><b>W−2</b> 內容凍結＋Go／No-Go</li><li><i></i><b>W−1</b> 全體彩排</li>
+      <li><i></i><b>10/16</b> Gate 1 決策</li><li><i></i><b>10/21</b> Save the date</li><li><i></i><b>10/23</b> 場地簽約＋GPU 確認</li><li><i></i><b>11/5</b> 正式邀請</li><li><i></i><b>11/19</b> 內容凍結＋Gate 2</li><li><i></i><b>11/26</b> 全體彩排</li><li><i></i><b>12/18</b> Workshop 約定完成</li><li><i></i><b>1/8</b> Pipeline 檢視</li>
     </ul>
-    <div class="scroll-x"><div class="gantt-wrap"><div class="gantt" id="gantt" role="img" aria-label="八週甘特圖，八條工作線與四個里程碑"></div></div></div>
+    <div class="scroll-x"><div class="gantt-wrap"><div class="gantt" id="gantt" role="img" aria-label="七週甘特圖，八條工作線與里程碑"></div></div></div>
   </section>
 
   <section class="blk" aria-labelledby="h-ph">
@@ -1542,7 +1617,7 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
       <ul class="legend">
         <li><i class="sw bg-c1"></i>場地與餐飲</li><li><i class="sw bg-c2"></i>製作與視覺</li><li><i class="sw bg-c3"></i>Demo 與設備</li><li><i class="sw bg-c4"></i>推廣</li><li><i class="sw bg-c5"></i>講者與禮品</li><li><i class="sw bg-c6"></i>預備金</li>
       </ul>
-      <details class="more"><summary>兩版差在哪</summary><div class="more-body"><ul><li>Plan B 人少，製作與推廣比例下降，場地餐飲與 Demo 比例上升（精品型場地、Demo Pod 品質）。</li><li>分攤方式（台灣大／承暉／夥伴）待 Min 決定。</li></ul></div></details>
+      <details class="more"><summary>兩版差在哪</summary><div class="more-body"><ul><li>Plan B 人少，製作與推廣比例下降，場地餐飲與 Demo 比例上升（精品型場地、Demo Pod 品質）。</li><li>分攤方式（台灣大／承暉／夥伴）待 Min 決定。</li><li>12 月活動的費用要在 2026 年度內請款核銷：Marketing 本週向財務確認結帳截止日，廠商合約與發票時程跟著排。</li></ul></div></details>
     </div>
   </section>
 
@@ -1565,7 +1640,7 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
   </div>
 
   <section class="blk" aria-labelledby="h-kpi">
-    <div class="blk-head"><h3 id="h-kpi">KPI</h3><span class="tag est">建議值</span><span class="hint">以 Plan A 試算</span></div>
+    <div class="blk-head"><h3 id="h-kpi">KPI</h3><span class="tag est">建議值</span><span class="hint">以 12/3 Plan A 試算；年底到場率以 60–65% 估</span></div>
     <div class="kpi-cols">
       <div class="card kpi-col">
         <div class="kpi-col-h"><h4>會前</h4><span class="ico-badge n"><svg class="ico"><use href="#i-mail"/></svg></span></div>
@@ -1581,9 +1656,9 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
       </div>
       <div class="card kpi-col" style="border-color:var(--accent2)">
         <div class="kpi-col-h"><h4>會後</h4><span class="ico-badge g"><svg class="ico"><use href="#i-target"/></svg></span></div>
-        <div class="kpi"><span class="k">A 級 48 小時聯繫率</span><span class="v">100<small>%</small></span></div>
-        <div class="kpi"><span class="k">Assessment／Workshop</span><span class="v">6<small>家</small></span><span class="d">D+30 內</span></div>
-        <div class="kpi"><span class="k">POC</span><span class="v">2<small>家</small></span><span class="d">D+90 內啟動</span></div>
+        <div class="kpi"><span class="k">A 級 48 小時聯繫率</span><span class="v">100<small>%</small></span><span class="d">12/4（五）前打完第一通</span></div>
+        <div class="kpi"><span class="k">Assessment／Workshop</span><span class="v">6<small>家</small></span><span class="d">12/18 前約定</span></div>
+        <div class="kpi"><span class="k">POC</span><span class="v">2<small>家</small></span><span class="d">2027 Q1 啟動</span></div>
       </div>
     </div>
   </section>
@@ -1594,18 +1669,18 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
       <table class="t">
         <thead><tr><th scope="col">CTA</th><th scope="col">適合誰</th><th scope="col">下一步</th><th scope="col">Owner</th><th scope="col">是否收費</th><th scope="col">完成時間</th></tr></thead>
         <tbody>
-          <tr><th scope="row">Workshop</th><td>有興趣、需求還沒定</td><td>半天需求盤點 Workshop</td><td>業務＋Eric</td><td>免費</td><td class="num">D+30 內</td></tr>
-          <tr><th scope="row">Solution Assessment</th><td>已有汰換或擴充計畫</td><td>現況系統與流程評估報告</td><td>Kevin＋承暉</td><td><span class="tag tbd">待定</span></td><td class="num">D+45 內</td></tr>
-          <tr><th scope="row">Live Demo</th><td>要說服內部決策者（如 IT）</td><td>到府或線上專屬 Demo</td><td>業務＋承暉</td><td>免費</td><td class="num">D+14 內</td></tr>
-          <tr><th scope="row">POC</th><td>有預算與時程</td><td>限定範圍 POC（範圍與期間待定）</td><td>Kevin</td><td><span class="tag tbd">待定</span></td><td class="num">D+90 內啟動</td></tr>
-          <tr><th scope="row"><span class="tag addon">活動加碼</span><br>AI 質檢錄音試跑</th><td>有品管需求的客服中心</td><td>提供去識別化錄音試跑，回報結果</td><td>承暉</td><td>活動限定免費</td><td class="num">D+30 內</td></tr>
+          <tr><th scope="row">Workshop</th><td>有興趣、需求還沒定</td><td>半天需求盤點 Workshop</td><td>業務＋Eric</td><td>免費</td><td class="num">12/18（五）前約定</td></tr>
+          <tr><th scope="row">Solution Assessment</th><td>已有汰換或擴充計畫</td><td>現況系統與流程評估報告</td><td>Kevin＋承暉</td><td><span class="tag tbd">待定</span></td><td class="num">1/15（五）前完成</td></tr>
+          <tr><th scope="row">Live Demo</th><td>要說服內部決策者（如 IT）</td><td>到府或線上專屬 Demo</td><td>業務＋承暉</td><td>免費</td><td class="num">12/17（四）前</td></tr>
+          <tr><th scope="row">POC</th><td>有預算與時程</td><td>2027 Q1 POC 名額（數量待定），限定範圍試行</td><td>Kevin</td><td><span class="tag tbd">待定</span></td><td class="num">2027 Q1 啟動</td></tr>
+          <tr><th scope="row"><span class="tag addon">活動加碼</span><br>AI 質檢錄音試跑</th><td>有品管需求的客服中心</td><td>提供去識別化錄音試跑，回報結果</td><td>承暉</td><td>活動限定免費</td><td class="num">1/8（五）前回報</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
   <section class="blk" aria-labelledby="h-lead">
-    <div class="blk-head"><h3 id="h-lead">Lead 管理</h3><span class="hint">當天記錄、隔天分級、A 級 48 小時內聯繫</span></div>
+    <div class="blk-head"><h3 id="h-lead">Lead 管理</h3><span class="hint">當天記錄、12/4 分級、A 級 12/4 前聯繫</span></div>
     <div class="lead-grid">
       <div class="card" style="display:flex;flex-direction:column;gap:12px">
         <h4 class="small muted">11 個記錄欄位</h4>
@@ -1615,9 +1690,9 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
         <p class="note">橘框欄位決定分級。</p>
       </div>
       <div class="grades">
-        <div class="grade a"><span class="g">A</span><div><h4>時程明確＋預算明確或編列中＋決策者到場</h4><p class="act">48 小時內聯繫，約 Assessment 或專屬 Demo</p></div></div>
-        <div class="grade b"><span class="g">B</span><div><h4>有痛點，時程未定</h4><p class="act">D+7 內約 Workshop</p></div></div>
-        <div class="grade c"><span class="g">C</span><div><h4>資訊蒐集</h4><p class="act">列入培育名單，D+30 寄送內容</p></div></div>
+        <div class="grade a"><span class="g">A</span><div><h4>時程明確＋預算明確或編列中＋決策者到場</h4><p class="act">48 小時內聯繫（12/4 週五前），約 Assessment 或專屬 Demo</p></div></div>
+        <div class="grade b"><span class="g">B</span><div><h4>有痛點，時程未定</h4><p class="act">12/10（四）前約好 Workshop，12/18 前辦完或排定</p></div></div>
+        <div class="grade c"><span class="g">C</span><div><h4>資訊蒐集</h4><p class="act">列入培育名單，1 月寄送活動精華</p></div></div>
       </div>
     </div>
   </section>
@@ -1637,7 +1712,7 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
   <div class="phead">
     <span class="eyebrow">09 · 策略（內部參考）</span>
     <h2>先解哪個商業問題，再決定辦什麼場</h2>
-    <p class="lead">Seminar 是起點，後面接案例論壇、體驗日與產業巡迴。</p>
+    <p class="lead">12/3 Seminar 是起點，後面接案例論壇、體驗日與產業巡迴。</p>
   </div>
 
   <section class="blk" aria-labelledby="h-prio">
@@ -1655,10 +1730,10 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
     <div class="blk-head"><h3 id="h-path">建議路徑</h3></div>
     <div class="card">
       <ol class="path">
-        <li class="now"><span class="pd"><svg class="ico"><use href="#i-check"/></svg></span><span class="pw">現在</span><span class="pt">Min 決策</span><span class="ps">十件事拍板</span></li>
-        <li><span class="pd"><svg class="ico"><use href="#i-flag"/></svg></span><span class="pw">D−14</span><span class="pt">Go／No-Go</span><span class="ps">A、有條件 Go 或切 B</span></li>
-        <li><span class="pd"><svg class="ico"><use href="#i-stage"/></svg></span><span class="pw">年底</span><span class="pt">Seminar</span><span class="ps">11 月底至 12 月（暫定）</span></li>
-        <li class="later"><span class="pd"><svg class="ico"><use href="#i-calendar"/></svg></span><span class="pw">2027 Q1</span><span class="pt">案例論壇或體驗日</span><span class="ps">承接年底 Lead</span></li>
+        <li class="now"><span class="pd"><svg class="ico"><use href="#i-check"/></svg></span><span class="pw">本週 10/16</span><span class="pt">Gate 1 決策</span><span class="ps">是否辦、規模、日期、預算</span></li>
+        <li><span class="pd"><svg class="ico"><use href="#i-flag"/></svg></span><span class="pw">11/19</span><span class="pt">Gate 2 Go／No-Go</span><span class="ps">開全場或隔半場、哪幾段 Live</span></li>
+        <li><span class="pd"><svg class="ico"><use href="#i-stage"/></svg></span><span class="pw">12/3（四）</span><span class="pt">Seminar</span><span class="ps">備選 12/10（四）</span></li>
+        <li class="later"><span class="pd"><svg class="ico"><use href="#i-calendar"/></svg></span><span class="pw">2027 Q1</span><span class="pt">案例論壇或體驗日</span><span class="ps">春節後辦，承接 12 月 Lead</span></li>
         <li class="later"><span class="pd"><svg class="ico"><use href="#i-map"/></svg></span><span class="pw">之後</span><span class="pt">產業系列巡迴</span><span class="ps">依產業分場</span></li>
       </ol>
     </div>
@@ -1680,7 +1755,7 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
   <div class="phead">
     <span class="eyebrow">10 · Eric 待辦</span>
     <h2>Top 10，先做這些</h2>
-    <p class="lead">每項都標清楚：自己做、找人要、追進度，還是交給 Marketing。</p>
+    <p class="lead">依期限排序，以 12/3 推算。每項標清楚：自己做、找人要、追進度，還是交給 Marketing。</p>
   </div>
 
   <section class="blk" aria-labelledby="h-todo">
@@ -1706,7 +1781,7 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
 
 <footer class="wrap foot">
   <span>本頁所有 KPI、席次、比例、預算比例皆為建議值或示意，非實績。</span>
-  <span>TAIPBXCC Seminar 規劃 · 2026.10 · Eric</span>
+  <span>TAIPBXCC Seminar 規劃 · 12 月初版（2026.10）· Eric</span>
 </footer>
 
 <script>
@@ -1784,12 +1859,12 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
   function buildTimeline(listEl, detailEl, data, start) {
     listEl.innerHTML = data.map(function (d, i) {
       return '<li><button type="button" class="tl-btn' + (d.key ? ' is-key' : '') + '" aria-pressed="false" data-i="' + i + '">' +
-        '<span class="tl-dot">' + ico(d.icon) + '</span><span class="tl-txt"><span class="tl-k">' + esc(d.k) + '</span><span class="tl-t">' + esc(d.t) + '</span></span></button></li>';
+        '<span class="tl-dot">' + ico(d.icon) + '</span><span class="tl-txt"><span class="tl-k">' + esc(d.k) + '</span>' + (d.date ? '<span class="tl-date">' + esc(d.date) + '</span>' : '') + '<span class="tl-t">' + esc(d.t) + '</span></span></button></li>';
     }).join('');
     function sel(i) {
       $$('.tl-btn', listEl).forEach(function (b) { b.setAttribute('aria-pressed', String(+b.dataset.i === i)); });
       var d = data[i];
-      detailEl.innerHTML = '<span class="k">' + esc(d.k) + '</span><span class="t">' + esc(d.t) + '</span><span class="muted small">' + esc(d.d) + '</span>' +
+      detailEl.innerHTML = '<span class="k">' + esc(d.k) + (d.date ? '<small>' + esc(d.date) + '</small>' : '') + '</span><span class="t">' + esc(d.t) + '</span><span class="muted small">' + esc(d.d) + '</span>' +
         '<span class="meta"><span>負責：<b>' + esc(d.who) + '</b></span><span>' + esc(d.outLabel || '產出') + '：<b>' + esc(d.out) + '</b></span></span>';
     }
     listEl.addEventListener('click', function (e) { var b = e.target.closest('.tl-btn'); if (b) sel(+b.dataset.i); });
@@ -1797,27 +1872,36 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
   }
 
   buildTimeline($('#tlMain'), $('#tlMainDetail'), [
-    { k: 'D−28', t: '內容與名單對齊', icon: 'i-users', d: 'Theme、Agenda 草案與 Target List 第一版對齊，開始發邀請。', who: 'Eric、業務、承暉', out: 'Agenda v1、Target List v1' },
-    { k: 'D−14', t: 'Go／No-Go', icon: 'i-flag', key: true, d: '用檢核表確認 CTA、SaaS Demo、Target List 三個核心，決定辦 Plan A、有條件 Go 或切換 Plan B。', who: 'Min 決策、Eric 彙整', out: 'Go／No-Go 結論' },
-    { k: '活動日', t: 'Seminar 當天', icon: 'i-stage', d: 'Live Demo、體驗站、諮詢區；每位來賓的 Lead 欄位當天記錄完整。', who: '全體', out: 'Lead 原始資料' },
-    { k: 'D+1', t: 'Lead 整理與分派', icon: 'i-clip', d: '依 A／B／C 分級，每筆 Lead 指定 Sales Owner。', who: '業務／AM、Eric', out: 'Lead 分級表' },
-    { k: '48 小時內', t: '聯繫 Hot Lead', icon: 'i-phone', key: true, d: 'A 級 Lead 在活動後 48 小時內聯繫，約 Workshop、Assessment 或專屬 Demo。', who: 'Sales Owner', out: '聯繫紀錄' },
-    { k: 'D+7', t: '確認下一步', icon: 'i-check', d: '每家 A／B 級客戶都有排定日期的下一步。', who: '業務、Kevin、承暉', out: '下一步清單' },
-    { k: 'D+30', t: '檢視 Pipeline', icon: 'i-target', d: '看商機數、Assessment／Workshop 家數與 POC 進度，決定 2027 Q1 場次。', who: 'Min、業務、Eric', out: 'Pipeline 檢視報告' }
-  ], 1);
+    { k: 'Gate 1', date: '10/16（五）', t: '本週拍板', icon: 'i-check', key: true, d: '十件事的前四件：是否辦、規模、日期、預算。場地同步詢價，10/23 簽約。', who: 'Min 決策、Eric 彙整', out: '可以下訂場地' },
+    { k: 'D−28', date: '11/5（四）', t: '正式邀請', icon: 'i-users', d: 'Agenda 與 Target List 對齊，正式邀請與報名頁上線（10/21 已先發 Save the date）。', who: 'Eric、業務、承暉、Marketing', out: 'Agenda v1、邀請 120 位' },
+    { k: 'D−14', date: '11/19（四）', t: 'Gate 2 Go／No-Go', icon: 'i-flag', key: true, d: '檢核 CTA、SaaS Demo、Target List 三個核心；決定開全場或隔半場（Plan B），以及哪幾段 Live。', who: 'Min 決策、Eric 彙整', out: 'Go／No-Go 結論' },
+    { k: '活動日', date: '12/3（四）', t: 'Seminar 當天', icon: 'i-stage', d: 'Live Demo、體驗站、諮詢區；每位來賓的 Lead 欄位當天記錄完整。前一天 12/2 進場技術彩排。', who: '全體', out: 'Lead 原始資料' },
+    { k: 'D+1', date: '12/4（五）', t: 'Lead 整理與分派', icon: 'i-clip', d: '依 A／B／C 分級，每筆 Lead 指定 Sales Owner。', who: '業務／AM、Eric', out: 'Lead 分級表' },
+    { k: '48 小時內', date: '12/4（五）前', t: '聯繫 Hot Lead', icon: 'i-phone', key: true, d: '活動在週四，48 小時會跨週末，A 級 Lead 在 12/4（五）下班前打完第一通，約 Workshop、Assessment 或專屬 Demo。', who: 'Sales Owner', out: '聯繫紀錄' },
+    { k: 'D+7', date: '12/10（四）', t: '確認下一步', icon: 'i-check', d: '每家 A／B 級客戶都有日期；Workshop／Assessment 在 12/18 前約定，避開聖誕到元旦。', who: '業務、Kevin、承暉', out: '下一步清單' },
+    { k: 'D+36', date: '1/8（五）', t: '檢視 Pipeline', icon: 'i-target', d: '原本 D+30 落在元旦，改到 1/8。看商機數、Workshop／Assessment 家數與 2027 Q1 POC 名單，決定 Q1 場次。', who: 'Min、業務、Eric', out: 'Pipeline 檢視報告' }
+  ], 0);
+
+  /* ================= countdown ================= */
+  (function () {
+    var el = $('#countdown'); if (!el) return;
+    var now = new Date(); var t0 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var days = Math.round((new Date(2026, 11, 3) - t0) / 86400000);
+    if (days > 0) el.innerHTML = '距 12/3 還有 <b>' + days + '</b> 天'; else el.hidden = true;
+  })();
 
   /* ================= decisions ================= */
   var DECISIONS = [
-    { t: '是否辦', rec: '辦，並以 D−14 Go／No-Go 作為保險', mat: ['一頁活動概要', 'Pipeline 目標（建議值）', '各單位需投入的人力'] },
-    { t: 'Plan A 或 B', rec: 'Plan A 為主、Plan B 為備案', mat: ['A／B 比較表與場地概念圖', '邀客試算', 'Go／No-Go 檢核表'] },
-    { t: '日期', rec: '11 月底至 12 月，提三個候選日', mat: ['三個候選日期', '與周副總、承暉行程比對', '場地檔期'] },
-    { t: '預算', rec: '依比例起始假設，A／B 各編一版', mat: ['預算配置比例（起始假設）', 'A／B 兩版差異', '台灣大／承暉／夥伴分攤方式'] },
-    { t: 'TA', rec: '客服主管＋IT／資安成對邀請', mat: ['TA 關係圖', '六種名單來源與負責人', '邀請追蹤欄位'] },
-    { t: 'Speaker', rec: '台灣大與承暉為主，夥伴每次 ≤10 分鐘', mat: ['Speaker 候選名單', '六幕旅程與分鐘數', '講者簡報規範'] },
-    { t: '高階主管 Opening（周副總）', rec: '請周副總開場 5 分鐘（待確認）', mat: ['致詞三重點草稿', '行程確認信', '備案：由 Min 開場'] },
-    { t: 'Partner List', rec: '依層別各邀 1–2 家：硬體、雲端、平台、AI 應用', mat: ['夥伴分層名單', '各家出場分鐘與邀客責任', 'Partner 區配置'] },
-    { t: '大型 Demo', rec: '舞台三段 Live Demo，全部有預錄備援', mat: ['Demo Readiness 表', 'Demo Flow 與腳本', 'Kevin 的穩定度判斷'] },
-    { t: '活動 KPI', rec: '看 Pipeline：A 級 Lead、Assessment／Workshop、POC', mat: ['KPI 建議值三欄', 'Lead A／B／C 分級', '48 小時跟進規則'] }
+    { t: '是否辦', due: '10/16', now: 1, rec: '辦。只剩 7 週，本週不決定就訂不到 12 月場地', mat: ['一頁活動概要', 'Pipeline 目標（建議值）', '各單位需投入的人力'] },
+    { t: 'Plan A 或 B', due: '10/16', now: 1, rec: '以 A 規模訂可隔半場的場地，11/19 仍可縮為 B', mat: ['A／B 比較表與場地概念圖', '邀客試算（12 月建議配置）', '可隔間場地的詢價結果'] },
+    { t: '日期', due: '10/16', now: 1, rec: '12/3（四）下午；場地訂不到就整體順延 12/10（四）', mat: ['12/3 與 12/10 的場地檔期', '周副總、承暉在兩個日期的行程', '同業年底活動撞期檢查'] },
+    { t: '預算', due: '10/16', now: 1, rec: '依比例起始假設編列，確認可在 2026 年度內核銷', mat: ['預算配置比例（起始假設）', 'A／B 兩版差異', '分攤方式（台灣大／承暉／夥伴）與財務結帳時程'] },
+    { t: 'TA', due: '10/23', rec: '客服主管＋IT／資安成對邀請，10/21 先發 Save the date', mat: ['TA 關係圖', '六種名單來源與負責人', '邀請追蹤欄位'] },
+    { t: 'Speaker', due: '10/23', rec: '台灣大與承暉為主，夥伴每次 ≤10 分鐘', mat: ['Speaker 候選名單與 12/3 行程', '六幕旅程與分鐘數', '講者簡報規範'] },
+    { t: '高階主管 Opening（周副總）', due: '10/23', rec: '請周副總 12/3 開場 5 分鐘（待確認），備案由 Min 開場', mat: ['致詞三重點草稿', '行程確認信', '備案：由 Min 開場'] },
+    { t: 'Partner List', due: '10/23', rec: '依層別各邀 1–2 家：硬體、雲端、平台、AI 應用', mat: ['夥伴分層名單', '各家出場分鐘與邀客責任', 'Partner 區配置'] },
+    { t: '大型 Demo', due: '10/23', rec: '10/23 定 Live 範圍與一體機是否實機；11/19 Gate 2 最終確認，全部有預錄備援', mat: ['Demo Readiness 表', 'Alan 的 GPU 交期', 'Kevin 的穩定度判斷'] },
+    { t: '活動 KPI', due: '10/30', rec: '看 Pipeline：A 級 Lead、12/18 前約定的 Workshop／Assessment、2027 Q1 POC', mat: ['KPI 建議值三欄', 'Lead A／B／C 分級', '48 小時跟進規則（12/4 前）'] }
   ];
   var DEC_OPTS = [['ok', '同意建議'], ['adj', '需調整'], ['hold', '再議']];
   var decState = store.get('dec', {});
@@ -1825,7 +1909,7 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
     $('#decGrid').innerHTML = DECISIONS.map(function (d, i) {
       var st = decState[i] || '';
       return '<article class="dec" data-state="' + st + '" data-i="' + i + '"><span class="dec-n">' + pad2(i + 1) + '</span>' +
-        '<h4>' + esc(d.t) + '</h4><p class="dec-rec"><b>建議</b>　' + esc(d.rec) + '</p>' +
+        '<h4>' + esc(d.t) + '<span class="dec-due' + (d.now ? ' now' : '') + '">' + d.due + ' 前</span></h4><p class="dec-rec"><b>建議</b>　' + esc(d.rec) + '</p>' +
         '<div class="dec-act" role="group" aria-label="' + esc(d.t) + ' 的決定">' + DEC_OPTS.map(function (o) {
           return '<button type="button" data-v="' + o[0] + '" aria-pressed="' + (st === o[0]) + '">' + o[1] + '</button>';
         }).join('') + '</div>' +
@@ -2136,11 +2220,11 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
 
   /* ================= plans ================= */
   var PLANS = [
-    { id: 'A', ab: true, name: '大型 Seminar', scale: '60–100 人', purpose: '聲量、名單、夥伴生態、方案定位', setup: '主舞台＋Partner 區＋方案展示＋Live Demo＋交流＋諮詢區', when: 'Go／No-Go 三個核心齊全', pros: '一次建立市場定位與夥伴生態，名單量最大', cons: '執行最重，Demo 與到場風險最高', need: '100 人劇院式場地＋獨立展區、4 個體驗站、邀請至少約 86 位（以到場率 70% 試算）', r: [5, 4, 5, 2] },
-    { id: 'B', ab: true, name: 'Executive Briefing／Roundtable', scale: '20–40 人', purpose: '精準 TA、深度交流、POC', setup: '高階分享＋圓桌＋2–3 個 Demo Pod＋一對一諮詢；不設攤位', when: '核心客戶明確，但名單或 Demo 還沒全部到位', pros: '對話深、執行輕，容易談到 POC', cons: '聲量小，夥伴曝光有限', need: '精品型會議室、高階講者 1–2 位、Demo Pod 2–3 個', r: [4, 5, 2, 4] },
+    { id: 'A', ab: true, name: '大型 Seminar', scale: '60–100 人', purpose: '聲量、名單、夥伴生態、方案定位', setup: '主舞台＋Partner 區＋方案展示＋Live Demo＋交流＋諮詢區', when: 'Gate 1（10/16）選 A 規模並訂到可隔間場地；Gate 2（11/19）三個核心齊全', pros: '一次建立市場定位與夥伴生態，名單量最大', cons: '執行最重，Demo 與到場風險最高；12 月場地檔期緊', need: '100 人劇院式、可隔半場的場地＋獨立展區、4 個體驗站、邀請 120 位（年底到場率以 60% 估）', r: [5, 4, 5, 2] },
+    { id: 'B', ab: true, name: 'Executive Briefing／Roundtable', scale: '20–40 人', purpose: '精準 TA、深度交流、POC', setup: '高階分享＋圓桌＋2–3 個 Demo Pod＋一對一諮詢；不設攤位', when: 'Gate 2（11/19）核心未齊或確認出席不足：同一場地隔半場、改圓桌', pros: '對話深、執行輕，容易談到 POC', cons: '聲量小，夥伴曝光有限', need: '精品型會議室、高階講者 1–2 位、Demo Pod 2–3 個', r: [4, 5, 2, 4] },
     { id: 'C', name: 'AI 客服能力展示體驗日', scale: '30–50 人・分梯', purpose: '讓客服主管親手試，帶出 Assessment', setup: '4 個體驗站環狀動線＋簡報角＋諮詢區', when: '2027 Q1，承接年底 Lead', pros: '最貼近產品，轉 Assessment 快', cons: 'Demo 穩定度要求最高', need: '4 站 Demo 環境、站務人員、預約制報名', r: [4, 4, 3, 3] },
     { id: 'D', name: '導入案例論壇', scale: '40–60 人', purpose: '用客戶案例建立信任', setup: '案例對談舞台＋劇院座位＋Demo 角', when: '有 1–2 個可公開的導入案例後', pros: '說服力最強，適合觀望型客戶', cons: '受案例授權限制', need: '客戶講者、案例授權、主持人', r: [3, 4, 3, 3] },
-    { id: 'E', name: 'Partner 共創日', scale: '20–30 人（夥伴）', purpose: '共同方案包、聯合名單、通路分工', setup: '分組共創桌＋白板牆＋咖啡角', when: '年底 Seminar 前後皆可', pros: '擴大邀客來源，夥伴投入度高', cons: '對終端客戶商機是間接的', need: '引導者、共創題目、會後方案包', r: [2, 3, 2, 4] },
+    { id: 'E', name: 'Partner 共創日', scale: '20–30 人（夥伴）', purpose: '共同方案包、聯合名單、通路分工', setup: '分組共創桌＋白板牆＋咖啡角', when: '12/3 Seminar 前後皆可', pros: '擴大邀客來源，夥伴投入度高', cons: '對終端客戶商機是間接的', need: '引導者、共創題目、會後方案包', r: [2, 3, 2, 4] },
     { id: 'F', name: '客服中心 AI 成熟度調查發表', scale: '50–80 人＋媒體', purpose: '產業聲量、媒體露出、用評估問卷收名單', setup: '主講台＋數據牆＋媒體區＋訪談區', when: '調查完成後（至少需 2–3 個月）', pros: '聲量最大，可當產業話題', cons: '調查設計與樣本耗時', need: '調查問卷與樣本、數據分析、媒體公關', r: [3, 2, 4, 2] }
   ];
   function planCard(p) {
@@ -2217,9 +2301,9 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
     else if (done / GTOTAL < 0.8) { v = 'cond'; title = '有條件 Go'; why = '核心齊全，但完成度未達 80%。列出缺項，D−7 前補齊。'; }
     else { v = 'go'; title = 'Go，辦 Plan A'; why = '核心齊全，完成度達 80% 以上。'; }
     var el = $('#verdict'); el.dataset.v = v;
-    el.innerHTML = '<span class="verdict-k">D−14 判定</span><span class="verdict-v">' + title + '</span><span class="verdict-why">' + esc(why) + '</span>' +
+    el.innerHTML = '<span class="verdict-k">Gate 2 · 11/19 判定</span><span class="verdict-v">' + title + '</span><span class="verdict-why">' + esc(why) + '</span>' +
       '<div style="display:flex;flex-direction:column;gap:6px"><div class="mini-bar"><i style="width:' + pct + '%"></i></div><span class="verdict-pct">完成 ' + done + '／' + GTOTAL + ' · ' + pct + '%</span></div>' +
-      '<ul class="verdict-rule"><li>任一核心未勾 → 切換 Plan B</li><li>核心齊全、完成不到八成 → 有條件 Go</li><li>其餘 → Go，辦 Plan A</li></ul>';
+      '<ul class="verdict-rule"><li>任一核心未勾 → 切換 Plan B</li><li>核心齊全、完成不到八成 → 有條件 Go</li><li>其餘 → Go，辦 Plan A</li><li>場地可隔半場，切換 Plan B 才來得及</li></ul>';
   }
   $('#gng').addEventListener('change', function (e) {
     var k = e.target.dataset.k; if (!k) return;
@@ -2299,6 +2383,7 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
     $('#actMeta').innerHTML = '<div class="act-min"><span class="num">' + a.min + '</span><span>分鐘</span><span class="tag est">建議值</span></div>' +
       '<h4 style="font-size:var(--fs-lg)">第 ' + i + ' 幕 · ' + esc(a.t) + '</h4><p class="small muted">' + esc(a.line) + '</p>' +
       '<div style="display:flex;flex-direction:column;gap:6px"><span class="xs muted">出場角色</span><div class="act-roles">' + a.roles + '</div></div>' +
+      (a.mode === 'LIVE' ? '<p class="note">這段 Live 或改「預錄＋現場講解」，由 11/19 Gate 2 依穩定度決定。</p>' : '') +
       '<p class="note">舞台合計 67 分鐘（建議值）；夥伴每次出場不超過 10 分鐘。</p>';
     var scr = $('#actScreen');
     scr.classList.remove('anim'); void scr.offsetWidth; if (anim) scr.classList.add('anim');
@@ -2320,26 +2405,26 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
 
   /* ================= readiness ================= */
   var STATUS = '<span class="status">待確認</span>';
-  $('#rdContent').innerHTML = '<thead><tr><th scope="col">項目</th><th scope="col">Owner</th><th scope="col">需要什麼</th><th scope="col">狀態</th></tr></thead><tbody>' + [
-    ['Theme 與 Agenda', 'Eric', '一通電話故事線、六幕分鐘數'],
-    ['Speaker', 'Eric 協調 Bobson／承暉', '講者名單與主題'],
-    ['Opening', 'Min → 周副總辦公室', '行程確認、致詞重點'],
-    ['台灣大客服案例', '客服營運', '可公開範圍與資料授權'],
-    ['TAIPBX 案例', 'Bobson／承暉', '客戶同意與簡報'],
-    ['台北文創等案例', '業務／AM＋承暉', '客戶同意、講者意願'],
-    ['Demo Storyline', 'Eric＋Kevin', '六幕腳本與對話'],
-    ['一體機方案與定價', 'Kevin＋Alan', 'Package、Pricing、交期'],
-    ['POC 模式', 'Kevin', '範圍、期間、收費方式'],
-    ['CTA', 'Eric＋業務', '四種下一步與報名方式'],
-    ['加值方案素材', '承暉＋Marketing', 'AI 質檢說明與錄音試跑流程']
-  ].map(function (r) { return '<tr><th scope="row">' + esc(r[0]) + '</th><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td><td>' + STATUS + '</td></tr>'; }).join('') + '</tbody>';
-  $('#rdDemo').innerHTML = '<thead><tr><th scope="col">Demo</th><th scope="col">Owner</th><th scope="col">環境</th><th scope="col">依賴</th><th scope="col">備援</th><th scope="col">狀態</th></tr></thead><tbody>' + [
-    ['AI 語音客服', 'Kevin＋承暉', 'SaaS 測試環境＋現場專線', '國台語模型、語音線路、腳本', '預錄影片＋錄音回放'],
-    ['Agent Assist／AGD', '承暉（Bobson）', 'SaaS＋專員筆電', '知識庫範例、TAIPBXCC 進線', '預錄影片'],
-    ['TAIPBXCC 進線', '承暉＋IT', '測試門號與 SIP Trunk', '現場網路、門號開通', '預錄影片＋模擬進線'],
-    ['AI 一體機', 'Alan', '實機（HPE／凌華）', 'GPU 到貨、電力、搬運', '照片＋架構圖＋預錄影片'],
-    ['加值：AI 質檢', '承暉', 'SaaS', '去識別化錄音樣本', '預錄影片＋報表截圖']
-  ].map(function (r) { return '<tr><th scope="row">' + esc(r[0]) + '</th><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td><td>' + esc(r[3]) + '</td><td>' + esc(r[4]) + '</td><td>' + STATUS + '</td></tr>'; }).join('') + '</tbody>';
+  $('#rdContent').innerHTML = '<thead><tr><th scope="col">項目</th><th scope="col">Owner</th><th scope="col">需要什麼</th><th scope="col">期限</th><th scope="col">狀態</th></tr></thead><tbody>' + [
+    ['Theme 與 Agenda', 'Eric', '一通電話故事線、六幕分鐘數', '10/30（五）'],
+    ['Speaker', 'Eric 協調 Bobson／承暉', '講者名單、主題與 12/3 行程', '10/23（五）'],
+    ['Opening', 'Min → 周副總辦公室', '12/3 行程確認、致詞重點', '10/23（五）'],
+    ['台灣大客服案例', '客服營運', '可公開範圍與資料授權（優先鎖定）', '10/30（五）'],
+    ['TAIPBX 案例', 'Bobson／承暉', '客戶同意與簡報', '11/6（五）'],
+    ['台北文創等案例', '業務／AM＋承暉', '客戶同意、講者意願；未授權改匿名', '11/6（五）'],
+    ['Demo Storyline', 'Eric＋Kevin', '六幕腳本與對話', '11/6（五）'],
+    ['一體機方案與定價', 'Kevin＋Alan', 'Package、Pricing、GPU 交期', '11/13（五）'],
+    ['POC 模式', 'Kevin', '範圍、期間、收費方式、2027 Q1 名額', '11/19（四）'],
+    ['CTA', 'Eric＋業務', '四種下一步與報名方式', '11/13（五）'],
+    ['加值方案素材', '承暉＋Marketing', 'AI 質檢說明與錄音試跑流程', '11/13（五）']
+  ].map(function (r) { return '<tr><th scope="row">' + esc(r[0]) + '</th><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td><td class="due">' + esc(r[3]) + '</td><td>' + STATUS + '</td></tr>'; }).join('') + '</tbody>';
+  $('#rdDemo').innerHTML = '<thead><tr><th scope="col">Demo</th><th scope="col">Owner</th><th scope="col">環境</th><th scope="col">依賴</th><th scope="col">備援</th><th scope="col">期限</th><th scope="col">狀態</th></tr></thead><tbody>' + [
+    ['AI 語音客服', 'Kevin＋承暉', 'SaaS 測試環境＋現場專線', '國台語模型、語音線路、腳本', '預錄影片＋錄音回放', '11/13（五）'],
+    ['Agent Assist／AGD', '承暉（Bobson）', 'SaaS＋專員筆電', '知識庫範例、TAIPBXCC 進線', '預錄影片', '11/13（五）'],
+    ['TAIPBXCC 進線', '承暉＋IT', '測試門號與 SIP Trunk', '現場網路、門號開通', '預錄影片＋模擬進線', '11/13（五）'],
+    ['AI 一體機', 'Alan', '實機（HPE／凌華）或雲端 GPU', 'GPU 交期（10/23 決定）、電力、搬運', '照片＋架構圖＋預錄影片', '11/20（五）'],
+    ['加值：AI 質檢', '承暉', 'SaaS', '去識別化錄音樣本', '預錄影片＋報表截圖', '11/19（四）']
+  ].map(function (r) { return '<tr><th scope="row">' + esc(r[0]) + '</th><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td><td>' + esc(r[3]) + '</td><td>' + esc(r[4]) + '</td><td class="due">' + esc(r[5]) + '</td><td>' + STATUS + '</td></tr>'; }).join('') + '</tbody>';
 
   /* ================= venue (Plan A) ================= */
   var LA = LAYOUTS.A;
@@ -2348,6 +2433,7 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
   $('#venueLegend').innerHTML = legendHTML(LA);
   var ZNAME = { stage: '舞台', seat: '座位', partner: 'Partner 區', demo: '體驗站', social: '交流區', consult: '諮詢區', reg: '報到', signup: '報名檯', control: '控台', media: '媒體區' };
   var ROS = [
+    { t: '12/2', n: '前一天：進場佈置與技術彩排', s: 'Demo 實測、網路測速、備援影片就位', z: ['stage', 'demo', 'partner', 'control'], pre: 1 },
     { t: '12:00', n: '工作人員集合', s: '分工確認，動線走一遍', z: ['control', 'media'], pre: 1 },
     { t: '12:30', n: 'Partner 報到與 Demo 檢查', s: '每站實測一次，備援影片就位', z: ['partner', 'demo', 'control'], pre: 1 },
     { t: '13:30', n: '來賓報到（VIP 13:45）', s: 'VIP 由業務陪同', z: ['reg', 'social'] },
@@ -2409,33 +2495,37 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
   }
   Object.keys(CALC_DEF).forEach(function (k) { $('#' + k).addEventListener('input', calc); });
   $('#calcReset').addEventListener('click', function () { Object.keys(CALC_DEF).forEach(function (k) { $('#' + k).value = CALC_DEF[k]; }); calc(); });
+  var CALC_DEC = { sCh: 15, sPn: 10, sPp: 5, sSa: 40, sMk: 15, sRt: 60 };
+  $('#calcDec').addEventListener('click', function () { Object.keys(CALC_DEC).forEach(function (k) { $('#' + k).value = CALC_DEC[k]; }); calc(); });
   calc();
 
   /* ================= promo rhythm ================= */
   buildTimeline($('#rhythm'), $('#rhythmDetail'), [
-    { k: 'D−28', t: 'Save the date', icon: 'i-calendar', d: '業務拿到 Target List 並分派；承暉與夥伴提交邀請名單；寄出 Save the date。', who: '業務、承暉、Marketing', outLabel: '指標', out: '邀請名單 120 筆（建議值）' },
-    { k: 'D−21', t: '正式邀請＋報名頁', icon: 'i-mail', d: '正式邀請函與報名頁上線；成對邀請逐家確認（需求擁有者＋否決者）。', who: 'Marketing、業務', outLabel: '指標', out: '邀請全數送出' },
-    { k: 'D−14', t: 'Go／No-Go＋第二波', icon: 'i-flag', key: true, d: '檢核表過會；未回覆者第二波邀請；夥伴名單回收。', who: 'Min、Eric、業務', outLabel: '指標', out: '確認出席達 Plan A 門檻（建議值）' },
-    { k: 'D−7', t: '電話確認', icon: 'i-phone', d: '業務逐一電話確認；安排 VIP 座位與一對一諮詢預約。', who: '業務、Marketing', outLabel: '指標', out: '已確認名單全數電話確認' },
-    { k: 'D−1', t: '行前通知', icon: 'i-check', d: '寄出交通、報到 QR 與議程；VIP 最終確認；夥伴行前會。', who: 'Marketing、Bobson', outLabel: '指標', out: '行前通知全數送達' }
+    { k: 'D−43', date: '10/21（三）', t: 'Save the date', icon: 'i-calendar', key: true, d: '先卡住主管的年底行程：業務、承暉與夥伴各自發出 Save the date；Target List 已分派完。', who: '業務、承暉、Marketing', outLabel: '指標', out: '邀請名單 120 筆（建議值）' },
+    { k: 'D−28', date: '11/5（四）', t: '正式邀請＋報名頁', icon: 'i-mail', d: '正式邀請函與報名頁上線；成對邀請逐家確認（需求擁有者＋否決者）。', who: 'Marketing、業務', outLabel: '指標', out: '邀請全數送出' },
+    { k: 'D−21', date: '11/12（四）', t: '第二波邀請', icon: 'i-users', d: '未回覆者第二波；回收夥伴名單；確認 VIP 名單。', who: '業務、Partner／BD', outLabel: '指標', out: '確認出席 50 位（建議值）' },
+    { k: 'D−14', date: '11/19（四）', t: 'Gate 2 Go／No-Go', icon: 'i-flag', key: true, d: '檢核表過會；依確認出席數決定開全場或隔半場；決定哪幾段 Live。', who: 'Min、Eric、業務', outLabel: '指標', out: '確認出席 75 位以上開全場（建議值）' },
+    { k: 'D−7', date: '11/26（四）', t: '電話確認', icon: 'i-phone', d: '業務逐一電話確認；安排 VIP 座位與一對一諮詢預約。', who: '業務、Marketing', outLabel: '指標', out: '已確認名單全數電話確認' },
+    { k: 'D−1', date: '12/2（三）', t: '行前通知', icon: 'i-check', d: '寄出交通、報到 QR 與議程；VIP 最終確認；同日進場技術彩排。', who: 'Marketing、Bobson', outLabel: '指標', out: '行前通知全數送達' }
   ], 0);
 
   /* ================= gantt ================= */
-  var WEEKS = [-8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4];
+  var WEEKS = [-7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5];
   var wl = function (w) { return w === 0 ? '活動週' : (w < 0 ? 'W−' + (-w) : 'W+' + w); };
+  var wkDate = function (w) { var d = new Date(2026, 10, 30 + 7 * w); return (d.getMonth() + 1) + '/' + d.getDate(); };
   var GANTT = [
-    { n: '策略與決策', o: 'Min／Eric', bars: [[-8, -6]], ms: [[-2, 'Go／No-Go']] },
+    { n: '策略與決策', o: 'Min／Eric', bars: [[-7, -7]], ms: [[-7, 'Gate 1'], [-2, 'Gate 2']] },
     { n: '內容與議程', o: 'Eric', bars: [[-7, -2]], ms: [[-2, '內容凍結']] },
-    { n: 'Demo 與 Solution', o: 'Kevin／IT', bars: [[-7, -1]] },
-    { n: '夥伴與 Speaker', o: 'Bobson／Alan', bars: [[-8, -3]] },
+    { n: 'Demo 與 Solution', o: 'Kevin／IT／Alan', bars: [[-7, -1]], ms: [[-6, 'GPU 確認']] },
+    { n: '夥伴與 Speaker', o: 'Bobson／Alan', bars: [[-7, -3]] },
     { n: '場地與製作', o: 'Marketing', bars: [[-7, 0]], ms: [[-6, '場地簽約']] },
-    { n: '邀約與報名', o: '業務／Marketing', bars: [[-5, -1]], ms: [[-4, '發邀請']] },
+    { n: '邀約與報名', o: '業務／Marketing', bars: [[-6, -1]], ms: [[-6, 'Save the date'], [-4, '正式邀請']] },
     { n: '彩排與現場', o: '全體（Marketing 主持）', bars: [[-1, 0]], ms: [[-1, '全體彩排']] },
-    { n: 'Lead 跟進', o: '業務／AM', bars: [[0, 4]], post: 1 }
+    { n: 'Lead 跟進', o: '業務／AM', bars: [[0, 5]], post: 1, ms: [[2, 'Workshop 約定'], [5, 'Pipeline 檢視']] }
   ];
   (function () {
     var col = function (w) { return WEEKS.indexOf(w) + 2; };
-    var h = '<div class="gh" style="grid-row:1;grid-column:1"></div>' + WEEKS.map(function (w) { return '<div class="gh' + (w === 0 ? ' ev' : '') + '" style="grid-row:1;grid-column:' + col(w) + '">' + wl(w) + '</div>'; }).join('');
+    var h = '<div class="gh" style="grid-row:1;grid-column:1"></div>' + WEEKS.map(function (w) { return '<div class="gh' + (w === 0 ? ' ev' : '') + '" style="grid-row:1;grid-column:' + col(w) + '">' + wl(w) + '<small>' + wkDate(w) + '</small></div>'; }).join('');
     GANTT.forEach(function (g, i) {
       var r = i + 2;
       h += '<div class="gl" style="grid-row:' + r + ';grid-column:1"><b>' + esc(g.n) + '</b><span>' + esc(g.o) + '</span></div>';
@@ -2449,29 +2539,34 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
   /* ================= phase checklist ================= */
   var PH = [['all', '全部'], ['Strategy', 'Strategy 策略'], ['Content', 'Content 內容'], ['Solution', 'Solution 方案'], ['Event', 'Event 活動'], ['Invitation', 'Invitation 邀約']];
   var TASKS = [
-    ['Strategy', '是否辦、Plan A 或 B', 'Min', 'W−8', '一頁活動概要'],
-    ['Strategy', '預算與分攤', 'Min', 'W−7', '預算比例（起始假設）'],
-    ['Strategy', 'TA 與產業優先順序', 'Eric', 'W−7', '業務名單'],
-    ['Strategy', 'KPI 建議值定案', 'Min', 'W−6', 'Eric 提案'],
-    ['Content', 'Theme 與 Agenda 定稿', 'Eric', 'W−5', 'Speaker 確認'],
-    ['Content', 'Speaker 邀請與簡報', 'Bobson／承暉', 'W−4', 'Agenda'],
-    ['Content', '案例授權（台灣大、TAIPBX、台北文創）', '客服營運／承暉／業務', 'W−4', '客戶同意'],
-    ['Content', '內容凍結', 'Eric', 'W−2', '全部簡報到齊'],
-    ['Solution', 'SaaS Demo 1–2 個穩定', 'Kevin', 'W−3', '測試環境'],
-    ['Solution', 'Demo Flow 與腳本', 'Kevin＋Eric', 'W−3', 'Demo Storyline'],
-    ['Solution', '一體機 Package／Pricing', 'Kevin＋Alan', 'W−3', 'GPU 交期'],
-    ['Solution', 'POC 條件', 'Kevin', 'W−2', 'Pricing'],
-    ['Solution', 'Demo 備援影片', 'IT', 'W−2', 'Demo Flow'],
-    ['Event', '場地簽約', 'Marketing', 'W−6', '預算核可'],
-    ['Event', '報名頁與 EDM', 'Marketing', 'W−4', '活動文案'],
-    ['Event', '視覺與製作', 'Marketing', 'W−3', '內容主軸'],
-    ['Event', 'Run of Show', 'Marketing（議程時間由 Eric 提供）', 'W−1', '內容凍結'],
-    ['Event', '全體彩排', 'Marketing 主持', 'W−1', 'Run of Show'],
-    ['Invitation', 'Target List 與 VIP List', '業務', 'W−5', 'TA 定義'],
-    ['Invitation', 'Partner 邀請', 'Partner／BD', 'W−5', 'Partner List'],
-    ['Invitation', '發邀請', '業務＋Marketing', 'W−4', '報名頁'],
-    ['Invitation', 'Lead Capture 與 Sales Owner 規則', '業務', 'W−2', 'Lead 欄位'],
-    ['Invitation', 'D−7 電話確認', '業務', 'W−1', '邀請追蹤表']
+    ['Strategy', '是否辦、規模（A／B）、日期', 'Min', '10/16（五）', 'W−7', '一頁活動概要、場地詢價'],
+    ['Strategy', '預算與分攤、年度內核銷', 'Min', '10/16（五）', 'W−7', '預算比例（起始假設）'],
+    ['Strategy', 'TA 與產業優先順序', 'Eric', '10/20（二）', 'W−6', '業務名單'],
+    ['Strategy', 'KPI 建議值定案', 'Min', '10/30（五）', 'W−5', 'Eric 提案'],
+    ['Content', 'Speaker 確認', 'Bobson／承暉', '10/23（五）', 'W−6', '日期確定'],
+    ['Content', 'Theme 與 Agenda 定稿', 'Eric', '10/30（五）', 'W−5', 'Speaker 確認'],
+    ['Content', '案例授權（台灣大、TAIPBX、台北文創）', '客服營運／承暉／業務', '11/6（五）', 'W−4', '客戶同意'],
+    ['Content', '講者簡報初稿', 'Bobson／承暉', '11/6（五）', 'W−4', 'Agenda'],
+    ['Content', '內容凍結', 'Eric', '11/19（四）', 'W−2', '全部簡報到齊'],
+    ['Solution', 'GPU 交期與一體機實機確認', 'Alan', '10/23（五）', 'W−6', '夥伴交期'],
+    ['Solution', 'Demo Flow 與腳本', 'Kevin＋Eric', '11/6（五）', 'W−4', 'Demo Storyline'],
+    ['Solution', 'SaaS Demo 1–2 個穩定', 'Kevin', '11/13（五）', 'W−3', '測試環境'],
+    ['Solution', '一體機 Package／Pricing', 'Kevin＋Alan', '11/13（五）', 'W−3', 'GPU 交期'],
+    ['Solution', 'POC 條件與 2027 Q1 名額', 'Kevin', '11/19（四）', 'W−2', 'Pricing'],
+    ['Solution', 'Demo 備援影片', 'IT', '11/19（四）', 'W−2', 'Demo Flow'],
+    ['Event', '場地詢價（12/3、12/10 一起問）', 'Marketing', '10/16（五）', 'W−7', '場地需求單'],
+    ['Event', '場地簽約', 'Marketing', '10/23（五）', 'W−6', 'Gate 1 決策'],
+    ['Event', '報名頁與 EDM', 'Marketing', '11/4（三）', 'W−4', '活動文案'],
+    ['Event', '視覺與製作', 'Marketing', '11/13（五）', 'W−3', '內容主軸'],
+    ['Event', 'Run of Show', 'Marketing（議程時間由 Eric 提供）', '11/24（二）', 'W−1', '內容凍結'],
+    ['Event', '全體彩排', 'Marketing 主持', '11/26（四）', 'W−1', 'Run of Show'],
+    ['Event', '場地技術彩排', 'Marketing＋IT', '12/2（三）', 'W0', '前一天進場'],
+    ['Invitation', 'Target List 與 VIP List', '業務', '10/20（二）', 'W−6', 'TA 定義'],
+    ['Invitation', 'Save the date', '業務＋Marketing', '10/21（三）', 'W−6', 'Target List'],
+    ['Invitation', 'Partner 邀請', 'Partner／BD', '10/23（五）', 'W−6', 'Partner List'],
+    ['Invitation', '正式邀請', '業務＋Marketing', '11/5（四）', 'W−4', '報名頁'],
+    ['Invitation', 'Lead Capture 與 Sales Owner 規則', '業務', '11/19（四）', 'W−2', 'Lead 欄位'],
+    ['Invitation', 'D−7 電話確認', '業務', '11/26（四）', 'W−1', '邀請追蹤表']
   ];
   var phSel = store.get('phase', 'all');
   function renderPhases() {
@@ -2481,7 +2576,7 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
     }).join('');
     $('#phaseTable').innerHTML = '<thead><tr><th scope="col">階段</th><th scope="col">工作</th><th scope="col">Owner</th><th scope="col">期限</th><th scope="col">依賴</th></tr></thead><tbody>' +
       TASKS.filter(function (t) { return phSel === 'all' || t[0] === phSel; }).map(function (t) {
-        return '<tr><td><span class="phase-pill">' + t[0] + '</span></td><th scope="row" style="white-space:normal">' + esc(t[1]) + '</th><td>' + esc(t[2]) + '</td><td class="num">' + t[3] + '</td><td>' + esc(t[4]) + '</td></tr>';
+        return '<tr><td><span class="phase-pill">' + t[0] + '</span></td><th scope="row" style="white-space:normal">' + esc(t[1]) + '</th><td>' + esc(t[2]) + '</td><td class="due">' + t[3] + '<small>' + t[4] + '</small></td><td>' + esc(t[5]) + '</td></tr>';
       }).join('') + '</tbody>';
   }
   $('#phaseFilters').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; phSel = b.dataset.ph; store.set('phase', phSel); renderPhases(); });
@@ -2517,20 +2612,22 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
     el.addEventListener('change', function (e) { var i = e.target.dataset.i; if (i == null) return; if (e.target.checked) st[i] = 1; else delete st[i]; store.set(key, st); upd(); });
     upd();
   }
-  checklist($('#venueCond'), $('#condCount'), 'cond', ['可容納 100 人劇院式座位', '層高足以架設大螢幕', '獨立的 Partner 區與體驗站空間', '可隔出 2–3 個諮詢桌', '有線網路專線＋4G/5G 備援', 'GPU 設備用電與散熱', '貨梯與搬運動線', '報到區與交流區分開', '捷運可達', '無障礙動線']);
+  checklist($('#venueCond'), $('#condCount'), 'cond2', ['可隔成半場（11/19 可縮為 Plan B）', '12/2（三）可提前進場佈置與測試', '可容納 100 人劇院式座位', '層高足以架設大螢幕', '獨立的 Partner 區與體驗站空間', '可隔出 2–3 個諮詢桌', '有線網路專線＋4G/5G 備援', 'GPU 設備用電與散熱', '貨梯與搬運動線', '報到區與交流區分開', '捷運可達', '無障礙動線']);
   checklist($('#venueMat'), $('#matCount'), 'mat', ['大螢幕與投影', '音響＋無線麥克風 ×4', '講台與計時器', '報到 QR 與名牌', '四個體驗站立牌', 'Partner 分層標示（硬體／雲端／平台／AI 應用）', '諮詢桌椅與隔板', '報名檯平板（Lead 表單）', '備援筆電與預錄影片', '延長線與網路交換器', '指示牌', '伴手禮']);
 
   /* ================= risk matrix ================= */
   var RISKS = [
-    { id: 'demo', n: 'Demo 失敗', p: 2, i: 3, o: 'Kevin（Demo Control）', a: ['每個 Live Demo 都備預錄影片，Demo Control 有權當場切換', 'D−3 全流程彩排，活動當天 12:30 再測一次', 'Demo 不依賴場地 Wi-Fi：有線專線＋4G/5G 備援'] },
-    { id: 'att', n: '到場不足', p: 3, i: 3, o: '業務、Marketing', a: ['邀請數 ≥ 目標到場 ÷ 到場率（Plan A 至少約 86 位）', 'D−7 逐一電話確認，D−1 行前通知', 'D−14 未達門檻就切換 Plan B'] },
-    { id: 'ready', n: '內容或 Demo 沒到位', p: 2, i: 3, o: 'Eric、Kevin', a: ['W−2 內容凍結，之後只修字不改架構', 'Readiness 表每週更新，D−14 檢核三個核心', '未到位的段落改為預錄影片＋講解'] },
-    { id: 'case', n: '案例無法公開', p: 3, i: 2, o: '客服營運、承暉、業務', a: ['W−4 前取得書面授權', '改用匿名案例（產業＋規模＋成效方向）', '改由客戶口述，或用台灣大自身客服案例'] },
-    { id: 'gpu', n: 'GPU 來不及', p: 2, i: 2, o: 'Alan', a: ['W−6 確認 GPU 交期', '改用雲端 GPU 展示同一個 Demo', '一體機以照片、架構圖與影片展示'] },
+    { id: 'venue', n: '12 月場地訂不到', p: 3, i: 3, o: 'Marketing', a: ['本週同時詢價 3 個可隔半場的場地，12/3 與 12/10 一起問', '10/23 前簽約；逾期就整體順延 12/10（四），所有日期 +7 天', '優先查台灣大自有空間或長期合作的會議場地'] },
+    { id: 'att', n: '到場不足（年底行程滿）', p: 3, i: 3, o: '業務、Marketing', a: ['10/21 先發 Save the date 卡行程', '邀請 120 位，到場率以 60–65% 估', '11/26 逐一電話確認；11/19 未達門檻就隔半場改 Plan B'] },
+    { id: 'demo', n: 'Demo 失敗', p: 2, i: 3, o: 'Kevin（Demo Control）', a: ['11/19 Gate 2 只讓穩定的段落 Live，其餘預錄＋現場講解', '11/26 全流程彩排，12/2 場地技術彩排', 'Demo 不依賴場地 Wi-Fi：有線專線＋4G/5G 備援'] },
+    { id: 'ready', n: '內容或 Demo 沒到位', p: 2, i: 3, o: 'Eric、Kevin', a: ['11/19 內容凍結，之後只修字不改架構', 'Readiness 表每週五更新', '未到位的段落改為預錄影片＋講解'] },
+    { id: 'follow', n: '會後沒人跟進', p: 2, i: 3, o: '業務／AM', a: ['12/4（五）分派 Sales Owner，A 級當天聯繫', 'Lead Command 每日追蹤到 12/18', '1/8 由 Min 檢視 Pipeline'] },
     { id: 'net', n: '網路不穩', p: 1, i: 3, o: 'IT', a: ['場勘測速，專線與 4G/5G 雙備援', 'Demo 設備與來賓 Wi-Fi 分開', '預錄影片存在本機，不靠網路播放'] },
-    { id: 'pitch', n: '夥伴上台變產品推銷', p: 2, i: 2, o: 'Bobson、Eric', a: ['每次出場 ≤10 分鐘，跟著故事線講', 'W−2 審簡報', '由主持人串場收尾'] },
-    { id: 'follow', n: '會後沒人跟進', p: 2, i: 3, o: '業務／AM', a: ['D+1 分派 Sales Owner', 'A 級 48 小時內聯繫，Lead Command 每日追蹤', 'D+7、D+30 由 Min 檢視'] },
-    { id: 'vip', n: '周副總行程無法出席', p: 1, i: 2, o: 'Min', a: ['W−6 前確認行程', '備案由 Min 開場', '預錄 1 分鐘致詞影片'] }
+    { id: 'case', n: '案例無法公開', p: 3, i: 2, o: '客服營運、承暉、業務', a: ['先鎖台灣大自身客服案例', '外部案例 11/6 前取得書面授權，否則改匿名（產業＋規模＋成效方向）', '改由客戶口述經驗'] },
+    { id: 'holiday', n: '會後跟進撞到年底假期', p: 3, i: 2, o: '業務／AM', a: ['活動現場就約好 Workshop／Assessment 日期', '12/18 前全部定案，避開聖誕到元旦', 'Pipeline 檢視改 1/8；POC 目標 2027 Q1 啟動'] },
+    { id: 'gpu', n: 'GPU 來不及', p: 2, i: 2, o: 'Alan', a: ['10/23 前確認 GPU 交期', '趕不上就改雲端 GPU 展示同一個 Demo', '一體機以照片、架構圖與影片展示'] },
+    { id: 'pitch', n: '夥伴上台變產品推銷', p: 2, i: 2, o: 'Bobson、Eric', a: ['每次出場 ≤10 分鐘，跟著故事線講', '11/19 審簡報', '由主持人串場收尾'] },
+    { id: 'vip', n: '周副總行程無法出席', p: 1, i: 2, o: 'Min', a: ['10/23 前確認 12/3 行程', '備案由 Min 開場', '預錄 1 分鐘致詞影片'] }
   ];
   var LV = ['', '低', '中', '高'];
   (function () {
@@ -2554,23 +2651,23 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
       '<span class="xs muted">對策</span><ol>' + k.a.map(function (t) { return '<li><span>' + esc(t) + '</span></li>'; }).join('') + '</ol><p class="rk-owner">負責：<b>' + esc(k.o) + '</b></p>';
   }
   $('#riskGrid').addEventListener('click', function (e) { var b = e.target.closest('.rk'); if (b) showRisk(b.dataset.r); });
-  showRisk('att');
+  showRisk('venue');
 
   /* ================= Eric todo ================= */
   var TY = { self: ['自己完成', 'ty-self', 'i-pen'], ask: ['找誰提供資料', 'ty-ask', 'i-search'], chase: ['追誰', 'ty-chase', 'i-clock'], mkt: ['交給 Marketing', 'ty-mkt', 'i-megaphone'] };
   var TODO = [
-    { t: '寫一頁活動概要＋十件事決策清單給 Min', s: '附 A／B 比較與邀客試算', ty: 'self', due: '本週' },
-    { t: '場地、報名頁、EDM、視覺需求單交給 Marketing', s: '附 Plan A／B 兩版場地需求', ty: 'mkt', due: 'W−7' },
-    { t: '向 Bobson／承暉要產品口徑、TAIPBX 案例、Speaker、可邀客戶', s: '同時確認台北文創等案例能否公開', ty: 'ask', due: 'W−6' },
-    { t: '向 Alan 要 HPE／凌華一體機規格、GPU 交期、Sizing', s: '交期不確定就先備雲端 GPU 方案', ty: 'ask', due: 'W−6' },
-    { t: '定稿 Theme 與「一通電話」六幕 Agenda', s: '含分鐘數與夥伴出場安排', ty: 'self', due: 'W−5' },
-    { t: '追業務：Target List、VIP List、成對邀請', s: '每家至少一位需求擁有者＋一位否決者', ty: 'chase', due: 'W−5' },
-    { t: '向客服營運要台灣大客服內部案例', s: '可公開範圍與資料授權', ty: 'ask', due: 'W−4' },
-    { t: '追 Kevin：SaaS Demo 穩定度、一體機 Package／Pricing、POC 條件', s: '三項都是 Go／No-Go 依據', ty: 'chase', due: 'W−3' },
-    { t: '準備 D−14 Go／No-Go 檢核會議', s: '更新 Readiness 表與檢核表', ty: 'self', due: 'W−2' },
-    { t: '與業務對齊 Lead 欄位、A／B／C 分級與 48 小時規則', s: '確認每位 Sales Owner', ty: 'chase', due: 'W−2' }
+    { t: '一頁概要＋十件事（含期限）送 Min，排 Gate 1 會議', s: '附 A／B 比較、邀客試算與 8 個調整', ty: 'self', due: '10/13（二）' },
+    { t: '場地需求單交給 Marketing：可隔半場、100 人、12/3 與 12/10 一起詢價', s: '10/23 前要能簽約', ty: 'mkt', due: '10/14（三）' },
+    { t: '向 Alan 要 GPU 交期與一體機實機可行性', s: '10/23 決定實機或改雲端展示', ty: 'ask', due: '10/16（五）' },
+    { t: '向 Bobson／承暉要產品口徑、TAIPBX 案例、Speaker 與 12/3 行程、可邀客戶', s: '同時問台北文創等案例能否公開', ty: 'ask', due: '10/16（五）' },
+    { t: 'Save the date 文案交給 Marketing', s: '12/3（四）下午、半天、Live Demo', ty: 'mkt', due: '10/19（一）' },
+    { t: '追業務：Target List、VIP List、成對邀請', s: '10/21 Save the date 前要分派完', ty: 'chase', due: '10/20（二）' },
+    { t: '向客服營運要台灣大客服案例與可公開範圍', s: '舞台上最確定能講的案例', ty: 'ask', due: '10/23（五）' },
+    { t: '定稿 Theme 與「一通電話」六幕 Agenda', s: '含分鐘數與夥伴出場', ty: 'self', due: '10/30（五）' },
+    { t: '追 Kevin：SaaS Demo 穩定度、一體機 Package／Pricing、POC 條件與 2027 Q1 名額', s: '11/13 前要能判斷哪幾段 Live', ty: 'chase', due: '11/13（五）' },
+    { t: '主持 11/19 Gate 2，並與業務排好 12/4 A 級聯繫班表', s: '更新 Readiness 與檢核表', ty: 'self', due: '11/19（四）' }
   ];
-  var todoSt = store.get('todo', {}), todoF = 'all';
+  var todoSt = store.get('todo2', {}), todoF = 'all';
   function renderTodo() {
     var cnt = { all: TODO.length }; TODO.forEach(function (t) { cnt[t.ty] = (cnt[t.ty] || 0) + 1; });
     $('#todoFilter').innerHTML = [['all', '全部']].concat(Object.keys(TY).map(function (k) { return [k, TY[k][0]]; })).map(function (f) {
@@ -2588,7 +2685,7 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
   $('#todo').addEventListener('change', function (e) {
     var i = e.target.dataset.i; if (i == null) return;
     if (e.target.checked) todoSt[i] = 1; else delete todoSt[i];
-    store.set('todo', todoSt); e.target.closest('.todo-item').classList.toggle('done', e.target.checked);
+    store.set('todo2', todoSt); e.target.closest('.todo-item').classList.toggle('done', e.target.checked);
   });
   renderTodo();
 
