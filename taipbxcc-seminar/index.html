@@ -160,8 +160,8 @@ details.more .more-body{margin-top:8px;color:var(--fg-2);font-size:var(--fs-sm);
 @media (max-width:1023px){.g4,.g5{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:640px){.g2,.g3,.g4{grid-template-columns:minmax(0,1fr)}}
 
-.scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
-.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);max-width:100%}
+.scroll-x{position:relative;overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+.table-wrap{position:relative;overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);max-width:100%}
 table.t{border-collapse:collapse;width:100%;font-size:var(--fs-sm);min-width:640px}
 table.t th,table.t td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
 table.t thead th{background:var(--surface-2);font-weight:700;color:var(--fg-2);font-size:var(--fs-xs);letter-spacing:.03em;white-space:nowrap;position:sticky;top:0}
@@ -790,6 +790,101 @@ svg.has-hl .iso-path,svg.has-hl .iso-stop{opacity:.3}
 td.due{font-family:var(--font-display);font-variant-numeric:tabular-nums;white-space:nowrap}
 td.due small{display:block;color:var(--fg-3);font-size:11px}
 .calc-btns{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+
+/* ---------- v3：效益、預算、規格 ---------- */
+.sum{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+@media (max-width:1023px){.sum{grid-template-columns:repeat(2,minmax(0,1fr))}.sum .is-key{grid-column:1 / -1}}
+@media (max-width:480px){.sum{grid-template-columns:minmax(0,1fr)}}
+.sum-tile,.bd-tile{display:flex;flex-direction:column;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px;min-width:0}
+.sum-tile.is-key{background:var(--accent2-soft);border-color:transparent}
+.sum-k{display:flex;align-items:center;gap:6px;font-size:var(--fs-xs);font-weight:700;color:var(--fg-3);letter-spacing:.04em}
+.sum-v{font-family:var(--font-display);font-weight:800;font-size:clamp(24px,2.5vw,31px);line-height:1.05;color:var(--fg);font-variant-numeric:tabular-nums;white-space:nowrap}
+.sum-v small{font-size:14px;font-weight:700;margin-left:3px;color:var(--fg-2)}
+.sum-tile.is-key .sum-v{color:var(--accent2-ink)}
+.sum-d{font-size:12.5px;color:var(--fg-2);line-height:1.5}
+.split{display:flex;height:10px;gap:2px;border-radius:5px;overflow:hidden;margin-top:auto}
+.split i{display:block}
+.party{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:860px){.party{grid-template-columns:minmax(0,1fr)}}
+.party-c{display:flex;flex-direction:column;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px;min-width:0}
+.party-h{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.party-n{display:inline-flex;align-items:center;gap:8px;font-size:var(--fs-md)}
+.party-amt{font-family:var(--font-display);font-weight:800;font-size:17px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.party-c dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 10px;margin:0;font-size:var(--fs-sm)}
+.party-c dt{font-size:11px;font-weight:700;padding:0 8px;border-radius:999px;line-height:1.9;white-space:nowrap;align-self:start}
+.party-c dt.give{background:var(--sunk);color:var(--fg-2)}
+.party-c dt.get{background:var(--accent2-soft);color:var(--accent2-ink)}
+.party-c dd{margin:0;line-height:1.6}
+.cal{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.cal-h{font-size:11.5px;font-weight:700;color:var(--fg-3);text-align:center}
+.cal-d{border-radius:var(--r);padding:8px 10px;border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;gap:2px;min-height:66px;min-width:0}
+.cal-d b{font-family:var(--font-display);font-size:15px;font-variant-numeric:tabular-nums}
+.cal-d span{font-size:11.5px;color:var(--fg-2);line-height:1.4}
+.cal-d.avoid{background:var(--sunk);border-color:transparent}
+.cal-d.avoid b,.cal-d.avoid span{color:var(--fg-3)}
+.cal-d.best{background:var(--accent-strong);border-color:transparent}
+.cal-d.best b,.cal-d.best span{color:var(--on-accent)}
+.cal-d.alt{border-color:var(--accent2);box-shadow:inset 0 0 0 1px var(--accent2)}
+.cal-d.alt span{color:var(--accent2-ink);font-weight:700}
+@media (max-width:480px){.cal-d{padding:6px}.cal-d span{font-size:10.5px}}
+.spec{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px;padding-block:4px}
+@media (max-width:860px){.spec{grid-template-columns:minmax(0,1fr)}}
+.spec dl{margin:0}
+.spec-r{display:grid;grid-template-columns:84px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:var(--fs-sm);line-height:1.6}
+.spec-r dt{font-weight:700;color:var(--fg-3)}
+.spec-r dd{margin:0}
+.bd-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.bd-tile.is-total{background:var(--fg);border-color:transparent}
+.bd-tile.is-total .sum-k,.bd-tile.is-total .sum-d,.bd-tile.is-total .sum-v,.bd-tile.is-total .sum-v small{color:var(--bg)}
+.bd-mix h4{margin-bottom:8px}
+.bd-t{min-width:1060px}
+.bd-t tbody th[scope="row"]{white-space:normal;min-width:170px}
+.bd-t td:nth-child(3){min-width:210px}
+.bd-t th.r,.bd-t td.r{text-align:right}
+.bd-t .bd-cat th,.bd-t .bd-cat td{background:var(--surface-2);font-weight:700}
+.bd-t .bd-cat .sw{display:inline-block;margin-right:6px;vertical-align:-1px}
+.bd-t .bd-total th,.bd-t .bd-total td{border-top:2px solid var(--line-strong);font-weight:800}
+.bd-t td{vertical-align:middle}
+.bd-in{width:112px;padding:5px 8px;border:1px solid var(--line-strong);border-radius:6px;background:var(--surface);color:var(--fg);font:inherit;font-family:var(--font-display);text-align:right;font-variant-numeric:tabular-nums}
+.bd-in:focus{outline:2px solid var(--accent);outline-offset:1px}
+.var-up{color:var(--danger-ink);font-weight:700}
+.var-dn{color:var(--accent2-ink);font-weight:700}
+.bd-status{border-radius:var(--r);padding:12px 14px;font-size:var(--fs-sm);background:var(--surface-2);border:1px solid var(--line)}
+.bd-status.warn{background:var(--warn-soft);border-color:transparent}
+.bd-status.bad{background:var(--danger-soft);border-color:transparent}
+.bd-status.ok{background:var(--accent2-soft);border-color:transparent}
+.cash{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin-top:10px}
+.cash-col{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.cash-v{font-family:var(--font-display);font-weight:700;font-size:12px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.cash-track{height:150px;width:100%;max-width:44px;display:flex;flex-direction:column;justify-content:flex-end;gap:2px}
+.cash-track i{display:block;border-radius:3px;flex:none}
+.cash-track i.now{background:var(--accent)}
+.cash-track i.prev{background:var(--accent-soft);border:1px solid var(--line)}
+.cash-d{font-family:var(--font-display);font-size:12px;font-weight:700;color:var(--fg-2)}
+.cash-s{font-size:11px;color:var(--fg-3);text-align:center;line-height:1.35}
+.rules{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:1023px){.rules{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.rules{grid-template-columns:minmax(0,1fr)}}
+.rule{display:flex;flex-direction:column;gap:6px;padding:14px;border-radius:var(--r-lg);background:var(--surface);border:1px solid var(--line)}
+.rule-h{display:flex;align-items:center;gap:8px;font-weight:700;font-size:var(--fs-sm)}
+.rule-h .ico{color:var(--accent-ink);width:18px;height:18px}
+.rule p{font-size:12.5px;color:var(--fg-2);line-height:1.6}
+.sl-group{font-size:11.5px;font-weight:700;color:var(--fg-3);letter-spacing:.06em;border-top:1px dashed var(--line);padding-top:10px}
+.sl-group:first-child{border-top:0;padding-top:0}
+.roi-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:420px){.roi-tiles{grid-template-columns:minmax(0,1fr)}}
+.roi-tiles .sum-tile{padding:14px}
+.fnl{display:flex;flex-direction:column;gap:6px}
+.fnl-r{display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px;align-items:center;font-size:12.5px}
+.fnl-r .lab{color:var(--fg-2);text-align:right}
+.fnl-r .bw{display:flex;align-items:center;gap:8px;min-width:0}
+.fnl-r .bar{height:22px;border-radius:0 5px 5px 0;background:var(--accent2);min-width:6px;transition:width .2s}
+.fnl-r .val{font-family:var(--font-display);font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+@media (max-width:480px){.fnl-r{grid-template-columns:104px minmax(0,1fr)}}
+table.t.cmp{min-width:0}
+.cmp td,.cmp th{padding:8px 10px}
+.cmp td{font-family:var(--font-display);font-variant-numeric:tabular-nums}
+.cmp .win{color:var(--accent2-ink);font-weight:800}
 </style>
 </head>
 <body>
@@ -861,7 +956,7 @@ td.due small{display:block;color:var(--fg-3);font-size:11px}
     </div>
     <div class="mast-meta">
       <span class="tag est">呈 Min 決策</span>
-      <span class="mast-date">12 月初版 · Eric</span>
+      <span class="mast-date">12/3 版 · Eric</span>
     </div>
   </div>
 </header>
@@ -920,6 +1015,84 @@ td.due small{display:block;color:var(--fg-3);font-size:11px}
       <div class="fact-sub">不只看報名人數</div>
     </div>
   </div>
+
+  <section class="blk" aria-labelledby="h-sum">
+    <div class="blk-head"><h3 id="h-sum">一起辦的效益：Min 要看的 5 個數字</h3><span class="tag demo">試算・示意</span><span class="hint">Plan A · 12/3 · 預算為估算，待三家報價</span></div>
+    <div class="sum">
+      <div class="sum-tile">
+        <span class="sum-k">台灣大自付</span>
+        <span class="sum-v">NT$40<small>萬</small></span>
+        <span class="sum-d">總預算 NT$80 萬：台灣大 50%、承暉 30%、夥伴贊助 20%</span>
+        <div class="split" role="img" aria-label="分攤：台灣大 50%、承暉 30%、夥伴 20%"><i class="bg-c1" style="flex:50"></i><i class="bg-c3" style="flex:30"></i><i class="bg-c2" style="flex:20"></i></div>
+      </div>
+      <div class="sum-tile">
+        <span class="sum-k">預計到場</span>
+        <span class="sum-v">72<small>人</small></span>
+        <span class="sum-d">承暉與夥伴帶來 65 位邀請（占 54%）；台灣大單獨辦約 33 人，達不到 Plan A</span>
+      </div>
+      <div class="sum-tile">
+        <span class="sum-k">每家 A 級 Lead 成本</span>
+        <span class="sum-v">NT$4<small>萬</small></span>
+        <span class="sum-d">40 萬 ÷ 10 家；單獨辦約 NT$16 萬（80 萬 ÷ 5 家）</span>
+      </div>
+      <div class="sum-tile">
+        <span class="sum-k">Pipeline</span>
+        <span class="sum-v">NT$3,000<small>萬</small></span>
+        <span class="sum-d">6 家進 Workshop／Assessment × 平均首年案值 500 萬</span>
+      </div>
+      <div class="sum-tile is-key">
+        <span class="sum-k">成案 1 家的回收</span>
+        <span class="sum-v">7.5<small>倍</small></span>
+        <span class="sum-d">台灣大可認列約 NT$300 萬 ÷ 自付 40 萬</span>
+      </div>
+    </div>
+    <div class="party">
+      <div class="party-c">
+        <div class="party-h"><span class="party-n"><i class="sw bg-c1"></i><b>台灣大</b></span><span class="party-amt">NT$40 萬</span></div>
+        <dl>
+          <dt class="give">出</dt><dd>現金 50%；網路專線與 4G/5G 備援、業務邀約 40 位、主場品牌、客服營運案例</dd>
+          <dt class="get">得</dt><dd>全場 Lead 約 45 家，A 級約 10 家；成案時可認列約 60% 案值；一次建立「完整方案」定位</dd>
+        </dl>
+      </div>
+      <div class="party-c">
+        <div class="party-h"><span class="party-n"><i class="sw bg-c3"></i><b>承暉</b></span><span class="party-amt">NT$24 萬</span></div>
+        <dl>
+          <dt class="give">出</dt><dd>現金 30%；TAIPBXCC Demo 環境、體驗站操作 4 人、講者、AI 質檢錄音試跑、邀約 15 位</dd>
+          <dt class="get">得</dt><dd>接觸台灣大業務與行銷邀請的 55 位企業客戶；共享 Lead（經來賓同意）；成案時平台層約 40% 案值</dd>
+        </dl>
+      </div>
+      <div class="party-c">
+        <div class="party-h"><span class="party-n"><i class="sw bg-c2"></i><b>夥伴 4 家</b></span><span class="party-amt">NT$16 萬</span></div>
+        <dl>
+          <dt class="give">出</dt><dd>贊助 NT$4 萬／家；一體機展示機、雲端資源；每家邀約 5 位</dd>
+          <dt class="get">得</dt><dd>Partner 區分層展示；硬體、雲端夥伴各上台 ≤10 分鐘；共享 Lead（經來賓同意）</dd>
+        </dl>
+      </div>
+    </div>
+    <details class="more"><summary>試算假設與怎麼調整</summary><div class="more-body"><ul>
+      <li>邀請 120 位（承暉 15、夥伴 10 家 × 5、業務 40、行銷 15），年底到場率 60%。</li>
+      <li>每家平均到場 1.6 人（成對邀請）→ 約 45 家；A 級 22%；A 級中 60% 進 Workshop／Assessment；其中 1/3 進 POC；POC 成案率 50%。</li>
+      <li>平均首年案值 NT$500 萬（平台授權、AI 應用、硬體或雲端、網路與導入），台灣大可認列 60%。這兩個數字請業務用實際報價校正。</li>
+      <li>單獨辦：只有業務 40 位＋行銷 15 位邀請，總預算 80 萬全由台灣大負擔。</li>
+    </ul><p><button type="button" class="btn" data-go="kpi">到「成效與風險」調整假設</button></p></div></details>
+  </section>
+
+  <section class="blk" aria-labelledby="h-cal">
+    <div class="blk-head"><h3 id="h-cal">12 月初平日怎麼選</h3><span class="tag est">建議</span><span class="hint">週二到週四最好，避開週一與週五</span></div>
+    <div class="cal" role="img" aria-label="12 月初平日：建議 12/3 週四，備選 12/10 週四；12/1、12/2、12/8、12/9 可行；週一與週五避開">
+      <span class="cal-h">週一</span><span class="cal-h">週二</span><span class="cal-h">週三</span><span class="cal-h">週四</span><span class="cal-h">週五</span>
+      <div class="cal-d avoid"><b>11/30</b><span>週會多，避開</span></div>
+      <div class="cal-d"><b>12/1</b><span>可行，準備少 2 天</span></div>
+      <div class="cal-d"><b>12/2</b><span>可行，48 小時不跨週末</span></div>
+      <div class="cal-d best"><b>12/3</b><span>建議：準備最充分，隔天就能聯繫 A 級</span></div>
+      <div class="cal-d avoid"><b>12/4</b><span>週五到場率低</span></div>
+      <div class="cal-d avoid"><b>12/7</b><span>週一，避開</span></div>
+      <div class="cal-d"><b>12/8</b><span>可行</span></div>
+      <div class="cal-d"><b>12/9</b><span>可行</span></div>
+      <div class="cal-d alt"><b>12/10</b><span>備選：12/3 訂不到場地時</span></div>
+      <div class="cal-d avoid"><b>12/11</b><span>週五，避開</span></div>
+    </div>
+  </section>
 
   <section class="blk" aria-labelledby="h-adj">
     <div class="blk-head"><h3 id="h-adj">12 月初版：要調整的 8 件事</h3><span class="tag est">建議</span><span class="hint">原規劃 → 12/3 版</span></div>
@@ -1314,9 +1487,59 @@ td.due small{display:block;color:var(--fg-3);font-size:11px}
 <section class="panel" id="p-venue" role="tabpanel" aria-labelledby="tab-venue" tabindex="-1" hidden>
   <div class="phead">
     <span class="eyebrow">04 · 現場（Plan A）</span>
-    <h2>場地一張圖，流程點了就亮</h2>
-    <p class="lead">點選當天流程，場地圖上對應的區域會亮起；虛線是來賓動線，終點是報名檯。</p>
+    <h2>活動規格、人力與場地配置</h2>
+    <p class="lead">先看規格與人力，再看場地圖：點選當天流程，對應區域會亮起；虛線是來賓動線，終點是報名檯。</p>
   </div>
+
+  <section class="blk" aria-labelledby="h-spec">
+    <div class="blk-head"><h3 id="h-spec">活動規格</h3><span class="tag est">建議值</span><span class="hint">對外邀請與廠商報價都以這張為準</span></div>
+    <div class="card spec">
+      <dl>
+        <div class="spec-r"><dt>名稱</dt><dd>台灣大哥大 × 承暉 AI Contact Center Seminar</dd></div>
+        <div class="spec-r"><dt>日期</dt><dd>2026/12/3（四）；備選 12/10（四）</dd></div>
+        <div class="spec-r"><dt>時間</dt><dd>13:30 報到（VIP 13:45）· 14:00–16:45 正式議程 · 16:45–17:15 交流</dd></div>
+        <div class="spec-r"><dt>地點</dt><dd>台北市區、捷運步行 5 分鐘內；100 人劇院式主廳＋前廳展區，可隔半場（詢價中）</dd></div>
+        <div class="spec-r"><dt>規模</dt><dd>邀請 120 位 · 到場 70–80 人 · 座位 80 席</dd></div>
+        <div class="spec-r"><dt>對象</dt><dd>中大型客服中心的需求擁有者＋否決者（成對）；通路與技術夥伴</dd></div>
+        <div class="spec-r"><dt>形式</dt><dd>邀請制、免費、報名需業務確認；實體不直播，會後提供 3 分鐘精華影片</dd></div>
+      </dl>
+      <dl>
+        <div class="spec-r"><dt>議程</dt><dd>舞台 92 分（Opening 5、Keynote 8、Live Demo 47、Solution 9、Case 20、CTA 3）＋體驗與諮詢 73 分</dd></div>
+        <div class="spec-r"><dt>Demo</dt><dd>舞台 Live Demo 3 段（11/19 決定 Live 或預錄）＋體驗站 4 站＋諮詢桌 3 桌</dd></div>
+        <div class="spec-r"><dt>展區</dt><dd>Partner 區依層別 4 區：硬體、雲端、平台、AI 應用；不設傳統攤位</dd></div>
+        <div class="spec-r"><dt>餐飲</dt><dd>報到茶點、中場下午茶、Closing 小點，共 110 份</dd></div>
+        <div class="spec-r"><dt>報名與 Lead</dt><dd>報名頁＋QR 報到；現場平板 Lead 表單 11 欄；名單共享需來賓勾選同意</dd></div>
+        <div class="spec-r"><dt>品牌</dt><dd>台灣大與承暉雙主辦並列；夥伴 logo 放在 Partner 區與背板贊助欄</dd></div>
+        <div class="spec-r"><dt>預算</dt><dd>NT$80 萬（估算）：台灣大 40 萬、承暉 24 萬、夥伴 16 萬</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-staff">
+    <div class="blk-head"><h3 id="h-staff">現場人力 41 人</h3><span class="tag est">建議值</span><span class="hint">來賓 72 人，約每 1.8 位來賓配 1 位工作人員</span></div>
+    <div class="card" style="display:flex;flex-direction:column;gap:12px">
+      <div class="pbar" style="height:32px" role="img" aria-label="人力組成：台灣大 19 人、承暉 8 人、夥伴 6 人、執行公司 8 人">
+        <div class="s bg-c1" style="flex:19" title="台灣大 19 人"><span>19</span></div><div class="s bg-c3" style="flex:8" title="承暉 8 人"><span>8</span></div><div class="s bg-c2" style="flex:6" title="夥伴 6 人"><span>6</span></div><div class="s bg-c7" style="flex:8" title="執行公司 8 人"><span>8</span></div>
+      </div>
+      <ul class="legend"><li><i class="sw bg-c1"></i>台灣大 <b>19</b></li><li><i class="sw bg-c3"></i>承暉 <b>8</b></li><li><i class="sw bg-c2"></i>夥伴 <b>6</b></li><li><i class="sw bg-c7"></i>執行公司 <b>8</b></li></ul>
+      <div class="table-wrap">
+        <table class="t">
+          <thead><tr><th scope="col">單位</th><th scope="col" class="c">人數</th><th scope="col">現場任務</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">台灣大業務／AM</th><td class="c num">10</td><td>陪同自己邀請的客戶、諮詢區、Lead 記錄</td></tr>
+            <tr><th scope="row">台灣大 Marketing</th><td class="c num">3</td><td>場務總控、報到、媒體與攝影對接</td></tr>
+            <tr><th scope="row">Kevin＋IT</th><td class="c num">3</td><td>Demo Control、網路、備援切換</td></tr>
+            <tr><th scope="row">Min</th><td class="c num">1</td><td>Sponsor、VIP 接待、Opening 備案</td></tr>
+            <tr><th scope="row">Eric</th><td class="c num">1</td><td>議程時間與講者進場（不負責場務）</td></tr>
+            <tr><th scope="row">客服營運</th><td class="c num">1</td><td>台灣大客服案例分享</td></tr>
+            <tr><th scope="row">承暉</th><td class="c num">8</td><td>Bobson、講者 1、體驗站操作 4、業務 2</td></tr>
+            <tr><th scope="row">夥伴 4 家</th><td class="c num">6</td><td>Partner 區解說</td></tr>
+            <tr><th scope="row">執行公司</th><td class="c num">8</td><td>報到 3、引導 3、舞台技術 2</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
   <div class="venue">
     <div class="venue-map">
@@ -1571,6 +1794,25 @@ td.due small{display:block;color:var(--fg-3);font-size:11px}
     <div class="scroll-x"><div class="gantt-wrap"><div class="gantt" id="gantt" role="img" aria-label="七週甘特圖，八條工作線與里程碑"></div></div></div>
   </section>
 
+  <section class="blk" aria-labelledby="h-bd">
+    <div class="blk-head"><h3 id="h-bd">預算與控管</h3><span class="tag est">估算・待三家報價</span><span class="spacer"></span><div class="seg" id="bdPlan" role="group" aria-label="切換方案預算"><button type="button" data-p="A" aria-pressed="true">Plan A</button><button type="button" data-p="B" aria-pressed="false">Plan B</button></div></div>
+    <div class="bd-tiles" id="bdTiles"></div>
+    <div class="grid g2">
+      <div class="card bd-mix"><h4 class="small muted">誰出錢</h4><div id="bdWho"></div><h4 class="small muted" style="margin-top:16px">用在哪</h4><div id="bdWhat"></div></div>
+      <div class="card"><div class="gng-h"><h4 class="small muted">現金流出時程（累計，不含預備金）</h4></div><div class="cash" id="bdCash"></div></div>
+    </div>
+    <div class="table-wrap"><table class="t bd-t" id="bdTable"></table></div>
+    <div class="bd-status" id="bdStatus" aria-live="polite"></div>
+    <p class="note">「實際／已承諾」欄可直接輸入金額，紀錄只存在這台瀏覽器；正式帳以 Marketing 的預算表為準。</p>
+    <h4 style="font-size:var(--fs-md);margin-top:4px">控管規則</h4>
+    <div class="rules" id="bdRules"></div>
+    <details class="more"><summary>11/19 若由 A 縮為 B，錢怎麼變</summary><div class="more-body"><ul>
+      <li>同場地隔半場：場地與製作已簽約，不退。</li>
+      <li>可省：餐飲約 NT$5.2 萬（110 → 45 人）、伴手禮約 NT$2.2 萬（100 → 45 份）、尚未投放的數位廣告。</li>
+      <li>預估支出由 NT$72.9 萬降到約 NT$65.5 萬（不含預備金）。合約先寫入「11/19 前可調降規模」條款才省得到。</li>
+    </ul></div></details>
+  </section>
+
   <section class="blk" aria-labelledby="h-ph">
     <div class="blk-head"><h3 id="h-ph">五階段檢核表</h3><span class="spacer"></span><div class="filters" id="phaseFilters" role="group" aria-label="依階段篩選"></div></div>
     <div class="table-wrap"><table class="t" id="phaseTable"></table></div>
@@ -1603,23 +1845,6 @@ td.due small{display:block;color:var(--fg-3);font-size:11px}
     </div>
   </section>
 
-  <section class="blk" aria-labelledby="h-bd">
-    <div class="blk-head"><h3 id="h-bd">預算配置比例</h3><span class="tag est">起始假設</span><span class="hint">只列比例，金額待 Min 核定</span></div>
-    <div class="card budget">
-      <div class="budget-row"><div class="lbl">Plan A<small>大型 Seminar</small></div>
-        <div class="pbar" role="img" aria-label="Plan A 預算比例：場地與餐飲 30%、製作與視覺 20%、Demo 與設備 15%、推廣 15%、講者與禮品 10%、預備金 10%">
-          <div class="s bg-c1" style="flex:30" title="場地與餐飲 30%"><span>30%</span></div><div class="s bg-c2" style="flex:20" title="製作與視覺 20%"><span>20%</span></div><div class="s bg-c3" style="flex:15" title="Demo 與設備 15%"><span>15%</span></div><div class="s bg-c4" style="flex:15" title="推廣 15%"><span>15%</span></div><div class="s bg-c5" style="flex:10" title="講者與禮品 10%"><span>10%</span></div><div class="s bg-c6" style="flex:10" title="預備金 10%"><span>10%</span></div>
-        </div></div>
-      <div class="budget-row"><div class="lbl">Plan B<small>Executive Briefing</small></div>
-        <div class="pbar" role="img" aria-label="Plan B 預算比例：場地與餐飲 35%、製作與視覺 10%、Demo 與設備 20%、推廣 10%、講者與禮品 15%、預備金 10%">
-          <div class="s bg-c1" style="flex:35" title="場地與餐飲 35%"><span>35%</span></div><div class="s bg-c2" style="flex:10" title="製作與視覺 10%"><span>10%</span></div><div class="s bg-c3" style="flex:20" title="Demo 與設備 20%"><span>20%</span></div><div class="s bg-c4" style="flex:10" title="推廣 10%"><span>10%</span></div><div class="s bg-c5" style="flex:15" title="講者與禮品 15%"><span>15%</span></div><div class="s bg-c6" style="flex:10" title="預備金 10%"><span>10%</span></div>
-        </div></div>
-      <ul class="legend">
-        <li><i class="sw bg-c1"></i>場地與餐飲</li><li><i class="sw bg-c2"></i>製作與視覺</li><li><i class="sw bg-c3"></i>Demo 與設備</li><li><i class="sw bg-c4"></i>推廣</li><li><i class="sw bg-c5"></i>講者與禮品</li><li><i class="sw bg-c6"></i>預備金</li>
-      </ul>
-      <details class="more"><summary>兩版差在哪</summary><div class="more-body"><ul><li>Plan B 人少，製作與推廣比例下降，場地餐飲與 Demo 比例上升（精品型場地、Demo Pod 品質）。</li><li>分攤方式（台灣大／承暉／夥伴）待 Min 決定。</li><li>12 月活動的費用要在 2026 年度內請款核銷：Marketing 本週向財務確認結帳截止日，廠商合約與發票時程跟著排。</li></ul></div></details>
-    </div>
-  </section>
 
   <section class="blk" aria-labelledby="h-vc">
     <div class="blk-head"><h3 id="h-vc">場地條件與物料清單</h3><span class="hint">Marketing 主責 · 勾選存在這台瀏覽器</span></div>
@@ -1659,7 +1884,16 @@ td.due small{display:block;color:var(--fg-3);font-size:11px}
         <div class="kpi"><span class="k">A 級 48 小時聯繫率</span><span class="v">100<small>%</small></span><span class="d">12/4（五）前打完第一通</span></div>
         <div class="kpi"><span class="k">Assessment／Workshop</span><span class="v">6<small>家</small></span><span class="d">12/18 前約定</span></div>
         <div class="kpi"><span class="k">POC</span><span class="v">2<small>家</small></span><span class="d">2027 Q1 啟動</span></div>
+        <div class="kpi"><span class="k">每家 A 級 Lead 成本</span><span class="v">4<small>萬</small></span><span class="d">台灣大自付 NT$40 萬 ÷ 10 家</span></div>
       </div>
+    </div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-roi">
+    <div class="blk-head"><h3 id="h-roi">合作效益試算</h3><span class="tag demo">試算・示意</span><span class="hint">預設值與總覽的 5 個數字一致</span></div>
+    <div class="card calc">
+      <div class="sliders" id="roiSliders"></div>
+      <div class="calc-out" id="roiOut" aria-live="polite"></div>
     </div>
   </section>
 
@@ -1687,7 +1921,7 @@ td.due small{display:block;color:var(--fg-3);font-size:11px}
         <div class="fields">
           <span class="field">1 公司</span><span class="field">2 姓名</span><span class="field">3 部門</span><span class="field">4 職稱</span><span class="field key">5 有興趣的方案</span><span class="field">6 現行系統</span><span class="field key">7 痛點</span><span class="field key">8 專案時程</span><span class="field key">9 預算狀態</span><span class="field">10 下一步</span><span class="field key">11 Sales Owner</span>
         </div>
-        <p class="note">橘框欄位決定分級。</p>
+        <p class="note">橘框欄位決定分級。報名頁與現場表單都要有個資同意勾選，名單才能與承暉、夥伴共享。</p>
       </div>
       <div class="grades">
         <div class="grade a"><span class="g">A</span><div><h4>時程明確＋預算明確或編列中＋決策者到場</h4><p class="act">48 小時內聯繫（12/4 週五前），約 Assessment 或專屬 Demo</p></div></div>
@@ -1738,13 +1972,16 @@ td.due small{display:block;color:var(--fg-3);font-size:11px}
       </ol>
     </div>
   </section>
-
   <section class="blk" aria-labelledby="h-why">
-    <div class="blk-head"><h3 id="h-why">三方各自帶什麼</h3></div>
-    <div class="why3">
-      <div class="card src"><div class="src-h"><span class="ico-badge"><svg class="ico"><use href="#i-plug"/></svg></span><h4>台灣大</h4></div><p class="small muted">整合與單一窗口、網路與雲端、企業客戶關係</p></div>
-      <div class="card src"><div class="src-h"><span class="ico-badge g"><svg class="ico"><use href="#i-layers"/></svg></span><h4>承暉</h4></div><p class="small muted">TAIPBXCC 平台、客服中心 know-how、案例</p></div>
-      <div class="card src"><div class="src-h"><span class="ico-badge n"><svg class="ico"><use href="#i-network"/></svg></span><h4>夥伴</h4></div><p class="small muted">硬體、雲端、AI 應用，把方案補齊</p></div>
+    <div class="blk-head"><h3 id="h-why">合作模式：案值怎麼分</h3><span class="tag demo">示意</span><span class="hint">以平均首年案值 NT$500 萬為例</span></div>
+    <div class="card" style="display:flex;flex-direction:column;gap:14px">
+      <div class="pbar" role="img" aria-label="案值分配示意：台灣大 60%、承暉 40%"><div class="s bg-c1" style="flex:60"><span>台灣大 60% · 約 300 萬</span></div><div class="s bg-c3" style="flex:40"><span>承暉 40% · 約 200 萬</span></div></div>
+      <div class="why3">
+        <div class="src"><div class="src-h"><span class="ico-badge"><svg class="ico"><use href="#i-plug"/></svg></span><h4>台灣大</h4></div><p class="small muted">網路與專線、雲端資源、AI 應用與硬體整合、導入專案管理、單一窗口與帳務</p></div>
+        <div class="src"><div class="src-h"><span class="ico-badge g"><svg class="ico"><use href="#i-layers"/></svg></span><h4>承暉</h4></div><p class="small muted">TAIPBXCC 授權、平台導入與客製、客服中心 know-how 與案例</p></div>
+        <div class="src"><div class="src-h"><span class="ico-badge n"><svg class="ico"><use href="#i-network"/></svg></span><h4>夥伴</h4></div><p class="small muted">AI 一體機與 GPU、雲端與 AI 應用模組，經台灣大整合出貨</p></div>
+      </div>
+      <details class="more"><summary>為什麼這樣分</summary><div class="more-body"><p>台灣大是客戶的單一窗口與帳務主體，承暉提供平台核心；夥伴的硬體與雲端費用計入台灣大的整合部分。實際分潤依個案報價與合作協議為準。</p></div></details>
     </div>
   </section>
   <div class="pnav" data-pnav></div>
@@ -1780,7 +2017,7 @@ td.due small{display:block;color:var(--fg-3);font-size:11px}
 </main>
 
 <footer class="wrap foot">
-  <span>本頁所有 KPI、席次、比例、預算比例皆為建議值或示意，非實績。</span>
+  <span>本頁所有 KPI、席次、比例、預算金額與效益皆為建議值、估算或試算，非實績。</span>
   <span>TAIPBXCC Seminar 規劃 · 12 月初版（2026.10）· Eric</span>
 </footer>
 
@@ -1895,13 +2132,13 @@ td.due small{display:block;color:var(--fg-3);font-size:11px}
     { t: '是否辦', due: '10/16', now: 1, rec: '辦。只剩 7 週，本週不決定就訂不到 12 月場地', mat: ['一頁活動概要', 'Pipeline 目標（建議值）', '各單位需投入的人力'] },
     { t: 'Plan A 或 B', due: '10/16', now: 1, rec: '以 A 規模訂可隔半場的場地，11/19 仍可縮為 B', mat: ['A／B 比較表與場地概念圖', '邀客試算（12 月建議配置）', '可隔間場地的詢價結果'] },
     { t: '日期', due: '10/16', now: 1, rec: '12/3（四）下午；場地訂不到就整體順延 12/10（四）', mat: ['12/3 與 12/10 的場地檔期', '周副總、承暉在兩個日期的行程', '同業年底活動撞期檢查'] },
-    { t: '預算', due: '10/16', now: 1, rec: '依比例起始假設編列，確認可在 2026 年度內核銷', mat: ['預算配置比例（起始假設）', 'A／B 兩版差異', '分攤方式（台灣大／承暉／夥伴）與財務結帳時程'] },
+    { t: '預算', due: '10/16', now: 1, rec: '總預算 NT$80 萬：台灣大 40 萬、承暉 24 萬、夥伴贊助 16 萬，2026 年度內核銷', mat: ['預算明細與現金流出時程（籌備頁）', '與承暉的分攤原則（現金 30%＋in-kind）', '三家比價結果（10/21）'] },
     { t: 'TA', due: '10/23', rec: '客服主管＋IT／資安成對邀請，10/21 先發 Save the date', mat: ['TA 關係圖', '六種名單來源與負責人', '邀請追蹤欄位'] },
     { t: 'Speaker', due: '10/23', rec: '台灣大與承暉為主，夥伴每次 ≤10 分鐘', mat: ['Speaker 候選名單與 12/3 行程', '六幕旅程與分鐘數', '講者簡報規範'] },
     { t: '高階主管 Opening（周副總）', due: '10/23', rec: '請周副總 12/3 開場 5 分鐘（待確認），備案由 Min 開場', mat: ['致詞三重點草稿', '行程確認信', '備案：由 Min 開場'] },
-    { t: 'Partner List', due: '10/23', rec: '依層別各邀 1–2 家：硬體、雲端、平台、AI 應用', mat: ['夥伴分層名單', '各家出場分鐘與邀客責任', 'Partner 區配置'] },
+    { t: 'Partner List', due: '10/23', rec: '依層別共邀 4 家，每家贊助 NT$4 萬、邀約 5 位客戶', mat: ['夥伴分層名單', '夥伴贊助方案與權益', 'Partner 區配置'] },
     { t: '大型 Demo', due: '10/23', rec: '10/23 定 Live 範圍與一體機是否實機；11/19 Gate 2 最終確認，全部有預錄備援', mat: ['Demo Readiness 表', 'Alan 的 GPU 交期', 'Kevin 的穩定度判斷'] },
-    { t: '活動 KPI', due: '10/30', rec: '看 Pipeline：A 級 Lead、12/18 前約定的 Workshop／Assessment、2027 Q1 POC', mat: ['KPI 建議值三欄', 'Lead A／B／C 分級', '48 小時跟進規則（12/4 前）'] }
+    { t: '活動 KPI', due: '10/30', rec: '看 Pipeline：A 級 10 家、每家 A 級成本 ≤ NT$4 萬、12/18 前約定 6 家 Workshop／Assessment', mat: ['KPI 建議值三欄', 'Lead A／B／C 分級', '48 小時跟進規則（12/4 前）'] }
   ];
   var DEC_OPTS = [['ok', '同意建議'], ['adj', '需調整'], ['hold', '再議']];
   var decState = store.get('dec', {});
@@ -2541,7 +2778,9 @@ td.due small{display:block;color:var(--fg-3);font-size:11px}
   var TASKS = [
     ['Strategy', '是否辦、規模（A／B）、日期', 'Min', '10/16（五）', 'W−7', '一頁活動概要、場地詢價'],
     ['Strategy', '預算與分攤、年度內核銷', 'Min', '10/16（五）', 'W−7', '預算比例（起始假設）'],
+    ['Strategy', '與承暉談定分攤（現金 30%＋in-kind）', 'Min＋Bobson', '10/16（五）', 'W−7', '預算估算'],
     ['Strategy', 'TA 與產業優先順序', 'Eric', '10/20（二）', 'W−6', '業務名單'],
+    ['Strategy', '合作行銷協議（承暉、夥伴）', 'Min＋Partner／BD', '11/20（五）', 'W−2', '分攤原則'],
     ['Strategy', 'KPI 建議值定案', 'Min', '10/30（五）', 'W−5', 'Eric 提案'],
     ['Content', 'Speaker 確認', 'Bobson／承暉', '10/23（五）', 'W−6', '日期確定'],
     ['Content', 'Theme 與 Agenda 定稿', 'Eric', '10/30（五）', 'W−5', 'Speaker 確認'],
@@ -2555,6 +2794,7 @@ td.due small{display:block;color:var(--fg-3);font-size:11px}
     ['Solution', 'POC 條件與 2027 Q1 名額', 'Kevin', '11/19（四）', 'W−2', 'Pricing'],
     ['Solution', 'Demo 備援影片', 'IT', '11/19（四）', 'W−2', 'Demo Flow'],
     ['Event', '場地詢價（12/3、12/10 一起問）', 'Marketing', '10/16（五）', 'W−7', '場地需求單'],
+    ['Event', '三家比價（場地、製作、伴手禮）', 'Marketing', '10/21（三）', 'W−6', '活動規格'],
     ['Event', '場地簽約', 'Marketing', '10/23（五）', 'W−6', 'Gate 1 決策'],
     ['Event', '報名頁與 EDM', 'Marketing', '11/4（三）', 'W−4', '活動文案'],
     ['Event', '視覺與製作', 'Marketing', '11/13（五）', 'W−3', '內容主軸'],
@@ -2622,6 +2862,8 @@ td.due small{display:block;color:var(--fg-3);font-size:11px}
     { id: 'demo', n: 'Demo 失敗', p: 2, i: 3, o: 'Kevin（Demo Control）', a: ['11/19 Gate 2 只讓穩定的段落 Live，其餘預錄＋現場講解', '11/26 全流程彩排，12/2 場地技術彩排', 'Demo 不依賴場地 Wi-Fi：有線專線＋4G/5G 備援'] },
     { id: 'ready', n: '內容或 Demo 沒到位', p: 2, i: 3, o: 'Eric、Kevin', a: ['11/19 內容凍結，之後只修字不改架構', 'Readiness 表每週五更新', '未到位的段落改為預錄影片＋講解'] },
     { id: 'follow', n: '會後沒人跟進', p: 2, i: 3, o: '業務／AM', a: ['12/4（五）分派 Sales Owner，A 級當天聯繫', 'Lead Command 每日追蹤到 12/18', '1/8 由 Min 檢視 Pipeline'] },
+    { id: 'split', n: '承暉分攤談不攏', p: 2, i: 3, o: 'Min、Bobson', a: ['10/16 Gate 1 前由 Min 與承暉主管談定原則：現金 30%＋in-kind', '11/20 前簽合作行銷協議', '若承暉只出 in-kind：縮減製作與推廣，改 Plan A 精簡版約 NT$65 萬'] },
+    { id: 'cost', n: '預算超支', p: 2, i: 2, o: 'Marketing', a: ['三家比價；單筆 > NT$5 萬由 Min 核准', '每週五對帳，偏差 > 5% 附原因', '超支先刪推廣與禮品，再動預備金 NT$7.1 萬'] },
     { id: 'net', n: '網路不穩', p: 1, i: 3, o: 'IT', a: ['場勘測速，專線與 4G/5G 雙備援', 'Demo 設備與來賓 Wi-Fi 分開', '預錄影片存在本機，不靠網路播放'] },
     { id: 'case', n: '案例無法公開', p: 3, i: 2, o: '客服營運、承暉、業務', a: ['先鎖台灣大自身客服案例', '外部案例 11/6 前取得書面授權，否則改匿名（產業＋規模＋成效方向）', '改由客戶口述經驗'] },
     { id: 'holiday', n: '會後跟進撞到年底假期', p: 3, i: 2, o: '業務／AM', a: ['活動現場就約好 Workshop／Assessment 日期', '12/18 前全部定案，避開聖誕到元旦', 'Pipeline 檢視改 1/8；POC 目標 2027 Q1 啟動'] },
@@ -2656,18 +2898,18 @@ td.due small{display:block;color:var(--fg-3);font-size:11px}
   /* ================= Eric todo ================= */
   var TY = { self: ['自己完成', 'ty-self', 'i-pen'], ask: ['找誰提供資料', 'ty-ask', 'i-search'], chase: ['追誰', 'ty-chase', 'i-clock'], mkt: ['交給 Marketing', 'ty-mkt', 'i-megaphone'] };
   var TODO = [
-    { t: '一頁概要＋十件事（含期限）送 Min，排 Gate 1 會議', s: '附 A／B 比較、邀客試算與 8 個調整', ty: 'self', due: '10/13（二）' },
-    { t: '場地需求單交給 Marketing：可隔半場、100 人、12/3 與 12/10 一起詢價', s: '10/23 前要能簽約', ty: 'mkt', due: '10/14（三）' },
+    { t: '一頁概要＋十件事＋效益與預算摘要送 Min，排 Gate 1 會議', s: '用總覽的 5 個數字與 8 個調整', ty: 'self', due: '10/13（二）' },
+    { t: '場地需求單與 Save the date 文案交給 Marketing', s: '可隔半場、100 人、12/3 與 12/10 一起詢價，要三家報價', ty: 'mkt', due: '10/14（三）' },
+    { t: '向 Bobson／承暉確認：分攤 30%（NT$24 萬）與 in-kind、Speaker 與 12/3 行程、案例、可邀客戶', s: '10/16 Gate 1 拍板要用', ty: 'ask', due: '10/15（四）' },
     { t: '向 Alan 要 GPU 交期與一體機實機可行性', s: '10/23 決定實機或改雲端展示', ty: 'ask', due: '10/16（五）' },
-    { t: '向 Bobson／承暉要產品口徑、TAIPBX 案例、Speaker 與 12/3 行程、可邀客戶', s: '同時問台北文創等案例能否公開', ty: 'ask', due: '10/16（五）' },
-    { t: 'Save the date 文案交給 Marketing', s: '12/3（四）下午、半天、Live Demo', ty: 'mkt', due: '10/19（一）' },
     { t: '追業務：Target List、VIP List、成對邀請', s: '10/21 Save the date 前要分派完', ty: 'chase', due: '10/20（二）' },
+    { t: '追 Marketing：場地、製作、伴手禮三家比價與預算表', s: '超過估算 5% 的項目先標出', ty: 'chase', due: '10/21（三）' },
     { t: '向客服營運要台灣大客服案例與可公開範圍', s: '舞台上最確定能講的案例', ty: 'ask', due: '10/23（五）' },
     { t: '定稿 Theme 與「一通電話」六幕 Agenda', s: '含分鐘數與夥伴出場', ty: 'self', due: '10/30（五）' },
     { t: '追 Kevin：SaaS Demo 穩定度、一體機 Package／Pricing、POC 條件與 2027 Q1 名額', s: '11/13 前要能判斷哪幾段 Live', ty: 'chase', due: '11/13（五）' },
-    { t: '主持 11/19 Gate 2，並與業務排好 12/4 A 級聯繫班表', s: '更新 Readiness 與檢核表', ty: 'self', due: '11/19（四）' }
+    { t: '主持 11/19 Gate 2，並與業務排好 12/4 A 級聯繫班表', s: '更新 Readiness、檢核表與預算對帳', ty: 'self', due: '11/19（四）' }
   ];
-  var todoSt = store.get('todo2', {}), todoF = 'all';
+  var todoSt = store.get('todo3', {}), todoF = 'all';
   function renderTodo() {
     var cnt = { all: TODO.length }; TODO.forEach(function (t) { cnt[t.ty] = (cnt[t.ty] || 0) + 1; });
     $('#todoFilter').innerHTML = [['all', '全部']].concat(Object.keys(TY).map(function (k) { return [k, TY[k][0]]; })).map(function (f) {
@@ -2685,9 +2927,205 @@ td.due small{display:block;color:var(--fg-3);font-size:11px}
   $('#todo').addEventListener('change', function (e) {
     var i = e.target.dataset.i; if (i == null) return;
     if (e.target.checked) todoSt[i] = 1; else delete todoSt[i];
-    store.set('todo2', todoSt); e.target.closest('.todo-item').classList.toggle('done', e.target.checked);
+    store.set('todo3', todoSt); e.target.closest('.todo-item').classList.toggle('done', e.target.checked);
   });
   renderTodo();
+
+  /* ================= budget ================= */
+  var BUDGET = {
+    A: { cont: 71000,
+      split: [['台灣大', 0.5, 'c1'], ['承暉', 0.3, 'c3'], ['夥伴贊助 4 家', 0.2, 'c2']],
+      cats: [
+        { n: '場地與餐飲', c: 'c1', items: [
+          ['場地租金', 150000, '12/3 下午＋12/2 晚間進場', '訂金 10/23 · 尾款 12/11', 'Marketing'],
+          ['茶點與交流餐點', 88000, '110 人 × NT$800', '12/3 依實際人數', 'Marketing']] },
+        { n: '製作與視覺', c: 'c2', items: [
+          ['舞台、大螢幕與音響燈光', 105000, 'LED 或雙投影，含技術人員 2 位', '訂金 11/6 · 尾款 12/11', 'Marketing（製作公司）'],
+          ['主視覺、EDM 與簡報模板設計', 30000, '一套主視覺延伸', '訂金 11/6 · 尾款 12/11', 'Marketing（製作公司）'],
+          ['輸出物', 40000, '背板、指示牌、站牌、Partner 分層標示', '訂金 11/6 · 尾款 12/11', 'Marketing（製作公司）'],
+          ['攝影與精華影片', 45000, '全場攝影＋3 分鐘精華', '訂金 11/6 · 尾款 12/11', 'Marketing（製作公司）']] },
+        { n: 'Demo 與設備', c: 'c3', items: [
+          ['現場專線＋4G/5G 備援', 15000, '台灣大自有，僅申裝與設定', '12/11', 'IT'],
+          ['體驗站設備', 35000, '螢幕 ×4、筆電、耳機、展示桌', '11/20', 'Kevin'],
+          ['AI 一體機運輸、安裝與保險', 15000, '夥伴展示機', '12/11', 'Alan'],
+          ['Demo 預錄備援影片', 30000, '3 段 Live Demo 各一支', '11/13', 'Kevin']] },
+        { n: '推廣', c: 'c4', items: [
+          ['數位廣告', 40000, 'LinkedIn 等精準投放客服與 IT 主管', '11/6', 'Marketing'],
+          ['EDM 與報名系統', 10000, '既有工具加購', '11/6', 'Marketing'],
+          ['新聞稿撰寫與發布', 20000, '活動後發布（案例需授權）', '11/13', 'Marketing']] },
+        { n: '講者、人力與禮品', c: 'c5', items: [
+          ['專業主持人', 30000, '半天', '12/11', 'Marketing'],
+          ['客戶講者車馬費', 12000, '2 位 × NT$6,000', '12/11', 'Marketing'],
+          ['現場執行人員', 24000, '6 人 × NT$4,000（報到 3、引導 3）', '12/11', 'Marketing（執行公司）'],
+          ['伴手禮', 40000, '100 份 × NT$400', '11/20', 'Marketing']] }
+      ],
+      cash: [['10/23', 45000, '場地訂金 30%'], ['11/6', 160000, '製作訂金、數位廣告、EDM'], ['11/13', 50000, '預錄影片、新聞稿'], ['11/20', 75000, '伴手禮、體驗站設備'], ['12/3', 88000, '餐飲'], ['12/11', 311000, '各項尾款']] },
+    B: { cont: 36000,
+      split: [['台灣大', 0.6, 'c1'], ['承暉', 0.4, 'c3']],
+      cats: [
+        { n: '場地與餐飲', c: 'c1', items: [
+          ['場地租金', 80000, '精品會議廳半天＋前一晚佈置', '訂金 10/23 · 尾款 12/11', 'Marketing'],
+          ['精緻茶點', 54000, '45 人 × NT$1,200', '12/3 依實際人數', 'Marketing']] },
+        { n: '製作與視覺', c: 'c2', items: [
+          ['投影與音響', 25000, '雙投影＋無線麥克風', '訂金 11/6 · 尾款 12/11', 'Marketing（製作公司）'],
+          ['主視覺與邀請函設計', 15000, '沿用主視覺', '訂金 11/6 · 尾款 12/11', 'Marketing（製作公司）'],
+          ['輸出物', 10000, '背板、桌卡、指示牌', '訂金 11/6 · 尾款 12/11', 'Marketing（製作公司）'],
+          ['活動攝影', 10000, '紀錄照片', '訂金 11/6 · 尾款 12/11', 'Marketing（製作公司）']] },
+        { n: 'Demo 與設備', c: 'c3', items: [
+          ['現場專線＋4G/5G 備援', 15000, '台灣大自有，僅申裝與設定', '12/11', 'IT'],
+          ['Demo Pod 設備 ×3', 25000, '螢幕、筆電、耳機', '11/20', 'Kevin'],
+          ['Demo 預錄備援影片', 30000, '每個 Pod 一支', '11/13', 'Kevin']] },
+        { n: '推廣', c: 'c4', items: [
+          ['EDM 與報名系統', 10000, '既有工具加購', '11/6', 'Marketing'],
+          ['數位廣告', 10000, '精準投放高階主管', '11/6', 'Marketing']] },
+        { n: '講者、人力與禮品', c: 'c5', items: [
+          ['客戶講者車馬費', 12000, '2 位 × NT$6,000', '12/11', 'Marketing'],
+          ['現場執行人員', 12000, '3 人 × NT$4,000', '12/11', 'Marketing（執行公司）'],
+          ['伴手禮', 27000, '45 份 × NT$600', '11/20', 'Marketing'],
+          ['圓桌桌卡與引導手冊', 9000, '5 桌', '12/11', 'Marketing']] }
+      ],
+      cash: [['10/23', 24000, '場地訂金 30%'], ['11/6', 50000, '製作訂金、EDM、數位廣告'], ['11/13', 30000, '預錄影片'], ['11/20', 52000, '伴手禮、Demo Pod 設備'], ['12/3', 54000, '餐飲'], ['12/11', 134000, '各項尾款']] }
+  };
+  var BD_RULES = [
+    ['i-check', '核准權限', '單筆 ≤ NT$5 萬由 Marketing 主管核准；超過 NT$5 萬或動用預備金，由 Min 核准。'],
+    ['i-search', '三家比價', '場地、製作公司、伴手禮都要三家報價，10/21 前交 Min。'],
+    ['i-clip', '每週五對帳', 'Marketing 更新「估算／已承諾／已付款」，任一類別偏差超過 5% 要附原因。'],
+    ['i-alert', '超支處理順序', '先刪推廣與禮品 → 再動用預備金 → 仍不足由 Min 決定追加或縮為 Plan B。'],
+    ['i-doc', '合約彈性條款', '場地與製作合約寫入「11/19 前可調降規模」；餐飲依 12/1 確認人數計價。'],
+    ['i-users', '分攤協議', '承暉 30%、夥伴贊助 NT$4 萬／家，11/20 前簽合作行銷協議；名單共享以來賓同意為前提。'],
+    ['i-calendar', '年度內核銷', '發票 12/18 前全部送件，確保 2026 年度內入帳（截止日以財務公告為準）。'],
+    ['i-target', '結案報告', '1/8 Pipeline 檢視時一併交：實際花費、每位到場成本、每家 A 級 Lead 成本。']
+  ];
+  var bdPlan = store.get('bdPlan', 'A'); if (!BUDGET[bdPlan]) bdPlan = 'A';
+  var bdAct = { A: store.get('bdA', {}), B: store.get('bdB', {}) };
+  var wan = function (n) { return String(Math.round(n / 1000) / 10); };
+  var nt = function (n) { return 'NT$' + Math.round(n).toLocaleString('en-US'); };
+  var pct = function (x) { return (Math.round(x * 1000) / 10) + '%'; };
+  var varHTML = function (d) { if (!d) return '<span class="muted">0</span>'; return '<span class="' + (d > 0 ? 'var-up' : 'var-dn') + '">' + (d > 0 ? '+' : '−') + Math.abs(d).toLocaleString('en-US') + '</span>'; };
+  function bdSub(B) { var t = 0; B.cats.forEach(function (c) { c.items.forEach(function (it) { t += it[1]; }); }); return t; }
+  function renderBudget() {
+    var B = BUDGET[bdPlan], sub = bdSub(B), total = sub + B.cont;
+    $$('#bdPlan button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.p === bdPlan)); });
+    var t = '<div class="bd-tile is-total"><span class="sum-k">總預算 Plan ' + bdPlan + '</span><span class="sum-v">NT$' + wan(total) + '<small>萬</small></span><span class="sum-d">含預備金 ' + pct(B.cont / total) + '</span></div>';
+    B.split.forEach(function (p) { t += '<div class="bd-tile"><span class="sum-k"><i class="sw bg-' + p[2] + '"></i>' + p[0] + '</span><span class="sum-v">NT$' + wan(total * p[1]) + '<small>萬</small></span><span class="sum-d">分攤 ' + Math.round(p[1] * 100) + '%</span></div>'; });
+    t += '<div class="bd-tile"><span class="sum-k"><i class="sw bg-c6"></i>預備金</span><span class="sum-v">NT$' + wan(B.cont) + '<small>萬</small></span><span class="sum-d">動用需 Min 核准</span></div>';
+    $('#bdTiles').innerHTML = t;
+    $('#bdWho').innerHTML = '<div class="pbar" style="height:34px" role="img" aria-label="分攤比例">' + B.split.map(function (p) { return '<div class="s bg-' + p[2] + '" style="flex:' + p[1] * 100 + '" title="' + p[0] + ' ' + nt(total * p[1]) + '"><span>' + Math.round(p[1] * 100) + '%</span></div>'; }).join('') + '</div>' +
+      '<ul class="legend" style="margin-top:8px">' + B.split.map(function (p) { return '<li><i class="sw bg-' + p[2] + '"></i>' + p[0] + ' <b>' + wan(total * p[1]) + ' 萬</b></li>'; }).join('') + '</ul>';
+    var parts = B.cats.map(function (c) { var v = c.items.reduce(function (a, it) { return a + it[1]; }, 0); return [c.n, v, c.c]; }).concat([['預備金', B.cont, 'c6']]);
+    $('#bdWhat').innerHTML = '<div class="pbar" style="height:34px" role="img" aria-label="費用類別比例">' + parts.map(function (p) { var r = p[1] / total; return '<div class="s bg-' + p[2] + '" style="flex:' + p[1] + '" title="' + p[0] + ' ' + nt(p[1]) + '"><span>' + (r >= 0.09 ? Math.round(r * 100) + '%' : '') + '</span></div>'; }).join('') + '</div>' +
+      '<ul class="legend" style="margin-top:8px">' + parts.map(function (p) { return '<li><i class="sw bg-' + p[2] + '"></i>' + p[0] + ' <b>' + wan(p[1]) + ' 萬</b></li>'; }).join('') + '</ul>';
+    var cum = 0;
+    $('#bdCash').innerHTML = B.cash.map(function (c) {
+      var prev = cum; cum += c[1];
+      return '<div class="cash-col" title="' + c[0] + '：' + c[2] + ' ' + nt(c[1]) + '"><span class="cash-v">' + wan(cum) + ' 萬</span><div class="cash-track"><i class="now" style="height:' + (c[1] / sub * 100).toFixed(1) + '%"></i><i class="prev" style="height:' + (prev / sub * 100).toFixed(1) + '%"></i></div>' +
+        '<span class="cash-d">' + c[0] + '</span><span class="cash-s">+' + wan(c[1]) + ' 萬<br>' + c[2] + '</span></div>';
+    }).join('');
+    var h = '<thead><tr><th scope="col">項目</th><th scope="col" class="r">估算</th><th scope="col">計算方式</th><th scope="col">付款時點</th><th scope="col">發包</th><th scope="col" class="r">實際／已承諾</th><th scope="col" class="r">差異</th></tr></thead>';
+    B.cats.forEach(function (c, ci) {
+      var cs = c.items.reduce(function (a, it) { return a + it[1]; }, 0);
+      h += '<tbody><tr class="bd-cat"><th scope="rowgroup"><i class="sw bg-' + c.c + '"></i>' + c.n + '</th><td class="r num">' + nt(cs) + '</td><td colspan="3" class="muted">占總預算 ' + pct(cs / total) + '</td><td class="r num" id="bdc-' + ci + '">—</td><td class="r num" id="bdcv-' + ci + '"></td></tr>';
+      c.items.forEach(function (it, ii) {
+        var k = ci + '-' + ii, v = bdAct[bdPlan][k];
+        h += '<tr><th scope="row">' + esc(it[0]) + '</th><td class="r num">' + nt(it[1]) + '</td><td>' + esc(it[2]) + '</td><td>' + esc(it[3]) + '</td><td>' + esc(it[4]) + '</td>' +
+          '<td class="r"><label class="sr-only" for="bd-' + bdPlan + '-' + k + '">' + esc(it[0]) + ' 實際金額</label><input class="bd-in" type="number" inputmode="numeric" min="0" step="1000" id="bd-' + bdPlan + '-' + k + '" data-k="' + k + '" placeholder="—" value="' + (v != null ? v : '') + '"></td><td class="r num" id="bdv-' + k + '"></td></tr>';
+      });
+      h += '</tbody>';
+    });
+    h += '<tbody><tr class="bd-cat"><th scope="row"><i class="sw bg-c6"></i>預備金</th><td class="r num">' + nt(B.cont) + '</td><td colspan="3" class="muted">占 ' + pct(B.cont / total) + '，動用需 Min 核准</td><td class="r num" id="bdCont">—</td><td></td></tr>' +
+      '<tr class="bd-total"><th scope="row">總計</th><td class="r num">' + nt(total) + '</td><td colspan="3"></td><td class="r num" id="bdTot">—</td><td class="r num" id="bdTotV"></td></tr></tbody>';
+    $('#bdTable').innerHTML = h;
+    updateBudget();
+  }
+  function updateBudget() {
+    var B = BUDGET[bdPlan], A = bdAct[bdPlan], filled = 0, n = 0, actSum = 0, net = 0, over = 0;
+    B.cats.forEach(function (c, ci) {
+      var cAct = 0, cVar = 0, cf = 0;
+      c.items.forEach(function (it, ii) {
+        n++; var k = ci + '-' + ii, v = A[k], el = $('#bdv-' + k);
+        if (v == null || v === '') { el.innerHTML = ''; return; }
+        v = +v; var d = v - it[1]; cAct += v; cVar += d; cf++; filled++; if (d > 0) over++;
+        el.innerHTML = varHTML(d);
+      });
+      $('#bdc-' + ci).textContent = cf ? nt(cAct) : '—';
+      $('#bdcv-' + ci).innerHTML = cf ? varHTML(cVar) : '';
+      actSum += cAct; net += cVar;
+    });
+    var left = B.cont - Math.max(0, net), st = $('#bdStatus');
+    $('#bdCont').textContent = filled ? '剩 ' + nt(left) : '—';
+    $('#bdTot').textContent = filled ? nt(actSum) : '—';
+    $('#bdTotV').innerHTML = filled ? varHTML(net) : '';
+    if (!filled) { st.className = 'bd-status'; st.textContent = '尚未填入實際金額。拿到報價或簽約後，在「實際／已承諾」欄填入，這裡會算出差異與預備金餘額。'; return; }
+    var msg = '已填 ' + filled + '／' + n + ' 項，合計 ' + nt(actSum) + '，相對估算 ' + (net > 0 ? '+' : (net < 0 ? '−' : '')) + nt(Math.abs(net)) + '。';
+    if (left < 0) { st.className = 'bd-status bad'; msg += '已超出總預算 ' + nt(-left) + '：先刪推廣與禮品，仍不足請 Min 決定追加或縮為 Plan B。'; }
+    else if (net > 0) { st.className = 'bd-status warn'; msg += '超支 ' + over + ' 項，先用預備金支應；預備金剩 ' + nt(left) + '（' + pct(left / B.cont) + '）。'; }
+    else if (over) { st.className = 'bd-status warn'; msg += '有 ' + over + ' 項超出估算，已被其他項目的節省抵銷，預備金未動用；超出 5% 的項目要附原因。'; }
+    else { st.className = 'bd-status ok'; msg += '目前在估算內，預備金 ' + nt(B.cont) + ' 未動用。'; }
+    st.textContent = msg;
+  }
+  $('#bdPlan').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; bdPlan = b.dataset.p; store.set('bdPlan', bdPlan); renderBudget(); });
+  $('#bdTable').addEventListener('input', function (e) {
+    var k = e.target.dataset.k; if (!k) return;
+    var raw = e.target.value.trim(), v = raw === '' ? null : Number(raw);
+    if (v == null || isNaN(v) || v < 0) delete bdAct[bdPlan][k]; else bdAct[bdPlan][k] = Math.round(v);
+    store.set('bd' + bdPlan, bdAct[bdPlan]); updateBudget();
+  });
+  $('#bdRules').innerHTML = BD_RULES.map(function (r) { return '<div class="rule"><div class="rule-h">' + ico(r[0]) + esc(r[1]) + '</div><p>' + esc(r[2]) + '</p></div>'; }).join('');
+  renderBudget();
+
+  /* ================= co-hosting benefit calculator ================= */
+  var ROI_DEF = [
+    ['g', '漏斗假設'],
+    ['att', '到場人數', 30, 120, 1, 72, ' 人'],
+    ['per', '每家平均到場', 1, 2.5, 0.1, 1.6, ' 人'],
+    ['a', 'A 級比例（以公司計）', 5, 40, 1, 22, '%'],
+    ['as', 'A 級中進 Workshop／Assessment', 20, 100, 5, 60, '%'],
+    ['poc', 'Assessment 中進 POC', 10, 80, 1, 33, '%'],
+    ['win', 'POC 成案率', 10, 100, 5, 50, '%'],
+    ['g', '金額假設（請業務校正）'],
+    ['deal', '平均首年案值', 100, 2000, 50, 500, ' 萬'],
+    ['share', '台灣大可認列比例', 30, 90, 5, 60, '%'],
+    ['cost', '台灣大自付活動成本', 10, 80, 1, 40, ' 萬']
+  ];
+  var r1 = function (x) { return (Math.round(x * 10) / 10).toLocaleString('en-US'); };
+  $('#roiSliders').innerHTML = ROI_DEF.map(function (d) {
+    if (d[0] === 'g') return '<div class="sl-group">' + d[1] + '</div>';
+    return '<div class="sl"><label for="roi-' + d[0] + '">' + d[1] + '</label><output id="roi-' + d[0] + '-o" for="roi-' + d[0] + '"></output><input type="range" id="roi-' + d[0] + '" min="' + d[2] + '" max="' + d[3] + '" step="' + d[4] + '" value="' + d[5] + '"></div>';
+  }).join('') + '<div><button class="btn" type="button" id="roiReset">回到預設值</button></div>';
+  function roiCalc() {
+    var v = {};
+    ROI_DEF.forEach(function (d) { if (d[0] === 'g') return; v[d[0]] = +$('#roi-' + d[0]).value; $('#roi-' + d[0] + '-o').textContent = r1(v[d[0]]) + d[6]; });
+    function run(att, cost) {
+      var co = Math.round(att / v.per), A = Math.round(co * v.a / 100), As = Math.round(A * v.as / 100), poc = Math.round(As * v.poc / 100), win = poc * v.win / 100;
+      var rev = win * v.deal * v.share / 100;
+      return { att: att, co: co, A: A, As: As, poc: poc, win: win, pipe: As * v.deal, rev: rev, cost: cost, mult: rev / cost, perA: A ? cost / A : null, be: cost / (v.deal * v.share / 100) };
+    }
+    var J = run(v.att, v.cost), S = run(Math.round(v.att * 55 / 120), 80);
+    var tile = function (k, val, unit, d, key) { return '<div class="sum-tile' + (key ? ' is-key' : '') + '"><span class="sum-k">' + k + '</span><span class="sum-v">' + val + '<small>' + unit + '</small></span><span class="sum-d">' + d + '</span></div>'; };
+    var h = '<div class="roi-tiles">' +
+      tile('Pipeline', 'NT$' + r1(J.pipe), '萬', J.As + ' 家進 Workshop／Assessment × ' + r1(v.deal) + ' 萬') +
+      tile('台灣大預估營收', 'NT$' + r1(J.rev), '萬', '成案 ' + r1(J.win) + ' 家 × 案值 × ' + v.share + '%') +
+      tile('營收 ÷ 自付成本', r1(J.mult), '倍', '回收門檻：成案 ' + (Math.round(J.be * 100) / 100) + ' 家', true) +
+      tile('每家 A 級 Lead 成本', J.perA == null ? '—' : 'NT$' + r1(J.perA), J.perA == null ? '' : '萬', '單獨辦約 NT$' + (S.perA == null ? '—' : r1(S.perA)) + ' 萬') + '</div>';
+    var steps = [['到場公司', J.co], ['A 級', J.A], ['Workshop／Assessment', J.As], ['POC', J.poc], ['成案', J.win]];
+    h += '<div><div class="small muted" style="margin-bottom:6px">聯合辦的漏斗（家）</div><div class="fnl">' + steps.map(function (st) {
+      return '<div class="fnl-r"><span class="lab">' + st[0] + '</span><span class="bw"><span class="bar" style="width:' + Math.max(1.5, J.co ? st[1] / J.co * 100 : 0).toFixed(1) + '%"></span><span class="val">' + r1(st[1]) + ' 家</span></span></div>';
+    }).join('') + '</div></div>';
+    var row = function (k, a, b, better) { return '<tr><th scope="row">' + k + '</th><td' + (better === 'a' ? ' class="win"' : '') + '>' + a + '</td><td' + (better === 'b' ? ' class="win"' : '') + '>' + b + '</td></tr>'; };
+    h += '<div class="table-wrap"><table class="t cmp"><thead><tr><th scope="col">試算</th><th scope="col">台灣大 × 承暉</th><th scope="col">台灣大單獨辦</th></tr></thead><tbody>' +
+      row('邀請', '120 位', '55 位') +
+      row('到場', J.att + ' 人', S.att + ' 人' + (S.att < 60 ? '（未達 Plan A）' : '')) +
+      row('A 級 Lead', J.A + ' 家', S.A + ' 家', J.A >= S.A ? 'a' : 'b') +
+      row('Pipeline', r1(J.pipe) + ' 萬', r1(S.pipe) + ' 萬', J.pipe >= S.pipe ? 'a' : 'b') +
+      row('台灣大成本', r1(J.cost) + ' 萬', '80 萬', J.cost <= 80 ? 'a' : 'b') +
+      row('每家 A 級成本', J.perA == null ? '—' : r1(J.perA) + ' 萬', S.perA == null ? '—' : r1(S.perA) + ' 萬', (J.perA || 1e9) <= (S.perA || 1e9) ? 'a' : 'b') +
+      row('營收 ÷ 成本', r1(J.mult) + ' 倍', r1(S.mult) + ' 倍', J.mult >= S.mult ? 'a' : 'b') +
+      '</tbody></table></div><p class="note">單獨辦＝只有業務 40 位＋行銷 15 位邀請，總預算 80 萬全由台灣大負擔；其他假設相同。</p>';
+    $('#roiOut').innerHTML = h;
+  }
+  ROI_DEF.forEach(function (d) { if (d[0] !== 'g') $('#roi-' + d[0]).addEventListener('input', roiCalc); });
+  $('#roiReset').addEventListener('click', function () { ROI_DEF.forEach(function (d) { if (d[0] !== 'g') $('#roi-' + d[0]).value = d[5]; }); roiCalc(); });
+  roiCalc();
 
   /* ================= boot ================= */
   var resizeT; window.addEventListener('resize', function () { clearTimeout(resizeT); resizeT = setTimeout(fitSegs, 120); });
